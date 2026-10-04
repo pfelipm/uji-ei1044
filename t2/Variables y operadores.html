@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografía: Variables y Operadores en PowerShell</title>
+    <title>Infografía: Variables y operadores en PowerShell</title>
         <script>
         if (window.self !== window.top) {
             document.documentElement.classList.add('is-embedded');
@@ -167,7 +167,7 @@
         <!-- Header -->
         <header class="text-center mb-12">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white">Variables y <span class="accent-text">Operadores</span></h1>
-            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Guardando y Manipulando Datos</p>
+            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Guardando y manipulando datos</p>
         </header>
 
         <!-- Section 1: Variables -->
@@ -176,7 +176,7 @@
                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5v2.25m0-2.25l2.25 1.313M9 12l2.25-1.313M9 12v2.25m0-2.25l2.25 1.313M12 15l2.25-1.313M12 15v2.25m0-2.25l2.25 1.313M15 12l2.25-1.313M15 12v2.25m0-2.25l2.25 1.313M9 21.75l2.25-1.313M9 21.75v-2.25m0 2.25l2.25 1.313M15 21.75l2.25-1.313M15 21.75v-2.25m0 2.25l2.25 1.313M4.5 9.75l2.25-1.313M4.5 9.75v2.25m0-2.25l2.25 1.313M19.5 9.75l2.25-1.313M19.5 9.75v2.25m0-2.25l2.25 1.313M12 3.75l2.25-1.313M12 3.75v2.25m0-2.25l2.25 1.313" />
                 </svg>
-                <h2 class="text-3xl text-white">Variables: Las Cajas para tus Datos</h2>
+                <h2 class="text-3xl text-white">Variables: las cajas para tus datos</h2>
             </div>
             <p class="text-lg text-slate-300 mb-6">Una variable es un contenedor con un nombre que guarda información. En PowerShell, los nombres de las variables siempre empiezan con el símbolo <span class="font-bold text-white text-2xl">$</span>.</p>
             <div class="code-block">
@@ -201,12 +201,12 @@
                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                 </svg>
-                <h2 class="text-3xl text-white">Comillas: Literal vs. Expansión</h2>
+                <h2 class="text-3xl text-white">Comillas: literal vs. expansión</h2>
             </div>
             <p class="text-lg text-slate-300 mb-6">Uno de los detalles más importantes en administración de sistemas es cómo trata PowerShell las cadenas de texto:</p>
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
-                    <h3 class="font-bold text-lg text-amber-300 mb-2">Comillas Simples <code>'...'</code> (Literal)</h3>
+                    <h3 class="font-bold text-lg text-amber-300 mb-2">Comillas simples <code>'...'</code> (literal)</h3>
                     <p class="text-slate-300 text-sm mb-3">No evalúa nada en su interior. El texto se conserva exactamente como está escrito, carácter a carácter.</p>
                     <div class="code-block text-sm">
 <span class="text-slate-400"># Muestra literalmente: Hola $nombre</span>
@@ -214,7 +214,7 @@ Write-Output 'Hola $nombre'
                     </div>
                 </div>
                 <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
-                    <h3 class="font-bold text-lg text-blue-300 mb-2">Comillas Dobles <code>"..."</code> (Expansión)</h3>
+                    <h3 class="font-bold text-lg text-blue-300 mb-2">Comillas dobles <code>"..."</code> (expansión)</h3>
                     <p class="text-slate-300 text-sm mb-3">Expande variables y subexpresiones. Para acceder a propiedades de objetos dentro de un string, usa siempre <code>$($obj.Prop)</code>.</p>
                     <div class="code-block text-sm">
 <span class="text-slate-400"># Expande variables y propiedades de objeto</span>
@@ -225,13 +225,13 @@ Write-Output "Proceso actual: $($proc.ProcessName) (PID: $($proc.Id))"
             </div>
         </section>
 
-        <!-- Section 2: Operadores de Comparación -->
+        <!-- Section 2: Operadores de comparación -->
         <section class="section-card">
              <div class="flex items-center mb-4">
                  <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.092 1.21-.138 2.43-.138 3.662a48.678 48.678 0 007.324 0 48.678 48.678 0 007.324 0zM19.5 12a2.25 2.25 0 012.25 2.25v3.75a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25v-3.75a2.25 2.25 0 012.25-2.25m3.75-3.662A2.25 2.25 0 018.25 6h7.5a2.25 2.25 0 012.25 2.25m-9.75 0V9M12 9v2.25" />
                  </svg>
-                <h2 class="text-3xl text-white">Operadores de Comparación</h2>
+                <h2 class="text-3xl text-white">Operadores de comparación</h2>
             </div>
             <p class="text-lg text-slate-300 mb-6">En lugar de los símbolos habituales (<code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>), PowerShell utiliza operadores con guion que son más legibles. Por defecto, <span class="font-bold">no distinguen entre mayúsculas y minúsculas</span>.</p>
             <div class="grid md:grid-cols-2 gap-4 text-center">
@@ -245,14 +245,14 @@ Write-Output "Proceso actual: $($proc.ProcessName) (PID: $($proc.Id))"
                 <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-contains</code> <span class="text-slate-300 ml-2">La colección contiene un valor</span></div>
             </div>
              <div class="mt-6 p-4 bg-yellow-900/30 border border-yellow-700 rounded-lg">
-                <p><span class="font-bold text-yellow-300">Sensible a Mayúsculas:</span> Si necesitas que la comparación distinga mayúsculas de minúsculas, añade una 'c' al principio: <code>-ceq</code>, <code>-cgt</code>, <code>-clike</code>, etc.</p>
+                <p><span class="font-bold text-yellow-300">Sensible a mayúsculas:</span> Si necesitas que la comparación distinga mayúsculas de minúsculas, añade una 'c' al principio: <code>-ceq</code>, <code>-cgt</code>, <code>-clike</code>, etc.</p>
             </div>
         </section>
 
                      <div class="mt-6 p-5 bg-rose-950/40 border border-rose-700/60 rounded-xl">
                 <h3 class="font-bold text-rose-300 text-lg flex items-center gap-2 mb-2">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                    ¡Trampa clásica de SysAdmin! La regla de oro del <code>$null</code>
+                    ¡Trampa clásica de sysadmin! La regla de oro del <code>$null</code>
                 </h3>
                 <p class="text-slate-300 text-sm mb-3">En PowerShell, si colocas una colección o array a la izquierda del operador de comparación (<code>$array -eq $null</code>), PowerShell <strong>no comprueba si el array es nulo</strong>, sino que <em>filtra</em> los elementos que sean nulos dentro de la colección.</p>
                 <div class="code-block text-sm">
@@ -266,13 +266,13 @@ if ($null -eq $usuarios) { Write-Host "No hay datos recibidos" }
 
         </section>
 
-        <!-- Section 3: Operadores Aritméticos y Lógicos -->
+        <!-- Section 3: Operadores aritméticos y lógicos -->
         <section class="section-card">
             <div class="flex items-center mb-4">
                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <h2 class="text-3xl text-white">Operadores Aritméticos y Lógicos</h2>
+                <h2 class="text-3xl text-white">Operadores aritméticos y lógicos</h2>
             </div>
             <p class="text-lg text-slate-300 mb-6">Funcionan de manera muy similar a otros lenguajes de programación, permitiéndote realizar cálculos y combinar condiciones.</p>
 
@@ -309,8 +309,8 @@ if ($null -eq $usuarios) { Write-Host "No hay datos recibidos" }
 
             <!-- Navegación Secuencial entre Módulos -->
         <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm hide-in-embed">
-            <a href="Encadenamiento.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 04. Encadenamiento de Comandos</a>
-                        <a href="Colecciones de datos.html" class="nav-btn nav-next" title="Ir al módulo siguiente">06. Colecciones de Datos →</a>
+            <a href="Encadenamiento.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 04. Encadenamiento de comandos</a>
+                        <a href="Colecciones de datos.html" class="nav-btn nav-next" title="Ir al módulo siguiente">06. Colecciones de datos →</a>
         </nav>
 
         <footer class="text-center text-slate-400 text-sm mt-8 mb-6 space-y-3">

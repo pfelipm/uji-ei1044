@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografía: Interactuando con el Exterior en PowerShell</title>
+    <title>Infografía: Interactuando con el exterior en PowerShell</title>
         <script>
         if (window.self !== window.top) {
             document.documentElement.classList.add('is-embedded');
@@ -158,7 +158,7 @@
         <!-- Header -->
         <header class="text-center mb-12">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white">Interactuando con el <span class="accent-text">Exterior</span></h1>
-            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Ampliando PowerShell y Manejando Datos</p>
+            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Ampliando PowerShell y manejando datos</p>
         </header>
 
         <!-- Section 1: Módulos -->
@@ -167,7 +167,7 @@
                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5v2.25m0-2.25l2.25 1.313M9 12l2.25-1.313M9 12v2.25m0-2.25l2.25 1.313M12 15l2.25-1.313M12 15v2.25m0-2.25l2.25 1.313M15 12l2.25-1.313M15 12v2.25m0-2.25l2.25 1.313M9 21.75l2.25-1.313M9 21.75v-2.25m0 2.25l2.25 1.313M15 21.75l2.25-1.313M15 21.75v-2.25m0 2.25l2.25 1.313M4.5 9.75l2.25-1.313M4.5 9.75v2.25m0-2.25l2.25 1.313M19.5 9.75l2.25-1.313M19.5 9.75v2.25m0-2.25l2.25 1.313M12 3.75l2.25-1.313M12 3.75v2.25m0-2.25l2.25 1.313" />
                 </svg>
-                <h2 class="text-3xl text-white">Módulos: El Supermercado de Funcionalidades</h2>
+                <h2 class="text-3xl text-white">Módulos: el supermercado de funcionalidades</h2>
             </div>
             <p class="text-lg text-slate-300 mb-6">Un módulo es un paquete que contiene nuevos <code>cmdlets</code> y funciones para ampliar las capacidades de PowerShell. La <span class="font-bold accent-text">PowerShell Gallery</span> es el repositorio oficial donde la comunidad y Microsoft publican miles de módulos.</p>
             <div class="code-block">
@@ -191,14 +191,14 @@
                  <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                  </svg>
-                <h2 class="text-3xl text-white">Ficheros: La Persistencia de Datos</h2>
+                <h2 class="text-3xl text-white">Ficheros: la persistencia de datos</h2>
             </div>
             <p class="text-lg text-slate-300 mb-6">Un script a menudo necesita leer datos de un fichero o guardar sus resultados. PowerShell tiene <code>cmdlets</code> nativos para manejar los formatos más comunes de forma muy sencilla.</p>
 
             <div class="space-y-8">
                 <!-- Texto Plano -->
                 <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                    <h3 class="font-bold text-xl accent-text mb-2">Ficheros de Texto (.txt, .log)</h3>
+                    <h3 class="font-bold text-xl accent-text mb-2">Ficheros de texto (.txt, .log)</h3>
                     <div class="code-block text-sm">
 <span class="text-green-400"># Leer el contenido de un fichero línea a línea</span>
 <span class="text-white">$lineas = Get-Content -Path "./logs.txt"</span>
@@ -213,7 +213,7 @@
 
                 <!-- CSV -->
                 <div class="bg-slate-800 p-6 rounded-lg border border-green-700 ring-2 ring-green-500">
-                    <h3 class="font-bold text-xl text-green-400 mb-2">CSV (.csv): El Superpoder de PowerShell</h3>
+                    <h3 class="font-bold text-xl text-green-400 mb-2">CSV (.csv): el superpoder de PowerShell</h3>
                     <p class="text-slate-300 mb-4">PowerShell trata los ficheros CSV como si fueran bases de datos. Automáticamente convierte las filas en <span class="font-bold">objetos</span>, ¡lo que te permite usar <code>Where-Object</code>, <code>Sort-Object</code>, etc.!</p>
                      <div class="code-block text-sm">
 <span class="text-green-400"># Contenido de 'usuarios.csv':</span>
@@ -232,7 +232,7 @@
 
                  <!-- JSON -->
                 <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                    <h3 class="font-bold text-xl accent-text mb-2">JSON (.json): El Lenguaje de la Web</h3>
+                    <h3 class="font-bold text-xl accent-text mb-2">JSON (.json): el lenguaje de la web</h3>
                     <p class="text-slate-300 mb-4">De forma similar a los CSV, PowerShell puede convertir objetos a y desde el formato JSON, el estándar para la comunicación con APIs web.</p>
                      <div class="code-block text-sm">
 <span class="text-white">$procesos = Get-Process | Select-Object Name, Id -First 2</span>
@@ -249,7 +249,7 @@
 
             <!-- Navegación Secuencial entre Módulos -->
         <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm hide-in-embed">
-            <a href="Gestión de errores.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 09. Gestión de Errores</a>
+            <a href="Gestión de errores.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 09. Gestión de errores</a>
                         <span class="nav-btn disabled">Fin del curso →</span>
         </nav>
 

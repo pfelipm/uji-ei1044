@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografía: Gestión de Errores en PowerShell</title>
+    <title>Infografía: Gestión de errores en PowerShell</title>
         <script>
         if (window.self !== window.top) {
             document.documentElement.classList.add('is-embedded');
@@ -167,16 +167,16 @@
                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
                 </svg>
-                <h2 class="text-3xl text-white">Entendiendo los Errores en PowerShell</h2>
+                <h2 class="text-3xl text-white">Entendiendo los errores en PowerShell</h2>
             </div>
             <p class="text-lg text-slate-300 mb-6">No todos los errores son iguales. Para gestionarlos correctamente, primero hay que entender sus dos "sabores" principales.</p>
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                    <h3 class="font-bold text-xl text-yellow-400 mb-2">Errores que NO detienen (Non-Terminating)</h3>
+                    <h3 class="font-bold text-xl text-yellow-400 mb-2">Errores que no detienen (non-terminating)</h3>
                     <p class="text-slate-300">Son los más comunes. Muestran un mensaje de error en rojo, pero el script <span class="font-bold">continúa su ejecución</span>. Por ejemplo, si <code>Get-ChildItem</code> no encuentra un fichero.</p>
                 </div>
                 <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                    <h3 class="font-bold text-xl text-red-400 mb-2">Errores que SÍ detienen (Terminating)</h3>
+                    <h3 class="font-bold text-xl text-red-400 mb-2">Errores que sí detienen (terminating)</h3>
                     <p class="text-slate-300">Son errores graves que <span class="font-bold">paran el script en seco</span>. Por ejemplo, un error de sintaxis o intentar llamar a un comando que no existe.</p>
                 </div>
             </div>
@@ -223,7 +223,7 @@
 
         <!-- Section 3: Comparativa -->
         <section class="section-card">
-            <h2 class="text-3xl text-white text-center mb-6">Comparativa de Métodos de Gestión de Errores</h2>
+            <h2 class="text-3xl text-white text-center mb-6">Comparativa de Métodos de Gestión de errores</h2>
             <div class="space-y-6">
                 <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
                     <h3 class="font-bold text-xl accent-text mb-2"><code>if ($?)</code> (El Verificador Básico)</h3>
@@ -245,8 +245,8 @@
 
             <!-- Navegación Secuencial entre Módulos -->
         <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm hide-in-embed">
-            <a href="Funciones y scripts.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 08. Funciones y Scripts</a>
-                        <a href="Módulos y ficheros.html" class="nav-btn nav-next" title="Ir al módulo siguiente">10. Interactuando con el Exterior →</a>
+            <a href="Funciones y scripts.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 08. Funciones y scripts</a>
+                        <a href="Módulos y ficheros.html" class="nav-btn nav-next" title="Ir al módulo siguiente">10. Interactuando con el exterior →</a>
         </nav>
 
         <footer class="text-center text-slate-400 text-sm mt-8 mb-6 space-y-3">
