@@ -104,7 +104,7 @@ Al estar publicado en **GitHub Pages**, la integración en el Aula Virtual es in
 ## 👤 Autoría
 
 * **Pablo Felip Monferrer**  
-  [Departamento de Lenguajes y Sistemas Informáticos (LSI)](https://www.uji.es)  
+  [Departamento de Lenguajes y Sistemas Informáticos](https://www.uji.es/departaments/lsi/)  
   **Universitat Jaume I (UJI)**  
   🌐 Sitio web docente / personal: [https://www.pablofelip.uji.es](https://www.pablofelip.uji.es)
 
