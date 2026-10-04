@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Gestión de Errores en PowerShell</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        .section-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .code-block {
+            background-color: #0f172a;
+            color: #e0e0e0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            border: 1px solid #334155;
+            font-size: 1.1rem;
+        }
+        .accent-text {
+            color: #60a5fa;
+        }
+        h1, h2, h3 {
+            font-weight: 900;
+        }
+         code {
+            background-color: #334155;
+            color: #93c5fd;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-slate-200 min-h-screen">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white">Gestión de <span class="accent-text">Errores</span></h1>
+            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Creando Scripts a Prueba de Fallos</p>
+        </header>
+
+        <!-- Section 1: Tipos de Errores -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                </svg>
+                <h2 class="text-3xl text-white">Entendiendo los Errores en PowerShell</h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">No todos los errores son iguales. Para gestionarlos correctamente, primero hay que entender sus dos "sabores" principales.</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <h3 class="font-bold text-xl text-yellow-400 mb-2">Errores que NO detienen (Non-Terminating)</h3>
+                    <p class="text-slate-300">Son los más comunes. Muestran un mensaje de error en rojo, pero el script <span class="font-bold">continúa su ejecución</span>. Por ejemplo, si <code>Get-ChildItem</code> no encuentra un fichero.</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <h3 class="font-bold text-xl text-red-400 mb-2">Errores que SÍ detienen (Terminating)</h3>
+                    <p class="text-slate-300">Son errores graves que <span class="font-bold">paran el script en seco</span>. Por ejemplo, un error de sintaxis o intentar llamar a un comando que no existe.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Try/Catch/Finally -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h2 class="text-3xl text-white">El Método Moderno: <code>try</code>, <code>catch</code> y <code>finally</code></h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">Esta estructura es el estándar profesional para manejar errores de forma controlada. Te permite "intentar" ejecutar un código y tener un "plan B" si algo sale mal.</p>
+            <div class="code-block">
+<span class="text-purple-400">try</span> {
+    <span class="text-green-400"># Aquí va el código que podría fallar.</span>
+    <span class="text-green-400"># ¡IMPORTANTE! Para que 'catch' funcione con errores que no detienen,</span>
+    <span class="text-green-400"># hay que añadir -ErrorAction Stop al comando.</span>
+    <span class="text-white">Get-Content -Path "fichero_inexistente.txt" -ErrorAction Stop</span>
+}
+<span class="text-purple-400">catch</span> {
+    <span class="text-green-400"># Este bloque SÓLO se ejecuta si hay un error en el 'try'.</span>
+    <span class="text-white">Write-Error "No se pudo leer el fichero. Detalles: $($_.Exception.Message)"</span>
+}
+<span class="text-purple-400">finally</span> {
+    <span class="text-green-400"># (Opcional) Este bloque se ejecuta SIEMPRE, haya error o no.</span>
+    <span class="text-green-400"># Perfecto para tareas de limpieza (ej. cerrar conexiones).</span>
+    <span class="text-white">Write-Host "Operación de lectura finalizada."</span>
+}
+            </div>
+             <div class="mt-6 p-4 bg-red-900/30 border border-red-700 rounded-lg">
+                <div>
+                    <p class="font-bold text-red-300 text-lg">La Clave: <code>-ErrorAction Stop</code></p>
+                    <p class="text-slate-300 mt-2">El bloque <code>catch</code> solo se activa con errores que detienen la ejecución. Usa <code>-ErrorAction Stop</code> en tus comandos dentro del <code>try</code> para forzar que cualquier error sea tratado como "grave" y active el <code>catch</code>.</p>
+                </div>
+                <hr class="border-red-700 my-4">
+                <div>
+                    <p class="font-bold text-red-300 text-lg">La Regla General: <code>$ErrorActionPreference</code></p>
+                    <p class="text-slate-300 mt-2">Esta variable automática define el comportamiento predeterminado para toda la sesión. Su valor por defecto es <code>Continue</code> (muestra el error y sigue). El parámetro <code>-ErrorAction</code> anula esta regla general para un comando específico.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Comparativa -->
+        <section class="section-card">
+            <h2 class="text-3xl text-white text-center mb-6">Comparativa de Métodos de Gestión de Errores</h2>
+            <div class="space-y-6">
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
+                    <h3 class="font-bold text-xl accent-text mb-2"><code>if ($?)</code> (El Verificador Básico)</h3>
+                    <p class="text-slate-300">Comprueba si el <span class="font-bold">último comando</span> tuvo éxito. Es simple y directo.</p>
+                    <p class="text-slate-400 mt-2"><strong>Ideal para:</strong> Lógicas simples de "si esto funcionó, haz lo siguiente".</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-lg border border-green-700 ring-2 ring-green-500">
+                    <h3 class="font-bold text-xl text-green-400 mb-2"><code>try/catch</code> (El Estándar Profesional - ¡Usa este!)</h3>
+                    <p class="text-slate-300">Permite manejar errores de forma <span class="font-bold">precisa</span> dentro de un bloque de código específico, ofreciendo control total sobre la excepción.</p>
+                     <p class="text-slate-400 mt-2"><strong>Ideal para:</strong> Prácticamente todos los scripts. Es la forma más robusta y legible.</p>
+                </div>
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 opacity-60">
+                    <h3 class="font-bold text-xl text-yellow-400 mb-2"><code>trap {}</code> (El Método Obsoleto)</h3>
+                    <p class="text-slate-300">Define un "capturador" de errores global para todo un script o función. Es menos preciso y su uso está desaconsejado en código moderno.</p>
+                    <p class="text-slate-400 mt-2"><strong>Ideal para:</strong> Entender scripts antiguos. Evitar en código nuevo.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
+

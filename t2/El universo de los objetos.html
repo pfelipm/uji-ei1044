@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: El Universo de los Objetos en PowerShell</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        .section-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .code-block {
+            background-color: #0f172a;
+            color: #e0e0e0;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            border: 1px solid #334155;
+        }
+        .accent-text {
+            color: #60a5fa;
+        }
+        .property-tag {
+            background-color: #1d4ed8;
+            color: #eff6ff;
+        }
+        .method-tag {
+            background-color: #be123c;
+            color: #fef2f2;
+        }
+        h1, h2 {
+            font-weight: 900;
+        }
+        /* Estilo para el código en línea */
+        code {
+            background-color: #334155;
+            color: #93c5fd;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-slate-200 min-h-screen">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white">El Universo de los <span class="accent-text">Objetos</span></h1>
+            <p class="text-2xl md:text-3xl text-slate-300 mt-2">El concepto que lo cambia TODO en PowerShell</p>
+        </header>
+
+        <!-- Section 1: ¿Qué es un Objeto? -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                <h2 class="text-3xl text-white">¿Qué es un Objeto?</h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">Imagina un objeto del mundo real, como un coche. No es solo un trozo de texto; es una entidad con características y acciones que puede realizar.</p>
+            <div class="grid md:grid-cols-2 gap-6 bg-slate-800 p-6 rounded-lg border border-slate-700">
+                <div>
+                    <h3 class="font-bold text-xl text-white mb-2">Características (<span class="property-tag px-2 py-1 rounded-md text-sm">Propiedades</span>)</h3>
+                    <p class="text-slate-300">Son los datos que describen al objeto.</p>
+                    <ul class="list-disc list-inside mt-2 text-slate-300">
+                        <li>Color: "Rojo"</li>
+                        <li>Modelo: "Seat Ibiza"</li>
+                        <li>Año: 2023</li>
+                        <li>VelocidadActual: 50</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-xl text-white mb-2">Acciones (<span class="method-tag px-2 py-1 rounded-md text-sm">Métodos</span>)</h3>
+                    <p class="text-slate-300">Son las "cosas" que el objeto sabe hacer.</p>
+                     <ul class="list-disc list-inside mt-2 text-slate-300">
+                        <li>Arrancar()</li>
+                        <li>Acelerar()</li>
+                        <li>Frenar()</li>
+                        <li>Apagar()</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="mt-6 p-4 bg-blue-900/30 border border-blue-700 rounded-lg text-lg"><span class="font-bold text-blue-300">La Regla de Oro:</span> En PowerShell, el resultado de un comando <span class="font-bold text-white">NO es texto</span>, es una colección de objetos, cada uno con sus propias propiedades y métodos.</p>
+        </section>
+
+        <!-- Section 2: Get-Member -->
+        <section class="section-card">
+             <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                <h2 class="text-3xl text-white">La Llave Maestra: <code>Get-Member</code></h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-4">Si los comandos devuelven objetos, ¿cómo sabemos qué propiedades y métodos tienen? Usamos el <code>cmdlet</code> más importante para aprender:</p>
+            <div class="code-block text-lg">
+                <span class="text-white">Get-Process | Get-Member</span>
+                <span class="text-gray-400"># O con su alias: gps | gm</span>
+            </div>
+            <p class="text-lg text-slate-300 my-4"><code>Get-Member</code> (o <code>gm</code>) actúa como un "escáner" que nos dice la anatomía de cualquier objeto que le pasemos por la tubería.</p>
+            <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+                <h3 class="font-bold text-white mb-2">Ejemplo de salida de <code>Get-Member</code> para un proceso:</h3>
+                <div class="code-block text-sm">
+<pre>
+TypeName: System.Diagnostics.Process
+
+Name        MemberType     Definition
+----        ----------     ----------
+Kill        <span class="method-tag px-1 rounded-sm">Method</span>         void Kill()
+Refresh     <span class="method-tag px-1 rounded-sm">Method</span>         void Refresh()
+...
+CPU         <span class="property-tag px-1 rounded-sm">Property</span>       double CPU {get;}
+Id          <span class="property-tag px-1 rounded-sm">Property</span>       int Id {get;}
+Name        <span class="property-tag px-1 rounded-sm">Property</span>       string Name {get;}
+WS          <span class="property-tag px-1 rounded-sm">Property</span>       long WS {get;}
+</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: La Tubería -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <h2 class="text-3xl text-white">La Tubería (<code>|</code>): Una Cadena de Montaje</h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">La tubería es el mecanismo que nos permite pasar la colección de objetos de un <code>cmdlet</code> a otro. Cada <code>cmdlet</code> en la cadena realiza una operación sobre los objetos que recibe y pasa el resultado al siguiente.</p>
+            <div class="flex flex-col items-center space-y-4 p-6 bg-slate-800 rounded-lg border border-slate-700">
+                <div class="text-center bg-slate-700 p-3 rounded-lg w-full">
+                    <p class="font-bold text-lg text-white"><code>Get-Process</code></p>
+                    <p class="text-sm text-slate-300">Produce cientos de objetos "Proceso"</p>
+                </div>
+                <div class="text-2xl accent-text">|</div>
+                <div class="text-center bg-slate-700 p-3 rounded-lg w-full">
+                    <p class="font-bold text-lg text-white"><code>Where-Object</code></p>
+                    <p class="text-sm text-slate-300">Filtra y deja pasar solo los objetos que cumplen una condición</p>
+                </div>
+                <div class="text-2xl accent-text">|</div>
+                <div class="text-center bg-slate-700 p-3 rounded-lg w-full">
+                    <p class="font-bold text-lg text-white"><code>Sort-Object</code></p>
+                    <p class="text-sm text-slate-300">Recibe los objetos filtrados y los reordena por una propiedad</p>
+                </div>
+                <div class="text-2xl accent-text">|</div>
+                <div class="text-center bg-slate-700 p-3 rounded-lg w-full">
+                    <p class="font-bold text-lg text-white"><code>Select-Object</code></p>
+                    <p class="text-sm text-slate-300">Recibe los objetos ordenados y selecciona solo las propiedades que queremos ver</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: El Kit de Herramientas del SysAdmin -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
+                <h2 class="text-3xl text-white">El Kit de Herramientas del SysAdmin</h2>
+            </div>
+            <div class="space-y-4">
+                <div class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                    <h3 class="font-bold text-xl text-white">Filtrar: <code>Where-Object</code></h3>
+                    <p class="text-slate-300">Para quedarte solo con los objetos que cumplen una condición.</p>
+                    <div class="code-block mt-2 text-sm"><span class="text-gray-400"># Procesos cuyo nombre empieza por "code"</span>
+Get-Process | Where-Object { $_.Name -like "code*" }</div>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                    <h3 class="font-bold text-xl text-white">Ordenar: <code>Sort-Object</code></h3>
+                    <p class="text-slate-300">Para ordenar la colección de objetos según una de sus propiedades.</p>
+                    <div class="code-block mt-2 text-sm"><span class="text-gray-400"># Ordenar por uso de CPU de mayor a menor</span>
+Get-Process | Sort-Object -Property CPU -Descending</div>
+                </div>
+                <div class="p-4 bg-slate-800 rounded-lg border border-slate-700">
+                    <h3 class="font-bold text-xl text-white">Seleccionar: <code>Select-Object</code></h3>
+                    <p class="text-slate-300">Para elegir qué propiedades del objeto quieres ver o para coger los N primeros/últimos.</p>
+                    <div class="code-block mt-2 text-sm"><span class="text-gray-400"># Coger los 5 primeros y mostrar solo su nombre y memoria</span>
+... | Select-Object -First 5 -Property Name, WS</div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
+

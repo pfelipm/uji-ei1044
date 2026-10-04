@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Variables y Operadores en PowerShell</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        .section-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .code-block {
+            background-color: #0f172a;
+            color: #e0e0e0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            border: 1px solid #334155;
+            font-size: 1.1rem;
+        }
+        .accent-text {
+            color: #60a5fa;
+        }
+        .operator-tag {
+             background-color: #334155;
+             color: #93c5fd;
+             padding: 0.2rem 0.5rem;
+             border-radius: 0.375rem;
+             font-weight: 500;
+             font-family: 'Courier New', Courier, monospace;
+        }
+        h1, h2 {
+            font-weight: 900;
+        }
+        /* Estilo para el código en línea */
+        code {
+            background-color: #334155;
+            color: #93c5fd;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-slate-200 min-h-screen">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white">Variables y <span class="accent-text">Operadores</span></h1>
+            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Guardando y Manipulando Datos</p>
+        </header>
+
+        <!-- Section 1: Variables -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-2.25-1.313M21 7.5v2.25m0-2.25l-2.25 1.313M3 7.5l2.25-1.313M3 7.5v2.25m0-2.25l2.25 1.313M9 12l2.25-1.313M9 12v2.25m0-2.25l2.25 1.313M12 15l2.25-1.313M12 15v2.25m0-2.25l2.25 1.313M15 12l2.25-1.313M15 12v2.25m0-2.25l2.25 1.313M9 21.75l2.25-1.313M9 21.75v-2.25m0 2.25l2.25 1.313M15 21.75l2.25-1.313M15 21.75v-2.25m0 2.25l2.25 1.313M4.5 9.75l2.25-1.313M4.5 9.75v2.25m0-2.25l2.25 1.313M19.5 9.75l2.25-1.313M19.5 9.75v2.25m0-2.25l2.25 1.313M12 3.75l2.25-1.313M12 3.75v2.25m0-2.25l2.25 1.313" />
+                </svg>
+                <h2 class="text-3xl text-white">Variables: Las Cajas para tus Datos</h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">Una variable es un contenedor con un nombre que guarda información. En PowerShell, los nombres de las variables siempre empiezan con el símbolo <span class="font-bold text-white text-2xl">$</span>.</p>
+            <div class="code-block">
+<span class="text-green-400"># Asignamos el texto "Pablo" a la variable $nombre</span>
+<span class="text-white">$nombre = "Pablo"</span>
+
+<span class="text-green-400"># Asignamos el número 12 a la variable $alumnos</span>
+<span class="text-white">$alumnos = 12</span>
+
+<span class="text-green-400"># Mostramos el contenido de la variable</span>
+<span class="text-white">Write-Output "Hola, $nombre. Hoy sois $alumnos alumnos."</span>
+            </div>
+             <div class="mt-6 p-4 bg-blue-900/30 border border-blue-700 rounded-lg text-lg">
+                <p><span class="font-bold text-blue-300">Tipado Dinámico:</span> Por defecto, no necesitas declarar el tipo de una variable. PowerShell lo infiere. Puedes guardar un número y luego un texto en la misma variable.</p>
+                <p class="mt-2"><span class="font-bold text-blue-300">Tipado Estricto (Opcional):</span> Si quieres forzar un tipo, puedes hacerlo: <code>[int]$edad = 40</code>. ¡Ahora <code>$edad</code> solo aceptará números enteros!</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Operadores de Comparación -->
+        <section class="section-card">
+             <div class="flex items-center mb-4">
+                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.092 1.21-.138 2.43-.138 3.662a48.678 48.678 0 007.324 0 48.678 48.678 0 007.324 0zM19.5 12a2.25 2.25 0 012.25 2.25v3.75a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25v-3.75a2.25 2.25 0 012.25-2.25m3.75-3.662A2.25 2.25 0 018.25 6h7.5a2.25 2.25 0 012.25 2.25m-9.75 0V9M12 9v2.25" />
+                 </svg>
+                <h2 class="text-3xl text-white">Operadores de Comparación</h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">En lugar de los símbolos habituales (<code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>), PowerShell utiliza operadores con guion que son más legibles. Por defecto, <span class="font-bold">no distinguen entre mayúsculas y minúsculas</span>.</p>
+            <div class="grid md:grid-cols-2 gap-4 text-center">
+                <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-eq</code> (equal) <span class="text-slate-300 ml-2">Igual a</span></div>
+                <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-ne</code> (not equal) <span class="text-slate-300 ml-2">No igual a</span></div>
+                <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-gt</code> (greater than) <span class="text-slate-300 ml-2">Mayor que</span></div>
+                <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-ge</code> (greater or equal) <span class="text-slate-300 ml-2">Mayor o igual que</span></div>
+                <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-lt</code> (less than) <span class="text-slate-300 ml-2">Menor que</span></div>
+                <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-le</code> (less or equal) <span class="text-slate-300 ml-2">Menor o igual que</span></div>
+                <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-like</code> <span class="text-slate-300 ml-2">Coincide con un patrón (*, ?)</span></div>
+                <div class="bg-slate-800 p-4 rounded-lg"><code class="operator-tag">-contains</code> <span class="text-slate-300 ml-2">La colección contiene un valor</span></div>
+            </div>
+             <div class="mt-6 p-4 bg-yellow-900/30 border border-yellow-700 rounded-lg">
+                <p><span class="font-bold text-yellow-300">Sensible a Mayúsculas:</span> Si necesitas que la comparación distinga mayúsculas de minúsculas, añade una 'c' al principio: <code>-ceq</code>, <code>-cgt</code>, <code>-clike</code>, etc.</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Operadores Aritméticos y Lógicos -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h2 class="text-3xl text-white">Operadores Aritméticos y Lógicos</h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">Funcionan de manera muy similar a otros lenguajes de programación, permitiéndote realizar cálculos y combinar condiciones.</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="font-bold text-xl text-white mb-2">Aritméticos</h3>
+                     <ul class="space-y-2 text-slate-300">
+                        <li><code class="operator-tag">+</code> Suma (y concatena cadenas)</li>
+                        <li><code class="operator-tag">-</code> Resta</li>
+                        <li><code class="operator-tag">*</code> Multiplicación (y repite cadenas)</li>
+                        <li><code class="operator-tag">/</code> División</li>
+                        <li><code class="operator-tag">%</code> Módulo (resto de la división)</li>
+                    </ul>
+                </div>
+                 <div>
+                    <h3 class="font-bold text-xl text-white mb-2">Lógicos</h3>
+                     <ul class="space-y-2 text-slate-300">
+                        <li><code class="operator-tag">-and</code> Y Lógico (ambas deben ser ciertas)</li>
+                        <li><code class="operator-tag">-or</code> O Lógico (al menos una debe ser cierta)</li>
+                        <li><code class="operator-tag">-not</code> o <code class="operator-tag">!</code> NO Lógico (invierte el valor)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="code-block mt-6">
+                 <span class="text-green-400"># Ejemplo combinado</span>
+                 <span class="text-white">$edad = 30</span>
+                 <span class="text-white">$nombre = "Adolfo"</span>
+
+                 <span class="text-green-400"># ¿Es Adolfo y tiene 30 años o más?</span>
+                 <span class="text-white">($nombre -eq "Adolfo") -and ($edad -ge 30)</span>
+                 <span class="text-yellow-400"># Devuelve: True</span>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
+

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Encadenamiento de Comandos en PowerShell</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        .section-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .code-block {
+            background-color: #0f172a;
+            color: #e0e0e0;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            font-family: 'Courier New', Courier, monospace;
+            white-space: pre-wrap;
+            border: 1px solid #334155;
+            font-size: 1.1rem;
+        }
+        .accent-text {
+            color: #60a5fa;
+        }
+        h1, h2, h3 {
+            font-weight: 900;
+        }
+         code {
+            background-color: #334155;
+            color: #93c5fd;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-slate-200 min-h-screen">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white">Encadenamiento de <span class="accent-text">Comandos</span></h1>
+            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Flujo de Datos vs. Flujo de Control</p>
+        </header>
+
+        <!-- Section 1: Introduction -->
+        <section class="section-card text-center">
+            <h2 class="text-3xl text-white">No todos los conectores son iguales</h2>
+            <p class="text-lg text-slate-300 mt-4 max-w-3xl mx-auto">En PowerShell, es crucial diferenciar entre los operadores que mueven <span class="font-bold accent-text">DATOS</span> (la salida de un comando) y los que reaccionan al <span class="font-bold text-red-400">ÉXITO o ERROR</span> de un comando. Son dos conceptos totalmente distintos.</p>
+        </section>
+
+        <!-- Section 2: Operators -->
+        <div class="grid lg:grid-cols-3 gap-8">
+
+            <!-- Pipe Operator -->
+            <div class="section-card flex flex-col">
+                <div class="text-center">
+                    <p class="text-7xl font-black">|</p>
+                    <h3 class="text-2xl accent-text mt-2">La Tubería de Datos</h3>
+                    <p class="text-4xl mt-4">⚙️➡️⚙️</p>
+                </div>
+                <div class="mt-6 min-h-[160px]">
+                    <h4 class="font-bold text-white text-lg">¿Qué hace?</h4>
+                    <p class="text-slate-300">Coge los <span class="font-bold">objetos de salida</span> del comando de la izquierda y los usa como <span class="font-bold">entrada</span> para el comando de la derecha. Es una cinta transportadora de datos.</p>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-bold text-white text-lg">Ejemplo:</h4>
+                    <div class="code-block mt-2 text-sm">
+<span class="text-green-400"># Obtiene los objetos de proceso y los</span>
+<span class="text-green-400"># envía a Sort-Object para ordenarlos.</span>
+<span class="text-white">Get-Process | Sort-Object -Property CPU</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AND Operator -->
+            <div class="section-card flex flex-col">
+                <div class="text-center">
+                    <p class="text-7xl font-black">&&</p>
+                    <h3 class="text-2xl text-green-400 mt-2">El Condicional de Éxito</h3>
+                     <p class="text-4xl mt-4">✅➡️🏃‍♂️</p>
+                </div>
+                 <div class="mt-6 min-h-[160px]">
+                    <h4 class="font-bold text-white text-lg">¿Qué hace?</h4>
+                    <p class="text-slate-300">Ejecuta el comando de la derecha <span class="font-bold text-green-400">SÓLO SI</span> el comando de la izquierda ha finalizado <span class="font-bold">con éxito</span> (sin errores).</p>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-bold text-white text-lg">Ejemplo:</h4>
+                    <div class="code-block mt-2 text-sm">
+<span class="text-green-400"># Si el ping funciona, entonces muestra el</span>
+<span class="text-green-400"># mensaje de éxito.</span>
+<span class="text-white">Test-Connection "google.com" -Quiet && Write-Host "Google responde"</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OR Operator -->
+            <div class="section-card flex flex-col">
+                <div class="text-center">
+                    <p class="text-7xl font-black">||</p>
+                    <h3 class="text-2xl text-red-400 mt-2">El Condicional de Error</h3>
+                     <p class="text-4xl mt-4">❌➡️🏃‍♂️</p>
+                </div>
+                 <div class="mt-6 min-h-[160px]">
+                    <h4 class="font-bold text-white text-lg">¿Qué hace?</h4>
+                    <p class="text-slate-300">Ejecuta el comando de la derecha <span class="font-bold text-red-400">SÓLO SI</span> el comando de la izquierda ha <span class="font-bold">fallado</span>.</p>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-bold text-white text-lg">Ejemplo:</h4>
+                    <div class="code-block mt-2 text-sm">
+<span class="text-green-400"># Si no se encuentra el proceso, entonces</span>
+<span class="text-green-400"># muestra el mensaje de error.</span>
+<span class="text-white">Get-Process "proceso_falso" -ErrorAction SilentlyContinue || Write-Error "El proceso no existe"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: The $? variable -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                 </svg>
+                <h2 class="text-3xl text-white">La Solución Robusta: <code>if</code> y la variable <code>$?</code></h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">¿Y si necesitas hacer ambas cosas a la vez: <span class="font-bold accent-text">entubar el resultado en caso de éxito</span> y <span class="font-bold text-red-400">ejecutar otra acción en caso de error</span>? Los operadores de encadenamiento se quedan cortos. Aquí es donde brilla la lógica condicional.</p>
+            <div class="code-block">
+<span class="text-green-400"># 1. Ejecutamos el comando y guardamos su resultado en una variable.</span>
+<span class="text-white">$proceso = Get-Process "pwsh" -ErrorAction SilentlyContinue</span>
+
+<span class="text-green-400"># 2. Comprobamos el estado del ÚLTIMO comando con $?</span>
+<span class="text-purple-400">if</span> (<span class="text-white">$?</span>) {
+    <span class="text-green-400"># ÉXITO: $? es $true. Ahora podemos usar la variable $proceso.</span>
+    <span class="text-white">Write-Host "Proceso encontrado. Entubando su nombre y ID..." -ForegroundColor Green</span>
+    <span class="text-white">$proceso | Select-Object Name, Id</span>
+}
+<span class="text-purple-400">else</span> {
+    <span class="text-green-400"># ERROR: $? es $false. La variable $proceso está vacía.</span>
+    <span class="text-white">Write-Error "No se pudo encontrar el proceso 'pwsh'."</span>
+}
+            </div>
+             <div class="mt-6 p-4 bg-yellow-900/30 border border-yellow-700 rounded-lg">
+                <p><span class="font-bold text-yellow-300">¡OJO! No confundir <code>$?</code> con <code>$_</code></span></p>
+                <ul class="list-disc list-inside text-slate-300 mt-2 space-y-1">
+                    <li><code>$?</code>: Contiene el <span class="font-bold">ESTADO</span> (éxito/error) del último comando. Es un booleano (<code>$true</code> o <code>$false</code>).</li>
+                    <li><code>$_</code>: Contiene el <span class="font-bold">OBJETO ACTUAL</span> que está pasando por la tubería <code>|</code>. No sirve para este tipo de lógica condicional.</li>
+                </ul>
+            </div>
+        </section>
+
+
+        <!-- Summary Table -->
+        <section class="section-card">
+            <h2 class="text-3xl text-white text-center">Tabla Resumen</h2>
+            <div class="overflow-x-auto mt-6">
+                <table class="w-full text-left text-slate-300">
+                    <thead class="bg-slate-800 text-white">
+                        <tr>
+                            <th class="p-4 rounded-tl-lg">Operador</th>
+                            <th class="p-4">Función Principal</th>
+                            <th class="p-4">¿Transfiere Datos?</th>
+                            <th class="p-4 rounded-tr-lg">¿Reacciona a Éxito/Error?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-4 text-2xl font-black">|</td>
+                            <td class="p-4">Conectar la <span class="font-bold accent-text">salida de datos</span> de un comando con la <span class="font-bold accent-text">entrada</span> de otro.</td>
+                            <td class="p-4 text-green-400 font-bold">SÍ (Es su único trabajo)</td>
+                            <td class="p-4">No</td>
+                        </tr>
+                        <tr class="border-b border-slate-700">
+                            <td class="p-4 text-2xl font-black">&&</td>
+                            <td class="p-4">Ejecutar el segundo comando solo si el primero tiene <span class="font-bold text-green-400">éxito</span>.</td>
+                            <td class="p-4 text-red-400 font-bold">NO</td>
+                            <td class="p-4 text-green-400 font-bold">SÍ (Éxito)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 text-2xl font-black">||</td>
+                            <td class="p-4">Ejecutar el segundo comando solo si el primero <span class="font-bold text-red-400">falla</span>.</td>
+                            <td class="p-4 text-red-400 font-bold">NO</td>
+                            <td class="p-4 text-red-400 font-bold">SÍ (Error)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
+
