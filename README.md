@@ -1,6 +1,6 @@
 # Administración de Sistemas Informáticos (EI1044) - UJI
 
-Materiales docentes para la asignatura optativa de 4º curso **Administración de Sistemas Informáticos (EI1044)** del Grado en Ingeniería Informática de la **Universitat Jaume I**.
+Materiales docentes interactivos para la asignatura optativa de 4º curso **Administración de Sistemas Informáticos (EI1044)** del Grado en Ingeniería Informática de la **Universitat Jaume I**.
 
 > 📅 **Curso Académico:** 2026/2027 (Materiales revisados y actualizados).  
 > 🌐 **Portal Web en GitHub Pages:** [https://pfelipm.github.io/uji-ei1044/](https://pfelipm.github.io/uji-ei1044/)  
@@ -8,9 +8,18 @@ Materiales docentes para la asignatura optativa de 4º curso **Administración d
 
 ---
 
-## 🎯 Tema 2: Introducción a PowerShell 7 (Sesión de 2 horas)
+## 📚 Estructura del Repositorio
 
-El Tema 2 consta de **10 infografías interactivas (SPAs)** autocontenidas desarrolladas con **Tailwind CSS**, diseñadas para proyectarse en el aula y para integrarse en el Aula Virtual mediante **Google Sites**:
+Este repositorio aloja las Single Page Applications (SPAs) interactivas desarrolladas para las sesiones de teoría y aula de informática de la asignatura. A lo largo del curso se irán incorporando los materiales de los diferentes temas:
+
+* **`t2/` · Tema 2: Introducción a la Automatización Moderna con PowerShell 7 (Sesión de 2 horas)**
+*(Próximamente se incorporarán las SPAs correspondientes al resto de temas de la asignatura).*
+
+---
+
+## 🎯 Tema 2: Introducción a PowerShell 7
+
+Conjunto de **10 infografías interactivas (SPAs)** autocontenidas desarrolladas con **Tailwind CSS**, optimizadas para proyectarse en el aula y para integrarse en el Aula Virtual mediante **Google Sites**:
 
 | # | Módulo | Fichero | Conceptos Clave | Enlace en Directo |
 | :-: | :--- | :--- | :--- | :--- |
@@ -27,10 +36,12 @@ El Tema 2 consta de **10 infografías interactivas (SPAs)** autocontenidas desar
 
 ---
 
-## ✨ Características y Mejoras Implementadas
+## ✨ Características de las SPAs
 
 * **📋 Botón «Copiar código»:** Todos los bloques de código incorporan un botón en la esquina superior derecha para copiar el snippet con un solo clic y pegarlo directamente en PowerShell o VS Code.
-* **🔄 Navegación secuencial:** Barra de pie de página en cada módulo con enlaces directos a *Módulo Anterior* y *Módulo Siguiente* para avanzar o retroceder fácilmente entre infografías.
+* **🔄 Navegación adaptable y contextual:**
+  * **En GitHub Pages:** Muestra la barra de navegación secuencial en el pie (`← Módulo Anterior` y `Módulo Siguiente →`) y el botón al `Índice` para facilitar la navegación autónoma.
+  * **En Google Sites (Iframe):** Detecta automáticamente la incrustación y **oculta estos enlaces** para ofrecer una experiencia limpia e integrada con el menú del Site.
 * **🤖 Integración con IA Generativa:** Acceso directo en el pie de cada módulo a la gema personalizada **PowerShell Master**, diseñada para asistir a los alumnos en la modernización de scripts clásicos hacia PowerShell 7.
 * **🎓 Píldoras técnicas avanzadas para 4º de carrera:**
   * **La trampa del `$null`:** Por qué en PowerShell siempre se escribe `$null -eq $var` en lugar de `$var -eq $null`.
@@ -46,4 +57,33 @@ Al estar publicado en **GitHub Pages**, no es necesario copiar y pegar bloques d
 1. En tu Google Site, añade una página o sección.
 2. Selecciona **Insertar > Por URL**.
 3. Pega la URL directa del módulo correspondiente (por ejemplo: `https://pfelipm.github.io/uji-ei1044/t2/La%20navaja%20suiza%20del%20sysadmin.html`) y elige la opción **Página completa**.
-4. **Beneficio:** Cualquier mejora o corrección que hagas en este repositorio Git se reflejará **automáticamente en Google Sites** tras hacer `git push`.
+4. **Ventaja:** Cualquier actualización que realices en el repositorio Git se reflejará **automáticamente en Google Sites** tras hacer `git push`.
+
+---
+
+## 👤 Autoría
+
+* **Pablo Felip Monferrer**  
+  Profesor Asociado  
+  [Departamento de Lenguajes y Sistemas Informáticos (LSI)](https://www.uji.es)  
+  **Universitat Jaume I (UJI)**  
+  🌐 Sitio web personal / docente: [https://www.pablofelip.uji.es](https://www.pablofelip.uji.es)
+
+---
+
+## 📄 Licencia
+
+Este repositorio y todos sus materiales formativos se distribuyen bajo la licencia:
+
+**[Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional (CC BY-NC-SA 4.0)](LICENSE)**
+
+Usted es libre de:
+* **Compartir:** Copiar y redistribuir el material en cualquier medio o formato.
+* **Adaptar:** Remezclar, transformar y crear a partir del material.
+
+Bajo las siguientes condiciones:
+* **Atribución:** Debe dar crédito a la autoría de manera adecuada, brindar un enlace a la licencia e indicar si se han realizado cambios.
+* **NoComercial:** No puede hacer uso del material con propósitos comerciales.
+* **CompartirIgual:** Si remezcla, transforma o crea a partir del material, deberá difundir sus contribuciones bajo la misma licencia que el original.
+
+Para más detalles, consulte el archivo [LICENSE](LICENSE) o visite [https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es).
