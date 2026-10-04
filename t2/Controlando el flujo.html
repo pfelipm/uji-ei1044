@@ -26,6 +26,7 @@
             background-color: #0f172a;
             color: #e0e0e0;
             padding: 1.5rem;
+            padding-top: 2.5rem !important;
             border-radius: 0.75rem;
             font-family: 'Courier New', Courier, monospace;
             white-space: pre-wrap;
@@ -135,10 +136,6 @@
                 <span class="text-xs text-slate-400 hidden sm:inline">PowerShell 7 · ASI (UJI)</span>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="toggleFullscreen()" title="Alternar pantalla completa" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-600 transition-colors flex items-center gap-1">
-                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
-                    <span>Pantalla completa</span>
-                </button>
                 <a href="../index.html" title="Volver al índice general" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-600 transition-colors flex items-center gap-1">
                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     <span>Índice</span>
@@ -262,8 +259,7 @@
             <!-- Navegación Secuencial entre Módulos -->
         <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
             <a href="Colecciones de datos.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 06. Colecciones de Datos</a>
-            <span class="text-xs text-slate-500 hidden md:inline">Usa las teclas ← y → para navegar</span>
-            <a href="Funciones y scripts.html" class="nav-btn nav-next" title="Ir al módulo siguiente">08. Funciones y Scripts →</a>
+                        <a href="Funciones y scripts.html" class="nav-btn nav-next" title="Ir al módulo siguiente">08. Funciones y Scripts →</a>
         </nav>
 
         <footer class="text-center text-slate-400 text-sm mt-8 mb-6 space-y-3">
@@ -277,6 +273,43 @@
         </footer>
 
     </div>
+<script>
+function addCopyButtons() {
+    document.querySelectorAll('.code-block').forEach(function(block) {
+        if (block.querySelector('.copy-btn')) return;
+        var btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.setAttribute('type', 'button');
+        btn.setAttribute('aria-label', 'Copiar código');
+        btn.innerHTML = '<svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Copiar';
+        
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var clone = block.cloneNode(true);
+            var b = clone.querySelector('.copy-btn');
+            if (b) b.remove();
+            var text = clone.innerText.trim();
+            
+            navigator.clipboard.writeText(text).then(function() {
+                btn.classList.add('copied');
+                btn.innerHTML = '<svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> ¡Copiado!';
+                setTimeout(function() {
+                    btn.classList.remove('copied');
+                    btn.innerHTML = '<svg style="width:14px;height:14px;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg> Copiar';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Error al copiar:', err);
+            });
+        });
+        block.appendChild(btn);
+    });
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addCopyButtons);
+} else {
+    addCopyButtons();
+}
+</script>
 </body>
 </html>
 

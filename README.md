@@ -30,10 +30,7 @@ El Tema 2 consta de **10 infografías interactivas (SPAs)** autocontenidas desar
 ## ✨ Características y Mejoras Implementadas
 
 * **📋 Botón «Copiar código»:** Todos los bloques de código incorporan un botón en la esquina superior derecha para copiar el snippet con un solo clic y pegarlo directamente en PowerShell o VS Code.
-* **⌨️ Navegación fluida tipo presentación:**
-  * Barra de pie con enlaces directos a *Módulo Anterior* y *Módulo Siguiente*.
-  * **Atajos de teclado:** Pulsa las flechas `←` y `→` para moverte entre infografías en pantalla completa.
-* **⛶ Modo Pantalla Completa:** Botón en la barra de utilidades para maximizar el área visible y el contraste en el proyector del aula.
+* **🔄 Navegación secuencial:** Barra de pie de página en cada módulo con enlaces directos a *Módulo Anterior* y *Módulo Siguiente* para avanzar o retroceder fácilmente entre infografías.
 * **🤖 Integración con IA Generativa:** Acceso directo en el pie de cada módulo a la gema personalizada **PowerShell Master**, diseñada para asistir a los alumnos en la modernización de scripts clásicos hacia PowerShell 7.
 * **🎓 Píldoras técnicas avanzadas para 4º de carrera:**
   * **La trampa del `$null`:** Por qué en PowerShell siempre se escribe `$null -eq $var` en lugar de `$var -eq $null`.
