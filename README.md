@@ -20,6 +20,18 @@ El temario oficial de la asignatura se articula en cinco grandes temas. Los mate
 
 ---
 
+## 🚀 Día 0 y evaluación de la asignatura
+
+Materiales interactivos transversales diseñados para la sesión inaugural de presentación y la especificación detallada del proyecto práctico evaluable:
+
+| Recurso | Fichero | Descripción y dinámicas | Enlace directo |
+| :--- | :--- | :--- | :--- |
+| **Guía docente interactiva** | `Guía docente interactiva (día 0 - presentación).html` | Contrato pedagógico: competencias, temario oficial, metodología y **calculadora interactiva de calificaciones** con ponderaciones oficiales (50% continua, 20% prácticas, 30% examen). | [Ver guía docente](https://pfelipm.github.io/uji-ei1044/auxiliar/Gu%C3%ADa%20docente%20interactiva%20%28d%C3%ADa%200%20-%20presentaci%C3%B3n%29.html) |
+| **Actividad rompehielos (Incidente 03:00 AM)** | `Actividad rompehielos (día 0 - presentación).html` | Dinámica inicial participativa: simulación de una caída crítica en plena madrugada, temporizador con sirena de alerta y pizarra colaborativa de propuestas en directo clasificadas por tema. | [Ver actividad](https://pfelipm.github.io/uji-ei1044/auxiliar/Actividad%20rompehielos%20%28d%C3%ADa%200%20-%20presentaci%C3%B3n%29.html) |
+| **Kit de herramientas del sysadmin (Proyecto central)** | `Tarea - kit herramientas sysadmin.html` | Especificación del entregable troncal de la asignatura: interfaz interactiva y bilingüe (ES/EN) con cronograma de entregas, catálogo de categorías a investigar y rúbricas de evaluación. | [Ver tarea](https://pfelipm.github.io/uji-ei1044/auxiliar/Tarea%20-%20kit%20herramientas%20sysadmin.html) |
+
+---
+
 ## 🏛️ Tema 1: El servicio de informática
 
 Colección de **15 aplicaciones interactivas (SPA)** diseñadas para analizar la estructura organizativa de TI, el rol profesional del administrador de sistemas, el cumplimiento normativo, la optimización, las estrategias de adquisición y modelos de explotación, culminando con **simuladores cuantitativos de decisión multicriterio y gestión operativa de crisis**:

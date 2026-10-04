@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EI1044 · Presentación e incidente de las 03:00 AM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;0,800;1,400&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brutal-yellow': '#FFE600',
+                        'brutal-pink': '#FF5277',
+                        'brutal-cyan': '#00F0FF',
+                        'brutal-lime': '#50FF50',
+                        'brutal-red': '#FF3333',
+                        'brutal-purple': '#B829EA',
+                        'brutal-bg': '#F4F0EA'
+                    },
+                    fontFamily: {
+                        'sans': ['Space Grotesk', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    },
+                    boxShadow: {
+                        'brutal': '5px 5px 0px 0px #000000',
+                        'brutal-lg': '8px 8px 0px 0px #000000',
+                        'brutal-sm': '3px 3px 0px 0px #000000',
+                        'brutal-active': '1px 1px 0px 0px #000000'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F4F0EA;
+            color: #000000;
+            background-image: radial-gradient(#000000 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .brutal-border {
+            border: 3.5px solid #000000;
+        }
+
+        .brutal-btn {
+            border: 3.5px solid #000000;
+            box-shadow: 4px 4px 0px 0px #000000;
+            transition: all 0.1s ease;
+        }
+
+        .brutal-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px 0px #000000;
+        }
+
+        .brutal-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #000000;
+        }
+
+        .scanline {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 0, 0, 0.15) 50%,
+                rgba(0, 0, 0, 0.15)
+            );
+            background-size: 100% 4px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .blink-text {
+            animation: blink 1s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-brutal-yellow selection:text-black pb-12">
+
+    <!-- Top Header / Navigation Bar -->
+    <header class="w-full bg-white brutal-border border-t-0 border-x-0 p-4 sticky top-0 z-50 bg-opacity-95 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <span class="bg-brutal-yellow text-black font-mono font-extrabold px-3 py-1 text-xl brutal-border shadow-brutal-sm">
+                    EI1044
+                </span>
+                <div>
+                    <h1 class="font-extrabold text-xl tracking-tight leading-none uppercase">Administración de Sistemas Informáticos</h1>
+                    <p class="font-mono text-xs text-gray-700 font-bold mt-1">UJI | Grado en Ingeniería Informática (2026/2027)</p>
+                </div>
+            </div>
+
+            <!-- Stepper Buttons -->
+            <nav class="flex flex-wrap justify-center gap-2 font-mono text-xs font-bold">
+                <button onclick="goToPhase(1)" id="nav-btn-1" class="px-3 py-1.5 brutal-border bg-brutal-pink text-white shadow-brutal-sm hover:opacity-90">
+                    1. 🚨 Incidente 03:00 AM
+                </button>
+                <button onclick="goToPhase(2)" id="nav-btn-2" class="px-3 py-1.5 brutal-border bg-white text-black shadow-brutal-sm hover:opacity-90">
+                    2. ⏱️ Consigna
+                </button>
+                <button onclick="goToPhase(3)" id="nav-btn-3" class="px-3 py-1.5 brutal-border bg-white text-black shadow-brutal-sm hover:opacity-90">
+                    3. 💬 Debate en Vivo
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto w-full px-4 pt-6 flex-grow">
+
+        <!-- ========================================================================= -->
+        <!-- PHASE 1: THE INCIDENT -->
+        <!-- ========================================================================= -->
+        <section id="phase-1" class="space-y-6">
+            <div class="bg-brutal-red brutal-border p-6 shadow-brutal-lg text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative overflow-hidden">
+                <div class="z-10">
+                    <div class="inline-block bg-black text-brutal-yellow font-mono font-extrabold px-3 py-1 text-xs brutal-border mb-2 uppercase tracking-wider">
+                        ⚠️ ALERTA CRÍTICA - ON-CALL ALERT
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight">EL INCIDENTE DE LAS 03:14 AM</h2>
+                    <p class="font-mono text-sm md:text-base mt-2 text-red-100">
+                        Viernes de puente. Producción caída. 03:14:02 AM UTC+2.
+                    </p>
+                </div>
+                <button onclick="playAlarmSound()" class="z-10 bg-black text-brutal-yellow hover:bg-yellow-400 hover:text-black font-mono font-bold px-4 py-3 brutal-border shadow-brutal flex items-center gap-2">
+                    <i class="fa-solid fa-volume-high text-lg"></i>
+                    <span id="alarm-btn-text">SIRENA DE ALERTA</span>
+                </button>
+            </div>
+
+            <!-- Terminal Screen Simulation -->
+            <div class="bg-black text-green-400 font-mono p-6 brutal-border shadow-brutal-lg rounded-none relative scanline min-h-[320px]">
+                <div class="flex justify-between items-center pb-4 mb-4 border-b border-green-800 text-xs text-gray-400">
+                    <span class="flex items-center gap-2">
+                        <span class="w-3 h-3 bg-red-500 rounded-full inline-block"></span>
+                        <span class="w-3 h-3 bg-yellow-500 rounded-full inline-block"></span>
+                        <span class="w-3 h-3 bg-green-500 rounded-full inline-block"></span>
+                        <span class="ml-2">sysadmin@uji-prod-node-01:~# tail -f /var/log/syslog</span>
+                    </span>
+                    <span class="text-brutal-yellow font-bold">PAGERDUTY HIGH PRIORITY</span>
+                </div>
+
+                <div class="space-y-3 text-sm md:text-base leading-relaxed">
+                    <p class="text-gray-500">[03:14:01] CRON_JOB: Healthcheck failed for service: api.ecommerce.shop (HTTP 502 Bad Gateway)</p>
+                    <p class="text-red-500 font-bold">[03:14:02] ALERT: Database connection pool exhausted! Active connections: 500/500 (100%)</p>
+                    <p class="text-yellow-300">[03:14:15] MONITOR: CPU Load Average on node-01: 98.4% | Memory Usage: 99.1%</p>
+                    <p class="text-red-400 font-bold">[03:14:30] TWITTER/X FEED: "No puedo pagar la compra @ShopUJI se ha caído el servidor indignado..."</p>
+                    <div class="text-white bg-red-900/60 p-3 brutal-border border-red-500 my-4">
+                        <span class="text-brutal-yellow font-bold"><i class="fa-brands fa-whatsapp text-lg mr-2"></i>MENSAJE DIRECTO DEL CTO (03:15 AM):</span><br>
+                        <em>"¡¿Qué pasa con la web?! ¡Estamos perdiendo 12.000€ cada 10 minutos! ¿Cuándo vuelve a estar arriba y de quién es la culpa?!"</em>
+                    </div>
+                    <p class="text-green-400 blink-text font-bold">root@uji-prod:~# _</p>
+                </div>
+            </div>
+
+            <!-- Call to Action Banner -->
+            <div class="bg-brutal-yellow brutal-border p-6 shadow-brutal flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <h3 class="text-2xl font-black uppercase">¿Y AHORA QUÉ HACES?</h3>
+                    <p class="font-mono text-sm text-black font-medium mt-1">
+                        Estás de guardia. Eres el único responsable activo en este momento. La empresa depende de ti.
+                    </p>
+                </div>
+                <button onclick="goToPhase(2)" class="brutal-btn bg-black text-white font-mono font-extrabold px-6 py-4 text-base flex items-center gap-2">
+                    <span>IR AL DESAFÍO EN EQUIPO</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHASE 2: CONSIGNA & TIMER -->
+        <!-- ========================================================================= -->
+        <section id="phase-2" class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                <!-- Left Column: The 3 Questions -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="bg-white brutal-border p-6 shadow-brutal-lg">
+                        <div class="inline-block bg-brutal-purple text-white font-mono font-bold px-3 py-1 text-xs brutal-border mb-3">
+                            Fase de Grupos (3-4 Personas)
+                        </div>
+                        <h2 class="text-3xl font-black uppercase mb-4">Consigna del Rompehielos</h2>
+                        <p class="text-base text-gray-800 font-medium mb-6">
+                            Giraos en la mesa y formad grupos de 3 o 4 compañeros/as. Tenéis <span class="font-bold bg-brutal-yellow px-1 brutal-border">10 minutos</span> para responder en un papel o nota de móvil a estas tres preguntas clave:
+                        </p>
+
+                        <div class="space-y-4 font-mono">
+                            <!-- Question 1 -->
+                            <div class="bg-brutal-yellow/30 brutal-border p-4 shadow-brutal-sm">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-8 h-8 bg-black text-white font-extrabold rounded-full flex items-center justify-center shrink-0">1</span>
+                                    <h3 class="font-bold text-lg text-black">PRIMERA ACCIÓN INMEDIATA</h3>
+                                </div>
+                                <p class="text-sm text-gray-800 mt-2 pl-11">
+                                    ¿Cuál es literalmente la <strong class="bg-brutal-yellow px-1 brutal-border">primera acción o comando</strong> que ejecutáis al sentaros al teclado a las 03:15 AM?
+                                </p>
+                            </div>
+
+                            <!-- Question 2 -->
+                            <div class="bg-brutal-cyan/30 brutal-border p-4 shadow-brutal-sm">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-8 h-8 bg-black text-white font-extrabold rounded-full flex items-center justify-center shrink-0">2</span>
+                                    <h3 class="font-bold text-lg text-black">INFORMACIÓN Y HERRAMIENTAS</h3>
+                                </div>
+                                <p class="text-sm text-gray-800 mt-2 pl-11">
+                                    ¿Qué información o herramienta echáis de menos para diagnosticar la causa raíz del problema?
+                                </p>
+                            </div>
+
+                            <!-- Question 3 -->
+                            <div class="bg-brutal-pink/30 brutal-border p-4 shadow-brutal-sm">
+                                <div class="flex items-center gap-3">
+                                    <span class="w-8 h-8 bg-black text-white font-extrabold rounded-full flex items-center justify-center shrink-0">3</span>
+                                    <h3 class="font-bold text-lg text-black">PREVENCIÓN Y COMUNICACIÓN</h3>
+                                </div>
+                                <p class="text-sm text-gray-800 mt-2 pl-11">
+                                    ¿Cómo evitamos que el CTO vuelva a entrar en pánico en el futuro y cómo gestionamos esta crisis?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Timer & Quick Controls -->
+                <div class="space-y-6">
+                    <div class="bg-brutal-yellow brutal-border p-6 shadow-brutal-lg text-center flex flex-col items-center justify-center">
+                        <span class="font-mono text-xs font-extrabold uppercase tracking-widest bg-black text-white px-3 py-1 brutal-border mb-4">
+                            TIEMPO RESTANTE
+                        </span>
+                        <div id="timer-display" class="font-mono text-6xl md:text-7xl font-black tracking-tight my-2">
+                            10:00
+                        </div>
+                        <div class="flex gap-2 w-full mt-4">
+                            <button onclick="startTimer()" class="flex-1 brutal-btn bg-black text-white font-mono font-bold py-3 text-sm flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-play"></i> INICIAR
+                            </button>
+                            <button onclick="pauseTimer()" class="flex-1 brutal-btn bg-white text-black font-mono font-bold py-3 text-sm flex justify-center items-center gap-2">
+                                <i class="fa-solid fa-pause"></i> PAUSAR
+                            </button>
+                            <button onclick="resetTimer()" class="brutal-btn bg-brutal-pink text-white font-mono font-bold px-4 py-3 text-sm">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Teacher Guidance Card -->
+                    <details class="bg-white brutal-border p-5 shadow-brutal font-mono text-xs cursor-pointer group">
+                        <summary class="font-bold uppercase text-sm border-b-2 border-black pb-1 flex items-center gap-2 outline-none list-none marker:hidden">
+                            <i class="fa-solid fa-chalkboard-user"></i> COACHING PARA EL DOCENTE
+                            <span class="text-[10px] text-gray-500 font-normal ml-auto group-open:hidden">(Click para expandir)</span>
+                        </summary>
+                        <div class="space-y-3 pt-3">
+                            <p class="text-gray-700">
+                                • Muévete por las mesas. Si algún grupo está bloqueado, pregúntales: <em>"¿Qué hacéis vosotros cuando el Wi-Fi de casa o un servidor de Discord/juego no va?"</em>
+                            </p>
+                            <p class="text-gray-700">
+                                • Anímales a pensar no solo en reiniciar servicios, sino en la comunicación con el cliente y el CTO.
+                            </p>
+                            <button onclick="goToPhase(3)" class="w-full brutal-btn bg-brutal-lime text-black font-bold py-3 mt-2 text-sm uppercase">
+                                IR A PUESTA EN COMÚN <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </button>
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- PHASE 3: LIVE CLASS INSIGHTS COLLECTOR -->
+        <!-- ========================================================================= -->
+        <section id="phase-3" class="hidden space-y-6">
+            <div class="bg-white brutal-border p-6 shadow-brutal-lg">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b-4 border-black pb-4 mb-6">
+                    <div>
+                        <div class="inline-block bg-brutal-lime text-black font-mono font-bold px-3 py-1 text-xs brutal-border mb-2">
+                            PUESTA EN COMÚN
+                        </div>
+                        <h2 class="text-3xl font-black uppercase">Aportaciones de la Clase</h2>
+                    </div>
+                    <!-- Quick Tag Buttons -->
+                    <div class="flex flex-wrap gap-2 text-xs font-mono">
+                        <button onclick="addQuickTag('Mirar logs de sistema', 'T3')" class="px-2 py-1 bg-brutal-yellow brutal-border shadow-brutal-sm font-bold">
+                            + Logs
+                        </button>
+                        <button onclick="addQuickTag('Reiniciar contenedor/servicio', 'T2')" class="px-2 py-1 bg-brutal-cyan brutal-border shadow-brutal-sm font-bold">
+                            + Reiniciar Pod
+                        </button>
+                        <button onclick="addQuickTag('Revisar si es un ciberataque', 'T4')" class="px-2 py-1 bg-brutal-pink text-white brutal-border shadow-brutal-sm font-bold">
+                            + Ciberataque
+                        </button>
+                        <button onclick="addQuickTag('Avisar al CTO con un protocolo', 'T1/T5')" class="px-2 py-1 bg-brutal-purple text-white brutal-border shadow-brutal-sm font-bold">
+                            + Protocolo / SLA
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Input Form to Capture Live Student Ideas -->
+                <div class="flex flex-col sm:flex-row gap-3 mb-6">
+                    <input type="text" id="student-idea-input" placeholder="Escribe aquí la idea aportada por un grupo..."
+                           class="flex-1 brutal-border p-3 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-black bg-gray-50">
+                    <select id="topic-tag-select" class="brutal-border p-3 font-mono text-sm font-bold bg-white">
+                        <option value="T1">Tema 1 (Organización/Servicio TIC)</option>
+                        <option value="T2">Tema 2 (PowerShell/Contenedores)</option>
+                        <option value="T3">Tema 3 (Monitorización/Explotación)</option>
+                        <option value="T4">Tema 4 (Seguridad/Factor Humano)</option>
+                        <option value="T5">Tema 5 (ISO 20000/ITIL)</option>
+                    </select>
+                    <button onclick="addCustomIdea()" class="brutal-btn bg-black text-white font-mono font-bold px-6 py-3">
+                        AÑADIR IDEA
+                    </button>
+                    <button onclick="popSuggestion()" class="brutal-btn bg-brutal-purple text-white font-mono font-bold px-4 py-3" title="Sugerencia rompehielos del Coach">
+                        <i class="fa-solid fa-lightbulb"></i>
+                    </button>
+                </div>
+
+                <!-- Ideas Dynamic Grid -->
+                <div id="ideas-board" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-mono">
+                    <!-- Dynamic Items render via JS -->
+                </div>
+            </div>
+
+            <div class="bg-brutal-cyan brutal-border p-6 shadow-brutal flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-black uppercase">¿VEIS EL PATRÓN?</h3>
+                    <p class="font-mono text-xs text-black font-bold mt-1">
+                        Todo lo que acaba de salir en esta lluvia de ideas es exactamente el temario de EI1044.
+                    </p>
+                </div>
+                <a href="https://sites.google.com/uji.es/ei1044-2026/guia" target="_blank" class="brutal-btn bg-black text-white font-mono font-bold px-6 py-3 text-sm inline-flex items-center">
+                    IR A LA GUÍA DOCENTE <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+    
+    <!-- Pie de página académico (estilo neo-brutalista) -->
+    <footer class="mt-12 brutal-border bg-white p-6 shadow-brutal text-center font-mono text-xs max-w-6xl mx-auto mb-10">
+        <p class="font-black uppercase text-sm mb-1">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+        <p class="font-bold text-slate-700">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+        <p class="mt-2 text-slate-800">
+            Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="font-bold underline hover:bg-brutal-yellow px-1">Pablo Felip Monferrer</a>
+            (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+        </p>
+        <p class="mt-2 text-slate-600">
+            Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:bg-brutal-cyan px-1">CC BY-NC-SA 4.0</a> ·
+            <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:bg-brutal-lime px-1">Repositorio en GitHub</a>
+        </p>
+    </footer>
+
+    </main>
+
+    <!-- Custom Brutalist Modal Container -->
+    <div id="custom-modal" class="fixed inset-0 bg-black/70 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-brutal-yellow brutal-border p-6 shadow-brutal-lg max-w-md w-full space-y-4">
+            <div class="flex justify-between items-center border-b-4 border-black pb-2">
+                <span class="font-mono font-black text-lg uppercase" id="modal-title">MENSAJE DEL SISTEMA</span>
+                <button onclick="closeModal()" class="font-mono font-black text-xl hover:bg-black hover:text-white px-2">X</button>
+            </div>
+            <p id="modal-body" class="font-mono text-sm font-bold text-black leading-relaxed">
+                Mensaje...
+            </p>
+            <button onclick="closeModal()" class="w-full brutal-btn bg-black text-white font-mono font-bold py-3 text-sm uppercase">
+                ENTENDIDO
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        let currentPhase = 1;
+        let timerInterval = null;
+        let timerSeconds = 600; // 10 minutes default
+        let isAudioPlaying = false;
+        let audioContext = null;
+
+        // Hidden Ideas for Phase 3 (Suggestions)
+        let hiddenIdeas = [
+            { text: "Comprobar logs del servidor web (nginx/apache) y base de datos", tag: "T3", color: "bg-brutal-yellow/30" },
+            { text: "Reiniciar el servicio o pod desbordado en Docker", tag: "T2", color: "bg-brutal-cyan/30" },
+            { text: "Verificar si estamos sufriendo un ataque DDoS o de fuerza bruta", tag: "T4", color: "bg-brutal-pink/30" },
+            { text: "Comunicar el estado del incidente al equipo mediante canal oficial (SLA)", tag: "T1", color: "bg-brutal-purple/30" },
+            { text: "Documentar la incidencia para el informe Post-Mortem (ITIL)", tag: "T5", color: "bg-brutal-lime/30" }
+        ];
+
+        let visibleIdeas = [];
+
+        window.onload = function() {
+            renderIdeasBoard();
+        };
+
+        function goToPhase(phaseNum) {
+            currentPhase = phaseNum;
+            for (let i = 1; i <= 3; i++) {
+                const section = document.getElementById(`phase-${i}`);
+                const btn = document.getElementById(`nav-btn-${i}`);
+
+                if (i === phaseNum) {
+                    section.classList.remove('hidden');
+                    btn.classList.remove('bg-white', 'text-black');
+                    btn.classList.add('bg-brutal-pink', 'text-white');
+                } else {
+                    section.classList.add('hidden');
+                    btn.classList.remove('bg-brutal-pink', 'text-white');
+                    btn.classList.add('bg-white', 'text-black');
+                }
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function playAlarmSound() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+
+            if (isAudioPlaying) {
+                isAudioPlaying = false;
+                document.getElementById('alarm-btn-text').innerText = "SIRENA DE ALERTA";
+                return;
+            }
+
+            isAudioPlaying = true;
+            document.getElementById('alarm-btn-text').innerText = "ESTADO DE ALERTA (SONANDO)";
+
+            const now = audioContext.currentTime;
+
+            for(let i=0; i<3; i++) {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.type = 'sawtooth';
+
+                const startTime = now + (i * 1.5);
+                osc.frequency.setValueAtTime(440, startTime);
+                osc.frequency.exponentialRampToValueAtTime(880, startTime + 0.5);
+
+                gain.gain.setValueAtTime(0.1, startTime);
+                // Difuminamos el sonido al final para evitar ruidos de "click"
+                gain.gain.linearRampToValueAtTime(0.001, startTime + 1.2);
+
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+
+                osc.start(startTime);
+                osc.stop(startTime + 1.2);
+            }
+
+            setTimeout(() => {
+                if (isAudioPlaying) {
+                    isAudioPlaying = false;
+                    document.getElementById('alarm-btn-text').innerText = "SIRENA DE ALERTA";
+                }
+            }, 4500); // 3 iteraciones de 1.5s
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('timer-display').innerText =
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    pauseTimer();
+                    alertModal("⏱️ ¡TIEMPO CONCLUIDO! Pasamos a la puesta en común.");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 600;
+            updateTimerDisplay();
+        }
+
+        function renderIdeasBoard() {
+            const board = document.getElementById('ideas-board');
+            board.innerHTML = '';
+
+            if (visibleIdeas.length === 0) {
+                board.innerHTML = '<div class="col-span-full text-center p-8 text-gray-500 font-bold border-2 border-dashed border-gray-300">Esperando aportaciones de la clase... (¡O usa el botón de sugerencia!)</div>';
+                return;
+            }
+
+            visibleIdeas.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = `${item.color} brutal-border p-4 shadow-brutal-sm relative flex flex-col justify-between min-h-[110px]`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-black text-white font-mono font-bold text-[10px] px-2 py-0.5">${item.tag}</span>
+                            <button onclick="removeIdea(${index})" class="text-xs text-red-600 font-bold hover:underline">Eliminar</button>
+                        </div>
+                        <p class="text-xs font-bold text-black">${item.text}</p>
+                    </div>
+                `;
+                board.appendChild(card);
+            });
+        }
+
+        function addCustomIdea() {
+            const input = document.getElementById('student-idea-input');
+            const tagSelect = document.getElementById('topic-tag-select');
+
+            if (!input.value.trim()) return;
+
+            const colorsMap = {
+                'T1': 'bg-brutal-yellow/30',
+                'T2': 'bg-brutal-cyan/30',
+                'T3': 'bg-brutal-lime/30',
+                'T4': 'bg-brutal-pink/30',
+                'T5': 'bg-brutal-purple/30'
+            };
+
+            visibleIdeas.push({
+                text: input.value.trim(),
+                tag: tagSelect.value,
+                color: colorsMap[tagSelect.value] || 'bg-white'
+            });
+
+            input.value = '';
+            renderIdeasBoard();
+        }
+
+        function addQuickTag(text, tag) {
+            const colorsMap = {
+                'T1': 'bg-brutal-yellow/30',
+                'T2': 'bg-brutal-cyan/30',
+                'T3': 'bg-brutal-lime/30',
+                'T4': 'bg-brutal-pink/30',
+                'T5': 'bg-brutal-purple/30',
+                'T1/T5': 'bg-brutal-purple/30'
+            };
+
+            visibleIdeas.push({
+                text: text,
+                tag: tag,
+                color: colorsMap[tag] || 'bg-white'
+            });
+
+            renderIdeasBoard();
+        }
+
+        function popSuggestion() {
+            if (hiddenIdeas.length > 0) {
+                const randomIndex = Math.floor(Math.random() * hiddenIdeas.length);
+                const idea = hiddenIdeas.splice(randomIndex, 1)[0];
+                visibleIdeas.push(idea);
+                renderIdeasBoard();
+            } else {
+                alertModal("💡 ¡Ya no me quedan más sugerencias en la manga! Es el momento de que hable la clase.");
+            }
+        }
+
+        function removeIdea(index) {
+            visibleIdeas.splice(index, 1);
+            renderIdeasBoard();
+        }
+
+        function alertModal(msg) {
+            document.getElementById('modal-body').innerText = msg;
+            document.getElementById('custom-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EI1044 · Kit de herramientas del sysadmin · UJI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f4f4f0;
+      --black: #000000;
+      --white: #ffffff;
+      --yellow: #FFE600;
+      --cyan: #00E5FF;
+      --green: #00FF66;
+      --pink: #FF007A;
+      --orange: #FF6600;
+      --purple: #B28DFF;
+      --shadow: 4px 4px 0px #000000;
+      --shadow-lg: 6px 6px 0px #000000;
+      --shadow-xl: 10px 10px 0px #000000;
+    }
+
+    html, body {
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      background-image: radial-gradient(var(--black) 1px, transparent 1px);
+      background-size: 18px 18px;
+      color: var(--black);
+      padding: 24px;
+      max-width: 1440px;
+      margin: 0 auto;
+      line-height: 1.4;
+    }
+
+    header {
+      background: var(--yellow);
+      border: 4px solid var(--black);
+      box-shadow: var(--shadow-lg);
+      padding: 20px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .header-title h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .header-title p {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    .lang-switch-btn {
+      background: var(--pink);
+      color: var(--white);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 1rem;
+      padding: 10px 18px;
+      border: 3px solid var(--black);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: all 0.1s ease;
+      text-transform: uppercase;
+    }
+
+    .lang-switch-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px #000;
+    }
+
+    .lang-switch-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #000;
+    }
+
+    .alert-banner {
+      background: var(--pink);
+      color: var(--white);
+      border: 3px solid var(--black);
+      box-shadow: var(--shadow);
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      font-weight: 700;
+    }
+
+    .alert-banner h3 {
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .grid-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .col-left, .col-right {
+      min-width: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 1080px) {
+      .grid-main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--white);
+      border: 3px solid var(--black);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      border-bottom: 3px solid var(--black);
+      padding-bottom: 12px;
+    }
+
+    .card-badge {
+      border: 2px solid var(--black);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      padding: 4px 10px;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .milestones-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    @media (max-width: 1300px) {
+      .milestones-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .milestones-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .milestone-box {
+      border: 3px solid var(--black);
+      padding: 14px;
+      box-shadow: 3px 3px 0px #000;
+      background: #fafafa;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .milestone-box.active {
+      background: #e6ffec;
+    }
+
+    .milestone-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      gap: 6px;
+    }
+
+    .milestone-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 1.1rem;
+      display: inline-block;
+      padding: 2px 8px;
+      border: 2px solid var(--black);
+    }
+
+    .milestone-weight-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border: 2px solid var(--black);
+      background: var(--white);
+      text-transform: uppercase;
+      box-shadow: 1.5px 1.5px 0px #000;
+      white-space: nowrap;
+    }
+
+    .milestone-box.active .milestone-weight-tag {
+      background: #c8f7d5;
+    }
+
+    .catalog-flex-note {
+      background: #fffbe6;
+      border: 2px dashed var(--black);
+      padding: 10px 14px;
+      font-size: 0.86rem;
+      margin-bottom: 16px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .category-card {
+      background: var(--white);
+      border: 3px solid var(--black);
+      padding: 14px;
+      box-shadow: 3px 3px 0px #000;
+    }
+
+    .category-card h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .category-card p {
+      font-size: 0.82rem;
+      color: #333;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #efefef;
+      border: 1.5px solid var(--black);
+      padding: 1px 5px;
+    }
+
+    .agenda-alert-banner {
+      background: var(--pink);
+      color: var(--white);
+      border: 3px solid var(--black);
+      box-shadow: 3px 3px 0px #000;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+    }
+
+    .agenda-alert-banner h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .agenda-alert-banner p {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .timeline-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .timeline-item {
+      border: 3px solid var(--black);
+      background: var(--white);
+      box-shadow: 3px 3px 0px #000;
+    }
+
+    .timeline-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f0f0f0;
+      border-bottom: 2px solid var(--black);
+      padding: 8px 12px;
+      cursor: pointer;
+      user-select: none;
+      gap: 10px;
+    }
+
+    .timeline-top-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow: hidden;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .agenda-step-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 2px solid var(--black);
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: inline-block;
+      line-height: 1.1;
+    }
+
+    .timeline-header-title {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .timeline-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .btn-toggle-phase, .btn-expand-phase {
+      background: var(--white);
+      border: 2px solid var(--black);
+      box-shadow: 2px 2px 0px #000;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.1s;
+    }
+
+    .btn-toggle-phase:hover, .btn-expand-phase:hover {
+      background: var(--yellow);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px #000;
+    }
+
+    .timeline-content {
+      padding: 16px 18px;
+      border-top: 1px solid #ddd;
+    }
+
+    .timeline-content.collapsed {
+      display: none;
+    }
+
+    .phase-intro {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #111;
+      margin-bottom: 14px;
+      line-height: 1.4;
+    }
+
+    /* Unified terminal CLI bullets */
+    .cli-bullets {
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .cli-bullets li {
+      list-style: none !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 10px !important;
+      font-family: 'JetBrains Mono', monospace !important;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: #000;
+      font-weight: 500;
+    }
+
+    .cli-icon {
+      background: var(--black);
+      color: var(--yellow);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 1px 6px;
+      border: 1px solid var(--black);
+      flex-shrink: 0;
+      margin-top: 2px;
+      user-select: none;
+      display: inline-block;
+      line-height: 1.1;
+    }
+
+    .cli-subitems {
+      list-style: none !important;
+      margin: 8px 0 0 12px !important;
+      padding: 0 !important;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .cli-subitems li {
+      list-style: none !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+      font-size: 0.8rem;
+      line-height: 1.4;
+      font-family: 'JetBrains Mono', monospace !important;
+    }
+
+    .cli-sub-icon {
+      background: #eee;
+      color: var(--black);
+      border: 1.5px solid var(--black);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.7rem;
+      padding: 0px 4px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: inline-block;
+      line-height: 1.1;
+    }
+
+    /* Utility color classes */
+    .bg-yellow { background: var(--yellow) !important; }
+    .bg-cyan { background: var(--cyan) !important; }
+    .bg-green { background: var(--green) !important; }
+    .bg-orange { background: var(--orange) !important; }
+    .bg-purple { background: var(--purple) !important; }
+    .bg-pink { background: var(--pink) !important; color: white !important; }
+
+    footer {
+      margin-top: 20px;
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 12px;
+      background: var(--white);
+      border: 3px solid var(--black);
+      box-shadow: var(--shadow);
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(2px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--white);
+      border: 5px solid var(--black);
+      box-shadow: var(--shadow-xl);
+      max-width: 980px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 4px solid var(--black);
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .modal-close-btn {
+      background: var(--pink);
+      color: var(--white);
+      border: 3px solid var(--black);
+      box-shadow: var(--shadow);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 8px 16px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    .modal-close-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px #000;
+    }
+
+    .modal-body .modal-intro {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .modal-body .cli-bullets {
+      gap: 14px;
+    }
+
+    .modal-body .cli-bullets li {
+      font-size: 0.98rem;
+      gap: 12px !important;
+      line-height: 1.55;
+    }
+
+    .modal-body .cli-icon {
+      font-size: 0.9rem;
+      padding: 2px 7px;
+    }
+
+    .modal-body .cli-subitems {
+      margin: 10px 0 0 16px !important;
+      gap: 10px;
+    }
+
+    .modal-body .cli-subitems li {
+      font-size: 0.92rem;
+      gap: 10px !important;
+      line-height: 1.5;
+    }
+
+    .modal-body .cli-sub-icon {
+      font-size: 0.8rem;
+      padding: 1px 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-title">
+      <h1 id="header-main-title">EI1044 · Kit de herramientas del sysadmin</h1>
+      <p id="header-sub-title">Sesión de laboratorio: Formación de equipos, propuesta A1 y arranque de proyecto</p>
+    </div>
+    <button class="lang-switch-btn" id="lang-toggle-btn" onclick="toggleLanguage()">
+      <span id="lang-text">Switch to English</span>
+    </button>
+  </header>
+
+  <div class="alert-banner">
+    <h3 id="banner-title">Reglas básicas de la tarea A1</h3>
+    <p id="banner-desc">Equipos de <strong>2 a 4 integrantes</strong>. Límite máximo e improrrogable de <strong>9 grupos</strong> en la asignatura. Asignación de herramientas por estricto orden de envío del cuestionario.</p>
+  </div>
+
+  <div class="grid-main">
+    <div class="col-left">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-badge bg-yellow" id="badge-milestones">Hitos</span>
+          <h2 class="card-title" id="title-roadmap">Estructura del proyecto SysAdmin</h2>
+        </div>
+        <div class="milestones-grid">
+          <!-- Hito A1 -->
+          <div class="milestone-box active">
+            <div>
+              <div class="milestone-top-row">
+                <span class="milestone-code bg-yellow">A1</span>
+                <span class="milestone-weight-tag" id="m1-weight">No evaluable</span>
+              </div>
+              <h4 id="m1-title">Propuesta y cuestionario</h4>
+            </div>
+            <p id="m1-desc" style="font-size: 0.8rem; margin-top: 8px;">No evaluable (3 pts = Luz verde). Registro de equipo y herramienta.</p>
+          </div>
+
+          <!-- Hito A2 -->
+          <div class="milestone-box">
+            <div>
+              <div class="milestone-top-row">
+                <span class="milestone-code bg-cyan">A2</span>
+                <span class="milestone-weight-tag" id="m2-weight">Peso: 40%</span>
+              </div>
+              <h4 id="m2-title">Manual y cuaderno Gemini</h4>
+            </div>
+            <p id="m2-desc" style="font-size: 0.8rem; margin-top: 8px;">PDF técnico + enlace a Gemini Notebook con fuentes oficiales.</p>
+          </div>
+
+          <!-- Hito A3 -->
+          <div class="milestone-box">
+            <div>
+              <div class="milestone-top-row">
+                <span class="milestone-code bg-green">A3</span>
+                <span class="milestone-weight-tag" id="m3-weight">Peso: 40%</span>
+              </div>
+              <h4 id="m3-title">Showcase en vivo</h4>
+            </div>
+            <p id="m3-desc" style="font-size: 0.8rem; margin-top: 8px;">40' por grupo en semanas 12 y 13. Demostración práctica («Show, don't tell»).</p>
+          </div>
+
+          <!-- Hito A4 -->
+          <div class="milestone-box">
+            <div>
+              <div class="milestone-top-row">
+                <span class="milestone-code bg-orange">A4</span>
+                <span class="milestone-weight-tag" id="m4-weight">Peso: 20%</span>
+              </div>
+              <h4 id="m4-title">Bitácora individual</h4>
+            </div>
+            <p id="m4-desc" style="font-size: 0.8rem; margin-top: 8px;">Cuaderno personal de síntesis técnica y valoración de las ponencias.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-badge bg-cyan" id="badge-taxonomy">Catálogo</span>
+          <h2 class="card-title" id="title-categories">Las 8 categorías corporativas de TI</h2>
+        </div>
+
+        <div class="catalog-flex-note" id="catalog-flex-note">
+          💡 <strong>Propuestas libres bienvenidas:</strong> Podéis proponer cualquier otra herramienta no listada aquí, siempre que pertenezca a una de las categorías y cumpla los requisitos técnicos del enunciado.
+        </div>
+
+        <div class="categories-grid">
+          <div class="category-card">
+            <h4 id="cat1-title">1. Monitorización de sistemas y servicios</h4>
+            <p id="cat1-desc">Supervisión de métricas, disponibilidad y alertas operativas.</p>
+            <div class="tech-tags">
+              <span class="tag">Prometheus</span><span class="tag">Zabbix</span><span class="tag">Datadog</span><span class="tag">Grafana</span>
+            </div>
+          </div>
+          <div class="category-card">
+            <h4 id="cat2-title">2. Gestión de incidencias (ITSM / Ticketing)</h4>
+            <p id="cat2-desc">Gestión de tickets, flujos de soporte y catálogo de servicios.</p>
+            <div class="tech-tags">
+              <span class="tag">GLPI</span><span class="tag">Jira Service</span><span class="tag">Zammad</span>
+            </div>
+          </div>
+          <div class="category-card">
+            <h4 id="cat3-title">3. Automatización y configuración</h4>
+            <p id="cat3-desc">Gestión centralizada del estado e infraestructura como código.</p>
+            <div class="tech-tags">
+              <span class="tag">Ansible</span><span class="tag">Puppet</span><span class="tag">SaltStack</span>
+            </div>
+          </div>
+          <div class="category-card">
+            <h4 id="cat4-title">4. Inventariado y activos (CMDB)</h4>
+            <p id="cat4-desc">Gestión de activos de hardware, licencias y ciclo de vida de TI.</p>
+            <div class="tech-tags">
+              <span class="tag">Snipe-IT</span><span class="tag">OCS Inventory</span>
+            </div>
+          </div>
+          <div class="category-card">
+            <h4 id="cat5-title">5. Despliegue de imágenes y aprovisionamiento</h4>
+            <p id="cat5-desc">Despliegue automatizado de sistemas y orquestación base.</p>
+            <div class="tech-tags">
+              <span class="tag">Fog Project</span><span class="tag">Terraform</span><span class="tag">Packer</span>
+            </div>
+          </div>
+          <div class="category-card">
+            <h4 id="cat6-title">6. Administración remota y orquestación</h4>
+            <p id="cat6-desc">Gestión distribuida de contenedores y servicios web.</p>
+            <div class="tech-tags">
+              <span class="tag">Portainer</span><span class="tag">Rancher</span><span class="tag">Cockpit</span>
+            </div>
+          </div>
+          <div class="category-card">
+            <h4 id="cat7-title">7. Backup, recuperación y continuidad</h4>
+            <p id="cat7-desc">Políticas de copia de seguridad, instantáneas (snapshots) y recuperación ante desastres.</p>
+            <div class="tech-tags">
+              <span class="tag">BorgBackup</span><span class="tag">Veeam</span><span class="tag">Restic</span><span class="tag">Proxmox BS</span>
+            </div>
+          </div>
+          <div class="category-card">
+            <h4 id="cat8-title">8. Seguridad informática (SIEM / Perimetral)</h4>
+            <p id="cat8-desc">Monitorización de eventos, cortafuegos y análisis de amenazas.</p>
+            <div class="tech-tags">
+              <span class="tag">Wazuh</span><span class="tag">pfSense</span><span class="tag">OPNsense</span><span class="tag">CrowdSec</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-right">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-badge bg-green" id="badge-schedule">Agenda</span>
+          <h2 class="card-title" id="title-agenda">Bloques de trabajo de la sesión</h2>
+        </div>
+
+        <div class="agenda-alert-banner" id="agenda-alert-banner">
+          <h4 id="alert-banner-head">📖 Lectura previa obligatoria</h4>
+          <p id="alert-banner-text">Antes de tomar decisiones o enviar el cuestionario, leed con detenimiento las instrucciones completas de la tarea A1 en el Aula Virtual.</p>
+        </div>
+
+        <div class="timeline-list">
+
+          <!-- FASE 1 -->
+          <div class="timeline-item" id="phase-card-1">
+            <div class="timeline-top" onclick="togglePhase(1)">
+              <div class="timeline-top-left">
+                <span class="agenda-step-tag bg-yellow" id="badge-f1">Fase 1</span>
+                <span class="timeline-header-title" id="t1-header-title">1. Exposición y reglas de la actividad evaluable</span>
+              </div>
+              <div class="timeline-actions" onclick="event.stopPropagation()">
+                <button class="btn-toggle-phase" id="btn-toggle-1" onclick="togglePhase(1)">
+                  <span class="toggle-icon">▲</span> <span class="toggle-text">Ocultar</span>
+                </button>
+                <button class="btn-expand-phase" onclick="expandPhase(1)">
+                  <span>⛶</span> <span class="fs-text">Ampliar</span>
+                </button>
+              </div>
+            </div>
+            <div class="timeline-content" id="content-phase-1">
+              <p class="phase-intro" id="t1-intro">Presentación de la arquitectura del proyecto SysAdmin Toolkit y el mapa de entregas (A1 a A4).</p>
+              <ul class="cli-bullets" id="t1-body">
+                <li><span class="cli-icon">&gt;</span><span>Peso total del trabajo en la nota final de la asignatura: 25%.</span></li>
+                <li><span class="cli-icon">&gt;</span><span>Límite organizativo estricto: máximo de 9 grupos en el aula (turnos de 40 minutos en las semanas 12 y 13).</span></li>
+                <li><span class="cli-icon">&gt;</span><span>Filosofía obligatoria: «Show, don't tell» (demostración práctica y operativa en vivo; prohibido limitarse a leer diapositivas).</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- FASE 2 -->
+          <div class="timeline-item" id="phase-card-2">
+            <div class="timeline-top" onclick="togglePhase(2)">
+              <div class="timeline-top-left">
+                <span class="agenda-step-tag bg-cyan" id="badge-f2">Fase 2</span>
+                <span class="timeline-header-title" id="t2-header-title">2. Formación de grupos y elección técnica</span>
+              </div>
+              <div class="timeline-actions" onclick="event.stopPropagation()">
+                <button class="btn-toggle-phase" id="btn-toggle-2" onclick="togglePhase(2)">
+                  <span class="toggle-icon">▼</span> <span class="toggle-text">Mostrar</span>
+                </button>
+                <button class="btn-expand-phase" onclick="expandPhase(2)">
+                  <span>⛶</span> <span class="fs-text">Ampliar</span>
+                </button>
+              </div>
+            </div>
+            <div class="timeline-content collapsed" id="content-phase-2">
+              <p class="phase-intro" id="t2-intro">Constitución de los equipos de trabajo y elección de la herramienta dentro del catálogo.</p>
+              <ul class="cli-bullets" id="t2-body">
+                <li><span class="cli-icon">&gt;</span><span>Agrupaos en equipos de 2 a 4 integrantes (la prioridad organizativa es no superar el cupo de 9 grupos).</span></li>
+                <li><span class="cli-icon">&gt;</span><span>Revisad el catálogo de 8 categorías y seleccionad vuestra herramienta prioritaria y una alternativa de respaldo.</span></li>
+                <li><span class="cli-icon">&gt;</span><span>Comprobad que la solución es viable técnicamente para desplegarse y ejecutarse en vivo en el aula.</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- FASE 3 -->
+          <div class="timeline-item" id="phase-card-3">
+            <div class="timeline-top" onclick="togglePhase(3)">
+              <div class="timeline-top-left">
+                <span class="agenda-step-tag bg-pink" id="badge-f3">Fase 3</span>
+                <span class="timeline-header-title" id="t3-header-title">3. Cumplimentación del cuestionario A1 en Moodle</span>
+              </div>
+              <div class="timeline-actions" onclick="event.stopPropagation()">
+                <button class="btn-toggle-phase" id="btn-toggle-3" onclick="togglePhase(3)">
+                  <span class="toggle-icon">▼</span> <span class="toggle-text">Mostrar</span>
+                </button>
+                <button class="btn-expand-phase" onclick="expandPhase(3)">
+                  <span>⛶</span> <span class="fs-text">Ampliar</span>
+                </button>
+              </div>
+            </div>
+            <div class="timeline-content collapsed" id="content-phase-3">
+              <p class="phase-intro" id="t3-intro">Un único miembro por grupo accede al Cuestionario A1 en el Aula Virtual y cumplimenta las 3 preguntas:</p>
+              <ul class="cli-bullets" id="t3-body">
+                <li><span class="cli-icon">&gt;</span><span><strong>Pregunta 1 (Miembros):</strong> Nombres y apellidos de todos los integrantes del grupo.</span></li>
+                <li><span class="cli-icon">&gt;</span><span><strong>Pregunta 2 (Herramienta):</strong> Nombre exacto de la solución tecnológica seleccionada.</span></li>
+                <li><span class="cli-icon">&gt;</span><span><strong>Pregunta 3 (Justificación, máx. 200 palabras):</strong> ¿Por qué es interesante? ¿Experiencia previa? ¿Qué potencial operativo tiene?</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- FASE 4 -->
+          <div class="timeline-item" id="phase-card-4">
+            <div class="timeline-top" onclick="togglePhase(4)">
+              <div class="timeline-top-left">
+                <span class="agenda-step-tag bg-green" id="badge-f4">Fase 4</span>
+                <span class="timeline-header-title" id="t4-header-title">4. Validación docente y «luz verde»</span>
+              </div>
+              <div class="timeline-actions" onclick="event.stopPropagation()">
+                <button class="btn-toggle-phase" id="btn-toggle-4" onclick="togglePhase(4)">
+                  <span class="toggle-icon">▼</span> <span class="toggle-text">Mostrar</span>
+                </button>
+                <button class="btn-expand-phase" onclick="expandPhase(4)">
+                  <span>⛶</span> <span class="fs-text">Ampliar</span>
+                </button>
+              </div>
+            </div>
+            <div class="timeline-content collapsed" id="content-phase-4">
+              <p class="phase-intro" id="t4-intro">Revisión formativa y confirmación oficial de la propuesta enviada.</p>
+              <ul class="cli-bullets" id="t4-body">
+                <li><span class="cli-icon">&gt;</span><span>El profesorado califica el cuestionario con 3 puntos (1 pto por pregunta) como confirmación formal.</span></li>
+                <li><span class="cli-icon">&gt;</span><span>Si se detecta duplicidad de herramienta, se resolverá por estricto orden de envío; el grupo afectado tramitará su opción de reserva.</span></li>
+                <li><span class="cli-icon">&gt;</span><span>Mientras esperáis la validación, id compilando la documentación y repositorios oficiales de la herramienta.</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- FASE 5 -->
+          <div class="timeline-item" id="phase-card-5">
+            <div class="timeline-top" onclick="togglePhase(5)">
+              <div class="timeline-top-left">
+                <span class="agenda-step-tag bg-purple" id="badge-f5">Fase 5</span>
+                <span class="timeline-header-title" id="t5-header-title">5. Kick-off técnico y preparación del seguimiento</span>
+              </div>
+              <div class="timeline-actions" onclick="event.stopPropagation()">
+                <button class="btn-toggle-phase" id="btn-toggle-5" onclick="togglePhase(5)">
+                  <span class="toggle-icon">▼</span> <span class="toggle-text">Mostrar</span>
+                </button>
+                <button class="btn-expand-phase" onclick="expandPhase(5)">
+                  <span>⛶</span> <span class="fs-text">Ampliar</span>
+                </button>
+              </div>
+            </div>
+            <div class="timeline-content collapsed" id="content-phase-5">
+              <p class="phase-intro" id="t5-intro">Puesta en marcha del proyecto y compromisos para el seguimiento de la semana 5:</p>
+              <ul class="cli-bullets" id="t5-body">
+                <li><span class="cli-icon">&gt;</span><span>Con los 3 puntos obtenidos, cread el Gemini Notebook compartido del equipo y cargad las fuentes primarias oficiales.</span></li>
+                <li><span class="cli-icon">&gt;</span><span>Definid el entorno de despliegue más adecuado para vuestro caso (contenedores, máquina virtual local, cloud o el enfoque técnico que mejor se adapte a la herramienta).</span></li>
+                <li>
+                  <span class="cli-icon">&gt;</span>
+                  <div style="flex: 1;">
+                    <span><strong>Objetivo para la sesión de seguimiento:</strong> En la próxima clase de laboratorio mantendremos una reunión informal con cada grupo (mientras el resto sigue trabajando) para revisar:</span>
+                    <ul class="cli-subitems">
+                      <li><span class="cli-sub-icon">1</span><span><strong>Borrador de índice del manual (A2):</strong> Esquema estructurado de contenidos previstos.</span></li>
+                      <li><span class="cli-sub-icon">2</span><span><strong>Despliegue base operativo («Hola mundo»):</strong> Demostración de que el servicio arranca y es accesible, confirmando su viabilidad técnica.</span></li>
+                      <li><span class="cli-sub-icon">3</span><span><strong>Propuesta de guion para la demo en vivo (A3):</strong> Planteamiento del caso de uso práctico y previsión de recursos técnicos requeridos en el aula (conectividad especial, puertos de red, consumo de RAM/CPU o dependencias específicas).</span></li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p id="footer-text">UNIVERSITAT JAUME I (UJI) — GRADO EN INGENIERÍA INFORMÁTICA — EI1044 ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS</p>
+    <p style="margin-top: 8px; font-size: 0.75rem; color: #555; font-family: monospace;">
+      Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" style="color: #000; font-weight: bold;">Pablo Felip Monferrer</a> ·
+      Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" style="color: #555; text-decoration: underline;">CC BY-NC-SA 4.0</a> ·
+      <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" style="color: #555; text-decoration: underline;">Repositorio en GitHub</a>
+    </p>
+  </footer>
+
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-card" id="modal-card">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-title-text">Título de la fase</h2>
+        <button class="modal-close-btn" onclick="closeModalDirect()" id="modal-btn-close">✕ Cerrar</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-intro" id="modal-intro-text"></p>
+        <ul class="cli-bullets" id="modal-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'ES';
+
+    const i18n = {
+      ES: {
+        mainTitle: "EI1044 · Kit de herramientas del sysadmin",
+        subTitle: "Sesión de laboratorio: Formación de equipos, propuesta A1 y arranque de proyecto",
+        switchBtn: "Switch to English",
+        bannerTitle: "Reglas básicas de la tarea A1",
+        bannerDesc: "Equipos de <strong>2 a 4 integrantes</strong>. Límite máximo e improrrogable de <strong>9 grupos</strong> en la asignatura. Asignación de herramientas por estricto orden de envío del cuestionario.",
+        badgeMilestones: "Hitos",
+        titleRoadmap: "Estructura del proyecto SysAdmin",
+        m1Title: "Propuesta y cuestionario",
+        m1Weight: "No evaluable",
+        m1Desc: "No evaluable (3 pts = Luz verde). Registro de equipo y herramienta.",
+        m2Title: "Manual y cuaderno Gemini",
+        m2Weight: "Peso: 40%",
+        m2Desc: "PDF técnico + enlace a Gemini Notebook con fuentes oficiales.",
+        m3Title: "Showcase en vivo",
+        m3Weight: "Peso: 40%",
+        m3Desc: "40' por grupo en semanas 12 y 13. Demostración práctica («Show, don't tell»).",
+        m4Title: "Bitácora individual",
+        m4Weight: "Peso: 20%",
+        m4Desc: "Cuaderno personal de síntesis técnica y valoración de las ponencias.",
+        badgeTaxonomy: "Catálogo",
+        titleCategories: "Las 8 categorías corporativas de TI",
+        catalogFlexNote: "💡 <strong>Propuestas libres bienvenidas:</strong> Podéis proponer cualquier otra herramienta no listada aquí, siempre que pertenezca a una de las categorías y cumpla los requisitos técnicos del enunciado.",
+        cat1Title: "1. Monitorización de sistemas y servicios",
+        cat1Desc: "Supervisión de métricas, disponibilidad y alertas operativas.",
+        cat2Title: "2. Gestión de incidencias (ITSM / Ticketing)",
+        cat2Desc: "Gestión de tickets, flujos de soporte y catálogo de servicios.",
+        cat3Title: "3. Automatización y configuración",
+        cat3Desc: "Gestión centralizada del estado e infraestructura como código.",
+        cat4Title: "4. Inventariado y activos (CMDB)",
+        cat4Desc: "Gestión de activos de hardware, licencias y ciclo de vida de TI.",
+        cat5Title: "5. Despliegue de imágenes y aprovisionamiento",
+        cat5Desc: "Despliegue automatizado de sistemas y orquestación base.",
+        cat6Title: "6. Administración remota y orquestación",
+        cat6Desc: "Gestión distribuida de contenedores y servicios web.",
+        cat7Title: "7. Backup, recuperación y continuidad",
+        cat7Desc: "Políticas de copia de seguridad, instantáneas (snapshots) y recuperación ante desastres.",
+        cat8Title: "8. Seguridad informática (SIEM / Perimetral)",
+        cat8Desc: "Monitorización de eventos, cortafuegos y análisis de amenazas.",
+        badgeSchedule: "Agenda",
+        titleAgenda: "Bloques de trabajo de la sesión",
+        alertBannerHead: "📖 Lectura previa obligatoria",
+        alertBannerText: "Antes de tomar decisiones o enviar el cuestionario, leed con detenimiento las instrucciones completas de la tarea A1 en el Aula Virtual.",
+        badgeF1: "Fase 1",
+        t1Head: "1. Exposición y reglas de la actividad evaluable",
+        t1Intro: "Presentación de la arquitectura del proyecto SysAdmin Toolkit y el mapa de entregas (A1 a A4).",
+        t1Items: [
+          { html: "Peso total del trabajo en la nota final de la asignatura: 25%." },
+          { html: "Límite organizativo estricto: máximo de 9 grupos en el aula (turnos de 40 minutos en las semanas 12 y 13)." },
+          { html: "Filosofía obligatoria: «Show, don't tell» (demostración práctica y operativa en vivo; prohibido limitarse a leer diapositivas)." }
+        ],
+        badgeF2: "Fase 2",
+        t2Head: "2. Formación de grupos y elección técnica",
+        t2Intro: "Constitución de los equipos de trabajo y elección de la herramienta dentro del catálogo.",
+        t2Items: [
+          { html: "Agrupaos en equipos de 2 a 4 integrantes (la prioridad organizativa es no superar el cupo de 9 grupos)." },
+          { html: "Revisad el catálogo de 8 categorías y seleccionad vuestra herramienta prioritaria y una alternativa de respaldo." },
+          { html: "Comprobad que la solución es viable técnicamente para desplegarse y ejecutarse en vivo en el aula." }
+        ],
+        badgeF3: "Fase 3",
+        t3Head: "3. Cumplimentación del cuestionario A1 en Moodle",
+        t3Intro: "Un único miembro por grupo accede al Cuestionario A1 en el Aula Virtual y cumplimenta las 3 preguntas:",
+        t3Items: [
+          { html: "<strong>Pregunta 1 (Miembros):</strong> Nombres y apellidos de todos los integrantes del grupo." },
+          { html: "<strong>Pregunta 2 (Herramienta):</strong> Nombre exacto de la solución tecnológica seleccionada." },
+          { html: "<strong>Pregunta 3 (Justificación, máx. 200 palabras):</strong> ¿Por qué es interesante? ¿Experiencia previa? ¿Qué potencial operativo tiene?" }
+        ],
+        badgeF4: "Fase 4",
+        t4Head: "4. Validación docente y «luz verde»",
+        t4Intro: "Revisión formativa y confirmación oficial de la propuesta enviada.",
+        t4Items: [
+          { html: "El profesorado califica el cuestionario con 3 puntos (1 pto por pregunta) como confirmación formal." },
+          { html: "Si se detecta duplicidad de herramienta, se resolverá por estricto orden de envío; el grupo afectado tramitará su opción de reserva." },
+          { html: "Mientras esperáis la validación, id compilando la documentación y repositorios oficiales de la herramienta." }
+        ],
+        badgeF5: "Fase 5",
+        t5Head: "5. Kick-off técnico y preparación del seguimiento",
+        t5Intro: "Puesta en marcha del proyecto y compromisos para el seguimiento de la semana 5:",
+        t5Items: [
+          { html: "Con los 3 puntos obtenidos, cread el Gemini Notebook compartido del equipo y cargad las fuentes primarias oficiales." },
+          { html: "Definid el entorno de despliegue más adecuado para vuestro caso (contenedores, máquina virtual local, cloud o el enfoque técnico que mejor se adapte a la herramienta)." },
+          {
+            html: "<strong>Objetivo para la sesión de seguimiento:</strong> En la próxima clase de laboratorio mantendremos una reunión informal con cada grupo (mientras el resto sigue trabajando) para revisar:",
+            subitems: [
+              "<strong>Borrador de índice del manual (A2):</strong> Esquema estructurado de contenidos previstos.",
+              "<strong>Despliegue base operativo («Hola mundo»):</strong> Demostración de que el servicio arranca y es accesible, confirmando su viabilidad técnica.",
+              "<strong>Propuesta de guion para la demo en vivo (A3):</strong> Planteamiento del caso de uso práctico y previsión de recursos técnicos requeridos en el aula (conectividad especial, puertos de red, consumo de RAM/CPU o dependencias específicas)."
+            ]
+          }
+        ],
+        fsBtnText: "Ampliar",
+        showText: "Mostrar",
+        hideText: "Ocultar",
+        modalCloseBtn: "✕ Cerrar",
+        footerText: "UNIVERSITAT JAUME I (UJI) — GRADO EN INGENIERÍA INFORMÁTICA — EI1044 ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS"
+      },
+      EN: {
+        mainTitle: "EI1044 | SysAdmin Toolkit Showcase",
+        subTitle: "Lab session: Team formation, A1 proposal, and project kick-off",
+        switchBtn: "Cambiar a Español",
+        bannerTitle: "Core rules for Task A1",
+        bannerDesc: "Teams of <strong>2 to 4 members</strong>. Strict non-negotiable limit of <strong>9 teams</strong> in the course. Tool assignment strictly ordered by questionnaire submission time.",
+        badgeMilestones: "Milestones",
+        titleRoadmap: "SysAdmin Project Structure",
+        m1Title: "Proposal & Questionnaire",
+        m1Weight: "Non-graded",
+        m1Desc: "Non-graded (3 pts = Green Light). Team and tool registration.",
+        m2Title: "Manual & Gemini Notebook",
+        m2Weight: "Weight: 40%",
+        m2Desc: "Technical PDF + Gemini Notebook link with official primary sources.",
+        m3Title: "Live Showcase",
+        m3Weight: "Weight: 40%",
+        m3Desc: "40' per team in weeks 12 and 13. Practical live demo (\"Show, don't tell\").",
+        m4Title: "Individual Logbook",
+        m4Weight: "Weight: 20%",
+        m4Desc: "Personal logbook with technical summaries and feedback on peers' talks.",
+        badgeTaxonomy: "Taxonomy",
+        titleCategories: "The 8 Corporate IT Categories",
+        catalogFlexNote: "💡 <strong>Custom proposals welcome:</strong> You may propose any other tool not listed here, provided it fits one of the categories and fulfills the technical guidelines.",
+        cat1Title: "1. System & Service Monitoring",
+        cat1Desc: "Real-time metrics, system availability, and operational alerting.",
+        cat2Title: "2. Incident Management (ITSM / Ticketing)",
+        cat2Desc: "Ticket tracking, support workflows, and IT service desk.",
+        cat3Title: "3. Automation & Configuration",
+        cat3Desc: "Centralized configuration state and Infrastructure as Code (IaC).",
+        cat4Title: "4. Asset Inventory & CMDB",
+        cat4Desc: "Hardware tracking, software licenses, and IT asset lifecycle.",
+        cat5Title: "5. Image Deployment & Provisioning",
+        cat5Desc: "Automated OS deployment and bare-metal orchestration.",
+        cat6Title: "6. Remote Admin & Orchestration",
+        cat6Desc: "Distributed container management and administrative dashboards.",
+        cat7Title: "7. Backup, Recovery & Continuity",
+        cat7Desc: "Backup policies, storage snapshots, and disaster recovery.",
+        cat8Title: "8. Cybersecurity (SIEM / Perimeter)",
+        cat8Desc: "Log analytics, network firewalls, and intrusion prevention.",
+        badgeSchedule: "Schedule",
+        titleAgenda: "Session Work Blocks",
+        alertBannerHead: "📖 Mandatory prior reading",
+        alertBannerText: "Before taking decisions or submitting the questionnaire, carefully read the full Task A1 guidelines on the Virtual Classroom.",
+        badgeF1: "Phase 1",
+        t1Head: "1. Presentation & Graded Activity Rules",
+        t1Intro: "Overview of the SysAdmin Toolkit project architecture and deliverables roadmap (A1 to A4).",
+        t1Items: [
+          { html: "Total weight of the project in the final course grade: 25%." },
+          { html: "Strict organizational limit: maximum of 9 teams in the classroom (40-minute slots in weeks 12 and 13)." },
+          { html: "Mandatory philosophy: \"Show, don't tell\" (live operational hands-on demo; reading slides is prohibited)." }
+        ],
+        badgeF2: "Phase 2",
+        t2Head: "2. Team Formation & Technical Selection",
+        t2Intro: "Team assembly and software selection from the corporate catalog.",
+        t2Items: [
+          { html: "Assemble teams of 2 to 4 members (the primary constraint is not exceeding 9 teams)." },
+          { html: "Review the 8 corporate categories and select your preferred software plus a backup choice." },
+          { html: "Verify that the chosen software is technically feasible to deploy and run live in class." }
+        ],
+        badgeF3: "Phase 3",
+        t3Head: "3. Submitting Questionnaire A1 in Moodle",
+        t3Intro: "A single member per team opens Questionnaire A1 in the Virtual Classroom and completes the 3 questions:",
+        t3Items: [
+          { html: "<strong>Question 1 (Members):</strong> Full names of all team members." },
+          { html: "<strong>Question 2 (Tool):</strong> Exact technical name of the selected software solution." },
+          { html: "<strong>Question 3 (Justification, max 200 words):</strong> Why is it relevant? Prior experience? What operational value does it provide?" }
+        ],
+        badgeF4: "Phase 4",
+        t4Head: "4. Instructor Validation & \"Green Light\"",
+        t4Intro: "Formative review and formal confirmation of the submitted proposal.",
+        t4Items: [
+          { html: "The instructor grades the questionnaire with 3 points (1 pt per question) as formal validation." },
+          { html: "Tool collisions are resolved strictly by submission timestamp; affected teams will submit their backup choice." },
+          { html: "While awaiting approval, gather official technical documentation and project repositories." }
+        ],
+        badgeF5: "Phase 5",
+        t5Head: "5. Technical Kick-off & Checkpoint Preparation",
+        t5Intro: "Project kickoff and commitments for the week 5 follow-up checkpoint:",
+        t5Items: [
+          { html: "Once you receive the 3 points, set up your team's shared Gemini Notebook and import primary sources." },
+          { html: "Define the most suitable deployment environment for your case (containers, local virtual machine, cloud, or whatever best fits your tool)." },
+          {
+            html: "<strong>Goal for the follow-up session:</strong> During the next lab class, we will hold an informal check-in meeting with each team (while the rest continue working) to review:",
+            subitems: [
+              "<strong>Technical manual draft outline (A2):</strong> Structured outline of planned contents.",
+              "<strong>Operational base deployment (\"Hello World\"):</strong> Evidence that the service boots and is accessible, demonstrating technical feasibility.",
+              "<strong>Live showcase draft script (A3):</strong> Proposed hands-on use case and forecast of classroom technical requirements (custom networking, open ports, RAM/CPU load, or specific dependencies)."
+            ]
+          }
+        ],
+        fsBtnText: "Expand",
+        showText: "Show",
+        hideText: "Hide",
+        modalCloseBtn: "✕ Close",
+        footerText: "UNIVERSITAT JAUME I (UJI) — COMPUTER ENGINEERING DEGREE — EI1044 SYSTEMS ADMINISTRATION"
+      }
+    };
+
+    function renderCliBullets(containerId, items) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = items.map(item => {
+        let subitemsHtml = '';
+        if (item.subitems && item.subitems.length > 0) {
+          subitemsHtml = `
+            <ul class="cli-subitems">
+              ${item.subitems.map((sub, idx) => `
+                <li>
+                  <span class="cli-sub-icon">${idx + 1}</span>
+                  <span>${sub}</span>
+                </li>
+              `).join('')}
+            </ul>
+          `;
+        }
+        return `
+          <li>
+            <span class="cli-icon">&gt;</span>
+            <div style="flex: 1;">
+              <span>${item.html}</span>
+              ${subitemsHtml}
+            </div>
+          </li>
+        `;
+      }).join('');
+    }
+
+    function togglePhase(phaseNum) {
+      const content = document.getElementById(`content-phase-${phaseNum}`);
+      const btn = document.getElementById(`btn-toggle-${phaseNum}`);
+      const isCollapsed = content.classList.contains('collapsed');
+      const dict = i18n[currentLang];
+
+      if (isCollapsed) {
+        content.classList.remove('collapsed');
+        btn.querySelector('.toggle-icon').innerText = '▲';
+        btn.querySelector('.toggle-text').innerText = dict.hideText;
+      } else {
+        content.classList.add('collapsed');
+        btn.querySelector('.toggle-icon').innerText = '▼';
+        btn.querySelector('.toggle-text').innerText = dict.showText;
+      }
+    }
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'ES') ? 'EN' : 'ES';
+      const dict = i18n[currentLang];
+
+      document.getElementById('header-main-title').innerText = dict.mainTitle;
+      document.getElementById('header-sub-title').innerText = dict.subTitle;
+      document.getElementById('lang-text').innerText = dict.switchBtn;
+      document.getElementById('banner-title').innerText = dict.bannerTitle;
+      document.getElementById('banner-desc').innerHTML = dict.bannerDesc;
+
+      document.getElementById('badge-milestones').innerText = dict.badgeMilestones;
+      document.getElementById('title-roadmap').innerText = dict.titleRoadmap;
+
+      // Milestones and weights
+      document.getElementById('m1-title').innerText = dict.m1Title;
+      document.getElementById('m1-weight').innerText = dict.m1Weight;
+      document.getElementById('m1-desc').innerText = dict.m1Desc;
+
+      document.getElementById('m2-title').innerText = dict.m2Title;
+      document.getElementById('m2-weight').innerText = dict.m2Weight;
+      document.getElementById('m2-desc').innerText = dict.m2Desc;
+
+      document.getElementById('m3-title').innerText = dict.m3Title;
+      document.getElementById('m3-weight').innerText = dict.m3Weight;
+      document.getElementById('m3-desc').innerText = dict.m3Desc;
+
+      document.getElementById('m4-title').innerText = dict.m4Title;
+      document.getElementById('m4-weight').innerText = dict.m4Weight;
+      document.getElementById('m4-desc').innerText = dict.m4Desc;
+
+      document.getElementById('badge-taxonomy').innerText = dict.badgeTaxonomy;
+      document.getElementById('title-categories').innerText = dict.titleCategories;
+      document.getElementById('catalog-flex-note').innerHTML = dict.catalogFlexNote;
+      document.getElementById('cat1-title').innerText = dict.cat1Title;
+      document.getElementById('cat1-desc').innerText = dict.cat1Desc;
+      document.getElementById('cat2-title').innerText = dict.cat2Title;
+      document.getElementById('cat2-desc').innerText = dict.cat2Desc;
+      document.getElementById('cat3-title').innerText = dict.cat3Title;
+      document.getElementById('cat3-desc').innerText = dict.cat3Desc;
+      document.getElementById('cat4-title').innerText = dict.cat4Title;
+      document.getElementById('cat4-desc').innerText = dict.cat4Desc;
+      document.getElementById('cat5-title').innerText = dict.cat5Title;
+      document.getElementById('cat5-desc').innerText = dict.cat5Desc;
+      document.getElementById('cat6-title').innerText = dict.cat6Title;
+      document.getElementById('cat6-desc').innerText = dict.cat6Desc;
+      document.getElementById('cat7-title').innerText = dict.cat7Title;
+      document.getElementById('cat7-desc').innerText = dict.cat7Desc;
+      document.getElementById('cat8-title').innerText = dict.cat8Title;
+      document.getElementById('cat8-desc').innerText = dict.cat8Desc;
+
+      document.getElementById('badge-schedule').innerText = dict.badgeSchedule;
+      document.getElementById('title-agenda').innerText = dict.titleAgenda;
+      document.getElementById('alert-banner-head').innerText = dict.alertBannerHead;
+      document.getElementById('alert-banner-text').innerText = dict.alertBannerText;
+
+      for (let i = 1; i <= 5; i++) {
+        document.getElementById(`badge-f${i}`).innerText = dict[`badgeF${i}`];
+        document.getElementById(`t${i}-header-title`).innerText = dict[`t${i}Head`];
+        document.getElementById(`t${i}-intro`).innerText = dict[`t${i}Intro`];
+        renderCliBullets(`t${i}-body`, dict[`t${i}Items`]);
+
+        const content = document.getElementById(`content-phase-${i}`);
+        const btn = document.getElementById(`btn-toggle-${i}`);
+        const isCollapsed = content.classList.contains('collapsed');
+        btn.querySelector('.toggle-text').innerText = isCollapsed ? dict.showText : dict.hideText;
+      }
+
+      document.querySelectorAll('.fs-text').forEach(el => el.innerText = dict.fsBtnText);
+      document.getElementById('modal-btn-close').innerText = dict.modalCloseBtn;
+      document.getElementById('footer-text').innerText = dict.footerText;
+    }
+
+    function expandPhase(phaseNum) {
+      const dict = i18n[currentLang];
+      const title = dict[`t${phaseNum}Head`];
+      const intro = dict[`t${phaseNum}Intro`];
+      const items = dict[`t${phaseNum}Items`];
+
+      document.getElementById('modal-title-text').innerText = `${dict[`badgeF${phaseNum}`]} — ${title}`;
+      document.getElementById('modal-intro-text').innerText = intro;
+      renderCliBullets('modal-list', items);
+
+      document.getElementById('modal-overlay').classList.add('active');
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'modal-overlay') {
+        document.getElementById('modal-overlay').classList.remove('active');
+      }
+    }
+
+    function closeModalDirect() {
+      document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModalDirect();
+    });
+  </script>
+</body>
+</html>

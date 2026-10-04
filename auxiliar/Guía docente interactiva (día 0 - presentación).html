@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EI1044 · Administración de Sistemas Informáticos · Guía docente</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        bYellow: '#FFE600',
+                        bCyan: '#00F0FF',
+                        bPink: '#FF007A',
+                        bLime: '#00FF66',
+                        bOrange: '#FF6B00',
+                        bPurple: '#B800FF',
+                        bDark: '#0D0D0D',
+                        bCard: '#FFFFFF',
+                    },
+                    boxShadow: {
+                        'brutal': '5px 5px 0px 0px #0D0D0D',
+                        'brutal-lg': '8px 8px 0px 0px #0D0D0D',
+                        'brutal-xl': '12px 12px 0px 0px #0D0D0D',
+                        'brutal-sm': '3px 3px 0px 0px #0D0D0D',
+                        'brutal-white': '5px 5px 0px 0px #FFFFFF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F4F0EA;
+            color: #0D0D0D;
+            font-family: 'Space Grotesk', sans-serif;
+            background-image: radial-gradient(#0d0d0d 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .marquee-track {
+            display: flex;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .marquee-content {
+            display: flex;
+            animation: marquee 25s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .brutal-border {
+            border: 3.5px solid #0D0D0D;
+        }
+
+        .brutal-btn {
+            transition: all 0.15s ease-in-out;
+            border: 3.5px solid #0D0D0D;
+        }
+        .brutal-btn:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 7px 7px 0px 0px #0D0D0D;
+        }
+        .brutal-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #0D0D0D;
+        }
+
+        .tab-btn.active {
+            background-color: #0D0D0D;
+            color: #FFE600;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0D0D0D;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FFE600;
+            border: 3px solid #0D0D0D;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-bPink selection:text-white">
+
+    <!-- MARQUEE HEADER -->
+    <div class="bg-bYellow brutal-border border-b-4 py-2 font-mono font-bold text-sm uppercase overflow-hidden tracking-wider z-50 sticky top-0">
+        <div class="marquee-track">
+            <div class="marquee-content flex gap-8">
+                <span>⚡ EI1044 - ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS ⚡</span>
+                <span>• GUÍA DOCENTE OFICIAL</span>
+                <span>• EVALUACIÓN CONTINUA: 50%</span>
+                <span>• PRÁCTICAS: 20%</span>
+                <span>• EXAMEN FINAL: 30%</span>
+                <span>• NOTION PLAN PRO GRATUITO CON CUENTA UJI</span>
+                <span>⚡ EI1044 - ADMINISTRACIÓN DE SISTEMAS INFORMÁTICOS ⚡</span>
+                <span>• GUÍA DOCENTE OFICIAL</span>
+                <span>• EVALUACIÓN CONTINUA: 50%</span>
+                <span>• PRÁCTICAS: 20%</span>
+                <span>• EXAMEN FINAL: 30%</span>
+                <span>• NOTION PLAN PRO GRATUITO CON CUENTA UJI</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN WRAPPER -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow flex flex-col gap-10">
+
+        <!-- HERO SECTION -->
+        <header class="bg-bCard brutal-border shadow-brutal-xl p-6 sm:p-10 relative overflow-hidden">
+            <div class="flex flex-col gap-4">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="bg-bYellow px-3 py-1 text-xs font-mono font-bold brutal-border uppercase shadow-brutal-sm">
+                        Código: EI1044
+                    </span>
+                    <span class="bg-bCyan px-3 py-1 text-xs font-mono font-bold brutal-border uppercase shadow-brutal-sm">
+                        Guía Docente
+                    </span>
+                    <span class="bg-bLime px-3 py-1 text-xs font-mono font-bold brutal-border uppercase shadow-brutal-sm">
+                        Presentación Primer Día
+                    </span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight uppercase leading-none mt-2">
+                    ADMINISTRACIÓN DE<br/>
+                    <span class="bg-bYellow px-2 brutal-border inline-block shadow-brutal my-1">SISTEMAS INFORMÁTICOS</span>
+                </h1>
+
+                <p class="text-base sm:text-lg font-medium max-w-3xl mt-2 leading-relaxed">
+                    Proporcionar al estudiante los conocimientos necesarios para la gestión de un servicio de informática de una empresa desde la perspectiva del responsable de la dirección de dicho servicio.
+                </p>
+
+                <!-- Action Navigation Bar -->
+                <div class="flex flex-wrap gap-2.5 mt-4">
+                    <button type="button" onclick="scrollToSection('justificacion')" class="brutal-btn bg-bCyan font-bold px-3.5 py-2 shadow-brutal text-xs flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-compass"></i> 1. Justificación
+                    </button>
+                    <button type="button" onclick="scrollToSection('prerrequisitos')" class="brutal-btn bg-bLime font-bold px-3.5 py-2 shadow-brutal text-xs flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-check-double"></i> 2. Prerrequisitos
+                    </button>
+                    <button type="button" onclick="scrollToSection('temario')" class="brutal-btn bg-bYellow font-bold px-3.5 py-2 shadow-brutal text-xs flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-layer-group"></i> 3. Contenidos & Temario
+                    </button>
+                    <button type="button" onclick="scrollToSection('metodologia')" class="brutal-btn bg-white font-bold px-3.5 py-2 shadow-brutal text-xs flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-graduation-cap"></i> 4. Metodología & SW
+                    </button>
+                    <button type="button" onclick="scrollToSection('evaluacion')" class="brutal-btn bg-bPink text-white font-bold px-3.5 py-2 shadow-brutal text-xs flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-calculator"></i> 5. Evaluación (Simulador)
+                    </button>
+                    <button type="button" onclick="scrollToSection('horas')" class="brutal-btn bg-bOrange text-black font-bold px-3.5 py-2 shadow-brutal text-xs flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-clock"></i> 6. Horas Presenciales
+                    </button>
+                    <button type="button" onclick="scrollToSection('competencias')" class="brutal-btn bg-bPurple text-white font-bold px-3.5 py-2 shadow-brutal text-xs flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-award"></i> 7. Competencias & RA
+                    </button>
+                    <button type="button" onclick="scrollToSection('bibliografia')" class="brutal-btn bg-gray-200 font-bold px-3.5 py-2 shadow-brutal text-xs flex items-center gap-2 cursor-pointer">
+                        <i class="fa-solid fa-book"></i> 8. Bibliografía
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- QUICK STATS COUNTER -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-bYellow p-4 brutal-border shadow-brutal flex flex-col justify-between">
+                <span class="font-mono text-xs font-bold uppercase opacity-80">Evaluación Continua</span>
+                <div class="text-3xl sm:text-4xl font-black mt-2">50%</div>
+                <span class="text-[11px] font-bold mt-1">Entregables + Kit SysAdmin</span>
+            </div>
+            <div class="bg-bLime p-4 brutal-border shadow-brutal flex flex-col justify-between">
+                <span class="font-mono text-xs font-bold uppercase opacity-80">Prácticas</span>
+                <div class="text-3xl sm:text-4xl font-black mt-2">20%</div>
+                <span class="text-[11px] font-bold mt-1">Laboratorio + Kit SysAdmin</span>
+            </div>
+            <div class="bg-bCyan p-4 brutal-border shadow-brutal flex flex-col justify-between">
+                <span class="font-mono text-xs font-bold uppercase opacity-80">Prueba Final</span>
+                <div class="text-3xl sm:text-4xl font-black mt-2">30%</div>
+                <span class="text-[11px] font-bold mt-1">Examen Individual</span>
+            </div>
+            <div class="bg-bOrange p-4 brutal-border shadow-brutal flex flex-col justify-between text-black">
+                <span class="font-mono text-xs font-bold uppercase">Nota Mínima</span>
+                <div class="text-3xl sm:text-4xl font-black mt-2">0.0</div>
+                <span class="text-[11px] font-bold mt-1">Sin mínima por bloque</span>
+            </div>
+        </section>
+
+        <!-- SECTION 2: JUSTIFICACIÓN Y OBJETIVO -->
+        <section id="justificacion" class="bg-white p-6 sm:p-8 brutal-border shadow-brutal-lg">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="w-10 h-10 bg-bYellow brutal-border flex items-center justify-center font-black text-xl shadow-brutal-sm shrink-0">01</span>
+                <h2 class="text-2xl sm:text-3xl font-black uppercase">Justificación de la Asignatura</h2>
+            </div>
+            <div class="space-y-4 text-base sm:text-lg leading-relaxed">
+                <p>
+                    El objetivo de la asignatura es proporcionar al estudiante los conocimientos necesarios para la <strong>gestión de un servicio de informática de una empresa</strong>. Todo ello desde la perspectiva del responsable de la dirección de dicho servicio.
+                </p>
+                <div class="bg-bYellow/30 brutal-border p-4 my-2 border-l-8 border-l-bDark font-mono text-sm">
+                    <strong>Misión Clave:</strong> "Alinear el servicio TI con la estrategia de negocio".
+                </div>
+                <p class="text-sm sm:text-base text-gray-800">
+                    Las tecnologías de la información (TI) han ido con el paso de los años ganando un mayor peso en las organizaciones. Es por ello que el servicio o departamento de informática ha de ser gestionado de una manera eficiente. Este servicio debe realizar funciones como la <strong>gestión de configuraciones</strong>, <strong>atención y formación de usuarios</strong>, <strong>gestión de incidencias y problemas</strong>, <strong>gestión de versiones de software</strong>, etc.
+                </p>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-bYellow font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CONOCIMIENTOS PREVIOS RECOMENDABLES -->
+        <section id="prerrequisitos" class="bg-bCyan p-6 sm:p-8 brutal-border shadow-brutal-lg">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="w-10 h-10 bg-white brutal-border flex items-center justify-center font-black text-xl shadow-brutal-sm shrink-0">02</span>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-black uppercase">Conocimientos Previos Recomendables</h2>
+                    <p class="text-xs font-mono text-gray-800">Para cursar la asignatura "Administración de sistemas informáticos" se recomienda haber cursado previamente:</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6" id="prereq-container">
+                <label class="flex items-start gap-3 p-4 bg-white brutal-border cursor-pointer hover:bg-yellow-100 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-black mt-1 shrink-0" onchange="updatePrereqScore()">
+                    <div>
+                        <span class="font-mono font-bold text-sm block">EI1018</span>
+                        <span class="text-xs font-bold">Administración de Sistemas Operativos</span>
+                    </div>
+                </label>
+
+                <label class="flex items-start gap-3 p-4 bg-white brutal-border cursor-pointer hover:bg-yellow-100 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-black mt-1 shrink-0" onchange="updatePrereqScore()">
+                    <div>
+                        <span class="font-mono font-bold text-sm block">EI1019</span>
+                        <span class="text-xs font-bold">Administración y Configuración de Redes</span>
+                    </div>
+                </label>
+
+                <label class="flex items-start gap-3 p-4 bg-white brutal-border cursor-pointer hover:bg-yellow-100 transition-colors">
+                    <input type="checkbox" class="w-5 h-5 accent-black mt-1 shrink-0" onchange="updatePrereqScore()">
+                    <div>
+                        <span class="font-mono font-bold text-sm block">EI1034</span>
+                        <span class="text-xs font-bold">Seguridad Informática</span>
+                    </div>
+                </label>
+            </div>
+
+            <div class="mt-4 p-3 bg-white brutal-border text-center font-mono text-xs font-bold" id="prereq-status">
+                ⚡ Haz clic en las casillas para verificar tu nivel de preparación inicial
+            </div>
+            <div class="flex justify-end mt-4">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-white font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 5 & 6: CONTENIDOS Y TEMARIO -->
+        <section id="temario" class="bg-white p-6 sm:p-8 brutal-border shadow-brutal-xl">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <span class="bg-bYellow text-black font-mono text-xs font-bold px-3 py-1 brutal-border shadow-brutal-sm uppercase inline-block mb-3">Bloque de Contenidos</span>
+                    <h2 class="text-2xl sm:text-4xl font-black uppercase">Contenidos & Temario Oficial</h2>
+                </div>
+                <!-- Interactive Filter Buttons -->
+                <div class="flex flex-wrap gap-2" id="syllabus-filter">
+                    <button onclick="filterSyllabus('all')" class="tab-btn active px-3 py-1.5 font-mono text-xs font-bold brutal-border">Todos</button>
+                    <button onclick="filterSyllabus('teoria')" class="tab-btn bg-white px-3 py-1.5 font-mono text-xs font-bold brutal-border">Teoría (1-5)</button>
+                    <button onclick="filterSyllabus('problemas')" class="tab-btn bg-white px-3 py-1.5 font-mono text-xs font-bold brutal-border">Problemas</button>
+                    <button onclick="filterSyllabus('laboratorio')" class="tab-btn bg-white px-3 py-1.5 font-mono text-xs font-bold brutal-border">Laboratorio</button>
+                </div>
+            </div>
+
+            <!-- General Contents Summary Box -->
+            <div class="bg-gray-100 p-4 brutal-border mb-6">
+                <h3 class="font-mono font-bold text-xs uppercase mb-2 text-gray-700">📌 Contenidos Generales de la Asignatura:</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs font-bold">
+                    <div class="bg-white p-2.5 brutal-border flex items-start gap-1.5">
+                        <span class="shrink-0">•</span>
+                        <span>Diseño y adquisición de la infraestructura SW.</span>
+                    </div>
+                    <div class="bg-white p-2.5 brutal-border flex items-start gap-1.5">
+                        <span class="shrink-0">•</span>
+                        <span>Planificación y dirección de admin y mantenimiento.</span>
+                    </div>
+                    <div class="bg-white p-2.5 brutal-border flex items-start gap-1.5">
+                        <span class="shrink-0">•</span>
+                        <span>Formación y atención al usuario.</span>
+                    </div>
+                    <div class="bg-white p-2.5 brutal-border flex items-start gap-1.5">
+                        <span class="shrink-0">•</span>
+                        <span>Planificación y admin de la seguridad informática.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid of Syllabus Topics -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="syllabus-grid">
+
+                <!-- Tema 1 -->
+                <div class="topic-card brutal-border p-5 bg-bYellow/20 flex flex-col justify-between" data-type="teoria problemas">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="bg-bYellow font-mono font-extrabold text-xs px-2.5 py-1 brutal-border shadow-brutal-sm">TEMA 1</span>
+                            <span class="text-[10px] font-mono bg-white px-2 py-0.5 brutal-border font-bold">Teoría + Problemas</span>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-2">Introducción. El servicio de informática</h3>
+                        <ul class="text-xs space-y-1.5 text-gray-800 list-disc list-outside pl-4 mb-4">
+                            <li>Organización y servicios de un departamento TIC.</li>
+                            <li>La administración de sistemas.</li>
+                            <li>Adquisición y mantenimiento de infraestructura hardware y software.</li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 border-t-2 border-black font-mono text-[11px] flex justify-between items-center">
+                        <span class="font-bold">Ev. Continua: 5%</span>
+                        <span class="bg-bYellow px-1.5 py-0.5 border border-black font-bold">Individual</span>
+                    </div>
+                </div>
+
+                <!-- Tema 2 -->
+                <div class="topic-card brutal-border p-5 bg-bLime/20 flex flex-col justify-between" data-type="teoria problemas laboratorio">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="bg-bLime font-mono font-extrabold text-xs px-2.5 py-1 brutal-border shadow-brutal-sm">TEMA 2</span>
+                            <span class="text-[10px] font-mono bg-white px-2 py-0.5 brutal-border font-bold">Teoría + Prob + Lab</span>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-2">Automatización de tareas y contenedores</h3>
+                        <ul class="text-xs space-y-1.5 text-gray-800 list-disc list-outside pl-4 mb-4">
+                            <li>Automatización de tareas con PowerShell.</li>
+                            <li>Despliegue y gestión de contenedores.</li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 border-t-2 border-black font-mono text-[11px] flex justify-between items-center">
+                        <span class="font-bold">Prácticas: 10%</span>
+                        <span class="bg-bLime px-1.5 py-0.5 border border-black font-bold">Individual</span>
+                    </div>
+                </div>
+
+                <!-- Tema 3 -->
+                <div class="topic-card brutal-border p-5 bg-bCyan/20 flex flex-col justify-between" data-type="teoria problemas">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="bg-bCyan font-mono font-extrabold text-xs px-2.5 py-1 brutal-border shadow-brutal-sm">TEMA 3</span>
+                            <span class="text-[10px] font-mono bg-white px-2 py-0.5 brutal-border font-bold">Teoría + Problemas</span>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-2">Explotación de sistemas informáticos</h3>
+                        <ul class="text-xs space-y-1.5 text-gray-800 list-disc list-outside pl-4 mb-4">
+                            <li>Evaluación del rendimiento de sistemas.</li>
+                            <li>Monitorización de sistemas.</li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 border-t-2 border-black font-mono text-[11px] flex justify-between items-center">
+                        <span class="font-bold">Ev. Continua: 10%</span>
+                        <span class="bg-bCyan px-1.5 py-0.5 border border-black font-bold">Individual</span>
+                    </div>
+                </div>
+
+                <!-- Tema 4 -->
+                <div class="topic-card brutal-border p-5 bg-bPink/20 flex flex-col justify-between" data-type="teoria laboratorio">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="bg-bPink text-white font-mono font-extrabold text-xs px-2.5 py-1 brutal-border shadow-brutal-sm">TEMA 4</span>
+                            <span class="text-[10px] font-mono bg-white text-black px-2 py-0.5 brutal-border font-bold">Teoría + Lab</span>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-2">Seguridad y administración de TI</h3>
+                        <ul class="text-xs space-y-1.5 text-gray-800 list-disc list-outside pl-4 mb-4">
+                            <li>Principios de seguridad.</li>
+                            <li>El factor humano en la seguridad. Formación a usuarios.</li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 border-t-2 border-black font-mono text-[11px] flex justify-between items-center">
+                        <span class="font-bold">Ev. Continua: 10%</span>
+                        <span class="bg-bPink text-white px-1.5 py-0.5 border border-black font-bold">Individual</span>
+                    </div>
+                </div>
+
+                <!-- Tema 5 -->
+                <div class="topic-card brutal-border p-5 bg-bOrange/20 flex flex-col justify-between" data-type="teoria laboratorio">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="bg-bOrange text-white font-mono font-extrabold text-xs px-2.5 py-1 brutal-border shadow-brutal-sm">TEMA 5</span>
+                            <span class="text-[10px] font-mono bg-white text-black px-2 py-0.5 brutal-border font-bold">Teoría + Lab</span>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-2">Metodologías para la gestión de servicios</h3>
+                        <ul class="text-xs space-y-1.5 text-gray-800 list-disc list-outside pl-4 mb-4">
+                            <li>Buenas prácticas para la gestión de TI.</li>
+                            <li>Sistema de Gestión de Servicios de TI. ISO/IEC 20000.</li>
+                            <li>Procesos de gestión.</li>
+                        </ul>
+                    </div>
+                    <div class="pt-3 border-t-2 border-black font-mono text-[11px] flex justify-between items-center">
+                        <span class="font-bold">Ev. Continua: 10%</span>
+                        <span class="bg-bOrange text-white px-1.5 py-0.5 border border-black font-bold">Individual</span>
+                    </div>
+                </div>
+
+                <!-- Kit de Herramientas SysAdmin -->
+                <div class="topic-card brutal-border p-5 bg-bPurple/20 flex flex-col justify-between" data-type="laboratorio">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="bg-bPurple text-white font-mono font-extrabold text-xs px-2.5 py-1 brutal-border shadow-brutal-sm">TRABAJO</span>
+                            <span class="text-[10px] font-mono bg-white text-black px-2 py-0.5 brutal-border font-bold">Grupal + Exposición</span>
+                        </div>
+                        <h3 class="text-lg font-bold uppercase mb-2">Kit de herramientas del SysAdmin</h3>
+                        <p class="text-xs text-gray-800 mb-4">
+                            Trabajo grupal con exposición pública. Integra actividades evaluables en dos bloques distintos.
+                        </p>
+                    </div>
+                    <div class="pt-3 border-t-2 border-black font-mono text-[11px] flex justify-between items-center">
+                        <span class="font-bold">15% Ev. Cont + 10% Prácticas</span>
+                        <span class="bg-bPurple text-white px-1.5 py-0.5 border border-black font-bold">25% TOTAL</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="flex justify-end mt-6">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-bYellow font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 8 & 12: METODOLOGÍA DIDÁCTICA Y SOFTWARE -->
+        <section id="metodologia" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Metodología Didáctica -->
+                <div class="bg-white p-6 sm:p-8 brutal-border shadow-brutal-lg flex flex-col justify-between">
+                    <div>
+                        <span class="bg-bLime font-mono text-xs font-bold px-3 py-1 brutal-border shadow-brutal-sm uppercase inline-block mb-3">Sección 8</span>
+                        <h2 class="text-2xl font-black uppercase mb-4">Metodología Didáctica</h2>
+                        <div class="space-y-3 text-xs sm:text-sm">
+                            <div class="p-3 bg-yellow-50 brutal-border">
+                                <strong class="font-bold uppercase text-black block mb-0.5">💡 Clases Teóricas:</strong>
+                                Se dedicarán a la exposición de conceptos por parte del profesor.
+                            </div>
+                            <div class="p-3 bg-green-50 brutal-border">
+                                <strong class="font-bold uppercase text-black block mb-0.5">🧪 Sesiones de Laboratorio:</strong>
+                                Se plantearán y desarrollarán trabajos prácticos que deberán realizar los estudiantes de manera autónoma.
+                            </div>
+                            <div class="p-3 bg-cyan-50 brutal-border">
+                                <strong class="font-bold uppercase text-black block mb-0.5">🗣️ Horas de Seminario:</strong>
+                                Se dedicarán a trabajar temas concretos relacionados tanto con la materia de la asignatura como con el mundo empresarial.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Software Específico -->
+                <div class="bg-bDark text-white p-6 sm:p-8 brutal-border shadow-brutal-lg flex flex-col justify-between">
+                    <div>
+                        <span class="bg-bYellow text-black font-mono text-xs font-bold px-3 py-1 brutal-border shadow-brutal-sm uppercase inline-block mb-3">Sección 12</span>
+                        <h2 class="text-2xl font-black uppercase text-bYellow mb-4">Software Específico</h2>
+                        <div class="space-y-4 text-xs sm:text-sm">
+                            <div class="p-3 bg-gray-900 brutal-border border-gray-700">
+                                <strong class="text-bLime font-mono uppercase block mb-1">💻 Comandos y Herramientas SO:</strong>
+                                En las prácticas de la asignatura se utilizarán herramientas y comandos de administración de sistemas operativos.
+                            </div>
+                            <div class="p-3 bg-gray-900 brutal-border border-gray-700">
+                                <strong class="text-bCyan font-mono uppercase block mb-1">📝 Plataforma Notion:</strong>
+                                Se utilizará <a href="https://www.notion.com/es-es" target="_blank" class="underline text-bYellow hover:text-white font-bold">Notion</a> como herramienta de gestión del conocimiento en las actividades de los temas 1, 4 y 5.
+                                <p class="text-gray-300 text-[11px] mt-1">El alumnado tiene acceso ilimitado al plan Pro para educación utilizando sus cuentas de la UJI.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-white font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 10.2: CRITERIOS DE SUPERACIÓN & CALCULADORA INTERACTIVA -->
+        <section id="evaluacion" class="bg-bYellow p-6 sm:p-8 brutal-border shadow-brutal-xl">
+            <div class="mb-6">
+                <span class="bg-black text-white font-mono text-xs font-bold px-3 py-1 brutal-border shadow-brutal-sm uppercase inline-block mb-3">Sección 10.2 & Evaluaciones</span>
+                <h2 class="text-3xl sm:text-5xl font-black uppercase text-black">Criterios de Superación</h2>
+                <p class="text-black text-xs sm:text-sm font-medium mt-3">
+                    La nota final de la asignatura se obtiene a partir de tres elementos, para los que <strong>no se establece calificación mínima</strong>:
+                    Evaluación continua (50%), Evaluación de prácticas (20%) y Examen final (30%).
+                </p>
+            </div>
+
+            <!-- Grade Simulator Widget -->
+            <div class="bg-white p-5 sm:p-8 brutal-border shadow-brutal-lg mb-8">
+                <div class="flex items-center justify-between border-b-4 border-black pb-3 mb-6">
+                    <h3 class="text-xl sm:text-2xl font-black uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-calculator text-bPink"></i> Simulador Interactivo de Calificación
+                    </h3>
+                    <span class="bg-bLime px-3 py-1 font-mono font-bold text-xs brutal-border">Fórmula Oficial GD</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Column 1: Ev Continua (50%) -->
+                    <div class="space-y-3 bg-yellow-50 p-4 brutal-border">
+                        <h4 class="font-bold text-xs uppercase border-b-2 border-black pb-1 flex justify-between">
+                            <span>Ev. Continua</span>
+                            <span class="font-mono text-bPink font-bold">50% Total</span>
+                        </h4>
+
+                        <div>
+                            <label class="text-[11px] font-mono font-bold flex justify-between">
+                                <span>Tema 1 (Ind)</span>
+                                <span id="val-t1">5.0</span>
+                            </label>
+                            <input type="range" min="0" max="10" step="0.5" value="5" id="slider-t1" oninput="calcGrade()" class="w-full accent-black">
+                            <span class="text-[10px] text-gray-500 font-mono">Peso: 5%</span>
+                        </div>
+
+                        <div>
+                            <label class="text-[11px] font-mono font-bold flex justify-between">
+                                <span>Tema 3 (Ind)</span>
+                                <span id="val-t3">5.0</span>
+                            </label>
+                            <input type="range" min="0" max="10" step="0.5" value="5" id="slider-t3" oninput="calcGrade()" class="w-full accent-black">
+                            <span class="text-[10px] text-gray-500 font-mono">Peso: 10%</span>
+                        </div>
+
+                        <div>
+                            <label class="text-[11px] font-mono font-bold flex justify-between">
+                                <span>Tema 4 (Ind)</span>
+                                <span id="val-t4">5.0</span>
+                            </label>
+                            <input type="range" min="0" max="10" step="0.5" value="5" id="slider-t4" oninput="calcGrade()" class="w-full accent-black">
+                            <span class="text-[10px] text-gray-500 font-mono">Peso: 10%</span>
+                        </div>
+
+                        <div>
+                            <label class="text-[11px] font-mono font-bold flex justify-between">
+                                <span>Tema 5 (Ind)</span>
+                                <span id="val-t5">5.0</span>
+                            </label>
+                            <input type="range" min="0" max="10" step="0.5" value="5" id="slider-t5" oninput="calcGrade()" class="w-full accent-black">
+                            <span class="text-[10px] text-gray-500 font-mono">Peso: 10%</span>
+                        </div>
+
+                        <div>
+                            <label class="text-[11px] font-mono font-bold flex justify-between">
+                                <span>Kit SysAdmin (Ev. Cont)</span>
+                                <span id="val-kit-ec">5.0</span>
+                            </label>
+                            <input type="range" min="0" max="10" step="0.5" value="5" id="slider-kit-ec" oninput="calcGrade()" class="w-full accent-black">
+                            <span class="text-[10px] text-gray-500 font-mono">Peso: 15%</span>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: Prácticas (20%) -->
+                    <div class="space-y-3 bg-green-50 p-4 brutal-border">
+                        <h4 class="font-bold text-xs uppercase border-b-2 border-black pb-1 flex justify-between">
+                            <span>Prácticas</span>
+                            <span class="font-mono text-green-700 font-bold">20% Total</span>
+                        </h4>
+
+                        <div>
+                            <label class="text-[11px] font-mono font-bold flex justify-between">
+                                <span>Tema 2 (Ind)</span>
+                                <span id="val-t2">5.0</span>
+                            </label>
+                            <input type="range" min="0" max="10" step="0.5" value="5" id="slider-t2" oninput="calcGrade()" class="w-full accent-black">
+                            <span class="text-[10px] text-gray-500 font-mono">Peso: 10%</span>
+                        </div>
+
+                        <div>
+                            <label class="text-[11px] font-mono font-bold flex justify-between">
+                                <span>Kit SysAdmin (Lab)</span>
+                                <span id="val-kit-lab">5.0</span>
+                            </label>
+                            <input type="range" min="0" max="10" step="0.5" value="5" id="slider-kit-lab" oninput="calcGrade()" class="w-full accent-black">
+                            <span class="text-[10px] text-gray-500 font-mono">Peso: 10%</span>
+                        </div>
+
+                        <div class="p-2.5 bg-white brutal-border text-[11px] text-gray-700 mt-6">
+                            📌 <strong>Nota:</strong> El Kit de herramientas del SysAdmin puntúa 15% en Ev. Continua y 10% en Prácticas.
+                        </div>
+                    </div>
+
+                    <!-- Column 3: Prueba final (30%) & Result -->
+                    <div class="space-y-3 bg-cyan-50 p-4 brutal-border flex flex-col justify-between">
+                        <div>
+                            <h4 class="font-bold text-xs uppercase border-b-2 border-black pb-1 flex justify-between">
+                                <span>Prueba Final</span>
+                                <span class="font-mono text-blue-700 font-bold">30% Total</span>
+                            </h4>
+
+                            <div class="mt-3">
+                                <label class="text-[11px] font-mono font-bold flex justify-between">
+                                    <span>Examen Final (Ind)</span>
+                                    <span id="val-exam">5.0</span>
+                                </label>
+                                <input type="range" min="0" max="10" step="0.5" value="5" id="slider-exam" oninput="calcGrade()" class="w-full accent-black">
+                                <span class="text-[10px] text-gray-500 font-mono">Peso: 30%</span>
+                            </div>
+                        </div>
+
+                        <!-- Result Display Box -->
+                        <div class="p-4 bg-bDark text-white brutal-border text-center mt-4">
+                            <span class="font-mono text-[10px] uppercase block text-gray-400">Nota Final Calculada</span>
+                            <span class="text-4xl font-black font-mono text-bYellow my-1 block" id="final-score">5.0</span>
+                            <span class="inline-block px-3 py-1 font-mono font-bold text-xs uppercase brutal-border text-black" id="score-badge">
+                                APROBADO
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Official Evaluation Table from GD -->
+            <div class="overflow-x-auto bg-white brutal-border">
+                <table class="w-full text-left border-collapse text-xs font-mono">
+                    <thead>
+                        <tr class="bg-bDark text-white uppercase border-b-2 border-black">
+                            <th class="p-3">Actividad</th>
+                            <th class="p-3">Ámbito</th>
+                            <th class="p-3">Tipo</th>
+                            <th class="p-3 text-center">% Porcentaje</th>
+                            <th class="p-3">Recuperable</th>
+                            <th class="p-3">RA</th>
+                            <th class="p-3">Comp. G/E</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y border-black">
+                        <tr class="hover:bg-yellow-50">
+                            <td class="p-2.5 font-bold">Tema 1</td>
+                            <td class="p-2.5">Ev. continua</td>
+                            <td class="p-2.5">Individual</td>
+                            <td class="p-2.5 text-center font-bold">5%</td>
+                            <td class="p-2.5 text-green-700 font-bold">Sí (ambas convocatorias)</td>
+                            <td class="p-2.5">RA02</td>
+                            <td class="p-2.5">IT01</td>
+                        </tr>
+                        <tr class="hover:bg-yellow-50">
+                            <td class="p-2.5 font-bold">Tema 2</td>
+                            <td class="p-2.5">Prácticas</td>
+                            <td class="p-2.5">Individual</td>
+                            <td class="p-2.5 text-center font-bold">10%</td>
+                            <td class="p-2.5 text-green-700 font-bold">Sí (ambas convocatorias)</td>
+                            <td class="p-2.5">RA05</td>
+                            <td class="p-2.5">IT02</td>
+                        </tr>
+                        <tr class="hover:bg-yellow-50">
+                            <td class="p-2.5 font-bold">Tema 3</td>
+                            <td class="p-2.5">Ev. continua</td>
+                            <td class="p-2.5">Individual</td>
+                            <td class="p-2.5 text-center font-bold">10%</td>
+                            <td class="p-2.5 text-green-700 font-bold">Sí (ambas convocatorias)</td>
+                            <td class="p-2.5">RA03</td>
+                            <td class="p-2.5">IT05</td>
+                        </tr>
+                        <tr class="hover:bg-yellow-50">
+                            <td class="p-2.5 font-bold">Tema 4</td>
+                            <td class="p-2.5">Ev. continua</td>
+                            <td class="p-2.5">Individual</td>
+                            <td class="p-2.5 text-center font-bold">10%</td>
+                            <td class="p-2.5 text-green-700 font-bold">Sí (ambas convocatorias)</td>
+                            <td class="p-2.5">RA01, RA04, RA06</td>
+                            <td class="p-2.5">IT01, IT07</td>
+                        </tr>
+                        <tr class="hover:bg-yellow-50">
+                            <td class="p-2.5 font-bold">Tema 5</td>
+                            <td class="p-2.5">Ev. continua</td>
+                            <td class="p-2.5">Individual</td>
+                            <td class="p-2.5 text-center font-bold">10%</td>
+                            <td class="p-2.5 text-green-700 font-bold">Sí (ambas convocatorias)</td>
+                            <td class="p-2.5">RA05</td>
+                            <td class="p-2.5">IT01, IT07</td>
+                        </tr>
+                        <tr class="bg-purple-50 hover:bg-purple-100 font-bold">
+                            <td class="p-2.5">Kit de herramientas del SysAdmin</td>
+                            <td class="p-2.5">Ev. continua / Laboratorio</td>
+                            <td class="p-2.5">Grupal, con exposición</td>
+                            <td class="p-2.5 text-center">15% Ev. cont. / 10% Prácticas (25% Total)</td>
+                            <td class="p-2.5 text-red-600">No, dada su naturaleza grupal con presentación pública</td>
+                            <td class="p-2.5">RA02, RA05</td>
+                            <td class="p-2.5">IT01, IT02, IT05</td>
+                        </tr>
+                        <tr class="bg-cyan-50 hover:bg-cyan-100 font-bold">
+                            <td class="p-2.5">Prueba final</td>
+                            <td class="p-2.5">-</td>
+                            <td class="p-2.5">Individual</td>
+                            <td class="p-2.5 text-center">30%</td>
+                            <td class="p-2.5 text-green-700">Sí (2ª convocatoria)</td>
+                            <td class="p-2.5">RA01-RA06</td>
+                            <td class="p-2.5">IT01, IT02, IT05, IT07</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Additional Rules Notes -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 text-xs font-mono">
+                <div class="p-4 bg-white brutal-border">
+                    <strong class="text-bDark block uppercase mb-1">📋 Consideración de Presentado:</strong>
+                    Se considerará que un estudiante se ha presentado a la asignatura cuando asista al examen final o realice el 25% de las actividades evaluables.
+                </div>
+                <div class="p-4 bg-white brutal-border">
+                    <strong class="text-bDark block uppercase mb-1">💾 Conservación de Notas:</strong>
+                    Las notas de los trabajos y prácticas realizadas durante la primera convocatoria ordinaria se guardarán para las siguientes convocatorias del mismo curso, pero no para cursos sucesivos.
+                </div>
+            </div>
+            <div class="flex justify-end mt-6">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-white text-black font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+        <!-- INTEGRIDAD ACADÉMICA Y NORMATIVA DE FRAUDE -->
+        <section class="bg-bPink text-white p-6 sm:p-8 brutal-border shadow-brutal-xl">
+            <div class="flex items-center gap-3 mb-4">
+                <i class="fa-solid fa-triangle-exclamation text-3xl text-bYellow"></i>
+                <h2 class="text-2xl sm:text-3xl font-black uppercase text-white">Integridad Académica</h2>
+            </div>
+
+            <p class="text-xs sm:text-sm leading-relaxed mb-4">
+                Es condición indispensable para el estudiantado el respeto a los principios de integridad académica para la valoración de cualquier actividad realizada en el contexto de la evaluación continua o de las prácticas de la asignatura.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-black">
+                <div class="bg-white p-4 brutal-border">
+                    <h3 class="font-bold text-sm uppercase text-bPink mb-1">Evaluación Continua y Prácticas</h3>
+                    <p class="text-xs leading-relaxed">
+                        La detección de fraude, plagio, copia no autorizada o cualquier irregularidad académica en cualquiera de los entregables evaluables supondrá automáticamente la <strong>calificación de 0 en la actividad correspondiente</strong> (y, en su caso, en la totalidad de la evaluación continua y/o prácticas), sin perjuicio de la aplicación de las sanciones disciplinarias previstas en la normativa universitaria vigente.
+                    </p>
+                </div>
+
+                <div class="bg-white p-4 brutal-border">
+                    <h3 class="font-bold text-sm uppercase text-bPink mb-1">Prueba Final</h3>
+                    <p class="text-xs leading-relaxed">
+                        Cuando las actuaciones fraudulentas se produzcan en cualquier parte de la prueba final de evaluación, supondrán la calificación de <strong>suspenso, con la nota de "cero", en esa convocatoria</strong>. Además, el profesorado decidirá en este caso si la prueba en la siguiente convocatoria deberá realizarse en la <strong>modalidad oral</strong>, debiendo comunicarlo expresamente al estudiantado afectado.
+                    </p>
+                </div>
+            </div>
+            <div class="flex justify-end mt-4">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-bYellow text-black font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION: ACTIVIDADES Y DEDICACIÓN HORARIA -->
+        <section id="horas" class="bg-white p-6 sm:p-8 brutal-border shadow-brutal-lg">
+            <span class="bg-bOrange text-black font-mono text-xs font-bold px-3 py-1 brutal-border shadow-brutal-sm uppercase inline-block mb-3">Carga de Trabajo del Estudiantado</span>
+            <h2 class="text-2xl sm:text-3xl font-black uppercase mb-6">Actividades & Distribución de Horas</h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                <div class="lg:col-span-7 space-y-3 font-mono text-xs">
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <span>Enseñanzas teóricas</span>
+                            <span>27h presenciales / 0h no pres.</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-5 brutal-border overflow-hidden">
+                            <div class="bg-bYellow h-full" style="width: 45%;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <span>Enseñanzas prácticas (problemas)</span>
+                            <span>14h presenciales / 0h no pres.</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-5 brutal-border overflow-hidden">
+                            <div class="bg-bLime h-full" style="width: 23%;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <span>Enseñanzas prácticas (laboratorio)</span>
+                            <span>10h presenciales / 0h no pres.</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-5 brutal-border overflow-hidden">
+                            <div class="bg-bCyan h-full" style="width: 17%;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <span>Seminarios</span>
+                            <span>5h presenciales / 0h no pres.</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-5 brutal-border overflow-hidden">
+                            <div class="bg-bPink h-full" style="width: 8%;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <span>Evaluación</span>
+                            <span>4h presenciales / 0h no pres.</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-5 brutal-border overflow-hidden">
+                            <div class="bg-bPurple h-full" style="width: 7%;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <span>Trabajo personal</span>
+                            <span>0h presenciales / 75h no pres.</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-5 brutal-border overflow-hidden">
+                            <div class="bg-bOrange h-full" style="width: 83%;"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between font-bold mb-1">
+                            <span>Trabajo de preparación de exámenes</span>
+                            <span>0h presenciales / 15h no pres.</span>
+                        </div>
+                        <div class="w-full bg-gray-200 h-5 brutal-border overflow-hidden">
+                            <div class="bg-gray-800 h-full" style="width: 17%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 bg-bDark text-white p-6 brutal-border shadow-brutal flex flex-col justify-between h-full">
+                    <div>
+                        <h3 class="font-mono font-bold text-lg text-bYellow uppercase mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-hourglass-half"></i> Cómputo Total
+                        </h3>
+                        <div class="grid grid-cols-2 gap-3 text-center font-mono">
+                            <div class="bg-gray-900 p-3 brutal-border border-gray-700">
+                                <span class="text-3xl font-black text-bLime block">60 hrs</span>
+                                <span class="text-[10px] uppercase text-gray-400">Presenciales</span>
+                            </div>
+                            <div class="bg-gray-900 p-3 brutal-border border-gray-700">
+                                <span class="text-3xl font-black text-bPink block">90 hrs</span>
+                                <span class="text-[10px] uppercase text-gray-400">No Presenciales</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-3 border-t border-gray-700 font-mono text-center text-xs text-bCyan">
+                        Total dedicado a la asignatura: 150 horas
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end mt-6">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-bYellow font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION: COMPETENCIAS Y RESULTADOS DE APRENDIZAJE -->
+        <section id="competencias" class="bg-white p-6 sm:p-8 brutal-border shadow-brutal-lg">
+            <span class="bg-bPurple text-white font-mono text-xs font-bold px-3 py-1 brutal-border shadow-brutal-sm uppercase inline-block mb-3">Marco Académico</span>
+            <h2 class="text-2xl sm:text-3xl font-black uppercase mb-6">Competencias & Resultados de Aprendizaje</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Competencias (⛔ no modificable) -->
+                <div>
+                    <h3 class="font-mono font-bold text-sm uppercase mb-3 bg-bYellow px-2 py-1 brutal-border inline-block">
+                        Competencias
+                    </h3>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>ITI01:</strong> Capacidad para comprender el entorno de una organización y sus necesidades en el ámbito de las tecnologías de la información y las comunicaciones.
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>ITI02:</strong> Capacidad para seleccionar, diseñar, desplegar, integrar, evaluar, construir, gestionar, explotar y mantener las tecnologías de hardware, software y redes, dentro de los parámetros de coste y calidad adecuados.
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>ITI05:</strong> Capacidad para seleccionar, desplegar, integrar y gestionar sistemas de información que satisfagan las necesidades de la organización, con los criterios de coste y calidad identificados.
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>ITI07:</strong> Capacidad para comprender, aplicar y gestionar la garantía y seguridad de los sistemas informáticos.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resultados de aprendizaje (⛔ no modificable) -->
+                <div>
+                    <h3 class="font-mono font-bold text-sm uppercase mb-3 bg-bCyan px-2 py-1 brutal-border inline-block">
+                        Resultados de Aprendizaje (RA)
+                    </h3>
+                    <div class="space-y-2 text-xs font-mono">
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>RA01:</strong> Planificar y gestionar la política de seguridad informática de la organización. <span class="text-gray-500">(ITI07)</span>
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>RA02:</strong> Analizar las necesidades informáticas de las organizaciones, comparar soluciones posibles y planificar la informatización de la organización. <span class="text-gray-500">(ITI01, ITI02, ITI05)</span>
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>RA03:</strong> Valorar el rendimiento del sistema informático y el nivel de satisfacción de los usuarios. <span class="text-gray-500">(ITI01, ITI02, ITI05, ITI07)</span>
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>RA04:</strong> Planificar la atención a los usuarios y planificar y llevar a cabo su formación. <span class="text-gray-500">(ITI01, ITI02, ITI05, ITI07)</span>
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>RA05:</strong> Diseñar estrategias de administración y mantenimiento de los sistemas y recursos informáticos de la organización. <span class="text-gray-500">(ITI01, ITI02, ITI05, ITI07)</span>
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            <strong>RA06:</strong> Aplicar los aspectos legales y jurídicos en la administración del sistema informático. <span class="text-gray-500">(ITI01, ITI02, ITI05, ITI07)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end mt-6">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-bYellow font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+        <!-- SECTION 7: BIBLIOGRAFÍA Y RECURSOS -->
+        <section id="bibliografia" class="bg-white p-6 sm:p-8 brutal-border shadow-brutal-lg">
+            <div class="flex items-center gap-2 mb-4">
+                <i class="fa-solid fa-book text-2xl text-bPink"></i>
+                <h2 class="text-2xl font-black uppercase">Bibliografía y Recursos</h2>
+            </div>
+
+            <div class="space-y-4 text-xs font-mono">
+                <!-- 7.1 Bibliografía básica -->
+                <div>
+                    <h3 class="font-bold text-xs uppercase mb-2 bg-bYellow px-2 py-0.5 brutal-border inline-block">7.1. Bibliografía básica</h3>
+                    <div class="p-3 bg-yellow-50 brutal-border">
+                        Thomas A. Limoncelli et al. (2020). <em>The Practice of System and Network Administration: Volume 1: DevOps and SRE Practices for IT Operations</em> (3ª Edición).
+                    </div>
+                </div>
+
+                <!-- 7.2 Bibliografía complementaria -->
+                <div>
+                    <h3 class="font-bold text-xs uppercase mb-2 bg-bCyan px-2 py-0.5 brutal-border inline-block">7.2. Bibliografía complementaria</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            Google. <em>Site Reliability Engineering books</em> (<a href="https://sre.google/books" target="_blank" class="underline text-blue-700 hover:text-black">sre.google/books</a>).
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            Gregor Hohpe (2020). <em>Cloud Strategy: A Decision-based Approach to Successful Cloud Migration</em>.
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            James Petty, Travis Plunk, et al. (2022). <em>Learn PowerShell in a Month of Lunches</em> (4ª Edición).
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            Brendan Gregg (2021). <em>Systems Performance: Enterprise and the Cloud</em> (2ª Edición).
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            Fernández Climent, E. (2024). <em>ISO/IEC 27001:2022 Paso a Paso: Implementación, Auditoría y Mejora Continua</em>.
+                        </div>
+                        <div class="p-2.5 bg-gray-50 brutal-border">
+                            Van der Haven, D. (2020). <em>IT Service Management: ISO/IEC 20000-1:2018 - Introduction and Implementation Guide</em> (2nd ed.).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7.3 y 7.4 Otros -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
+                    <div class="p-2.5 bg-lime-50 brutal-border">
+                        <strong>7.3 Direcciones web de interés:</strong> Disponibles en el Aula Virtual de la asignatura.
+                    </div>
+                    <div class="p-2.5 bg-lime-50 brutal-border">
+                        <strong>7.4 Otros recursos:</strong> Disponibles en el Aula Virtual de la asignatura.
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end mt-6">
+                <button type="button" onclick="scrollToTop()" class="brutal-btn bg-bYellow font-mono text-xs font-bold px-3 py-1.5 shadow-brutal flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up"></i> Volver arriba
+                </button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-bDark text-white brutal-border border-t-4 py-6 mt-10 font-mono text-center text-xs">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="text-left">
+                <p class="font-bold">EI1044 · Administración de Sistemas Informáticos · Guía docente (2026/2027)</p>
+                <p class="text-slate-400 mt-1">
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-bYellow hover:underline">Pablo Felip Monferrer</a> ·
+                    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white underline">CC BY-NC-SA 4.0</a> ·
+                    <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-white underline">Repositorio en GitHub</a>
+                </p>
+            </div>
+            <div class="flex gap-4">
+                <button type="button" onclick="scrollToTop()" class="text-bYellow hover:underline cursor-pointer">Volver arriba ↑</button>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const el = document.getElementById(sectionId);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updatePrereqScore() {
+            const checkboxes = document.querySelectorAll('#prereq-container input[type="checkbox"]');
+            let count = 0;
+            checkboxes.forEach(cb => { if (cb.checked) count++; });
+
+            const status = document.getElementById('prereq-status');
+            if (count === 0) {
+                status.innerText = "⚡ Haz clic en las casillas para verificar tu nivel de preparación inicial";
+                status.className = "mt-4 p-3 bg-white brutal-border text-center font-mono text-xs font-bold";
+            } else if (count === 1) {
+                status.innerText = "👍 1 de 3 asignaturas previas recomendadas marcadas";
+                status.className = "mt-4 p-3 bg-bYellow brutal-border text-center font-mono text-xs font-bold";
+            } else if (count === 2) {
+                status.innerText = "🔥 2 de 3 asignaturas marcadas: ¡Excelente base inicial!";
+                status.className = "mt-4 p-3 bg-bCyan brutal-border text-center font-mono text-xs font-bold";
+            } else {
+                status.innerText = "🚀 ¡PERFECTO! Cumples el 100% de las recomendadas (EI1018, EI1019, EI1034)";
+                status.className = "mt-4 p-3 bg-bLime brutal-border text-center font-mono text-xs font-bold";
+            }
+        }
+
+        function filterSyllabus(type) {
+            const buttons = document.querySelectorAll('#syllabus-filter button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const cards = document.querySelectorAll('.topic-card');
+            cards.forEach(card => {
+                const cardTypes = card.getAttribute('data-type');
+                if (type === 'all' || cardTypes.includes(type)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function calcGrade() {
+            // Ev Continua (50%): T1 (5%), T3 (10%), T4 (10%), T5 (10%), Kit (15%)
+            const t1 = parseFloat(document.getElementById('slider-t1').value);
+            const t3 = parseFloat(document.getElementById('slider-t3').value);
+            const t4 = parseFloat(document.getElementById('slider-t4').value);
+            const t5 = parseFloat(document.getElementById('slider-t5').value);
+            const kitEc = parseFloat(document.getElementById('slider-kit-ec').value);
+
+            // Prácticas (20%): T2 (10%), Kit (10%)
+            const t2 = parseFloat(document.getElementById('slider-t2').value);
+            const kitLab = parseFloat(document.getElementById('slider-kit-lab').value);
+
+            // Examen Final (30%)
+            const exam = parseFloat(document.getElementById('slider-exam').value);
+
+            // Dynamic Text Label Updates
+            document.getElementById('val-t1').innerText = t1.toFixed(1);
+            document.getElementById('val-t3').innerText = t3.toFixed(1);
+            document.getElementById('val-t4').innerText = t4.toFixed(1);
+            document.getElementById('val-t5').innerText = t5.toFixed(1);
+            document.getElementById('val-kit-ec').innerText = kitEc.toFixed(1);
+            document.getElementById('val-t2').innerText = t2.toFixed(1);
+            document.getElementById('val-kit-lab').innerText = kitLab.toFixed(1);
+            document.getElementById('val-exam').innerText = exam.toFixed(1);
+
+            // Ponderation formula based strictly on official percentages:
+            const totalScore = (t1 * 0.05) + (t3 * 0.10) + (t4 * 0.10) + (t5 * 0.10) + (kitEc * 0.15) +
+                               (t2 * 0.10) + (kitLab * 0.10) +
+                               (exam * 0.30);
+
+            const scoreDisplay = document.getElementById('final-score');
+            const badgeDisplay = document.getElementById('score-badge');
+
+            scoreDisplay.innerText = totalScore.toFixed(2);
+
+            if (totalScore >= 9.0) {
+                badgeDisplay.innerText = "SOBRESALIENTE 🏆";
+                badgeDisplay.className = "inline-block px-3 py-1 font-mono font-bold text-xs uppercase brutal-border bg-bPurple text-white";
+            } else if (totalScore >= 7.0) {
+                badgeDisplay.innerText = "NOTABLE 🌟";
+                badgeDisplay.className = "inline-block px-3 py-1 font-mono font-bold text-xs uppercase brutal-border bg-bCyan text-black";
+            } else if (totalScore >= 5.0) {
+                badgeDisplay.innerText = "APROBADO ✅";
+                badgeDisplay.className = "inline-block px-3 py-1 font-mono font-bold text-xs uppercase brutal-border bg-bLime text-black";
+            } else {
+                badgeDisplay.innerText = "SUSPENSO ❌";
+                badgeDisplay.className = "inline-block px-3 py-1 font-mono font-bold text-xs uppercase brutal-border bg-bPink text-white";
+            }
+        }
+
+        // Initialize calculation on load
+        window.onload = function() {
+            calcGrade();
+        };
+    </script>
+</body>
+</html>
