@@ -92,12 +92,20 @@ Conjunto de **10 infografías interactivas (SPA)** enfocadas en el aprendizaje m
 
 ## 🚀 Publicación e integración en Google Sites
 
-Al estar publicado en **GitHub Pages**, la integración en el Aula Virtual es inmediata:
+Al estar alojadas en **GitHub Pages**, las SPA se integran en el Aula Virtual (Google Sites) siguiendo un modelo de despliegue continuo de contenidos docentes:
 
-1. En tu Google Site, añade una página o sección.
-2. Selecciona **Insertar > Por URL**.
-3. Pega la URL directa del módulo deseado (por ejemplo: `https://pfelipm.github.io/uji-ei1044/t1/Anatom%C3%ADa%20departamento%20TI.html`) y marca la opción **Página completa**.
-4. **Actualización automática:** Cualquier cambio que se confirme en el repositorio Git se despliega de inmediato en GitHub Pages y se refleja en Google Sites sin necesidad de reeditar el sitio.
+1. **Inserción transparente a página completa:**
+   * En Google Sites, crea una página o sección.
+   * Selecciona **Insertar > Por URL**.
+   * Pega la URL directa del recurso (por ejemplo: `https://pfelipm.github.io/uji-ei1044/t1/Anatom%C3%ADa%20departamento%20TI.html`) y selecciona la opción **Página completa**.
+   * **Despliegue continuo:** Cualquier actualización o errata corregida en Git se publica al instante en GitHub Pages y se refleja en Google Sites en tiempo real, sin tener que reeditar el sitio web docente.
+
+2. **Detección contextual de incrustación (iframe):**
+   * En colecciones con flujo tutorial secuencial (especialmente **Tema 2: Automatización con PowerShell 7**), cada SPA detecta dinámicamente si se está ejecutando dentro de un iframe mediante `window.self !== window.top`.
+   * **Ocultación automática de navegación:** Cuando la SPA se encuentra incrustada en Google Sites, se activa la clase `.is-embedded` y se ocultan los botones de navegación secuencial (`← Módulo anterior`, `Índice` y `Módulo siguiente →`). Esto evita duplicar los controles de navegación del propio Google Site y ofrece un aspecto completamente integrado. En cambio, si el alumno accede directamente a través de GitHub Pages, la botonera permanece activa para guiar el estudio autónomo.
+
+3. **Mecanismo dual para el botón «Copiar código»:**
+   * La política de permisos (*Permissions Policy*) de los iframes de Google Sites bloquea la API moderna `navigator.clipboard.writeText`. Todos los bloques de código incorporan un mecanismo dual con *fallback* mediante `document.execCommand('copy')`, garantizando una copia fluida tanto en navegación directa como dentro del contenedor de Google Sites.
 
 ---
 
