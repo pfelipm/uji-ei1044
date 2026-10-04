@@ -55,11 +55,108 @@
             font-weight: 500;
             font-family: 'Courier New', Courier, monospace;
         }
+    
+        .code-block {
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.6rem;
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid #475569;
+            color: #94a3b8;
+            padding: 0.25rem 0.6rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            user-select: none;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: #334155;
+            color: #ffffff;
+            border-color: #64748b;
+        }
+        .copy-btn.copied {
+            background: #065f46;
+            color: #34d399;
+            border-color: #059669;
+        }
+        .top-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            backdrop-filter: blur(8px);
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #93c5fd;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+        .nav-btn.disabled {
+            opacity: 0.35;
+            pointer-events: none;
+            border-color: #1e293b;
+            color: #64748b;
+        }
+
     </style>
 </head>
 <body class="gradient-bg text-slate-200 min-h-screen">
 
     <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <!-- Barra de Utilidades y Navegación Rápida -->
+        <div class="top-toolbar">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+                    <span>Módulo 05 / 10</span>
+                </span>
+                <span class="text-xs text-slate-400 hidden sm:inline">PowerShell 7 · ASI (UJI)</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleFullscreen()" title="Alternar pantalla completa" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-600 transition-colors flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                    <span>Pantalla completa</span>
+                </button>
+                <a href="../index.html" title="Volver al índice general" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-600 transition-colors flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <span>Índice</span>
+                </a>
+                <a href="https://gemini.google.com/gem/11OPVdGPKX0oEXI1_DsuOK9OU_xTC0EYO?usp=drive_link" target="_blank" rel="noopener noreferrer" title="Abrir Gema PowerShell Master" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white border border-blue-500/40 transition-colors flex items-center gap-1">
+                    <span>🤖 Gema IA</span>
+                </a>
+            </div>
+        </div>
+
 
         <!-- Header -->
         <header class="text-center mb-12">
@@ -92,6 +189,36 @@
             </div>
         </section>
 
+        <!-- Section: Comillas Simples vs Dobles y Subexpresiones -->
+        <section class="section-card">
+            <div class="flex items-center mb-4">
+                <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+                </svg>
+                <h2 class="text-3xl text-white">Comillas: Literal vs. Expansión</h2>
+            </div>
+            <p class="text-lg text-slate-300 mb-6">Uno de los detalles más importantes en administración de sistemas es cómo trata PowerShell las cadenas de texto:</p>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                    <h3 class="font-bold text-lg text-amber-300 mb-2">Comillas Simples <code>'...'</code> (Literal)</h3>
+                    <p class="text-slate-300 text-sm mb-3">No evalúa nada en su interior. El texto se conserva exactamente como está escrito, carácter a carácter.</p>
+                    <div class="code-block text-sm">
+<span class="text-slate-400"># Muestra literalmente: Hola $nombre</span>
+Write-Output 'Hola $nombre'
+                    </div>
+                </div>
+                <div class="bg-slate-800 p-5 rounded-xl border border-slate-700">
+                    <h3 class="font-bold text-lg text-blue-300 mb-2">Comillas Dobles <code>"..."</code> (Expansión)</h3>
+                    <p class="text-slate-300 text-sm mb-3">Expande variables y subexpresiones. Para acceder a propiedades de objetos dentro de un string, usa siempre <code>$($obj.Prop)</code>.</p>
+                    <div class="code-block text-sm">
+<span class="text-slate-400"># Expande variables y propiedades de objeto</span>
+$proc = Get-Process -Id $PID
+Write-Output "Proceso actual: $($proc.ProcessName) (PID: $($proc.Id))"
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Section 2: Operadores de Comparación -->
         <section class="section-card">
              <div class="flex items-center mb-4">
@@ -114,6 +241,23 @@
              <div class="mt-6 p-4 bg-yellow-900/30 border border-yellow-700 rounded-lg">
                 <p><span class="font-bold text-yellow-300">Sensible a Mayúsculas:</span> Si necesitas que la comparación distinga mayúsculas de minúsculas, añade una 'c' al principio: <code>-ceq</code>, <code>-cgt</code>, <code>-clike</code>, etc.</p>
             </div>
+        </section>
+
+                     <div class="mt-6 p-5 bg-rose-950/40 border border-rose-700/60 rounded-xl">
+                <h3 class="font-bold text-rose-300 text-lg flex items-center gap-2 mb-2">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    ¡Trampa clásica de SysAdmin! La regla de oro del <code>$null</code>
+                </h3>
+                <p class="text-slate-300 text-sm mb-3">En PowerShell, si colocas una colección o array a la izquierda del operador de comparación (<code>$array -eq $null</code>), PowerShell <strong>no comprueba si el array es nulo</strong>, sino que <em>filtra</em> los elementos que sean nulos dentro de la colección.</p>
+                <div class="code-block text-sm">
+<span class="text-rose-400"># ❌ PELIGRO: Si $usuarios es un array, devolverá elementos nulos, no un booleano $true/$false</span>
+if ($usuarios -eq $null) { ... }
+
+<span class="text-emerald-400"># ✅ CORRECTO: Coloca siempre $null a la IZQUIERDA para evaluar el objeto en su conjunto</span>
+if ($null -eq $usuarios) { Write-Host "No hay datos recibidos" }
+                </div>
+            </div>
+
         </section>
 
         <!-- Section 3: Operadores Aritméticos y Lógicos -->
@@ -157,8 +301,24 @@
             </div>
         </section>
 
-    </div>
+            <!-- Navegación Secuencial entre Módulos -->
+        <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
+            <a href="Encadenamiento.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 04. Encadenamiento de Comandos</a>
+            <span class="text-xs text-slate-500 hidden md:inline">Usa las teclas ← y → para navegar</span>
+            <a href="Colecciones de datos.html" class="nav-btn nav-next" title="Ir al módulo siguiente">06. Colecciones de Datos →</a>
+        </nav>
 
+        <footer class="text-center text-slate-400 text-sm mt-8 mb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/11OPVdGPKX0oEXI1_DsuOK9OU_xTC0EYO?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800/90 border border-blue-500/40 text-blue-300 hover:text-white hover:bg-blue-600/20 hover:border-blue-400 transition-all shadow-lg text-sm font-medium">
+                    <span>🤖</span>
+                    <span>Consultar dudas o refactorizar con la Gema <strong>PowerShell Master</strong> ↗</span>
+                </a>
+            </div>
+            <p class="text-xs text-slate-500">Administración de Sistemas Informáticos (EI1044) · Universitat Jaume I · Curso 2026/2027</p>
+        </footer>
+
+    </div>
 </body>
 </html>
 

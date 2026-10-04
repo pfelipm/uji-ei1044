@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell 7 · Administración de Sistemas Informáticos (EI1044) · UJI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+        }
+        .section-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 1.25rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+        .accent-text {
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="gradient-bg text-slate-200 min-h-screen">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <!-- Header -->
+        <header class="text-center pt-8 pb-12">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider mb-6">
+                <span>Universitat Jaume I</span>
+                <span class="text-slate-600">•</span>
+                <span>Grado en Ingeniería Informática</span>
+                <span class="text-slate-600">•</span>
+                <span>Curso 2026/2027</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4">
+                Administración de Sistemas Informáticos <span class="accent-text">(EI1044)</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto font-light">
+                Tema 2: Introducción a la Automatización Moderna con <span class="text-white font-semibold">PowerShell 7</span>
+            </p>
+            <p class="text-sm text-slate-400 mt-2">Materiales interactivos diseñados para proyección en el aula e integración en el Aula Virtual (Google Sites)</p>
+
+            <!-- Acciones Destacadas -->
+            <div class="flex flex-wrap justify-center items-center gap-4 mt-8">
+                <a href="https://gemini.google.com/gem/11OPVdGPKX0oEXI1_DsuOK9OU_xTC0EYO?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold text-sm hover:from-blue-500 hover:to-indigo-500 transition-all shadow-lg shadow-blue-500/25">
+                    <span>🤖</span>
+                    <span>Tutor IA: Gema PowerShell Master ↗</span>
+                </a>
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-semibold text-sm border border-slate-700 hover:border-slate-500 transition-all">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+                    <span>Repositorio GitHub</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Grid de 10 Infografías -->
+        <main class="mb-16">
+            <div class="flex items-center justify-between mb-8 pb-4 border-b border-slate-700/80">
+                <div>
+                    <h2 class="text-2xl font-bold text-white">Itinerario Formativo</h2>
+                    <p class="text-slate-400 text-sm mt-1">10 infografías secuenciales interconectadas para la sesión de 2 horas</p>
+                </div>
+                <div class="text-xs text-slate-500 hidden sm:block">
+                    Navegación con flechas (← / →) y botones de copiar código incluidos
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+            <!-- Tarjeta Módulo 01 -->
+            <a href="t2/La%20navaja%20suiza%20del%20sysadmin.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 01
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">🚀</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        La Navaja Suiza del SysAdmin
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Introducción y Filosofía</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Fundamentos de PowerShell, automatización a escala, terminales (Cloud Shell, VS Code) y la diferencia fundamental entre el mundo de texto (Bash) y el mundo de objetos estructurados.
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 02 -->
+            <a href="t2/Un%20an%C3%A1lisis%20de%20PowerShell%207.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 02
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">⚡</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        Un análisis de PowerShell 7
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Evolución y Novedades</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Comparativa técnica interactiva PS 5.1 vs PS 7 (.NET moderno, soporte multiplataforma, operadores ternarios, nulos, paralelismo nativo y casos de uso en Cloud y DevOps).
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 03 -->
+            <a href="t2/El%20universo%20de%20los%20objetos.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 03
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">🔮</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        El Universo de los Objetos
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Get-Member y el Pipeline</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Anatomía de los objetos en memoria: propiedades y métodos. Descubrimiento con Get-Member y la tubería (|) como cadena de montaje de objetos con Where-Object, Sort-Object y Select-Object.
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 04 -->
+            <a href="t2/Encadenamiento.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 04
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">🔗</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        Encadenamiento de Comandos
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Flujo de Datos vs Control</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Diferenciación crítica entre mover objetos (|) y reaccionar a éxito o fallo (&&, ||). Control condicional robusto mediante la variable automática de estado booleano $?.
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 05 -->
+            <a href="t2/Variables%20y%20operadores.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 05
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">📦</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        Variables y Operadores
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Tipado, Cadenas y Comparación</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Variables con $, tipado dinámico y forzado [int], comillas simples vs dobles con subexpresiones $($obj.Prop), operadores de comparación con guion y la regla de oro del $null.
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 06 -->
+            <a href="t2/Colecciones%20de%20datos.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 06
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">📚</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        Colecciones de Datos
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Arrays y Hashtables</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Manejo de listas ordenadas indexadas en 0 (arrays) y diccionarios asociativos clave-valor (hashtables). Criterios para elegir cada estructura de datos.
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 07 -->
+            <a href="t2/Controlando%20el%20flujo.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 07
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">🔀</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        Controlando el Flujo
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Decisiones y Bucles</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Estructuras condicionales if / elseif / else y switch. Bucles iterativos para administración: foreach (el rey de las colecciones), for, while y do-while.
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 08 -->
+            <a href="t2/Funciones%20y%20scripts.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 08
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">🛠️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        Funciones y Scripts
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Herramientas Modulares y Seguridad</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Paso de usuario a creador: creación de funciones, el bloque param() como mecanismo universal, scripts .ps1 reutilizables, dot-sourcing y directivas de ejecución (ExecutionPolicy).
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 09 -->
+            <a href="t2/Gesti%C3%B3n%20de%20errores.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 09
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">🛡️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        Gestión de Errores
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Robustez y Excepciones</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Errores no determinantes (Non-Terminating) vs determinantes (Terminating). El estándar profesional try / catch / finally, el parámetro -ErrorAction Stop y la variable $_.Exception.
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            <!-- Tarjeta Módulo 10 -->
+            <a href="t2/M%C3%B3dulos%20y%20ficheros.html" class="section-card group hover:border-blue-500 transition-all duration-300 hover:shadow-blue-500/10 hover:shadow-2xl flex flex-col justify-between p-6">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/15 text-blue-400 border border-blue-500/30">
+                            Módulo 10
+                        </span>
+                        <span class="text-2xl transform group-hover:scale-110 transition-transform">🌐</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors mb-1">
+                        Interactuando con el Exterior
+                    </h3>
+                    <p class="text-xs font-semibold text-blue-300 mb-3">Módulos, CSV y JSON</p>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                        Ecosistema de módulos en PowerShell Gallery (Install-Module), persistencia con ficheros de texto plano, serialización en JSON y la magia de Import-Csv para crear objetos.
+                    </p>
+                </div>
+                <div class="flex items-center text-sm font-semibold text-blue-400 group-hover:translate-x-1 transition-transform">
+                    <span>Abrir infografía</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+            </div>
+        </main>
+
+        <!-- Callout Google Sites -->
+        <section class="section-card p-8 mb-16 border-blue-500/30 bg-slate-900/60">
+            <div class="flex items-start gap-4">
+                <div class="p-3 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 text-2xl">
+                    💡
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-2">Integración Directa en Google Sites sin Copiar Código</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-4">
+                        Gracias al despliegue en <strong>GitHub Pages</strong>, puedes incrustar estas infografías en Google Sites usando la opción <code>Insertar &gt; Por URL</code> con los enlaces directos de este portal. Cuando actualices cualquier infografía en GitHub, los cambios se reflejarán inmediatamente en tu aula virtual sin necesidad de volver a editar el Site.
+                    </p>
+                    <div class="flex flex-wrap gap-2 text-xs font-mono text-slate-400">
+                        <span class="bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700">https://pfelipm.github.io/uji-ei1044/t2/La%20navaja%20suiza%20del%20sysadmin.html</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-slate-500 text-sm py-8 border-t border-slate-800">
+            <p>Universitat Jaume I · Escola Superior de Tecnologia i Ciències Experimentals</p>
+            <p class="text-xs mt-1">Grado en Ingeniería Informática · Administración de Sistemas Informáticos (EI1044) · Curso 2026/2027</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

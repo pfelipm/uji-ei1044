@@ -47,11 +47,108 @@
             font-weight: 500;
             font-family: 'Courier New', Courier, monospace;
         }
+    
+        .code-block {
+            position: relative;
+        }
+        .copy-btn {
+            position: absolute;
+            top: 0.6rem;
+            right: 0.6rem;
+            background: rgba(30, 41, 59, 0.85);
+            border: 1px solid #475569;
+            color: #94a3b8;
+            padding: 0.25rem 0.6rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            user-select: none;
+            z-index: 10;
+        }
+        .copy-btn:hover {
+            background: #334155;
+            color: #ffffff;
+            border-color: #64748b;
+        }
+        .copy-btn.copied {
+            background: #065f46;
+            color: #34d399;
+            border-color: #059669;
+        }
+        .top-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #334155;
+            border-radius: 1rem;
+            backdrop-filter: blur(8px);
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.75rem;
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #93c5fd;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #3b82f6;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+        .nav-btn.disabled {
+            opacity: 0.35;
+            pointer-events: none;
+            border-color: #1e293b;
+            color: #64748b;
+        }
+
     </style>
 </head>
 <body class="gradient-bg text-slate-200 min-h-screen">
 
     <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <!-- Barra de Utilidades y Navegación Rápida -->
+        <div class="top-toolbar">
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/15 border border-blue-500/30 text-blue-400 text-xs font-semibold uppercase tracking-wider">
+                    <span>Módulo 01 / 10</span>
+                </span>
+                <span class="text-xs text-slate-400 hidden sm:inline">PowerShell 7 · ASI (UJI)</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="toggleFullscreen()" title="Alternar pantalla completa" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-600 transition-colors flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0-4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                    <span>Pantalla completa</span>
+                </button>
+                <a href="../index.html" title="Volver al índice general" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-600 transition-colors flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                    <span>Índice</span>
+                </a>
+                <a href="https://gemini.google.com/gem/11OPVdGPKX0oEXI1_DsuOK9OU_xTC0EYO?usp=drive_link" target="_blank" rel="noopener noreferrer" title="Abrir Gema PowerShell Master" class="px-2.5 py-1 text-xs font-medium rounded-lg bg-blue-600/30 hover:bg-blue-600 text-blue-300 hover:text-white border border-blue-500/40 transition-colors flex items-center gap-1">
+                    <span>🤖 Gema IA</span>
+                </a>
+            </div>
+        </div>
+
 
         <!-- Header -->
         <header class="text-center mb-12">
@@ -230,8 +327,24 @@
             </div>
         </section>
 
-    </div>
+            <!-- Navegación Secuencial entre Módulos -->
+        <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm">
+            <span class="nav-btn disabled">← Inicio del curso</span>
+            <span class="text-xs text-slate-500 hidden md:inline">Usa las teclas ← y → para navegar</span>
+            <a href="Un análisis de PowerShell 7.html" class="nav-btn nav-next" title="Ir al módulo siguiente">02. Un análisis de PowerShell 7 →</a>
+        </nav>
 
+        <footer class="text-center text-slate-400 text-sm mt-8 mb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/11OPVdGPKX0oEXI1_DsuOK9OU_xTC0EYO?usp=drive_link" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-800/90 border border-blue-500/40 text-blue-300 hover:text-white hover:bg-blue-600/20 hover:border-blue-400 transition-all shadow-lg text-sm font-medium">
+                    <span>🤖</span>
+                    <span>Consultar dudas o refactorizar con la Gema <strong>PowerShell Master</strong> ↗</span>
+                </a>
+            </div>
+            <p class="text-xs text-slate-500">Administración de Sistemas Informáticos (EI1044) · Universitat Jaume I · Curso 2026/2027</p>
+        </footer>
+
+    </div>
 </body>
 </html>
 
