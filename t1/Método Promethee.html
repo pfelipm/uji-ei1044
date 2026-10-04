@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Infografía e interactivo: Método PROMETHEE en TI - EI1044 UJI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset y contención de scroll para inserción a página completa en Google Sites */
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            min-height: 100vh;
+            overflow-x: clip; /* Garantiza el funcionamiento de position:sticky dentro de iframes */
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .sites-embed-wrapper {
+            padding: 1.5rem 1rem 3.5rem 1rem;
+            width: 100%;
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .sites-embed-wrapper {
+                padding: 2.25rem 1.75rem 4rem 1.75rem;
+            }
+        }
+
+        /* Estilización de controles deslizantes (range sliders) */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 9999px;
+            background: #cbd5e1;
+            outline: none;
+            transition: background 0.2s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.15s ease, background-color 0.15s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+            background: #1d4ed8;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Scrollbars para modales y tablas */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Transiciones de pasos y compensación de altura con el dock adhesivo */
+        .step-panel {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            scroll-margin-top: 5.5rem; /* Margen de seguridad para que el dock fijo no tape el encabezado del paso */
+        }
+
+        .step-panel.active {
+            display: block;
+            opacity: 1;
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="sites-embed-wrapper">
+        <main class="w-full bg-white p-5 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-slate-200">
+
+            <!-- Encabezado Institucional de la Asignatura -->
+            <header class="text-center mb-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-bold mb-3 tracking-wide uppercase">
+                    <span>✊ Refinando las decisiones multicriterio</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+                    Método PROMETHEE en la toma de decisiones TI
+                </h1>
+                <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-4xl mx-auto leading-relaxed">
+                    Metodología de sobreclasificación (<em class="italic font-medium">outranking</em>) para ordenar alternativas tecnológicas mediante comparaciones par a par de fortalezas y debilidades, superando las limitaciones compensatorias del modelo SAW.
+                </p>
+            </header>
+
+            <!-- Barra de control Sticky Dock persistente -->
+            <div id="sticky-promethee-dock" class="sticky top-2 sm:top-3 z-40 bg-slate-900/95 text-white p-2.5 sm:p-3 rounded-xl shadow-2xl border border-slate-700/80 mb-8 flex flex-wrap items-center justify-between gap-2.5 backdrop-blur-md transition-all">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-xs uppercase font-extrabold text-slate-300 tracking-wider hidden sm:inline">Fase actual:</span>
+                    <span id="step-badge" class="bg-blue-600 text-white text-xs sm:text-sm font-black px-3 py-1 rounded-full shadow-inner ring-1 ring-blue-400/40">
+                        Paso 1 de 5: Introducción
+                    </span>
+                </div>
+
+                <!-- Selector de escenario dinámico -->
+                <div class="flex items-center space-x-2 bg-slate-800 px-3 py-1 rounded-lg border border-slate-700 text-xs sm:text-sm">
+                    <span class="text-slate-300 font-semibold hidden md:inline">Escenario:</span>
+                    <select id="scenario-selector" onchange="switchScenario(this.value)" class="bg-slate-900 text-white font-bold rounded px-2 py-1 border border-slate-600 focus:outline-none focus:ring-1 focus:ring-blue-400">
+                        <option value="laptops" selected>💻 Portátiles corporativos</option>
+                        <option value="servers">🖥️ Servidores de virtualización</option>
+                        <option value="custom">🛠️ Modo libre (personalizado)</option>
+                    </select>
+                </div>
+
+                <!-- Botones de avance y control -->
+                <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <button id="dock-prev-btn" onclick="goToPrevStep()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700 disabled:opacity-40 disabled:cursor-not-allowed">
+                        ◀ Anterior
+                    </button>
+                    <button id="dock-next-btn" onclick="goToNextStep()" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-md flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <span>Siguiente</span>
+                        <span>▶</span>
+                    </button>
+                    <button onclick="resetScenarioDefaults()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-rose-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700" title="Restablecer valores del escenario">
+                        🔄
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONTENEDOR DE PASOS WIZARD -->
+            <div id="wizard-panels-container">
+
+                <!-- PASO 1: INTRODUCCIÓN Y FUNDAMENTO -->
+                <section id="step-panel-1" class="step-panel active space-y-6">
+                    <div class="border-l-8 border-l-blue-600 bg-blue-50/50 p-5 sm:p-7 rounded-r-xl border border-blue-100">
+                        <div class="flex items-center justify-between gap-3 mb-2">
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Paso 1: ¿Por qué PROMETHEE frente a la suma ponderada (SAW)?</h2>
+                            <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-blue-100 text-blue-800 border border-blue-200">Sobreclasificación (<em class="italic font-medium">outranking</em>)</span>
+                        </div>
+                        <p class="text-slate-700 text-sm sm:text-base leading-relaxed mt-2">
+                            En las decisiones complejas de un departamento de TI, los criterios suelen entrar en conflicto directo (por ejemplo, el servidor con más núcleos y RAM suele tener un precio mucho más elevado o un mayor consumo eléctrico).
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs sm:text-sm">
+                        <div class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 space-y-2">
+                            <h3 class="font-extrabold text-slate-900 text-sm sm:text-base flex items-center gap-2">
+                                <span class="text-amber-600">⚠️</span> El peligro de la compensación en SAW:
+                            </h3>
+                            <p class="text-slate-700 leading-relaxed">
+                                En el modelo aditivo lineal (SAW), una alternativa con una puntuación atroz en seguridad o con un tiempo de caída inaceptable puede terminar ganando si resulta extremadamente barata. Las deficiencias críticas quedan enmascaradas.
+                            </p>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 sm:p-5 rounded-xl border border-indigo-200 space-y-2">
+                            <h3 class="font-extrabold text-indigo-950 text-sm sm:text-base flex items-center gap-2">
+                                <span class="text-indigo-600">🛡️</span> La solución metodológica de PROMETHEE II:
+                            </h3>
+                            <p class="text-indigo-900 leading-relaxed">
+                                Evalúa cada alternativa comparándola <strong>par a par</strong> frente a todas las demás para cada criterio individual. Calcula cuántas veces y con qué intensidad una opción supera a sus rivales (<span class="font-bold text-emerald-700">Fortaleza Φ+</span>) y cuántas veces es superada (<span class="font-bold text-rose-700">Debilidad Φ-</span>).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div id="step1-scenario-card" class="p-4 sm:p-5 rounded-xl bg-slate-100 border border-slate-300 text-xs sm:text-sm text-slate-800 flex items-start gap-3.5">
+                        <span class="text-2xl sm:text-3xl">📌</span>
+                        <div class="space-y-1">
+                            <strong class="text-slate-900 block text-sm sm:text-base" id="step1-scenario-title">Caso actual: Portátiles corporativos para equipo comercial</strong>
+                            <p class="text-slate-700 leading-relaxed" id="step1-scenario-desc">
+                                Seleccionamos el equipo informático para una red de 30 comerciales con alta movilidad geográfica, evaluando el equilibrio entre precio, potencia, autonomía de batería y cobertura de garantía.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PASO 2: MATRIZ DE DATOS Y DEFINICIÓN DE CRITERIOS -->
+                <section id="step-panel-2" class="step-panel space-y-6">
+                    <div class="border-l-8 border-l-purple-600 bg-purple-50/50 p-5 sm:p-7 rounded-r-xl border border-purple-100">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Paso 2: Definir alternativas, métricas y dirección de optimización</h2>
+                            <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-purple-100 text-purple-800 border border-purple-200">Extracción de datos objetivos</span>
+                        </div>
+                        <p class="text-slate-700 text-sm sm:text-base leading-relaxed mt-2">
+                            Especifica los valores numéricos de las propuestas recibidas. Puedes modificar cualquier celda directamente. Si has seleccionado el <strong class="text-purple-800">Modo libre</strong>, dispondrás de botones para añadir/quitar filas y columnas o cambiar entre maximizar y minimizar.
+                        </p>
+                    </div>
+
+                    <!-- Botonera de edición para Modo Libre (Custom) -->
+                    <div id="custom-mode-toolbar" class="hidden p-3.5 bg-slate-100 rounded-xl border border-slate-300 flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="font-extrabold text-slate-800">🛠️ Gestión de matriz (2-5 alternativas / 2-6 criterios):</span>
+                            <button onclick="addAlternative()" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold rounded-lg shadow-xs transition-colors">
+                                + Añadir alternativa
+                            </button>
+                            <button onclick="removeAlternative()" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-500 active:bg-rose-700 text-white font-bold rounded-lg shadow-xs transition-colors">
+                                - Quitar alternativa
+                            </button>
+                            <button onclick="addCriterion()" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white font-bold rounded-lg shadow-xs transition-colors">
+                                + Añadir criterio
+                            </button>
+                            <button onclick="removeCriterion()" class="px-2.5 py-1 bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white font-bold rounded-lg shadow-xs transition-colors">
+                                - Quitar criterio
+                            </button>
+                        </div>
+                        <span class="text-xs text-slate-600 font-semibold" id="custom-matrix-limits-badge">3 alternativas × 5 criterios</span>
+                    </div>
+
+                    <!-- Tabla interactiva de datos crudos -->
+                    <div class="overflow-x-auto custom-scroll border border-slate-200 rounded-xl shadow-xs">
+                        <table class="w-full text-left text-sm bg-white" id="promethee-data-table">
+                            <thead class="bg-slate-800 text-white" id="data-table-head">
+                                <!-- Generado dinámicamente -->
+                            </thead>
+                            <tbody id="data-table-body" class="divide-y divide-slate-200 text-slate-700">
+                                <!-- Generado dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- PASO 3: ASIGNAR Y PONDERAR PESOS -->
+                <section id="step-panel-3" class="step-panel space-y-6">
+                    <div class="border-l-8 border-l-amber-500 bg-amber-50/50 p-5 sm:p-7 rounded-r-xl border border-amber-100">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Paso 3: Ponderación estratégica de criterios (pesos relativos)</h2>
+                            <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-amber-100 text-amber-900 border border-amber-200">Alineación con el pliego</span>
+                        </div>
+                        <p class="text-slate-700 text-sm sm:text-base leading-relaxed mt-2">
+                            Ajusta el porcentaje que representa cada factor en la estrategia del departamento de TI. <strong class="text-amber-950">La suma debe ser exactamente del 100%</strong> para habilitar el cálculo de flujos en las siguientes fases.
+                        </p>
+                    </div>
+
+                    <!-- Barra de suma y reset de pesos -->
+                    <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-100 p-4 rounded-xl border border-slate-200">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wide">Estado de la suma ponderada:</span>
+                            <span id="weights-sum-badge" class="px-3 py-1 rounded-full text-xs sm:text-sm font-black text-white bg-emerald-600 shadow-xs">
+                                Suma: 100%
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <button onclick="setEquitableWeights()" class="px-3.5 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs sm:text-sm rounded-lg transition-colors border border-slate-300">
+                                ⚖️ Repartir pesos de forma equitativa
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Contenedor dinámico de Sliders con Badges Semánticos -->
+                    <div id="weights-sliders-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Generado dinámicamente -->
+                    </div>
+                </section>
+
+                <!-- PASO 4: CÁLCULO DE FLUJOS PAR A PAR (PROMETHEE I) -->
+                <section id="step-panel-4" class="step-panel space-y-6">
+                    <div class="border-l-8 border-l-teal-600 bg-teal-50/50 p-5 sm:p-7 rounded-r-xl border border-teal-100">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Paso 4: Comparación par a par y cálculo de flujos de preferencia</h2>
+                            <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-teal-100 text-teal-900 border border-teal-200">PROMETHEE I: Fortalezas y debilidades</span>
+                        </div>
+                        <p class="text-slate-700 text-sm sm:text-base leading-relaxed mt-2">
+                            El algoritmo evalúa cada par de opciones en cada criterio aplicando la función de preferencia usual. De este análisis surgen dos indicadores fundamentales:
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                        <div class="bg-emerald-50 p-4 sm:p-5 rounded-xl border border-emerald-200 space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <strong class="text-emerald-950 font-extrabold text-sm sm:text-base">📈 Flujo saliente (Φ+) — Fortaleza</strong>
+                                <span class="px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 font-black text-xs">Mayor es mejor</span>
+                            </div>
+                            <p class="text-emerald-900 leading-relaxed">
+                                Mide el grado promedio con el que una alternativa domina o supera a todas las demás en el conjunto de criterios ponderados.
+                            </p>
+                        </div>
+
+                        <div class="bg-rose-50 p-4 sm:p-5 rounded-xl border border-rose-200 space-y-1.5">
+                            <div class="flex items-center justify-between">
+                                <strong class="text-rose-950 font-extrabold text-sm sm:text-base">📉 Flujo entrante (Φ-) — Debilidad</strong>
+                                <span class="px-2 py-0.5 rounded bg-rose-200 text-rose-900 font-black text-xs">Menor es mejor</span>
+                            </div>
+                            <p class="text-rose-900 leading-relaxed">
+                                Mide el grado promedio con el que las demás alternativas superan a esta opción. Cuanto más bajo sea, menos vulnerable es la opción.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tabla de flujos con botón modal -->
+                    <div class="overflow-x-auto custom-scroll border border-slate-200 rounded-xl shadow-xs">
+                        <table class="w-full text-left text-sm bg-white">
+                            <thead class="bg-slate-800 text-white font-bold">
+                                <tr>
+                                    <th class="p-3.5 sm:p-4 text-sm sm:text-base">Alternativa candidata</th>
+                                    <th class="p-3.5 sm:p-4 text-center text-emerald-300 font-extrabold text-xs sm:text-sm">Fortaleza promedio (Φ+)</th>
+                                    <th class="p-3.5 sm:p-4 text-center text-rose-300 font-extrabold text-xs sm:text-sm">Debilidad promedio (Φ-)</th>
+                                    <th class="p-3.5 sm:p-4 text-center text-xs sm:text-sm">Auditoría del cálculo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="flows-table-body" class="divide-y divide-slate-200 text-slate-700">
+                                <!-- Inyectado dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- PASO 5: RANKING FINAL Y FLUJO NETO (PROMETHEE II) -->
+                <section id="step-panel-5" class="step-panel space-y-6">
+                    <div class="border-l-8 border-l-emerald-600 bg-emerald-50/50 p-5 sm:p-7 rounded-r-xl border border-emerald-100">
+                        <div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">Paso 5: Ordenación completa mediante flujo neto (PROMETHEE II)</h2>
+                            <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-emerald-100 text-emerald-900 border border-emerald-200">Orden completo: Φ = Φ+ − Φ-</span>
+                        </div>
+                        <p class="text-slate-700 text-sm sm:text-base leading-relaxed mt-2">
+                            Para obtener un ranking único sin ambigüedades, calculamos el <strong class="text-emerald-950">Flujo neto (Φ)</strong>: restamos la debilidad a la fortaleza. La alternativa con el mayor valor de flujo neto resulta la opción técnicamente ganadora.
+                        </p>
+                    </div>
+
+                    <!-- Podio de clasificación -->
+                    <div id="promethee-ranking-container" class="space-y-3.5">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+
+                    <!-- Justificación ejecutiva en lenguaje natural -->
+                    <div id="promethee-executive-summary" class="p-5 rounded-xl bg-slate-900 text-white border border-slate-800 text-xs sm:text-sm space-y-2">
+                        <!-- Inyectado dinámicamente -->
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Botonera de navegación inferior -->
+            <div class="flex justify-between items-center mt-10 pt-6 border-t border-slate-200">
+                <button id="bottom-prev-btn" onclick="goToPrevStep()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs sm:text-sm rounded-xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
+                    ◀ Paso anterior
+                </button>
+                <button id="bottom-next-btn" onclick="goToNextStep()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-xl transition-all shadow-md flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+                    <span>Siguiente paso</span>
+                    <span>▶</span>
+                </button>
+            </div>
+
+                <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+</main>
+    </div>
+
+    <!-- MODAL DE AUDITORÍA: COMPARACIÓN PAR A PAR DETALLADA -->
+    <div id="flow-audit-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl max-h-[88vh] flex flex-col overflow-hidden my-auto">
+            <!-- Modal Header -->
+            <div class="px-5 py-4 bg-indigo-600 text-white flex items-center justify-between shrink-0">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-2xl">🔍</span>
+                    <h3 id="audit-modal-title" class="text-lg sm:text-xl font-bold">Desglose par a par de la alternativa</h3>
+                </div>
+                <button onclick="closeAuditModal()" class="text-indigo-100 hover:text-white text-3xl font-bold leading-none px-2 py-0.5">&times;</button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-5 sm:p-6 overflow-y-auto custom-scroll space-y-5" id="audit-modal-body">
+                <!-- Inyectado dinámicamente -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-5 py-3 bg-slate-100 border-t border-slate-200 flex items-center justify-end shrink-0">
+                <button onclick="closeAuditModal()" class="px-5 py-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm rounded-lg transition-colors">
+                    Entendido / Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Modelos de datos preconfigurados para la asignatura EI1044
+        const PRESET_SCENARIOS = {
+            laptops: {
+                title: "Caso de estudio: Portátiles corporativos para equipo comercial",
+                desc: "Equipamiento de 30 comerciales con alta movilidad. Criterios: precio, rendimiento en benchmark, peso ligero, horas de autonomía y años de garantía in-situ.",
+                alternatives: [
+                    { name: "Portátil Alfa (Ultrabook ejecutivo)", values: [1200, 8500, 1.2, 9, 3] },
+                    { name: "Portátil Beta (Económico equilibrado)", values: [850, 6200, 1.5, 7, 1] },
+                    { name: "Portátil Gamma (Autonomía extrema)", values: [1000, 7100, 0.9, 12, 2] }
+                ],
+                criteria: [
+                    { name: "Precio (€)", type: "min", weight: 20 },
+                    { name: "Rendimiento", type: "max", weight: 20 },
+                    { name: "Peso (kg)", type: "min", weight: 20 },
+                    { name: "Autonomía (h)", type: "max", weight: 20 },
+                    { name: "Garantía (años)", type: "max", weight: 20 }
+                ]
+            },
+            servers: {
+                title: "Caso de estudio SysAdmin: Servidor de virtualización y almacenamiento",
+                desc: "Selección de nodo de cómputo para clúster Proxmox/VMware de la organización. Criterios: coste adquisición, rendimiento IOPS, consumo energético, SLA soporte y capacidad neta.",
+                alternatives: [
+                    { name: "Nodo PowerEdge R660", values: [7800, 120000, 480, 4, 32] },
+                    { name: "Nodo ProLiant DL380", values: [8400, 145000, 520, 2, 48] },
+                    { name: "Nodo Supermicro Epyc", values: [6500, 98000, 410, 8, 32] }
+                ],
+                criteria: [
+                    { name: "Precio de compra (€)", type: "min", weight: 25 },
+                    { name: "Rendimiento IOPS", type: "max", weight: 30 },
+                    { name: "Consumo eléctrico (W)", type: "min", weight: 15 },
+                    { name: "Tiempo respuesta SLA (h)", type: "min", weight: 15 },
+                    { name: "Capacidad neta (TB)", type: "max", weight: 15 }
+                ]
+            },
+            custom: {
+                title: "Modo libre: Definición personalizada de criterios y alternativas",
+                desc: "Diseña tu propio escenario empresarial para el entregable del Tema 1 o el Kit del SysAdmin. Añade alternativas y criterios dentro de límites razonables (2-5 alternativas y 2-6 criterios).",
+                alternatives: [
+                    { name: "Alternativa A", values: [100, 50, 20] },
+                    { name: "Alternativa B", values: [80, 70, 30] },
+                    { name: "Alternativa C", values: [120, 90, 15] }
+                ],
+                criteria: [
+                    { name: "Coste inicial (€)", type: "min", weight: 40 },
+                    { name: "Calidad técnica", type: "max", weight: 35 },
+                    { name: "Tiempo entrega (días)", type: "min", weight: 25 }
+                ]
+            }
+        };
+
+        // Estado global reactivo
+        let currentScenarioKey = 'laptops';
+        let alternatives = JSON.parse(JSON.stringify(PRESET_SCENARIOS.laptops.alternatives));
+        let criteria = JSON.parse(JSON.stringify(PRESET_SCENARIOS.laptops.criteria));
+
+        let currentStep = 1;
+        const TOTAL_STEPS = 5;
+
+        const STEP_TITLES = [
+            "Paso 1 de 5: Introducción y fundamentos",
+            "Paso 2 de 5: Matriz de datos",
+            "Paso 3 de 5: Ponderación estratégica",
+            "Paso 4 de 5: Cálculo de flujos (PROMETHEE I)",
+            "Paso 5 de 5: Ranking final (PROMETHEE II)"
+        ];
+
+        function scrollWizardToView() {
+            const dock = document.getElementById('sticky-promethee-dock');
+            if (!dock) return;
+
+            // Si el usuario ya está en la parte superior (scrollY bajo), NO provocamos saltos
+            // Esto previene que la infografía se desplace hacia arriba y corte el encabezado o quede bajo el dock
+            if (window.scrollY < 120) {
+                return;
+            }
+
+            // Si el usuario ha avanzado desde la botonera inferior tras hacer scroll largo,
+            // reposicionamos la vista suavemente justo donde el dock queda en la parte superior con su margen natural
+            const dockRect = dock.getBoundingClientRect();
+            const targetY = window.pageYOffset + dockRect.top - 12;
+
+            window.scrollTo({
+                top: Math.max(0, targetY),
+                behavior: 'smooth'
+            });
+        }
+
+        function updateStepView(shouldScroll = true) {
+            document.getElementById('step-badge').textContent = STEP_TITLES[currentStep - 1];
+
+            for (let i = 1; i <= TOTAL_STEPS; i++) {
+                const panel = document.getElementById(`step-panel-${i}`);
+                if (panel) {
+                    panel.classList.toggle('active', i === currentStep);
+                }
+            }
+
+            // Validar si el paso 3 permite avanzar (suma 100%)
+            const isWeightValid = validateWeights(false);
+
+            const dockPrev = document.getElementById('dock-prev-btn');
+            const dockNext = document.getElementById('dock-next-btn');
+            const bottomPrev = document.getElementById('bottom-prev-btn');
+            const bottomNext = document.getElementById('bottom-next-btn');
+
+            dockPrev.disabled = (currentStep === 1);
+            bottomPrev.disabled = (currentStep === 1);
+
+            const disableNext = (currentStep === TOTAL_STEPS) || (currentStep === 3 && !isWeightValid);
+            dockNext.disabled = disableNext;
+            bottomNext.disabled = disableNext;
+
+            if (currentStep === TOTAL_STEPS) {
+                bottomNext.textContent = "Finalizar revisión";
+            } else {
+                bottomNext.textContent = "Siguiente paso ▶";
+            }
+
+            if (shouldScroll) {
+                scrollWizardToView();
+            }
+        }
+
+        function goToNextStep() {
+            if (currentStep < TOTAL_STEPS) {
+                if (currentStep === 3) {
+                    if (!validateWeights(true)) return;
+                    const results = computePrometheeEngine();
+                    renderFlowsTable(results);
+                }
+                if (currentStep === 4) {
+                    const results = computePrometheeEngine();
+                    renderFinalRanking(results);
+                }
+                currentStep++;
+                updateStepView(true);
+            }
+        }
+
+        function goToPrevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepView(true);
+            }
+        }
+
+        function switchScenario(key) {
+            currentScenarioKey = key;
+            const preset = PRESET_SCENARIOS[key];
+
+            document.getElementById('step1-scenario-title').textContent = preset.title;
+            document.getElementById('step1-scenario-desc').textContent = preset.desc;
+
+            alternatives = JSON.parse(JSON.stringify(preset.alternatives));
+            criteria = JSON.parse(JSON.stringify(preset.criteria));
+
+            const customToolbar = document.getElementById('custom-mode-toolbar');
+            if (key === 'custom') {
+                customToolbar.classList.remove('hidden');
+                customToolbar.classList.add('flex');
+            } else {
+                customToolbar.classList.add('hidden');
+                customToolbar.classList.remove('flex');
+            }
+
+            renderDataTable();
+            renderWeightControls();
+            validateWeights(false);
+            updateCustomMatrixLimitsBadge();
+
+            // Si estábamos en pasos de resultados, recalcular
+            if (currentStep >= 4) {
+                const results = computePrometheeEngine();
+                renderFlowsTable(results);
+                renderFinalRanking(results);
+            }
+        }
+
+        function resetScenarioDefaults() {
+            switchScenario(currentScenarioKey);
+            currentStep = 1;
+            updateStepView(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderDataTable() {
+            const thead = document.getElementById('data-table-head');
+            const tbody = document.getElementById('data-table-body');
+            const isCustom = (currentScenarioKey === 'custom');
+
+            // Renderizar encabezados de criterios
+            let headHTML = `<tr><th class="p-3.5 sm:p-4 text-sm sm:text-base font-bold">Alternativa / Criterio</th>`;
+            criteria.forEach((crit, critIdx) => {
+                const isMin = crit.type === 'min';
+                headHTML += `
+                    <th class="p-3.5 sm:p-4 text-center">
+                        <div class="flex flex-col items-center gap-1">
+                            ${isCustom ? `
+                                <input type="text" value="${crit.name}" onchange="updateCriterionName(${critIdx}, this.value)" class="text-xs sm:text-sm font-bold text-center bg-slate-700 text-white rounded px-2 py-0.5 border border-slate-600 w-32 focus:ring-1 focus:ring-blue-400">
+                                <button onclick="toggleCriterionType(${critIdx})" class="px-2 py-0.5 rounded text-xs font-bold ${isMin ? 'bg-rose-900/80 text-rose-300' : 'bg-emerald-900/80 text-emerald-300'} border border-slate-600 hover:opacity-80">
+                                    ${isMin ? '📉 Minimizar (clic para cambiar)' : '📈 Maximizar (clic para cambiar)'}
+                                </button>
+                            ` : `
+                                <span class="font-bold text-xs sm:text-sm text-slate-100">${crit.name}</span>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold ${isMin ? 'bg-rose-900/80 text-rose-300 border border-rose-700' : 'bg-emerald-900/80 text-emerald-300 border border-emerald-700'}">
+                                    ${isMin ? '📉 Minimizar' : '📈 Maximizar'}
+                                </span>
+                            `}
+                        </div>
+                    </th>
+                `;
+            });
+            headHTML += `</tr>`;
+            thead.innerHTML = headHTML;
+
+            // Renderizar filas de alternativas
+            tbody.innerHTML = alternatives.map((alt, altIdx) => {
+                let rowHTML = `
+                    <tr class="hover:bg-slate-50 transition-colors">
+                        <td class="p-3.5 sm:p-4 font-bold text-slate-900 text-xs sm:text-sm">
+                            ${isCustom ? `
+                                <input type="text" value="${alt.name}" onchange="updateAlternativeName(${altIdx}, this.value)" class="w-full font-bold text-xs sm:text-sm border border-slate-300 rounded px-2.5 py-1.5 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            ` : `
+                                <span>${alt.name}</span>
+                            `}
+                        </td>
+                `;
+
+                alt.values.forEach((val, critIdx) => {
+                    rowHTML += `
+                        <td class="p-2 sm:p-3 text-center">
+                            <input type="number" value="${val}" step="any" onchange="updateCellValue(${altIdx}, ${critIdx}, this.value)" class="w-24 sm:w-28 text-center font-semibold text-xs sm:text-sm border border-slate-300 rounded-lg py-1.5 px-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        </td>
+                    `;
+                });
+
+                rowHTML += `</tr>`;
+                return rowHTML;
+            }).join('');
+        }
+
+        function updateCellValue(altIdx, critIdx, newVal) {
+            const num = parseFloat(newVal);
+            if (!isNaN(num)) {
+                alternatives[altIdx].values[critIdx] = num;
+            }
+        }
+
+        function updateCriterionName(critIdx, newName) {
+            if (newName.trim()) {
+                criteria[critIdx].name = newName.trim();
+                renderWeightControls();
+            }
+        }
+
+        function updateAlternativeName(altIdx, newName) {
+            if (newName.trim()) {
+                alternatives[altIdx].name = newName.trim();
+            }
+        }
+
+        function toggleCriterionType(critIdx) {
+            criteria[critIdx].type = (criteria[critIdx].type === 'min') ? 'max' : 'min';
+            renderDataTable();
+        }
+
+        // Modificadores del Modo Libre
+        function addAlternative() {
+            if (alternatives.length >= 5) {
+                alert("Límite pedagógico alcanzado: máximo 5 alternativas para evitar sobrecarga en la matriz par a par.");
+                return;
+            }
+            const newIndex = alternatives.length + 1;
+            const newVals = Array(criteria.length).fill(100);
+            alternatives.push({ name: `Alternativa ${String.fromCharCode(64 + newIndex)}`, values: newVals });
+            renderDataTable();
+            updateCustomMatrixLimitsBadge();
+        }
+
+        function removeAlternative() {
+            if (alternatives.length <= 2) {
+                alert("Se requieren al menos 2 alternativas para poder calcular la sobreclasificación en PROMETHEE.");
+                return;
+            }
+            alternatives.pop();
+            renderDataTable();
+            updateCustomMatrixLimitsBadge();
+        }
+
+        function addCriterion() {
+            if (criteria.length >= 6) {
+                alert("Límite pedagógico alcanzado: máximo 6 criterios para un pliego equilibrado.");
+                return;
+            }
+            const newIndex = criteria.length + 1;
+            criteria.push({ name: `Criterio ${newIndex}`, type: 'max', weight: 0 });
+            alternatives.forEach(alt => alt.values.push(50));
+            setEquitableWeights();
+            renderDataTable();
+            updateCustomMatrixLimitsBadge();
+        }
+
+        function removeCriterion() {
+            if (criteria.length <= 2) {
+                alert("Se requieren al menos 2 criterios para un problema de decisión multicriterio.");
+                return;
+            }
+            criteria.pop();
+            alternatives.forEach(alt => alt.values.pop());
+            setEquitableWeights();
+            renderDataTable();
+            updateCustomMatrixLimitsBadge();
+        }
+
+        function updateCustomMatrixLimitsBadge() {
+            const badge = document.getElementById('custom-matrix-limits-badge');
+            if (badge) {
+                badge.textContent = `${alternatives.length} alternativas × ${criteria.length} criterios`;
+            }
+        }
+
+        function renderWeightControls() {
+            const container = document.getElementById('weights-sliders-container');
+            container.innerHTML = criteria.map((crit, idx) => {
+                const isMin = crit.type === 'min';
+                return `
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between h-full space-y-3">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-1.5">
+                                <span class="font-bold text-slate-900 text-sm sm:text-base truncate" title="${crit.name}">${crit.name}</span>
+                                <span id="weight-display-${idx}" class="text-blue-600 font-extrabold text-base flex-shrink-0">${crit.weight}%</span>
+                            </div>
+                            <div class="mb-2">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold ${isMin ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'}">
+                                    ${isMin ? '📉 Criterio de coste' : '📈 Criterio de beneficio'}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <input type="range" id="weight-slider-${idx}" min="0" max="100" value="${crit.weight}" step="1" oninput="onWeightSliderInput(${idx}, this.value)" class="w-full cursor-pointer">
+                            <div class="flex items-center justify-between text-xs text-slate-500">
+                                <span>0%</span>
+                                <div class="flex items-center space-x-1">
+                                    <span>Fijar:</span>
+                                    <input type="number" id="weight-num-${idx}" min="0" max="100" value="${crit.weight}" onchange="onWeightNumberChange(${idx}, this.value)" class="w-14 text-center border border-slate-300 rounded font-semibold text-xs py-0.5">
+                                    <span>%</span>
+                                </div>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function onWeightSliderInput(idx, val) {
+            const weightVal = parseInt(val) || 0;
+            criteria[idx].weight = weightVal;
+            document.getElementById(`weight-display-${idx}`).textContent = `${weightVal}%`;
+            document.getElementById(`weight-num-${idx}`).value = weightVal;
+            validateWeights(false);
+        }
+
+        function onWeightNumberChange(idx, val) {
+            let weightVal = parseInt(val) || 0;
+            if (weightVal < 0) weightVal = 0;
+            if (weightVal > 100) weightVal = 100;
+            criteria[idx].weight = weightVal;
+            document.getElementById(`weight-slider-${idx}`).value = weightVal;
+            document.getElementById(`weight-display-${idx}`).textContent = `${weightVal}%`;
+            validateWeights(false);
+        }
+
+        function setEquitableWeights() {
+            const num = criteria.length;
+            const base = Math.floor(100 / num);
+            let remainder = 100 % num;
+
+            criteria.forEach(c => {
+                c.weight = base + (remainder > 0 ? 1 : 0);
+                if (remainder > 0) remainder--;
+            });
+
+            renderWeightControls();
+            validateWeights(false);
+        }
+
+        function validateWeights(showAlert = false) {
+            const total = criteria.reduce((acc, c) => acc + c.weight, 0);
+            const badge = document.getElementById('weights-sum-badge');
+            badge.textContent = `Suma actual: ${total}%`;
+
+            const isValid = (total === 100);
+            if (isValid) {
+                badge.className = "px-3 py-1 rounded-full text-xs sm:text-sm font-black text-white bg-emerald-600 shadow-xs";
+            } else {
+                badge.className = "px-3 py-1 rounded-full text-xs sm:text-sm font-black text-white bg-rose-600 shadow-xs";
+            }
+
+            const dockNext = document.getElementById('dock-next-btn');
+            const bottomNext = document.getElementById('bottom-next-btn');
+            if (currentStep === 3) {
+                dockNext.disabled = !isValid;
+                bottomNext.disabled = !isValid;
+            }
+
+            if (!isValid && showAlert) {
+                alert(`La suma actual de los pesos es del ${total}%. Debe ser exactamente 100% para poder calcular la matriz de sobreclasificación PROMETHEE.`);
+            }
+
+            return isValid;
+        }
+
+        function computePrometheeEngine() {
+            const n = alternatives.length;
+            let prefMatrix = Array(n).fill(0).map(() => Array(n).fill(0));
+
+            // Comparaciones par a par de alternativa i frente a alternativa j
+            for (let i = 0; i < n; i++) {
+                for (let j = 0; j < n; j++) {
+                    if (i === j) continue;
+                    let aggPref = 0;
+                    for (let k = 0; k < criteria.length; k++) {
+                        let diff = alternatives[i].values[k] - alternatives[j].values[k];
+                        if (criteria[k].type === 'min') {
+                            diff = -diff; // Si es coste, menor es mejor
+                        }
+                        // Función de preferencia usual (Tipo 1)
+                        if (diff > 0) {
+                            aggPref += (criteria[k].weight / 100);
+                        }
+                    }
+                    prefMatrix[i][j] = aggPref;
+                }
+            }
+
+            // Flujos de salida (Fortaleza), entrada (Debilidad) y neto
+            const results = alternatives.map((alt, i) => {
+                let outgoing = 0;
+                let incoming = 0;
+                for (let j = 0; j < n; j++) {
+                    if (i === j) continue;
+                    outgoing += prefMatrix[i][j];
+                    incoming += prefMatrix[j][i];
+                }
+                outgoing /= (n - 1);
+                incoming /= (n - 1);
+                const net = outgoing - incoming;
+
+                return {
+                    name: alt.name,
+                    index: i,
+                    outgoing: outgoing,
+                    incoming: incoming,
+                    net: net,
+                    prefMatrixRow: prefMatrix[i]
+                };
+            });
+
+            return results;
+        }
+
+        function renderFlowsTable(results) {
+            const tbody = document.getElementById('flows-table-body');
+            tbody.innerHTML = results.map(r => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-3.5 sm:p-4 font-bold text-slate-900 text-xs sm:text-sm">${r.name}</td>
+                    <td class="p-3.5 sm:p-4 text-center font-extrabold text-emerald-700 text-sm sm:text-base">
+                        ${r.outgoing.toFixed(3)}
+                    </td>
+                    <td class="p-3.5 sm:p-4 text-center font-extrabold text-rose-700 text-sm sm:text-base">
+                        ${r.incoming.toFixed(3)}
+                    </td>
+                    <td class="p-3.5 sm:p-4 text-center">
+                        <button onclick="openAuditModal(${r.index})" class="px-3 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-lg border border-indigo-200 transition-colors shadow-xs">
+                            🔍 Ver comparaciones par a par
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderFinalRanking(results) {
+            // Orden descendente por flujo neto (PROMETHEE II)
+            results.sort((a, b) => b.net - a.net);
+            const container = document.getElementById('promethee-ranking-container');
+            const summaryContainer = document.getElementById('promethee-executive-summary');
+            const winner = results[0];
+
+            const podiumBadges = [
+                { badge: "🥇 1er Lugar", bg: "bg-amber-50 border-amber-300 ring-2 ring-amber-500/30", text: "text-amber-900", netColor: "text-amber-700" },
+                { badge: "🥈 2º Lugar", bg: "bg-slate-50 border-slate-300", text: "text-slate-800", netColor: "text-slate-700" },
+                { badge: "🥉 3er Lugar", bg: "bg-orange-50/50 border-orange-200", text: "text-orange-950", netColor: "text-orange-800" }
+            ];
+
+            container.innerHTML = results.map((r, idx) => {
+                const style = podiumBadges[idx] || { badge: `${idx + 1}º Lugar`, bg: "bg-white border-slate-200", text: "text-slate-700", netColor: "text-slate-600" };
+                return `
+                    <div class="p-4 sm:p-5 rounded-xl border flex flex-wrap items-center justify-between gap-3 ${style.bg}">
+                        <div class="flex items-center space-x-3.5">
+                            <span class="px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-white shadow-xs border border-slate-200 ${style.text}">
+                                ${style.badge}
+                            </span>
+                            <div>
+                                <h4 class="font-bold text-sm sm:text-base text-slate-900">${r.name}</h4>
+                                <div class="flex items-center space-x-3 text-xs text-slate-600 mt-0.5">
+                                    <span>Fortaleza Φ+: <strong class="text-emerald-700">${r.outgoing.toFixed(3)}</strong></span>
+                                    <span>•</span>
+                                    <span>Debilidad Φ-: <strong class="text-rose-700">${r.incoming.toFixed(3)}</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-right">
+                            <span class="text-xs uppercase text-slate-500 font-bold block">Flujo neto (Φ)</span>
+                            <span class="text-xl sm:text-2xl font-black ${style.netColor}">
+                                ${r.net >= 0 ? '+' : ''}${r.net.toFixed(3)}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Análisis explicativo en lenguaje natural
+            const heavyCriteria = criteria.filter(c => c.weight >= 25).map(c => c.name);
+            let summaryHTML = `
+                <div class="flex items-center space-x-2 text-emerald-400 font-extrabold text-sm sm:text-base">
+                    <span>🏆</span>
+                    <span>Dictamen técnico del método PROMETHEE II:</span>
+                </div>
+                <p class="leading-relaxed text-slate-200">
+                    La alternativa recomendada es <strong>${winner.name}</strong> al obtener el mayor flujo neto global (<strong>${winner.net >= 0 ? '+' : ''}${winner.net.toFixed(3)}</strong>).
+                </p>
+            `;
+
+            if (heavyCriteria.length > 0) {
+                summaryHTML += `
+                    <p class="leading-relaxed text-slate-300">
+                        Esta victoria se fundamenta en su capacidad de sobreclasificar a sus competidores en los criterios prioritarios del pliego: <strong>${heavyCriteria.join(', ')}</strong>, manteniendo a la vez un índice de debilidad bajo frente al resto de propuestas.
+                    </p>
+                `;
+            } else {
+                summaryHTML += `
+                    <p class="leading-relaxed text-slate-300">
+                        Su triunfo refleja un perfil muy equilibrado que supera de forma consistente a las demás opciones sin mostrar flaquezas acusadas en ningún parámetro.
+                    </p>
+                `;
+            }
+
+            summaryHTML += `
+                <p class="text-xs text-slate-400 italic pt-1 border-t border-slate-800">
+                    <span class="font-bold not-italic text-slate-300">Nota:</span> En la defensa del proyecto del SysAdmin, este desglose permite justificar por qué la opción ganadora resiste auditorías par a par ante la dirección de la empresa.
+                </p>
+            `;
+
+            summaryContainer.innerHTML = summaryHTML;
+        }
+
+        function openAuditModal(altIndex) {
+            const targetAlt = alternatives[altIndex];
+            document.getElementById('audit-modal-title').textContent = `Auditoría par a par: ${targetAlt.name}`;
+            const body = document.getElementById('audit-modal-body');
+
+            let html = `
+                <div class="p-3.5 bg-indigo-50 border border-indigo-200 rounded-xl text-xs sm:text-sm text-indigo-900 leading-relaxed">
+                    A continuación se desglosa cómo se compara <strong>${targetAlt.name}</strong> frente a cada una de las demás alternativas para cada criterio ponderado.
+                </div>
+            `;
+
+            // Fortaleza (cuándo domina a los demás)
+            html += `<h4 class="font-extrabold text-emerald-800 text-sm sm:text-base mt-2 flex items-center gap-1.5"><span>📈</span> 1. Cálculo de fortaleza (flujo saliente Φ+)</h4>`;
+            alternatives.forEach((otherAlt, otherIdx) => {
+                if (altIndex === otherIdx) return;
+                let pairSum = 0;
+                html += `
+                    <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs sm:text-sm">
+                        <strong class="text-slate-900 block">Comparando con ${otherAlt.name}:</strong>
+                        <ul class="space-y-1 pl-3 border-l-2 border-slate-300">
+                `;
+
+                criteria.forEach((crit, critIdx) => {
+                    const valA = targetAlt.values[critIdx];
+                    const valB = otherAlt.values[critIdx];
+                    let diff = valA - valB;
+                    if (crit.type === 'min') diff = -diff;
+                    const beats = (diff > 0);
+                    const pref = beats ? (crit.weight / 100) : 0;
+                    pairSum += pref;
+
+                    html += `
+                        <li class="flex items-center justify-between">
+                            <span>${crit.name} (${valA} vs ${valB}):</span>
+                            <span class="${beats ? 'text-emerald-700 font-bold' : 'text-slate-500'}">
+                                ${beats ? `Supera (+${(crit.weight / 100).toFixed(2)})` : 'No supera (0.00)'}
+                            </span>
+                        </li>
+                    `;
+                });
+
+                html += `
+                        </ul>
+                        <div class="text-right font-extrabold text-emerald-800 pt-1 border-t border-slate-200">
+                            Preferencia agregada sobre ${otherAlt.name}: ${pairSum.toFixed(3)}
+                        </div>
+                    </div>
+                `;
+            });
+
+            // Debilidad (cuándo es dominado por los demás)
+            html += `<h4 class="font-extrabold text-rose-800 text-sm sm:text-base mt-4 flex items-center gap-1.5"><span>📉</span> 2. Cálculo de debilidad (flujo entrante Φ-)</h4>`;
+            alternatives.forEach((otherAlt, otherIdx) => {
+                if (altIndex === otherIdx) return;
+                let pairSum = 0;
+                html += `
+                    <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs sm:text-sm">
+                        <strong class="text-slate-900 block">${otherAlt.name} comparado con ${targetAlt.name}:</strong>
+                        <ul class="space-y-1 pl-3 border-l-2 border-slate-300">
+                `;
+
+                criteria.forEach((crit, critIdx) => {
+                    const valA = otherAlt.values[critIdx];
+                    const valB = targetAlt.values[critIdx];
+                    let diff = valA - valB;
+                    if (crit.type === 'min') diff = -diff;
+                    const beats = (diff > 0);
+                    const pref = beats ? (crit.weight / 100) : 0;
+                    pairSum += pref;
+
+                    html += `
+                        <li class="flex items-center justify-between">
+                            <span>${crit.name} (${valA} vs ${valB}):</span>
+                            <span class="${beats ? 'text-rose-700 font-bold' : 'text-slate-500'}">
+                                ${beats ? `Es superado (+${(crit.weight / 100).toFixed(2)})` : 'No es superado (0.00)'}
+                            </span>
+                        </li>
+                    `;
+                });
+
+                html += `
+                        </ul>
+                        <div class="text-right font-extrabold text-rose-800 pt-1 border-t border-slate-200">
+                            Preferencia de ${otherAlt.name} sobre esta opción: ${pairSum.toFixed(3)}
+                        </div>
+                    </div>
+                `;
+            });
+
+            body.innerHTML = html;
+            document.getElementById('flow-audit-modal').classList.remove('hidden');
+        }
+
+        function closeAuditModal() {
+            document.getElementById('flow-audit-modal').classList.add('hidden');
+        }
+
+        // Inicialización al cargar el DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            switchScenario('laptops');
+            updateStepView(false);
+        });
+    </script>
+</body>
+</html>

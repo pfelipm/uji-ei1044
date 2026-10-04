@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: SaaS frente a on-premise</title>
+    <!-- CDN de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CDN de Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .comparison-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .comparison-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+        .vs-circle {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 9999px;
+            background-color: #0f172a;
+            color: #ffffff;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 4px solid #f8fafc;
+        }
+        .decision-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .decision-card:hover {
+            transform: translateY(-2px);
+        }
+        /* Estilos para los sliders (inputs range) */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: #2563eb;
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        input[type=range]:focus::-webkit-slider-thumb {
+            outline: 2px solid #93c5fd;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 text-slate-800">
+
+<div class="max-w-7xl mx-auto space-y-10">
+    <!-- Header -->
+    <header class="text-center">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-slate-200 text-slate-800 text-xs sm:text-sm font-extrabold uppercase tracking-wider mb-3">
+            📈 Estrategia e inversión en infraestructura TIC
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+            El duelo: SaaS frente a on-premise
+        </h1>
+        <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto font-medium">
+            ¿Qué modelo de adquisición de software se adapta mejor a los objetivos de negocio, gobernanza de datos y capacidades de operaciones de la empresa?
+        </p>
+    </header>
+
+    <!-- Bloque comparativo principal -->
+    <div class="flex flex-col lg:flex-row items-stretch justify-center gap-8">
+
+        <!-- Tarjeta SaaS -->
+        <div class="w-full lg:w-1/2 flex">
+            <div class="comparison-card border-t-8 border-blue-600 flex flex-col justify-between w-full">
+                <div>
+                    <div class="text-center mb-6">
+                        <div class="bg-blue-100 rounded-full p-4 inline-block mb-2">
+                            <svg class="h-10 w-10 text-blue-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">SaaS</h2>
+                        <p class="text-xs sm:text-sm font-bold text-blue-700 uppercase tracking-wider mt-1">
+                            Software como servicio (Software as a Service)
+                        </p>
+                        <p class="text-slate-600 mt-2 text-sm sm:text-base font-medium">
+                            El software se aloja en la nube del proveedor y se accede a él mediante suscripción periódica a través de internet.
+                        </p>
+                    </div>
+
+                    <!-- Financiero OpEx -->
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 text-xs sm:text-sm text-blue-950 leading-relaxed">
+                        <strong class="font-extrabold flex items-center gap-1.5 mb-1 text-blue-900">
+                            💳 Modelo financiero: Gastos operativos (OpEx)
+                        </strong>
+                        Pago recurrente (mensual/anual). Sin inversión inicial alta. Facilita la previsibilidad presupuestaria inicial pero escala directamente con el número de usuarios.
+                    </div>
+
+                    <!-- Ventajas SaaS -->
+                    <div class="mb-6">
+                        <h3 class="font-extrabold text-lg text-blue-800 mb-3">Ventajas clave</h3>
+                        <ul class="space-y-3 text-slate-700 text-sm sm:text-base">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-emerald-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <span><strong class="text-slate-900">Puesta en marcha inmediata:</strong> Despliegue en minutos sin necesidad de aprovisionar infraestructura ni instalar software.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-emerald-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <span><strong class="text-slate-900">Mantenimiento delegado:</strong> El proveedor gestiona copias de seguridad, parches de seguridad, cumplimiento de parches y upgrades de versión.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-emerald-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <span><strong class="text-slate-900">Acceso multidispositivo y global:</strong> Disponibilidad inmediata vía navegador/app desde cualquier ubicación.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Inconvenientes SaaS -->
+                    <div class="mb-6">
+                        <h3 class="font-extrabold text-lg text-amber-800 mb-3">Inconvenientes y riesgos</h3>
+                        <ul class="space-y-3 text-slate-700 text-sm sm:text-base">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-amber-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span><strong class="text-slate-900">Dependencia de conectividad y proveedor:</strong> Riesgo de degradación de servicio por caída de red externa o cambios unilaterales del vendor.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-amber-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span><strong class="text-slate-900">Menor personalización e integración profunda:</strong> Acoplado a las APIs e interfaces expuestas por el proveedor.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-amber-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span><strong class="text-slate-900">Coste acumulado elevado (TCO a largo plazo):</strong> El coste por usuario perpetuo puede superar la inversión en software tradicional.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Footer SaaS -->
+                <div class="pt-4 border-t border-slate-200 mt-4">
+                    <div class="p-3 bg-blue-50 rounded-xl text-center text-xs sm:text-sm font-bold text-blue-900">
+                        Ejemplos: Microsoft 365, Salesforce, Google Workspace, GitHub Enterprise SaaS.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Separador VS (Escritorio) -->
+        <div class="hidden lg:flex items-center justify-center -mx-6 z-10">
+            <div class="vs-circle">VS</div>
+        </div>
+
+        <!-- Tarjeta On-Premise -->
+        <div class="w-full lg:w-1/2 flex">
+            <div class="comparison-card border-t-8 border-slate-700 flex flex-col justify-between w-full">
+                <div>
+                    <div class="text-center mb-6">
+                        <div class="bg-slate-200 rounded-full p-4 inline-block mb-2">
+                            <svg class="h-10 w-10 text-slate-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="8" rx="2" ry="2" />
+                                <rect x="2" y="13" width="20" height="8" rx="2" ry="2" />
+                                <line x1="6" y1="7" x2="6" y2="7" stroke-width="3" stroke-linecap="round" />
+                                <line x1="6" y1="17" x2="6" y2="17" stroke-width="3" stroke-linecap="round" />
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">On-Premise</h2>
+                        <p class="text-xs sm:text-sm font-bold text-slate-600 uppercase tracking-wider mt-1">
+                            Software en instalaciones locales
+                        </p>
+                        <p class="text-slate-600 mt-2 text-sm sm:text-base font-medium">
+                            El software se instala y ejecuta en la infraestructura física o hipervisores locales dentro del CPD propio de la organización.
+                        </p>
+                    </div>
+
+                    <!-- Financiero CapEx -->
+                    <div class="bg-slate-100 border border-slate-300 rounded-xl p-4 mb-6 text-xs sm:text-sm text-slate-900 leading-relaxed">
+                        <strong class="font-extrabold flex items-center gap-1.5 mb-1 text-slate-900">
+                            🏗️ Modelo financiero: Inversión en capital (CapEx)
+                        </strong>
+                        Alto desembolso inicial en hardware, almacenamiento, licencias perpetuas y conectividad. Requiere costes recurrentes de mantenimiento operativo y energía.
+                    </div>
+
+                    <!-- Ventajas On-Premise -->
+                    <div class="mb-6">
+                        <h3 class="font-extrabold text-lg text-slate-800 mb-3">Ventajas clave</h3>
+                        <ul class="space-y-3 text-slate-700 text-sm sm:text-base">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-emerald-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <span><strong class="text-slate-900">Soberanía y control de datos:</strong> La información reside de extremo a extremo bajo el perímetro físico y lógico de la organización.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-emerald-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <span><strong class="text-slate-900">Personalización e integración total:</strong> Acceso completo a bases de datos, APIs internas y capacidad de desarrollo a medida.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-emerald-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <span><strong class="text-slate-900">Autonomía operativa offline:</strong> Independencia de proveedores externos y capacidad de funcionamiento air-gapped o sin internet.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Inconvenientes On-Premise -->
+                    <div class="mb-6">
+                        <h3 class="font-extrabold text-lg text-amber-800 mb-3">Inconvenientes y riesgos</h3>
+                        <ul class="space-y-3 text-slate-700 text-sm sm:text-base">
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-amber-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span><strong class="text-slate-900">Alta barrera de entrada y amortización lenta:</strong> Inversión fuerte de capital y riesgo de obsolescencia de hardware en 3-5 años.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-amber-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span><strong class="text-slate-900">Carga operativa interna completa:</strong> La responsabilidad de copias, alta disponibilidad, desastres (DRP) y parches recae 100% en el equipo SysAdmin.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="h-6 w-6 text-amber-600 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                <span><strong class="text-slate-900">Escalabilidad rígida y aprovisionamiento lento:</strong> Escalar requiere ciclo de compra, recepción, montaje en rack y configuración.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Footer On-Premise -->
+                <div class="pt-4 border-t border-slate-200 mt-4">
+                    <div class="p-3 bg-slate-100 rounded-xl text-center text-xs sm:text-sm font-bold text-slate-800">
+                        Ejemplos: ERPs a medida (SAP sobre CPD local), GitLab Self-Hosted, Active Directory local.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SECCIÓN: Marco avanzado de criterios de decisión -->
+    <section class="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-8">
+        <div class="text-center max-w-3xl mx-auto">
+            <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider">
+                Metodología de toma de decisiones TIC
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-black text-slate-900 mt-2">
+                Criterios clave para el responsable de SysAdmin
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base mt-2">
+                Guía de evaluación estratégica para la toma de decisiones al diseñar la arquitectura de software empresarial.
+            </p>
+        </div>
+
+        <!-- Lista de 5 criterios estratégicos en formato horizontal -->
+        <div class="space-y-4">
+            <!-- Criterio 1: TCO -->
+            <div class="decision-card bg-slate-50 hover:bg-slate-100/80 transition-all p-5 sm:p-6 rounded-2xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
+                <div class="flex items-start sm:items-center gap-4 flex-1">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-black text-xl flex-shrink-0 shadow-sm">
+                        1
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Coste total de propiedad (TCO)</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mt-1 max-w-3xl">
+                            No compares solo licencias frente a suscripción. Calcula el TCO a 3 y 5 años incluyendo mantenimiento, electricidad, personal de administración, almacenamiento y migración.
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full md:w-64 flex-shrink-0">
+                    <button onclick="openModal()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-5 rounded-xl transition duration-300 shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        Calculadora TCO
+                    </button>
+                </div>
+            </div>
+
+            <!-- Criterio 2: Compliance y RGPD -->
+            <div class="decision-card bg-slate-50 hover:bg-slate-100/80 transition-all p-5 sm:p-6 rounded-2xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
+                <div class="flex items-start sm:items-center gap-4 flex-1">
+                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center font-black text-xl flex-shrink-0 shadow-sm">
+                        2
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Gobernanza y cumplimiento</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mt-1 max-w-3xl">
+                            Verifica dónde se procesan físicamente los datos. Sectores como administración pública, bancario o sanitario exigen cumplir con el Esquema Nacional de Seguridad (ENS) o soberanía de datos.
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full md:w-80 lg:w-96 flex-shrink-0 bg-blue-100/80 border border-blue-200 text-blue-950 p-3.5 rounded-xl text-xs sm:text-sm font-semibold leading-snug">
+                    🛡️ <strong class="font-black text-blue-900">Regla:</strong> Si tratas datos muy sensibles o regulados, revisa las garantías de transferencias internacionales en SaaS.
+                </div>
+            </div>
+
+            <!-- Criterio 3: Integración y DevOps -->
+            <div class="decision-card bg-slate-50 hover:bg-slate-100/80 transition-all p-5 sm:p-6 rounded-2xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
+                <div class="flex items-start sm:items-center gap-4 flex-1">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-black text-xl flex-shrink-0 shadow-sm">
+                        3
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Integración y personalización</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mt-1 max-w-3xl">
+                            Evalúa si requieres modificar profundamente el software o integrarlo a bajo nivel con sistemas core heredados. SaaS suele estar limitado a las APIs que el proveedor decida exponer.
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full md:w-80 lg:w-96 flex-shrink-0 bg-indigo-100/80 border border-indigo-200 text-indigo-950 p-3.5 rounded-xl text-xs sm:text-sm font-semibold leading-snug">
+                    ⚙️ <strong class="font-black text-indigo-900">Regla:</strong> Si tu core business depende de flujos ultra personalizados, On-Premise o arquitecturas privadas te darán la libertad necesaria.
+                </div>
+            </div>
+
+            <!-- Criterio 4: Vendor Lock-in -->
+            <div class="decision-card bg-slate-50 hover:bg-slate-100/80 transition-all p-5 sm:p-6 rounded-2xl border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
+                <div class="flex items-start sm:items-center gap-4 flex-1">
+                    <div class="w-12 h-12 rounded-xl bg-red-100 text-red-800 flex items-center justify-center font-black text-xl flex-shrink-0 shadow-sm">
+                        4
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-slate-900 text-lg">Riesgo de lock-in (dependencia)</h3>
+                        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mt-1 max-w-3xl">
+                            Analiza la facilidad (o dificultad) técnica y legal para extraer tus datos de un SaaS y migrarlos a otro proveedor o a un sistema propio si cambian las condiciones (ej. aumento abusivo de precios).
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full md:w-80 lg:w-96 flex-shrink-0 bg-red-100/80 border border-red-200 text-red-950 p-3.5 rounded-xl text-xs sm:text-sm font-semibold leading-snug">
+                    🔒 <strong class="font-black text-red-900">Regla:</strong> Exige formatos de exportación estándar y cláusulas de salida claras antes de firmar cualquier contrato SaaS.
+                </div>
+            </div>
+
+            <!-- Criterio 5: Híbrido / Cloud-Smart -->
+            <div class="decision-card bg-purple-50 hover:bg-purple-100/60 transition-all p-5 sm:p-6 rounded-2xl border border-purple-200 flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
+                <div class="flex items-start sm:items-center gap-4 flex-1">
+                    <div class="w-12 h-12 rounded-xl bg-purple-200 text-purple-900 flex items-center justify-center font-black text-xl flex-shrink-0 shadow-sm">
+                        5
+                    </div>
+                    <div>
+                        <h3 class="font-extrabold text-purple-900 text-lg">El modelo híbrido / cloud-smart</h3>
+                        <p class="text-purple-800/80 text-xs sm:text-sm leading-relaxed mt-1 max-w-3xl font-medium">
+                            En la empresa real no todo es blanco o negro. Es muy común mantener el núcleo de bases de datos On-Premise por regulación estricta, pero adoptar SaaS para herramientas de productividad y análisis (ej. Office 365, CRMs).
+                        </p>
+                    </div>
+                </div>
+                <div class="w-full md:w-80 lg:w-96 flex-shrink-0 bg-purple-200/70 border border-purple-300 text-purple-950 p-3.5 rounded-xl text-xs sm:text-sm font-semibold leading-snug">
+                    ☁️ <strong class="font-black text-purple-900">Regla:</strong> Sé "Cloud-Smart". Analiza y ubica cada carga de trabajo donde tenga más sentido técnico y financiero.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: Matriz resumida de recomendación -->
+    <section class="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 text-center flex items-center justify-center gap-3">
+            <span>📋</span> Matriz resumida de recomendación
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Tarjeta SaaS -->
+            <div class="bg-blue-50/60 border border-blue-200 rounded-2xl p-6 sm:p-8 space-y-4">
+                <h3 class="text-xl sm:text-2xl font-black text-blue-900 flex items-center gap-2">
+                    <span>🚀</span> Elige SaaS si:
+                </h3>
+                <ul class="space-y-3 text-slate-700 text-sm sm:text-base font-medium">
+                    <li class="flex items-start gap-2">
+                        <span class="text-blue-600 font-bold">•</span>
+                        <span>Necesitas despliegue inmediato (time-to-market crítico).</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-blue-600 font-bold">•</span>
+                        <span>No cuentas con equipo interno de soporte 24/7 ni infraestructura de CPD propia.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-blue-600 font-bold">•</span>
+                        <span>El software es estándar y secundario a la ventaja competitiva clave de la empresa.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tarjeta On-Premise -->
+            <div class="bg-slate-100/70 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-4">
+                <h3 class="text-xl sm:text-2xl font-black text-slate-900 flex items-center gap-2">
+                    <span>🛡️</span> Elige On-Premise si:
+                </h3>
+                <ul class="space-y-3 text-slate-700 text-sm sm:text-base font-medium">
+                    <li class="flex items-start gap-2">
+                        <span class="text-slate-600 font-bold">•</span>
+                        <span>Manejas datos críticos o con regulaciones que prohíben alojamiento multi-inquilino.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-slate-600 font-bold">•</span>
+                        <span>Requieres integración de muy baja latencia con sistemas industriales o legacy.</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="text-slate-600 font-bold">•</span>
+                        <span>Cuentas con personal experto en administración de sistemas y CPD maduro.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+        <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+
+</div>
+
+<!-- MODAL: Calculadora TCO -->
+<div id="tcoModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <!-- Fondo oscuro -->
+    <div class="fixed inset-0 bg-slate-900/75 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
+
+    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <!-- Panel del modal -->
+        <div class="relative transform overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-6xl">
+
+            <!-- Header del modal -->
+            <div class="bg-slate-900 px-6 py-4 flex justify-between items-center text-white">
+                <h3 class="text-xl sm:text-2xl font-black flex items-center gap-3" id="modal-title">
+                    <svg class="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                    Calculadora interactiva de TCO
+                </h3>
+                <button onclick="closeModal()" type="button" class="text-slate-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-white rounded-lg p-1">
+                    <span class="sr-only">Cerrar</span>
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Body del modal -->
+            <div class="p-6 sm:p-8 space-y-6 max-h-[80vh] overflow-y-auto">
+                <p class="text-slate-600 text-sm sm:text-base">
+                    Ajusta las variables operativas para simular la evolución del coste acumulado entre una solución SaaS y un despliegue On-Premise en el horizonte temporal seleccionado.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Controles / Sliders -->
+                    <div class="lg:col-span-5 space-y-4 bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <div>
+                            <div class="flex justify-between items-center mb-1 gap-2">
+                                <label for="yearsSlider" class="text-xs sm:text-sm font-bold text-slate-700">Horizonte temporal (años):</label>
+                                <span id="yearsValue" class="text-sm font-extrabold text-purple-700 bg-purple-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">5 años</span>
+                            </div>
+                            <input type="range" id="yearsSlider" min="1" max="10" value="5" step="1" oninput="updateCalculation()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1 gap-2">
+                                <label for="usersSlider" class="text-xs sm:text-sm font-bold text-slate-700">Número de usuarios:</label>
+                                <span id="usersValue" class="text-sm font-extrabold text-blue-600 bg-blue-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">50</span>
+                            </div>
+                            <input type="range" id="usersSlider" min="5" max="500" value="50" step="5" oninput="updateCalculation()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1 gap-2">
+                                <label for="saasCostSlider" class="text-xs sm:text-sm font-bold text-slate-700">Coste SaaS (€/usuario/mes):</label>
+                                <span id="saasCostValue" class="text-sm font-extrabold text-blue-600 bg-blue-100 px-2.5 py-0.5 rounded-full whitespace-nowrap">30 €</span>
+                            </div>
+                            <input type="range" id="saasCostSlider" min="5" max="150" value="30" step="5" oninput="updateCalculation()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1 gap-2">
+                                <label for="onPremCapexSlider" class="text-xs sm:text-sm font-bold text-slate-700">Inversión inicial On-Premise (€):</label>
+                                <span id="onPremCapexValue" class="text-sm font-extrabold text-slate-800 bg-slate-200 px-2.5 py-0.5 rounded-full whitespace-nowrap">25.000 €</span>
+                            </div>
+                            <input type="range" id="onPremCapexSlider" min="5000" max="100000" value="25000" step="2500" oninput="updateCalculation()">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between items-center mb-1 gap-2">
+                                <label for="onPremOpexSlider" class="text-xs sm:text-sm font-bold text-slate-700">Coste anual mantenimiento (€):</label>
+                                <span id="onPremOpexValue" class="text-sm font-extrabold text-slate-800 bg-slate-200 px-2.5 py-0.5 rounded-full whitespace-nowrap">4.000 €</span>
+                            </div>
+                            <input type="range" id="onPremOpexSlider" min="1000" max="25000" value="4000" step="500" oninput="updateCalculation()">
+                        </div>
+
+                        <div class="pt-2 border-t border-slate-200 text-xs text-slate-500 leading-normal">
+                            💡 <em>Consejo didáctico:</em> Observa cómo a mayor número de usuarios el modelo SaaS incrementa su pendiente de gasto, alcanzando el punto de equilibrio (crossover) con On-Premise.
+                        </div>
+                    </div>
+
+                    <!-- Gráfica -->
+                    <div class="lg:col-span-7 h-72 sm:h-80 relative">
+                        <canvas id="tcoChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer del modal -->
+            <div class="bg-slate-50 px-6 py-4 flex justify-end border-t border-slate-200">
+                <button onclick="closeModal()" type="button" class="bg-slate-800 hover:bg-slate-900 text-white font-bold py-2 px-6 rounded-xl transition duration-300">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let chartInstance = null;
+
+    function openModal() {
+        document.getElementById('tcoModal').classList.remove('hidden');
+        if (!chartInstance) {
+            initChart();
+        } else {
+            updateCalculation();
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('tcoModal').classList.add('hidden');
+    }
+
+    function initChart() {
+        const ctx = document.getElementById('tcoChart').getContext('2d');
+
+        chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [
+                    {
+                        label: 'SaaS (OpEx acumulado)',
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                        borderWidth: 3,
+                        data: [],
+                        tension: 0.1,
+                        fill: true
+                    },
+                    {
+                        label: 'On-Premise (CapEx + OpEx)',
+                        borderColor: '#334155',
+                        backgroundColor: 'rgba(51, 65, 85, 0.05)',
+                        borderWidth: 3,
+                        data: [],
+                        tension: 0.1,
+                        fill: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                family: 'Inter',
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value.toLocaleString('es-ES') + ' €';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        updateCalculation();
+    }
+
+    function updateCalculation() {
+        const years = parseInt(document.getElementById('yearsSlider').value);
+        const users = parseInt(document.getElementById('usersSlider').value);
+        const saasCostUserMonth = parseInt(document.getElementById('saasCostSlider').value);
+        const onPremCapex = parseInt(document.getElementById('onPremCapexSlider').value);
+        const onPremOpexYear = parseInt(document.getElementById('onPremOpexSlider').value);
+
+        // Actualizar etiquetas numéricas
+        document.getElementById('yearsValue').innerText = years + (years === 1 ? ' año' : ' años');
+        document.getElementById('usersValue').innerText = users;
+        document.getElementById('saasCostValue').innerText = saasCostUserMonth.toLocaleString('es-ES') + ' €';
+        document.getElementById('onPremCapexValue').innerText = onPremCapex.toLocaleString('es-ES') + ' €';
+        document.getElementById('onPremOpexValue').innerText = onPremOpexYear.toLocaleString('es-ES') + ' €';
+
+        // Generar etiquetas dinámicas según el horizonte temporal (Año 0 a Año N)
+        const labels = ['Año 0'];
+        for (let i = 1; i <= years; i++) {
+            labels.push('Año ' + i);
+        }
+
+        // Cálculos anuales
+        const saasAnnualCost = users * saasCostUserMonth * 12;
+        const saasData = [0];
+        const onPremData = [onPremCapex];
+
+        for (let i = 1; i <= years; i++) {
+            saasData.push(saasAnnualCost * i);
+            onPremData.push(onPremCapex + (onPremOpexYear * i));
+        }
+
+        if (chartInstance) {
+            chartInstance.data.labels = labels;
+            chartInstance.data.datasets[0].data = saasData;
+            chartInstance.data.datasets[1].data = onPremData;
+            chartInstance.update();
+        }
+    }
+</script>
+
+</body>
+</html>

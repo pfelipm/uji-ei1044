@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Proceso de decisión multicriterio en TI - EI1044 UJI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset de márgenes y preservación del contexto de sticky en iframes de Google Sites */
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            min-height: 100vh;
+            overflow-x: clip; /* clip preserva position:sticky sin romper el contenedor de scroll nativo */
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .sites-embed-wrapper {
+            padding: 1.5rem 1rem 3rem 1rem;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .sites-embed-wrapper {
+                padding: 2.5rem 2rem 3.5rem 2rem;
+            }
+        }
+
+        /* Transiciones de tarjetas de fases */
+        .phase-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phase-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.05);
+        }
+
+        .card-inactive {
+            opacity: 0.25;
+            filter: blur(2px) grayscale(70%);
+            transform: scale(0.985);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .card-active {
+            opacity: 1;
+            filter: blur(0) grayscale(0%);
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        /* Estilización de barras de scroll */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="sites-embed-wrapper">
+        <main class="w-full bg-white p-5 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-slate-200">
+
+            <!-- Encabezado Institucional de la Asignatura -->
+            <header class="text-center mb-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold mb-3 tracking-wide uppercase">
+                    <span>⚖️ A decisiones difíciles, criterios objetivos</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+                    Proceso de decisión multicriterio en TI
+                </h1>
+                <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-4xl mx-auto leading-relaxed">
+                    Metodología analítica para seleccionar infraestructura, software o proveedores evitando sesgos subjetivos. Transforma requerimientos heterogéneos en una decisión cuantificable y defendible ante la dirección.
+                </p>
+            </header>
+
+            <!-- Barra de control persistente (Sticky Floating HUD para proyección en aula) -->
+            <div id="sticky-control-dock" class="sticky top-2 sm:top-3 z-40 bg-slate-900/95 text-white p-2.5 sm:p-3 rounded-xl shadow-2xl border border-slate-700/80 mb-8 flex flex-wrap items-center justify-between gap-2.5 backdrop-blur-md transition-all">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-xs uppercase font-extrabold text-slate-300 tracking-wider hidden sm:inline">Fase visible:</span>
+                    <span id="step-badge" class="bg-blue-600 text-white text-xs sm:text-sm font-black px-3 py-1 rounded-full shadow-inner ring-1 ring-blue-400/40">
+                        0 / 5 fases
+                    </span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <button id="btn-prev" onclick="prevStep()" disabled class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700 shadow-xs opacity-50 disabled:cursor-not-allowed">
+                        ◀ Anterior
+                    </button>
+                    <button id="btn-next" onclick="nextStep()" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-md flex items-center gap-1.5">
+                        <span>Comenzar</span>
+                        <span>👉</span>
+                    </button>
+                    <button onclick="revealAllSteps()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700">
+                        Ver todas
+                    </button>
+                    <button onclick="resetSteps()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-rose-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700" title="Reiniciar fases">
+                        🔄
+                    </button>
+                    <button id="btn-nav-simulator" onclick="scrollToSimulator()" class="ml-1 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-md flex items-center gap-1.5">
+                        <span>🧪 Simulador</span>
+                        <span>↓</span>
+                    </button>
+                    <button id="btn-nav-phases" onclick="scrollToPhases()" class="hidden px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold text-xs sm:text-sm rounded-lg transition-all border border-emerald-600/50 flex items-center gap-1.5">
+                        <span>📖 Fases</span>
+                        <span>↑</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="steps-wrapper" class="space-y-6 mb-12">
+
+                <!-- PASO 1 -->
+                <div id="phase-0" class="phase-card card-inactive bg-white border border-slate-200 border-l-8 border-l-blue-600 rounded-xl p-5 sm:p-7 shadow-sm">
+                    <div class="flex items-start gap-4 sm:gap-6">
+                        <span class="text-4xl sm:text-5xl font-extrabold text-blue-600 leading-none">01</span>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Definir alternativas y criterios</h2>
+                                <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-blue-100 text-blue-800 border border-blue-200">Requerimientos y pliego (RFP)</span>
+                            </div>
+                            <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-4">
+                                Se identifican las soluciones candidatas viables que cumplen con los requisitos mínimos excluyentes (filtros <em>Pass/Fail</em>) y se catalogan los factores clave de decisión técnicos, económicos y organizativos.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-50 p-4 sm:p-5 rounded-lg border border-slate-200 text-xs sm:text-sm text-slate-700">
+                                <div>
+                                    <strong class="text-slate-900 block mb-1 text-sm sm:text-base">📂 Alternativas (opciones viables):</strong>
+                                    <p class="leading-relaxed">Deben ser comparables en alcance. Ej.: Proxmox VE vs. VMware vSphere vs. AWS EC2.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-slate-900 block mb-1 text-sm sm:text-base">🎯 Tipos de criterios:</strong>
+                                    <p class="leading-relaxed"><strong>Criterios de coste:</strong> TCO, latencia, tiempo de caída (a menor valor, mejor).<br><strong>Criterios de beneficio:</strong> Rendimiento IOPS, SLA %, soporte (a mayor valor, mejor).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 2 -->
+                <div id="phase-1" class="phase-card card-inactive bg-white border border-slate-200 border-l-8 border-l-purple-600 rounded-xl p-5 sm:p-7 shadow-sm">
+                    <div class="flex items-start gap-4 sm:gap-6">
+                        <span class="text-4xl sm:text-5xl font-extrabold text-purple-600 leading-none">02</span>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Ponderar los criterios (pesos <span class="font-serif italic font-semibold text-purple-700">w<sub>j</sub></span>)</h2>
+                                <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-purple-100 text-purple-800 border border-purple-200">Alineación con negocio</span>
+                            </div>
+                            <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-4">
+                                No todos los factores tienen la misma criticidad para la organización. Se asigna un peso relativo a cada criterio reflejando la estrategia del departamento de TI.
+                            </p>
+                            <div class="bg-purple-50 p-4 sm:p-5 rounded-lg border border-purple-200 text-xs sm:text-sm text-purple-950 space-y-2">
+                                <p class="text-sm sm:text-base"><strong>Regla matemática fundamental:</strong> La suma de todos los pesos ponderados debe ser exactamente el 100% (o 1,0): <span class="font-mono bg-white px-2.5 py-1 rounded border border-purple-300 font-bold tracking-wide">∑ <span class="font-serif italic font-semibold">w<sub>j</sub></span> = 1,0</span></p>
+                                <p class="text-slate-700 leading-relaxed"><em>Peligro habitual:</em> Sobredimensionar el peso económico sin considerar el soporte 24/7 o el coste de migración futura (dependencia del proveedor o <em>lock-in</em>).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 3 -->
+                <div id="phase-2" class="phase-card card-inactive bg-white border border-slate-200 border-l-8 border-l-amber-500 rounded-xl p-5 sm:p-7 shadow-sm">
+                    <div class="flex items-start gap-4 sm:gap-6">
+                        <span class="text-4xl sm:text-5xl font-extrabold text-amber-500 leading-none">03</span>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Construir la matriz de decisión cruda</h2>
+                                <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-amber-100 text-amber-900 border border-amber-200">Extracción de datos objetivos</span>
+                            </div>
+                            <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-4">
+                                Se recopilan las métricas y cotizaciones en sus unidades naturales reales (€, ms, IOPS, puntuaciones de auditoría de 1 a 10, porcentaje de disponibilidad garantizada).
+                            </p>
+                            <div class="bg-amber-50 p-4 sm:p-5 rounded-lg border border-amber-200 text-xs sm:text-sm text-amber-950 leading-relaxed">
+                                <p><strong>Problema técnico:</strong> No podemos sumar directamente euros con milisegundos o porcentajes. Sumar magnitudes heterogéneas provocaría que la variable con números más grandes (como 25.000 € frente a 99,9% SLA) distorsionara todo el resultado.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 4 -->
+                <div id="phase-3" class="phase-card card-inactive bg-white border border-slate-200 border-l-8 border-l-teal-600 rounded-xl p-5 sm:p-7 shadow-sm">
+                    <div class="flex items-start gap-4 sm:gap-6">
+                        <span class="text-4xl sm:text-5xl font-extrabold text-teal-600 leading-none">04</span>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Normalizar la matriz (escala adimensional de 0 a 1)</h2>
+                                <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-teal-100 text-teal-900 border border-teal-200">Normalización mín-máx</span>
+                            </div>
+                            <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-4">
+                                Se transforman todos los valores a una escala común entre 0 y 1 (o de 0 a 10), garantizando que el valor más favorable siempre obtenga la puntuación más cercana a 1.
+                            </p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+                                <div class="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                                    <strong class="text-teal-950 block mb-1 text-sm sm:text-base">📈 Criterios de beneficio (máx):</strong>
+                                    <p class="font-mono text-sm sm:text-base text-teal-900 font-bold bg-white/80 p-2 rounded border border-teal-200 mb-2">rᵢⱼ = (xᵢⱼ - Mín) / (Máx - Mín)</p>
+                                    <span class="text-slate-700 leading-relaxed block">A mayor valor real, mayor puntuación obtenida (ej.: velocidad de copia de seguridad o SLA).</span>
+                                </div>
+                                <div class="p-4 bg-rose-50 rounded-lg border border-rose-200">
+                                    <strong class="text-rose-950 block mb-1 text-sm sm:text-base">📉 Criterios de coste (mín):</strong>
+                                    <p class="font-mono text-sm sm:text-base text-rose-900 font-bold bg-white/80 p-2 rounded border border-rose-200 mb-2">rᵢⱼ = (Máx - xᵢⱼ) / (Máx - Mín)</p>
+                                    <span class="text-slate-700 leading-relaxed block">A menor coste real en euros o latencia, mayor puntuación obtenida.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 5 -->
+                <div id="phase-4" class="phase-card card-inactive bg-white border border-slate-200 border-l-8 border-l-emerald-600 rounded-xl p-5 sm:p-7 shadow-sm">
+                    <div class="flex items-start gap-4 sm:gap-6">
+                        <span class="text-4xl sm:text-5xl font-extrabold text-emerald-600 leading-none">05</span>
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Cálculo ponderado (SAW / WSM) y análisis de sensibilidad</h2>
+                                <span class="text-xs sm:text-sm font-bold px-2.5 py-1 rounded bg-emerald-100 text-emerald-900 border border-emerald-200">Decisión y auditoría</span>
+                            </div>
+                            <p class="text-slate-700 text-sm sm:text-base leading-relaxed mb-4">
+                                Se calcula la utilidad global multiplicando la puntuación normalizada por el peso de cada criterio: <span class="font-mono font-bold text-slate-900 bg-slate-100 px-2 py-1 rounded border border-slate-300">Sᵢ = ∑ (wⱼ × rᵢⱼ)</span>. La alternativa con mayor puntuación final es la opción técnicamente recomendada.
+                            </p>
+                            <div class="bg-emerald-50 p-4 sm:p-5 rounded-lg border border-emerald-200 text-xs sm:text-sm text-emerald-950 leading-relaxed">
+                                <p><strong>🛡️ Análisis de sensibilidad obligatorio:</strong> ¿Qué ocurre con la alternativa ganadora si aumentamos el peso de la seguridad un 10% o si el proveedor sube sus precios un 15%? Una decisión robusta no cambia radicalmente ante pequeñas variaciones en los pesos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <section id="simulator-section" class="border-t-2 border-slate-200 pt-8 mt-10">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                    <div>
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-100 text-emerald-800 text-xs sm:text-sm font-bold mb-1.5">
+                            <span>🧪 Simulador interactivo en vivo</span>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900">
+                            Caso práctico: selección de plataforma de virtualización corporativa
+                        </h2>
+                        <p class="text-slate-600 text-sm sm:text-base mt-1">Ajusta los pesos de la organización para observar cómo cambia la clasificación final en tiempo real.</p>
+                    </div>
+                    <button onclick="resetWeightsDefault()" class="text-xs sm:text-sm font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-lg transition-colors border border-blue-200">
+                        Restablecer pesos iniciales
+                    </button>
+                </div>
+
+                <!-- Sliders de Ponderación con Badges Semánticos -->
+                <div class="bg-slate-100 p-4 sm:p-6 rounded-xl border border-slate-200 mb-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs sm:text-sm font-bold text-slate-800 uppercase tracking-wide">Ponderación estratégica de criterios (total: 100%):</span>
+                        <span id="weight-sum-badge" class="text-xs sm:text-sm font-extrabold px-3 py-1 rounded-full bg-emerald-600 text-white shadow-xs">Suma: 100%</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm items-stretch">
+                        <!-- Criterio 1 -->
+                        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1.5">
+                                    <span class="font-bold text-slate-900 text-sm sm:text-base">💰 Coste TCO</span>
+                                    <span id="val-w1" class="text-blue-600 font-extrabold text-base flex-shrink-0">35%</span>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200">
+                                        📉 Criterio de coste
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="range" id="slider-w1" min="5" max="70" value="35" step="5" oninput="updateMatrixCalculations()" class="w-full accent-blue-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
+                                <span class="text-xs text-slate-600 font-medium block mt-2">CapEx + OpEx proyectado (3 años)</span>
+                            </div>
+                        </div>
+
+                        <!-- Criterio 2 -->
+                        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1.5">
+                                    <span class="font-bold text-slate-900 text-sm sm:text-base">⚡ Rendimiento y HA</span>
+                                    <span id="val-w2" class="text-blue-600 font-extrabold text-base flex-shrink-0">25%</span>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        📈 Criterio de beneficio
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="range" id="slider-w2" min="5" max="70" value="25" step="5" oninput="updateMatrixCalculations()" class="w-full accent-blue-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
+                                <span class="text-xs text-slate-600 font-medium block mt-2">Migración en vivo, latencia y HA</span>
+                            </div>
+                        </div>
+
+                        <!-- Criterio 3 -->
+                        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1.5">
+                                    <span class="font-bold text-slate-900 text-sm sm:text-base">🛡️ Soporte y SLA</span>
+                                    <span id="val-w3" class="text-blue-600 font-extrabold text-base flex-shrink-0">25%</span>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        📈 Criterio de beneficio
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="range" id="slider-w3" min="5" max="70" value="25" step="5" oninput="updateMatrixCalculations()" class="w-full accent-blue-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
+                                <span class="text-xs text-slate-600 font-medium block mt-2">Garantía de respuesta &lt; 2 h</span>
+                            </div>
+                        </div>
+
+                        <!-- Criterio 4 -->
+                        <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs flex flex-col justify-between h-full">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-1.5">
+                                    <span class="font-bold text-slate-900 text-sm sm:text-base">🔓 Independencia</span>
+                                    <span id="val-w4" class="text-blue-600 font-extrabold text-base flex-shrink-0">15%</span>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        📈 Criterio de beneficio
+                                    </span>
+                                </div>
+                            </div>
+                            <div>
+                                <input type="range" id="slider-w4" min="5" max="70" value="15" step="5" oninput="updateMatrixCalculations()" class="w-full accent-blue-600 cursor-pointer h-2 bg-slate-200 rounded-lg">
+                                <span class="text-xs text-slate-600 font-medium block mt-2">Formato abierto de discos y API</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Evaluación y Normalización -->
+                <div class="overflow-x-auto custom-scroll mb-8 border border-slate-200 rounded-xl shadow-xs">
+                    <table class="w-full text-left text-sm bg-white">
+                        <thead class="bg-slate-800 text-white font-bold">
+                            <tr>
+                                <th class="p-3.5 sm:p-4 text-sm sm:text-base">Alternativa viable</th>
+                                <th class="p-3.5 sm:p-4 text-xs sm:text-sm">TCO 3 años (€)<br><span class="text-xs font-medium text-slate-300">(criterio de coste ↓)</span></th>
+                                <th class="p-3.5 sm:p-4 text-xs sm:text-sm">Rendimiento / HA (1-10)<br><span class="text-xs font-medium text-slate-300">(criterio de beneficio ↑)</span></th>
+                                <th class="p-3.5 sm:p-4 text-xs sm:text-sm">SLA y soporte (1-10)<br><span class="text-xs font-medium text-slate-300">(criterio de beneficio ↑)</span></th>
+                                <th class="p-3.5 sm:p-4 text-xs sm:text-sm">Evitación de dependencia (1-10)<br><span class="text-xs font-medium text-slate-300">(criterio de beneficio ↑)</span></th>
+                                <th class="p-3.5 sm:p-4 bg-blue-900 text-center text-sm sm:text-base">Puntuación final (0-100)</th>
+                                <th class="p-3.5 sm:p-4 bg-blue-950 text-center text-xs sm:text-sm">Dictamen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrix-tbody" class="divide-y divide-slate-200 text-slate-700">
+                            <!-- Inyectado dinámicamente mediante JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Visualizador de Ranking con Barras de Progreso -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8" id="ranking-cards">
+                    <!-- Cards de podio inyectadas dinámicamente -->
+                </div>
+
+                <!-- Cuadro de Análisis de Sensibilidad Pedagógico -->
+                <div class="bg-slate-900 text-white p-5 sm:p-6 rounded-xl border border-slate-800 flex items-start gap-4">
+                    <span class="text-3xl sm:text-4xl">💡</span>
+                    <div class="text-sm sm:text-base space-y-1.5">
+                        <h4 class="font-extrabold text-blue-300 text-base sm:text-lg">Lección clave para el alumnado en el laboratorio:</h4>
+                        <p class="text-slate-200 leading-relaxed">
+                            Observa cómo varía el ganador al modificar los pesos: si la organización prioriza el <strong>coste</strong> y la <strong>independencia</strong> (evitar dependencias cautivas), la opción de código abierto cobra gran ventaja. Si el negocio exige <strong>SLA estricto y soporte garantizado</strong> sin importar el coste económico, las soluciones comerciales propietarias o hiperescalares suben al primer lugar.
+                        </p>
+                    </div>
+                </div>
+
+            </section>
+
+                <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+</main>
+    </div>
+
+    <script>
+        // Modelo de datos de las alternativas
+        const ALTERNATIVES = [
+            {
+                name: "Proxmox VE Enterprise",
+                type: "Open-Core en infraestructura local",
+                raw: { tco: 14000, perf: 8.2, sla: 7.5, lockin: 9.5 },
+                color: "emerald"
+            },
+            {
+                name: "VMware vSphere Enterprise+",
+                type: "Licenciamiento comercial COTS",
+                raw: { tco: 46000, perf: 9.6, sla: 9.5, lockin: 2.5 },
+                color: "amber"
+            },
+            {
+                name: "AWS Cloud (EC2 + EBS)",
+                type: "OpEx en nube IaaS",
+                raw: { tco: 38000, perf: 8.8, sla: 9.0, lockin: 4.0 },
+                color: "blue"
+            }
+        ];
+
+        // Estado de progresión de fases (0: inicio con todas ocultas, 1 a 5: fases reveladas)
+        const TOTAL_STEPS = 5;
+        let visibleStepsCount = 0;
+
+        const STEP_NAMES = [
+            "0 / 5 fases",
+            "1 / 5: Definición",
+            "2 / 5: Ponderación",
+            "3 / 5: Matriz cruda",
+            "4 / 5: Normalización",
+            "5 / 5: Decisión y sensibilidad"
+        ];
+
+        function updateStepUI() {
+            const stepBadge = document.getElementById('step-badge');
+            stepBadge.textContent = STEP_NAMES[visibleStepsCount];
+
+            for (let i = 0; i < TOTAL_STEPS; i++) {
+                const el = document.getElementById(`phase-${i}`);
+                if (i < visibleStepsCount) {
+                    el.classList.remove('card-inactive');
+                    el.classList.add('card-active');
+                } else {
+                    el.classList.remove('card-active');
+                    el.classList.add('card-inactive');
+                }
+            }
+
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+
+            btnPrev.disabled = (visibleStepsCount === 0);
+            btnNext.disabled = (visibleStepsCount === TOTAL_STEPS);
+            btnPrev.classList.toggle('opacity-50', visibleStepsCount === 0);
+            btnNext.classList.toggle('opacity-50', visibleStepsCount === TOTAL_STEPS);
+
+            const nextSpan = btnNext.querySelector('span:first-child');
+            const nextIcon = btnNext.querySelector('span:last-child');
+            if (nextSpan && nextIcon) {
+                if (visibleStepsCount === 0) {
+                    nextSpan.textContent = "Comenzar";
+                    nextIcon.textContent = "👉";
+                } else {
+                    nextSpan.textContent = "Siguiente fase";
+                    nextIcon.textContent = "▶";
+                }
+            }
+        }
+
+        /* Desplazamiento suave centrado al avanzar fase */
+        function nextStep() {
+            if (visibleStepsCount < TOTAL_STEPS) {
+                const targetIndex = visibleStepsCount;
+                visibleStepsCount++;
+                updateStepUI();
+                const target = document.getElementById(`phase-${targetIndex}`);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        /* Desplazamiento suave centrado al retroceder fase */
+        function prevStep() {
+            if (visibleStepsCount > 0) {
+                visibleStepsCount--;
+                updateStepUI();
+                if (visibleStepsCount > 0) {
+                    const target = document.getElementById(`phase-${visibleStepsCount - 1}`);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+
+        /* Desplazamiento al inicio de fases al revelar todas */
+        function revealAllSteps() {
+            visibleStepsCount = TOTAL_STEPS;
+            updateStepUI();
+            const wrapper = document.getElementById('steps-wrapper');
+            if (wrapper) {
+                wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        /* Reinicio de fases y scroll suave hacia la cabecera */
+        function resetSteps() {
+            visibleStepsCount = 0;
+            updateStepUI();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Desplazamiento fluido hacia el simulador interactivo */
+        function scrollToSimulator() {
+            revealAllSteps();
+            const simEl = document.getElementById('simulator-section');
+            if (simEl) {
+                simEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            document.getElementById('btn-nav-simulator').classList.add('hidden');
+            document.getElementById('btn-nav-phases').classList.remove('hidden');
+        }
+
+        /* Desplazamiento fluido de vuelta a las fases teóricas */
+        function scrollToPhases() {
+            const stepsEl = document.getElementById('steps-wrapper');
+            if (stepsEl) {
+                stepsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            document.getElementById('btn-nav-simulator').classList.remove('hidden');
+            document.getElementById('btn-nav-phases').classList.add('hidden');
+        }
+
+        function updateMatrixCalculations() {
+            const rawW1 = parseFloat(document.getElementById('slider-w1').value);
+            const rawW2 = parseFloat(document.getElementById('slider-w2').value);
+            const rawW3 = parseFloat(document.getElementById('slider-w3').value);
+            const rawW4 = parseFloat(document.getElementById('slider-w4').value);
+
+            const sum = rawW1 + rawW2 + rawW3 + rawW4;
+
+            // Normalizar pesos para que la suma sea exactamente 1,0 (100%)
+            const w1 = rawW1 / sum;
+            const w2 = rawW2 / sum;
+            const w3 = rawW3 / sum;
+            const w4 = rawW4 / sum;
+
+            document.getElementById('val-w1').textContent = `${Math.round(w1 * 100)}%`;
+            document.getElementById('val-w2').textContent = `${Math.round(w2 * 100)}%`;
+            document.getElementById('val-w3').textContent = `${Math.round(w3 * 100)}%`;
+            document.getElementById('val-w4').textContent = `${Math.round(w4 * 100)}%`;
+
+            const sumBadge = document.getElementById('weight-sum-badge');
+            sumBadge.textContent = `Suma relativa: 100%`;
+
+            // Calcular Mínimos y Máximos para la normalización
+            const tcos = ALTERNATIVES.map(a => a.raw.tco);
+            const perfs = ALTERNATIVES.map(a => a.raw.perf);
+            const slas = ALTERNATIVES.map(a => a.raw.sla);
+            const lockins = ALTERNATIVES.map(a => a.raw.lockin);
+
+            const minTco = Math.min(...tcos);
+            const maxTco = Math.max(...tcos);
+            const minPerf = Math.min(...perfs);
+            const maxPerf = Math.max(...perfs);
+            const minSla = Math.min(...slas);
+            const maxSla = Math.max(...slas);
+            const minLock = Math.min(...lockins);
+            const maxLock = Math.max(...lockins);
+
+            // Calcular valores normalizados y utilidades globales ponderadas
+            const scoredAlternatives = ALTERNATIVES.map(alt => {
+                // Normalización de criterio de coste: (Máx - valor) / (Máx - Mín)
+                const normTco = maxTco === minTco ? 1 : (maxTco - alt.raw.tco) / (maxTco - minTco);
+                // Normalización de criterios de beneficio: (valor - Mín) / (Máx - Mín)
+                const normPerf = maxPerf === minPerf ? 1 : (alt.raw.perf - minPerf) / (maxPerf - minPerf);
+                const normSla = maxSla === minSla ? 1 : (alt.raw.sla - minSla) / (maxSla - minSla);
+                const normLock = maxLock === minLock ? 1 : (alt.raw.lockin - minLock) / (maxLock - minLock);
+
+                const finalScore = ((w1 * normTco) + (w2 * normPerf) + (w3 * normSla) + (w4 * normLock)) * 100;
+
+                return {
+                    ...alt,
+                    norm: { tco: normTco, perf: normPerf, sla: normSla, lockin: normLock },
+                    finalScore: Math.round(finalScore * 10) / 10
+                };
+            });
+
+            // Ordenar por puntuación final descendente
+            scoredAlternatives.sort((a, b) => b.finalScore - a.finalScore);
+            const highestScore = scoredAlternatives[0].finalScore;
+
+            // Renderizar filas de la tabla
+            const tbody = document.getElementById('matrix-tbody');
+            tbody.innerHTML = scoredAlternatives.map(alt => {
+                const isWinner = alt.finalScore === highestScore;
+                return `
+                    <tr class="${isWinner ? 'bg-emerald-50/70 font-semibold' : 'hover:bg-slate-50'}">
+                        <td class="p-3.5 sm:p-4">
+                            <span class="block text-sm sm:text-base font-bold text-slate-900">${alt.name}</span>
+                            <span class="text-xs text-slate-600 font-medium">${alt.type}</span>
+                        </td>
+                        <td class="p-3.5 sm:p-4">
+                            <div class="text-sm sm:text-base font-bold text-slate-800">${alt.raw.tco.toLocaleString('es-ES')} €</div>
+                            <span class="text-xs text-slate-500 font-medium">Norm: ${alt.norm.tco.toFixed(2)}</span>
+                        </td>
+                        <td class="p-3.5 sm:p-4">
+                            <div class="text-sm sm:text-base font-bold text-slate-800">${alt.raw.perf} / 10</div>
+                            <span class="text-xs text-slate-500 font-medium">Norm: ${alt.norm.perf.toFixed(2)}</span>
+                        </td>
+                        <td class="p-3.5 sm:p-4">
+                            <div class="text-sm sm:text-base font-bold text-slate-800">${alt.raw.sla} / 10</div>
+                            <span class="text-xs text-slate-500 font-medium">Norm: ${alt.norm.sla.toFixed(2)}</span>
+                        </td>
+                        <td class="p-3.5 sm:p-4">
+                            <div class="text-sm sm:text-base font-bold text-slate-800">${alt.raw.lockin} / 10</div>
+                            <span class="text-xs text-slate-500 font-medium">Norm: ${alt.norm.lockin.toFixed(2)}</span>
+                        </td>
+                        <td class="p-3.5 sm:p-4 text-center">
+                            <span class="text-lg sm:text-xl font-extrabold ${isWinner ? 'text-emerald-700' : 'text-slate-800'}">
+                                ${alt.finalScore.toFixed(1)}
+                            </span>
+                            <div class="w-full bg-slate-200 h-2.5 rounded-full mt-1.5 overflow-hidden">
+                                <div class="${isWinner ? 'bg-emerald-600' : 'bg-blue-600'} h-full" style="width: ${alt.finalScore}%"></div>
+                            </div>
+                        </td>
+                        <td class="p-3.5 sm:p-4 text-center">
+                            ${isWinner
+                                ? '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm font-bold bg-emerald-600 text-white shadow-xs">🏆 Recomendada</span>'
+                                : '<span class="text-slate-400 text-xs sm:text-sm font-medium">Descartada</span>'}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Renderizar tarjetas de podio
+            const cardsContainer = document.getElementById('ranking-cards');
+            cardsContainer.innerHTML = scoredAlternatives.map((alt, idx) => {
+                const isWinner = idx === 0;
+                return `
+                    <div class="p-4 sm:p-5 rounded-xl border ${isWinner ? 'bg-emerald-50 border-emerald-300 ring-2 ring-emerald-500/30' : 'bg-white border-slate-200'}">
+                        <div class="flex justify-between items-center mb-1.5">
+                            <span class="text-xs sm:text-sm font-bold uppercase tracking-wider ${isWinner ? 'text-emerald-800' : 'text-slate-600'}">
+                                ${isWinner ? '🥇 1er Lugar' : idx === 1 ? '🥈 2º Lugar' : '🥉 3er Lugar'}
+                            </span>
+                            <span class="text-xl font-black ${isWinner ? 'text-emerald-700' : 'text-slate-800'}">${alt.finalScore.toFixed(1)} pts</span>
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base mb-1">${alt.name}</h4>
+                        <p class="text-xs sm:text-sm text-slate-600 mb-3 font-medium">${alt.type}</p>
+                        <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                            <div class="${isWinner ? 'bg-emerald-600' : 'bg-slate-500'} h-full" style="width: ${alt.finalScore}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function resetWeightsDefault() {
+            document.getElementById('slider-w1').value = 35;
+            document.getElementById('slider-w2').value = 25;
+            document.getElementById('slider-w3').value = 25;
+            document.getElementById('slider-w4').value = 15;
+            updateMatrixCalculations();
+        }
+
+        // Inicialización al cargar el DOM
+        window.addEventListener('DOMContentLoaded', () => {
+            updateStepUI();
+            updateMatrixCalculations();
+        });
+    </script>
+</body>
+</html>

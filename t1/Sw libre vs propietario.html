@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Software libre vs. propietario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .comparison-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        .comparison-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .vs-circle {
+            background-color: #1e293b;
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            border: 5px solid white;
+            box-shadow: 0 0 0 3px #1e293b;
+            transform: rotate(-10deg);
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-800 tracking-tight">El universo del software: libre vs. propietario</h1>
+            <p class="text-slate-600 mt-4 text-lg max-w-3xl mx-auto">Dos filosofías, dos modelos de desarrollo y distribución. ¿Qué implican para la administración de sistemas?</p>
+        </header>
+
+        <div class="flex flex-col lg:flex-row items-stretch justify-center space-y-8 lg:space-y-0 lg:space-x-8">
+
+            <!-- Software Libre -->
+            <div class="w-full lg:w-2/5">
+                <div class="comparison-card border-t-8 border-green-500 flex flex-col justify-between">
+                    <div>
+                        <div class="text-center mb-6">
+                            <div class="bg-green-100 rounded-full p-4 inline-block">
+                                 <svg class="h-10 w-10 text-green-700" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="16" y="28" width="32" height="28" rx="4" ry="4" fill="none" stroke="currentColor" stroke-width="4"/>
+                                    <path d="M24 28v-8a8 8 0 0 1 16 0v1" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                                    <circle cx="32" cy="42" r="3" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <h2 class="text-3xl font-bold text-slate-800 mt-4">Software libre</h2>
+                            <p class="text-slate-500 mt-2">El código fuente está disponible para que cualquiera lo vea, modifique, ejecute y distribuya libremente.</p>
+                        </div>
+
+                        <!-- Nota clave sobre Gratuito vs Libre -->
+                        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3.5 mb-6 text-xs sm:text-sm text-amber-900 leading-relaxed">
+                            <strong class="font-bold text-amber-950 flex items-center gap-1.5 mb-1">
+                                💡 ¡Importante! Libre no significa necesariamente gratuito:
+                            </strong>
+                            El concepto hace referencia a la <strong>libertad de uso y modificación</strong> (<em>"free speech"</em>), no al coste o precio comercial (<em>"free beer"</em>). Un software libre puede venderse o cobrar por servicios de soporte e integración (ej. Red Hat Enterprise Linux).
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="font-bold text-lg text-green-600 mb-3">Características y ventajas</h3>
+                            <ul class="space-y-3 text-slate-600">
+                                 <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                    <span><strong class="text-slate-700">Ahorro potencial en licencias:</strong> Elimina pagos por licencias de uso continuo o por puesto de usuario.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                    <span><strong class="text-slate-700">Flexibilidad y control:</strong> Se puede auditar la seguridad, modificar el código y adaptarlo a necesidades exactas sin la dependencia de un único proveedor (<em>vendor lock-in</em>).</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                    <span><strong class="text-slate-700">Comunidad e innovación:</strong> Desarrollo continuo colaborativo respaldado por comunidades globales y empresas de tecnología.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Desventajas / Riesgos Software Libre -->
+                        <div class="mb-6">
+                            <h3 class="font-bold text-lg text-amber-700 mb-3">Desventajas y riesgos</h3>
+                            <ul class="space-y-3 text-slate-600">
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-amber-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                    <span><strong class="text-slate-700">Curva de aprendizaje inicial:</strong> Requiere capacitación técnica especializada para su correcta implantación, administración y soporte interno.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-amber-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                    <span><strong class="text-slate-700">Falta de garantías y SLAs oficiales:</strong> Carece de responsabilidad legal directa o acuerdo de nivel de servicio (SLA) sin la contratación explícita de terceros de soporte.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-amber-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                    <span><strong class="text-slate-700">Dependencia de la comunidad:</strong> El ritmo de corrección de fallos, actualizaciones o la propia continuidad del proyecto dependen de la actividad y motivación de la comunidad.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Botón para modal de Libertades FSF -->
+                    <div class="pt-4 border-t border-slate-100">
+                        <button onclick="openModal()" class="w-full py-3 px-4 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold text-sm rounded-xl transition-colors shadow-sm flex items-center justify-center space-x-2">
+                            <span>📜 Ver las 4 libertades del software libre (FSF)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VS Separator -->
+            <div class="hidden lg:flex items-center justify-center">
+                <div class="vs-circle">
+                    VS
+                </div>
+            </div>
+
+            <!-- Software Propietario -->
+            <div class="w-full lg:w-2/5">
+                <div class="comparison-card border-t-8 border-slate-700 flex flex-col justify-between">
+                    <div>
+                        <div class="text-center mb-6">
+                            <div class="bg-slate-200 rounded-full p-4 inline-block">
+                               <svg class="h-10 w-10 text-slate-700" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="16" y="28" width="32" height="28" rx="4" ry="4" fill="none" stroke="currentColor" stroke-width="4"/>
+                                    <path d="M24 28v-8a8 8 0 0 1 16 0v8" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="32" cy="42" r="3" fill="currentColor"/>
+                               </svg>
+                            </div>
+                            <h2 class="text-3xl font-bold text-slate-800 mt-4">Software propietario</h2>
+                            <p class="text-slate-500 mt-2">El código fuente es secreto y propiedad de una empresa. Se adquiere una licencia para usarlo, no se posee el software.</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="font-bold text-lg text-slate-700 mb-3">Ventajas</h3>
+                            <ul class="space-y-3 text-slate-600">
+                               <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                    <span><strong class="text-slate-700">Soporte centralizado:</strong> Un único punto de contacto con garantías y SLAs (<em>Service Level Agreements</em>) comerciales.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                    <span><strong class="text-slate-700">Facilidad de uso:</strong> Interfaces integradas y pulidas orientadas a la experiencia de usuario general.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-green-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                    <span><strong class="text-slate-700">Responsabilidad legal:</strong> Una empresa específica responde formalmente por el producto, parches de seguridad y su evolución comercial.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Desventajas / Riesgos Software Propietario -->
+                        <div class="mb-6">
+                            <h3 class="font-bold text-lg text-rose-700 mb-3">Desventajas y riesgos</h3>
+                            <ul class="space-y-3 text-slate-600">
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-rose-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                    <span><strong class="text-slate-700">Vendor lock-in:</strong> Fuerte dependencia del proveedor para soporte, desarrollo de funcionalidades, integración o migraciones a otros sistemas.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-rose-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                    <span><strong class="text-slate-700">Coste recurrente y licenciamiento elevado:</strong> Inversión constante en licencias de uso, tarifas de renovación de mantenimiento o cuotas por usuario.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg class="h-6 w-6 text-rose-500 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                                    <span><strong class="text-slate-700">Opacidad del código:</strong> Imposibilidad de inspeccionar o auditar el código fuente para verificar fallos de seguridad ocultos o adaptar funciones libremente.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Licencias -->
+        <div class="mt-12 bg-white p-8 rounded-xl shadow-lg">
+            <h2 class="text-3xl font-bold text-slate-800 text-center mb-6">El mundo de las licencias</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+                <!-- Licencias Libres -->
+                <div>
+                    <h3 class="font-bold text-lg text-green-600">Licencias de software libre / Open Source</h3>
+                    <p class="text-slate-600 mt-2 text-sm border-l-2 border-green-200 pl-4">Permiten usar, modificar y redistribuir el software. Varían en sus exigencias sobre las obras derivadas.</p>
+                    <div class="mt-4 space-y-3">
+                        <p class="text-sm"><strong class="text-slate-700">GPL (GNU General Public License):</strong> Licencia "copyleft". Exige que cualquier software derivado que utilice código GPL sea también distribuido como software libre bajo la misma licencia.</p>
+                        <p class="text-sm"><strong class="text-slate-700">A-GPL (Affero GPL):</strong> Cierra la "brecha de la nube". Si modificas el software y lo ofreces como un servicio a través de una red (SaaS), también debes publicar el código fuente de tus modificaciones.</p>
+                        <p class="text-sm"><strong class="text-slate-700">Licencia MIT:</strong> Muy permisiva. Permite reutilizar el código en software propietario siempre que se conserve el aviso de copyright original.</p>
+                        <p class="text-sm"><strong class="text-slate-700">Apache 2.0:</strong> Permisiva similar a MIT, pero añade protección explícita de derechos de patente para los usuarios y desarrolladores.</p>
+                    </div>
+                </div>
+                <!-- Licencias Propietarias -->
+                <div>
+                     <h3 class="font-bold text-lg text-slate-700">Licencias de software propietario</h3>
+                     <p class="text-slate-600 mt-2 text-sm border-l-2 border-slate-300 pl-4">Restringen el uso, copia y modificación del software. El usuario adquiere un derecho de uso limitado, no la propiedad del código.</p>
+                      <div class="mt-4 space-y-3">
+                        <p class="text-sm"><strong class="text-slate-700">EULA (End-User License Agreement):</strong> Contrato de usuario final que regula condiciones, límite de instalaciones y restricciones legales.</p>
+                        <p class="text-sm"><strong class="text-slate-700">Licencia por suscripción:</strong> Pago recurrente (mensual/anual) mientras se utiliza el servicio o software (SaaS o Cloud). Ej: Office 365, Adobe CC.</p>
+                        <p class="text-sm"><strong class="text-slate-700">Licencia perpetua:</strong> Pago único que otorga uso de una versión concreta de forma indefinida, aunque el soporte o actualizaciones mayores pueden requerir pagos adicionales.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- MODAL: LAS 4 LIBERTADES DEL SOFTWARE LIBRE (FSF) -->
+    <div id="fsf-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden border border-slate-200 flex flex-col max-h-[90vh]">
+
+            <!-- Header Modal -->
+            <div class="bg-green-700 text-white p-5 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <span class="text-3xl">📜</span>
+                    <div>
+                        <h3 class="text-xl font-bold">Las 4 libertades fundamentales</h3>
+                        <p class="text-green-100 text-xs mt-0.5">Definición de software libre según la FSF</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="text-white/80 hover:text-white text-3xl font-bold leading-none p-1 focus:outline-none">&times;</button>
+            </div>
+
+            <!-- Body Modal -->
+            <div class="p-6 overflow-y-auto custom-scroll space-y-5 text-slate-700 text-sm">
+
+                <!-- Introducción a FSF y GNU -->
+                <div class="bg-slate-100 border border-slate-200 rounded-xl p-4 text-xs sm:text-sm space-y-2">
+                    <p>
+                        <strong class="text-slate-900">¿Qué es la FSF?</strong> La <strong>Free Software Foundation</strong> (Fundación para el Software Libre) es una organización sin ánimo de lucro fundada en 1985 por <strong>Richard Stallman</strong> para defender los derechos y libertades de los usuarios de software.
+                    </p>
+                    <p>
+                        <strong class="text-slate-900">¿Qué es el Proyecto GNU?</strong> Iniciado en 1983 por Stallman, el objetivo de <strong>GNU</strong> ("GNU's Not Unix") fue crear un sistema operativo completamente libre. Junto al núcleo Linux, dio origen al sistema operacional GNU/Linux ampliamente utilizado en la administración de sistemas.
+                    </p>
+                </div>
+
+                <p class="font-semibold text-slate-800 text-base border-b border-slate-200 pb-2">
+                    Para que un programa sea considerado "software libre", debe garantizar de forma irrestricta las siguientes 4 libertades:
+                </p>
+
+                <!-- Listado de las 4 libertades -->
+                <div class="space-y-3">
+                    <div class="p-3.5 bg-green-50 border border-green-200 rounded-xl">
+                        <span class="font-extrabold text-green-800 text-xs uppercase tracking-wide block mb-1">Libertad 0 — Ejecución</span>
+                        <p class="text-slate-800">
+                            <strong>La libertad de ejecutar el programa como desees</strong>, con cualquier propósito y en cualquier sistema de cómputo, sin restricciones de uso personal, comercial o institutional.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-green-50 border border-green-200 rounded-xl">
+                        <span class="font-extrabold text-green-800 text-xs uppercase tracking-wide block mb-1">Libertad 1 — Estudio y modificación</span>
+                        <p class="text-slate-800">
+                            <strong>La libertad de estudiar cómo funciona el programa y cambiarlo</strong> para que haga lo que tú quieras. El acceso libre al <strong>código fuente</strong> es una condición previa e indispensable para esto.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-green-50 border border-green-200 rounded-xl">
+                        <span class="font-extrabold text-green-800 text-xs uppercase tracking-wide block mb-1">Libertad 2 — Redistribución</span>
+                        <p class="text-slate-800">
+                            <strong>La libertad de redistribuir copias</strong> para ayudar a tu comunidad o a cualquier otra persona, ya sea de forma gratuita o a cambio de una tarifa monetaria.
+                        </p>
+                    </div>
+
+                    <div class="p-3.5 bg-green-50 border border-green-200 rounded-xl">
+                        <span class="font-extrabold text-green-800 text-xs uppercase tracking-wide block mb-1">Libertad 3 — Mejora y publicación</span>
+                        <p class="text-slate-800">
+                            <strong>La libertad de mejorar el programa y publicar las modificaciones</strong> al público en general, de modo que toda la comunidad se beneficie de tus cambios. El acceso al código fuente es también requisito indispensable.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="bg-slate-100 p-4 border-t border-slate-200 text-right">
+                <button onclick="closeModal()" class="px-5 py-2 bg-green-700 hover:bg-green-800 text-white font-semibold text-xs sm:text-sm rounded-lg transition-colors shadow-sm">
+                    Entendido / Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script del modal -->
+    <script>
+        function openModal() {
+            document.getElementById('fsf-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('fsf-modal').classList.add('hidden');
+        }
+
+        // Cerrar al pulsar la tecla Escape o clicar fuera del contenido
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        document.getElementById('fsf-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

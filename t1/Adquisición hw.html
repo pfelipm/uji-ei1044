@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Infografía e interactivo: Estrategias de adquisición de hardware - EI1044 UJI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset de márgenes y preservación del contexto de sticky en iframes de Google Sites */
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            min-height: 100vh;
+            overflow-x: clip; /* clip garantiza position:sticky sin romper el contenedor de scroll nativo */
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .sites-embed-wrapper {
+            padding: 1.5rem 1rem 3.5rem 1rem;
+            width: 100%;
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .sites-embed-wrapper {
+                padding: 2.25rem 1.75rem 4rem 1.75rem;
+            }
+        }
+
+        /* Transiciones de las tarjetas de estrategia */
+        .strategy-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px -6px rgba(15, 23, 42, 0.12), 0 6px 12px -4px rgba(15, 23, 42, 0.08);
+        }
+
+        .card-hidden {
+            opacity: 0.22;
+            filter: blur(2.5px) grayscale(75%);
+            transform: scale(0.985);
+            user-select: none;
+        }
+
+        .card-visible {
+            opacity: 1;
+            filter: blur(0) grayscale(0%);
+            transform: scale(1);
+        }
+
+        /* Acordeones desplegables */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        .accordion-content.expanded {
+            max-height: 700px;
+            opacity: 1;
+        }
+
+        /* Scrollbars para modales */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Sangría francesa para viñetas descriptivas */
+        .hanging-indent {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .hanging-indent > span:first-child {
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="sites-embed-wrapper">
+        <main class="w-full bg-white p-5 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-slate-200">
+
+            <!-- Encabezado Institucional de la Asignatura -->
+            <header class="text-center mb-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-bold mb-3 tracking-wide uppercase">
+                    <span>💻 Obteniendo el hardware con criterio</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+                    Estrategias de adquisición de hardware
+                </h1>
+                <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+                    Más allá de la compra tradicional, existen múltiples modelos operacionales y financieros para equipar una organización. Cada uno equilibra control, presupuesto y gestión del riesgo tecnológico.
+                </p>
+            </header>
+
+            <!-- Barra de control Sticky Dock persistente -->
+            <div id="sticky-hardware-dock" class="sticky top-2 sm:top-3 z-40 bg-slate-900/95 text-white p-2.5 sm:p-3 rounded-xl shadow-2xl border border-slate-700/80 mb-8 flex flex-wrap items-center justify-between gap-2.5 backdrop-blur-md transition-all">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-xs uppercase font-extrabold text-slate-300 tracking-wider hidden sm:inline">Modelos analizados:</span>
+                    <span id="counter-badge" class="bg-blue-600 text-white text-xs sm:text-sm font-black px-3 py-1 rounded-full shadow-inner ring-1 ring-blue-400/40">
+                        0 / 6 modelos
+                    </span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <button onclick="openTcoModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-md flex items-center gap-1.5">
+                        <span>📊 Calculadora TCO</span>
+                    </button>
+                    <button onclick="openQuizModal()" class="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-md flex items-center gap-1.5">
+                        <span>🎯 Casos prácticos</span>
+                    </button>
+
+                    <div class="h-6 w-px bg-slate-700 mx-1 hidden sm:block"></div>
+
+                    <button id="btn-next" onclick="revealNextCard()" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-md flex items-center gap-1.5">
+                        <span>Revelar siguiente</span>
+                        <span>👉</span>
+                    </button>
+                    <button id="btn-all" onclick="revealAllCards()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700">
+                        Revelar todos
+                    </button>
+                    <button id="btn-reset" onclick="resetCards()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-rose-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700" title="Reiniciar tarjetas">
+                        🔄
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cuadrícula de Estrategias (3 columnas) -->
+            <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+
+                <!-- CARD 0: COMPRA DIRECTA -->
+                <div id="card-0" onclick="revealSpecificCard(0)" class="strategy-card card-hidden bg-white border border-blue-200 border-t-8 border-t-blue-600 rounded-xl p-6 flex flex-col justify-between h-full cursor-pointer relative shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-blue-100 p-2.5 rounded-lg">
+                                <svg class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 21z" />
+                                </svg>
+                            </div>
+                            <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200">CapEx</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-1">Compra directa</h2>
+                        <p class="text-xs sm:text-sm font-bold text-blue-600 mb-3">(Modelo tradicional en propiedad)</p>
+
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Control: <strong>Alto</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Lock-in: <strong>Bajo</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-200">Riesgo: <strong>Obsolescencia</strong></span>
+                        </div>
+
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4">La empresa adquiere la propiedad completa del hardware, registrándose en el balance de la organización como activo fijo amortizable.</p>
+                    </div>
+
+                    <div>
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 mb-4 text-xs sm:text-sm space-y-1">
+                            <p><strong class="text-emerald-700">Ventaja:</strong> Control absoluto sobre el activo e independencia total de intermediarios financieros.</p>
+                            <p><strong class="text-rose-700">Desventaja:</strong> Elevado desembolso inicial y asunción directa del riesgo de obsolescencia.</p>
+                        </div>
+
+                        <button onclick="toggleDetails(0, event)" class="w-full text-xs sm:text-sm text-blue-800 font-bold py-2 px-3 rounded-lg bg-blue-50 hover:bg-blue-100 transition-colors flex items-center justify-between">
+                            <span id="btn-text-0">Ver detalles clave</span>
+                            <span id="arrow-0" class="transition-transform duration-300">▼</span>
+                        </button>
+                        <div id="details-0" class="accordion-content text-xs sm:text-sm text-slate-700 mt-3 space-y-2">
+                            <div class="hanging-indent">
+                                <span class="text-blue-600 font-bold select-none">•</span>
+                                <span><strong>Perfil financiero:</strong> Inversión de capital inicial (CapEx) amortizable legalmente en varios ejercicios fiscales.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-blue-600 font-bold select-none">•</span>
+                                <span><strong>Ciclo de vida:</strong> Recomendado para equipos con ciclo de vida largo (&gt; 5 años) o infraestructuras críticas estables.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-blue-600 font-bold select-none">•</span>
+                                <span><strong>Gestión de residuo:</strong> La empresa asume la retirada, borrado seguro certificado de datos y reciclaje final (normativa RAEE).</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 1: ARRENDAMIENTO LEASING -->
+                <div id="card-1" onclick="revealSpecificCard(1)" class="strategy-card card-hidden bg-white border border-purple-200 border-t-8 border-t-purple-600 rounded-xl p-6 flex flex-col justify-between h-full cursor-pointer relative shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-purple-100 p-2.5 rounded-lg">
+                                <svg class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9.75h4.875a2.625 2.625 0 010 5.25H12M8.25 9.75L10.5 7.5M8.25 9.75L10.5 12m9-7.243V21.001a2.25 2.25 0 01-2.25 2.25H5.25a2.25 2.25 0 01-2.25-2.25v-13.5a2.25 2.25 0 012.25-2.25h10.5a2.25 2.25 0 012.25 2.25z" />
+                                </svg>
+                            </div>
+                            <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200">OpEx</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-1">Arrendamiento (Leasing)</h2>
+                        <p class="text-xs sm:text-sm font-bold text-purple-600 mb-3">(Alquiler financiero con opción a compra)</p>
+
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Control: <strong>Medio</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">Lock-in: <strong>Medio</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Flexibilidad: <strong>Media</strong></span>
+                        </div>
+
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4">Contrato mediante el cual se utiliza el equipamiento por un periodo fijado a cambio de cuotas periódicas, pudiendo adquirirlo al final por el valor residual.</p>
+                    </div>
+
+                    <div>
+                        <div class="bg-purple-50 p-3 rounded-lg border border-purple-100 mb-4 text-xs sm:text-sm space-y-1">
+                            <p><strong class="text-emerald-700">Ventaja:</strong> Renovación periódica del parque tecnológico y ventajas fiscales operativas en OpEx.</p>
+                            <p><strong class="text-rose-700">Desventaja:</strong> Coste financiero total superior a la compra a largo plazo y compromisos contractuales rígidos.</p>
+                        </div>
+
+                        <button onclick="toggleDetails(1, event)" class="w-full text-xs sm:text-sm text-purple-800 font-bold py-2 px-3 rounded-lg bg-purple-50 hover:bg-purple-100 transition-colors flex items-center justify-between">
+                            <span id="btn-text-1">Ver detalles clave</span>
+                            <span id="arrow-1" class="transition-transform duration-300">▼</span>
+                        </button>
+                        <div id="details-1" class="accordion-content text-xs sm:text-sm text-slate-700 mt-3 space-y-2">
+                            <div class="hanging-indent">
+                                <span class="text-purple-600 font-bold select-none">•</span>
+                                <span><strong>Finalización del contrato:</strong> Posibilidad de devolver el equipo, renovarlo por tecnología más reciente o pagar el valor residual fijado.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-purple-600 font-bold select-none">•</span>
+                                <span><strong>Impacto operativo:</strong> Previene la obsolescencia en puestos de trabajo del personal técnico y administrativo (laptops, estaciones de trabajo).</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-purple-600 font-bold select-none">•</span>
+                                <span><strong>Financiación:</strong> Preserva la liquidez de la empresa al distribuir el coste a lo largo de 36 a 60 meses.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: SERVICIOS GESTIONADOS MSP -->
+                <div id="card-2" onclick="revealSpecificCard(2)" class="strategy-card card-hidden bg-white border border-amber-200 border-t-8 border-t-amber-600 rounded-xl p-6 flex flex-col justify-between h-full cursor-pointer relative shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-amber-100 p-2.5 rounded-lg">
+                                <svg class="h-6 w-6 text-amber-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.472-2.472a3.75 3.75 0 00-5.304-5.304l-2.472 2.472M11.42 15.17L5.88 21m5.54-5.83l-2.472-2.472a3.75 3.75 0 00-5.304 5.304l2.472 2.472" />
+                                </svg>
+                            </div>
+                            <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-200">MSP / Outsourcing</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-1">Servicios gestionados</h2>
+                        <p class="text-xs sm:text-sm font-bold text-amber-600 mb-3">(Gestión delegada de HW, SW y operación)</p>
+
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Control: <strong>Bajo</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">Lock-in: <strong>Medio-Alto</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">HW + SW + SLA</span>
+                        </div>
+
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4">Un proveedor especializado (MSP) asume la administración, monitorización, mantenimiento y soporte continuo de la infraestructura completa bajo contrato de nivel de servicio.</p>
+                    </div>
+
+                    <div>
+                        <div class="bg-amber-50 p-3 rounded-lg border border-amber-100 mb-4 text-xs sm:text-sm space-y-1">
+                            <p><strong class="text-emerald-700">Ventaja:</strong> Delegación de la operación 24/7 y garantía contractual de nivel de servicio (SLA).</p>
+                            <p><strong class="text-rose-700">Desventaja:</strong> Dependencia operativa directa del proveedor y cuota periódica continua.</p>
+                        </div>
+
+                        <button onclick="toggleDetails(2, event)" class="w-full text-xs sm:text-sm text-amber-800 font-bold py-2 px-3 rounded-lg bg-amber-50 hover:bg-amber-100 transition-colors flex items-center justify-between">
+                            <span id="btn-text-2">Ver detalles clave</span>
+                            <span id="arrow-2" class="transition-transform duration-300">▼</span>
+                        </button>
+                        <div id="details-2" class="accordion-content text-xs sm:text-sm text-slate-700 mt-3 space-y-2">
+                            <div class="hanging-indent">
+                                <span class="text-amber-600 font-bold select-none">•</span>
+                                <span><strong>Alcance integral:</strong> Administra tanto la infraestructura física (switches, servidores, firewalls) como la capa lógica (sistemas operativos, parches de seguridad, backups).</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-amber-600 font-bold select-none">•</span>
+                                <span><strong>Acuerdos SLA:</strong> Tiempos máximos de respuesta, resolución e índices de disponibilidad garantizados por penalización económica.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-amber-600 font-bold select-none">•</span>
+                                <span><strong>Foco estratégico:</strong> Libera al departamento de TI interno del mantenimiento reactivo para volcarse en proyectos de valor para el negocio.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3: BYOD -->
+                <div id="card-3" onclick="revealSpecificCard(3)" class="strategy-card card-hidden bg-white border border-teal-200 border-t-8 border-t-teal-600 rounded-xl p-6 flex flex-col justify-between h-full cursor-pointer relative shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-teal-100 p-2.5 rounded-lg">
+                                <svg class="h-6 w-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                                </svg>
+                            </div>
+                            <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-teal-100 text-teal-800 border border-teal-200">User Device</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-1">BYOD</h2>
+                        <p class="text-xs sm:text-sm font-bold text-teal-600 mb-3">(Bring Your Own Device)</p>
+
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Control: <strong>Bajo (MDM)</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Lock-in: <strong>Bajo</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-200">Riesgo seguridad: <strong>Alto</strong></span>
+                        </div>
+
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4">Los empleados utilizan sus propios dispositivos personales (portátiles, smartphones, tablets) para llevar a cabo sus tareas profesionales corporativas.</p>
+                    </div>
+
+                    <div>
+                        <div class="bg-teal-50 p-3 rounded-lg border border-teal-100 mb-4 text-xs sm:text-sm space-y-1">
+                            <p><strong class="text-emerald-700">Ventaja:</strong> Reducción drástica de inversión de capital en terminales y alta satisfacción del usuario.</p>
+                            <p><strong class="text-rose-700">Desventaja:</strong> Elevado riesgo de fuga de información y notable complejidad legal y regulatoria (RGPD).</p>
+                        </div>
+
+                        <button onclick="toggleDetails(3, event)" class="w-full text-xs sm:text-sm text-teal-800 font-bold py-2 px-3 rounded-lg bg-teal-50 hover:bg-teal-100 transition-colors flex items-center justify-between">
+                            <span id="btn-text-3">Ver detalles clave</span>
+                            <span id="arrow-3" class="transition-transform duration-300">▼</span>
+                        </button>
+                        <div id="details-3" class="accordion-content text-xs sm:text-sm text-slate-700 mt-3 space-y-2">
+                            <div class="hanging-indent">
+                                <span class="text-teal-600 font-bold select-none">•</span>
+                                <span><strong>Herramientas de control:</strong> Exige implantar software MDM (Mobile Device Management) o MAM para crear contenedores cifrados y aislar los datos de la empresa.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-teal-600 font-bold select-none">•</span>
+                                <span><strong>Políticas corporativas:</strong> Imprescindible contar con políticas formales de uso aceptable, borrado remoto selectivo y consentimiento de privacidad del empleado.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-teal-600 font-bold select-none">•</span>
+                                <span><strong>Complejidad del soporte:</strong> El parque heterogéneo de versiones de sistemas operativos dificulta la asistencia técnica interna.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4: SOLUCION EN PAQUETE APPLIANCE -->
+                <div id="card-4" onclick="revealSpecificCard(4)" class="strategy-card card-hidden bg-white border border-rose-200 border-t-8 border-t-rose-600 rounded-xl p-6 flex flex-col justify-between h-full cursor-pointer relative shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-rose-100 p-2.5 rounded-lg">
+                                <svg class="h-6 w-6 text-rose-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                                </svg>
+                            </div>
+                            <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-200">Appliance</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-1">Solución en paquete</h2>
+                        <p class="text-xs sm:text-sm font-bold text-rose-600 mb-3">(Hardware + Software indivisible)</p>
+
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Control: <strong>Bajo</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-200">Lock-in: <strong>Alto</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Despliegue: <strong>Rápido</strong></span>
+                        </div>
+
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4">El hardware se adquiere como un componente integrado y optimizado dentro de una solución vertical cerrada llave en mano del fabricante.</p>
+                    </div>
+
+                    <div>
+                        <div class="bg-rose-50 p-3 rounded-lg border border-rose-100 mb-4 text-xs sm:text-sm space-y-1">
+                            <p><strong class="text-emerald-700">Ventaja:</strong> Alta optimización, puesta en marcha exprés e interlocutor único para el soporte de HW y SW.</p>
+                            <p><strong class="text-rose-700">Desventaja:</strong> Rigidez de arquitectura (caja negra) y fuerte dependencia del fabricante.</p>
+                        </div>
+
+                        <button onclick="toggleDetails(4, event)" class="w-full text-xs sm:text-sm text-rose-800 font-bold py-2 px-3 rounded-lg bg-rose-50 hover:bg-rose-100 transition-colors flex items-center justify-between">
+                            <span id="btn-text-4">Ver detalles clave</span>
+                            <span id="arrow-4" class="transition-transform duration-300">▼</span>
+                        </button>
+                        <div id="details-4" class="accordion-content text-xs sm:text-sm text-slate-700 mt-3 space-y-2">
+                            <div class="hanging-indent">
+                                <span class="text-rose-600 font-bold select-none">•</span>
+                                <span><strong>Casos de uso típicos:</strong> Terminales TPV para comercio, centralitas telefónicas VoIP dedicadas o cortafuegos perimetrales cerrados.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-rose-600 font-bold select-none">•</span>
+                                <span><strong>Compatibilidad:</strong> Nula capacidad de personalización o alteración interna del hardware por parte del SysAdmin.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-rose-600 font-bold select-none">•</span>
+                                <span><strong>Mantenimiento:</strong> Las actualizaciones de firmware y el ciclo de vida de repuestos quedan supeditados exclusivamente al catálogo del fabricante.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 5: HARDWARE COMO SERVICIO HAAS -->
+                <div id="card-5" onclick="revealSpecificCard(5)" class="strategy-card card-hidden bg-white border border-indigo-200 border-t-8 border-t-indigo-600 rounded-xl p-6 flex flex-col justify-between h-full cursor-pointer relative shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="bg-indigo-100 p-2.5 rounded-lg">
+                                <svg class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" />
+                                </svg>
+                            </div>
+                            <span class="text-xs font-extrabold px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-800 border border-indigo-200">HaaS / PCaaS</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-1">Hardware como servicio</h2>
+                        <p class="text-xs sm:text-sm font-bold text-indigo-600 mb-3">(Hardware as a Service / Suscripción)</p>
+
+                        <div class="flex flex-wrap gap-1.5 mb-4">
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">Control: <strong>Medio</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-amber-100 text-amber-800 border border-amber-200">Lock-in: <strong>Medio</strong></span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 border border-emerald-200">Escalabilidad: <strong>Alta</strong></span>
+                        </div>
+
+                        <p class="text-sm text-slate-700 leading-relaxed mb-4">Modelo equivalente al SaaS pero aplicado al equipamiento físico: se abona una suscripción periódica que integra equipamiento, mantenimiento y sustitución ante fallos.</p>
+                    </div>
+
+                    <div>
+                        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-100 mb-4 text-xs sm:text-sm space-y-1">
+                            <p><strong class="text-emerald-700">Ventaja:</strong> Previsibilidad presupuestaria total, logística de soporte incluida y reposición inmediata.</p>
+                            <p><strong class="text-rose-700">Desventaja:</strong> Modelo de suscripción recurrente con penalizaciones ante cancelaciones anticipadas.</p>
+                        </div>
+
+                        <button onclick="toggleDetails(5, event)" class="w-full text-xs sm:text-sm text-indigo-800 font-bold py-2 px-3 rounded-lg bg-indigo-50 hover:bg-indigo-100 transition-colors flex items-center justify-between">
+                            <span id="btn-text-5">Ver detalles clave</span>
+                            <span id="arrow-5" class="transition-transform duration-300">▼</span>
+                        </button>
+                        <div id="details-5" class="accordion-content text-xs sm:text-sm text-slate-700 mt-3 space-y-2">
+                            <div class="hanging-indent">
+                                <span class="text-indigo-600 font-bold select-none">•</span>
+                                <span><strong>Servicio todo incluido:</strong> Cubre el ciclo completo: aprovisionamiento, despliegue inicial, soporte reactivo y recambio regular programado.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-indigo-600 font-bold select-none">•</span>
+                                <span><strong>Flexibilidad de escala:</strong> Agilidad para añadir o retirar puestos de trabajo en función de la variación de plantilla.</span>
+                            </div>
+                            <div class="hanging-indent">
+                                <span class="text-indigo-600 font-bold select-none">•</span>
+                                <span><strong>PCaaS (PC as a Service):</strong> Enfoque corporativo dominante para estandarizar estaciones portátiles y de sobremesa reduciendo el esfuerzo del equipo técnico.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+</main>
+    </div>
+
+    <!-- MODAL 1: CALCULADORA INTERACTIVA DE TCO (CapEx vs OpEx) -->
+    <div id="tco-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl max-h-[88vh] flex flex-col overflow-hidden my-auto">
+            <!-- Modal Header -->
+            <div class="px-5 py-4 bg-emerald-600 text-white flex items-center justify-between shrink-0">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-2xl">📊</span>
+                    <h3 class="text-lg sm:text-xl font-bold">Calculadora de coste total de propiedad (TCO)</h3>
+                </div>
+                <button onclick="closeTcoModal()" class="text-emerald-100 hover:text-white text-3xl font-bold leading-none px-2 py-0.5">&times;</button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-5 sm:p-6 overflow-y-auto custom-scroll space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <p class="text-xs sm:text-sm text-slate-600">Compara el impacto financiero acumulado entre la <strong>Compra directa (CapEx)</strong> y el <strong>Arrendamiento / HaaS (OpEx)</strong>.</p>
+
+                    <button onclick="toggleTcoExplanation()" class="shrink-0 px-3 py-1.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-bold text-xs rounded-lg transition-colors border border-emerald-300 flex items-center justify-center space-x-1 shadow-xs">
+                        <span>📖 Sistemática de cálculo</span>
+                        <span id="tco-exp-arrow" class="transition-transform duration-300">▼</span>
+                    </button>
+                </div>
+
+                <!-- Mathematical Formulas & Methodology Panel -->
+                <div id="tco-explanation-panel" class="accordion-content bg-slate-900 text-slate-100 rounded-xl p-4 border border-slate-700 text-xs sm:text-sm space-y-3">
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-2">
+                        <h4 class="font-extrabold text-emerald-400 text-sm sm:text-base flex items-center space-x-2">
+                            <span>📐 Fórmulas y reglas de cálculo del TCO</span>
+                        </h4>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700 space-y-1.5">
+                            <span class="inline-block px-2 py-0.5 bg-blue-900/80 text-blue-300 text-xs font-extrabold rounded uppercase tracking-wider">A. Modelo CapEx (Compra directa)</span>
+                            <div class="font-mono bg-slate-950 p-2.5 rounded border border-slate-800 text-xs text-blue-300 leading-relaxed space-y-1.5">
+                                <div class="font-bold text-slate-200 border-b border-slate-800 pb-1 mb-1">TCO = CapEx_Inicial + Mantenimiento - Residual</div>
+                                <div class="hanging-indent"><span class="text-blue-400 select-none">•</span><span>CapEx_Inicial = N × P_compra</span></div>
+                                <div class="hanging-indent"><span class="text-blue-400 select-none">•</span><span>Mantenimiento = N × Maint_anual × (M / 12)</span></div>
+                                <div class="hanging-indent"><span class="text-blue-400 select-none">•</span><span>Residual = CapEx_Inicial × (%_residual / 100)</span></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800/80 p-3 rounded-lg border border-slate-700 space-y-1.5">
+                            <span class="inline-block px-2 py-0.5 bg-purple-900/80 text-purple-300 text-xs font-extrabold rounded uppercase tracking-wider">B. Modelo OpEx (HaaS / Suscripción)</span>
+                            <div class="font-mono bg-slate-950 p-2.5 rounded border border-slate-800 text-xs text-purple-300 leading-relaxed space-y-1.5">
+                                <div class="font-bold text-slate-200 border-b border-slate-800 pb-1 mb-1">TCO = N × Cuota_mensual × M</div>
+                                <div class="hanging-indent"><span class="text-purple-400 select-none">•</span><span>N = Cantidad de puestos</span></div>
+                                <div class="hanging-indent"><span class="text-purple-400 select-none">•</span><span>M = Meses de análisis</span></div>
+                                <div class="hanging-indent"><span class="text-purple-400 select-none">•</span><span>Cuota_mensual = Canon por puesto/mes</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-300 bg-slate-800 p-2.5 rounded border border-slate-700 leading-relaxed">
+                        <strong>💡 Criterio de decisión:</strong> Si <strong>TCO<sub>CapEx</sub> &lt; TCO<sub>OpEx</sub></strong>, la compra directa resulta financieramente más económica en volumen agregado, pero inmoviliza capital inicial. El modelo OpEx optimiza la liquidez, ofrece costes predecibles e integra logística de garantías.
+                    </p>
+                </div>
+
+                <!-- Input controls -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs sm:text-sm">
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Número de puestos:</label>
+                        <input type="number" id="tco-units" value="25" min="1" max="500" oninput="calculateTCO()" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none font-semibold">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Duración (meses):</label>
+                        <select id="tco-months" onchange="calculateTCO()" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none font-semibold">
+                            <option value="12">12 meses (1 año)</option>
+                            <option value="24">24 meses (2 años)</option>
+                            <option value="36" selected>36 meses (3 años)</option>
+                            <option value="48">48 meses (4 años)</option>
+                            <option value="60">60 meses (5 años)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-slate-700 mb-1">Precio compra unitario (€):</label>
+                        <input type="number" id="tco-buy-price" value="1200" step="50" oninput="calculateTCO()" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:outline-none font-semibold">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+                    <div class="bg-blue-50 p-3.5 rounded-xl border border-blue-200">
+                        <h4 class="font-bold text-blue-900 border-b border-blue-200 pb-1.5 mb-2.5">Opción A: Compra directa (CapEx)</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600 text-xs">Mantenimiento anual/puesto (€):</span>
+                                <input type="number" id="tco-maint-yearly" value="100" step="10" oninput="calculateTCO()" class="w-20 px-2 py-1 text-right border border-slate-300 rounded text-xs font-semibold">
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600 text-xs">Valor residual final (%):</span>
+                                <input type="number" id="tco-residual-pct" value="10" min="0" max="50" oninput="calculateTCO()" class="w-20 px-2 py-1 text-right border border-slate-300 rounded text-xs font-semibold">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 p-3.5 rounded-xl border border-purple-200">
+                        <h4 class="font-bold text-purple-900 border-b border-purple-200 pb-1.5 mb-2.5">Opción B: Leasing / HaaS (OpEx)</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600 text-xs">Cuota mensual por puesto (€):</span>
+                                <input type="number" id="tco-lease-monthly" value="42" step="1" oninput="calculateTCO()" class="w-20 px-2 py-1 text-right border border-slate-300 rounded text-xs font-semibold">
+                            </div>
+                            <p class="text-xs text-purple-700 italic pt-1">* Incluye seguro, garantía ampliada y sustitución inmediata ante averías.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TCO Results output cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="p-4 bg-slate-900 text-white rounded-xl">
+                        <p class="text-xs uppercase text-slate-400 font-bold tracking-wider">TCO compra directa</p>
+                        <p id="tco-out-capex" class="text-2xl sm:text-3xl font-extrabold text-blue-400 mt-1">34.500 €</p>
+                        <p id="tco-out-capex-sub" class="text-xs text-slate-300 mt-1">CapEx Inicial: 30.000 € | Mantenimiento: 7.500 € | Residual: -3.000 €</p>
+                    </div>
+                    <div class="p-4 bg-slate-900 text-white rounded-xl">
+                        <p class="text-xs uppercase text-slate-400 font-bold tracking-wider">TCO leasing / HaaS</p>
+                        <p id="tco-out-opex" class="text-2xl sm:text-3xl font-extrabold text-purple-400 mt-1">37.800 €</p>
+                        <p id="tco-out-opex-sub" class="text-xs text-slate-300 mt-1">Cuota mensual global: 1.050 €/mes durante 36 meses</p>
+                    </div>
+                </div>
+
+                <!-- Dynamic Pedagogical Notes -->
+                <div id="tco-pedagogical-notes" class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs sm:text-sm text-slate-800 leading-relaxed">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-5 py-3 bg-slate-100 border-t border-slate-200 flex items-center justify-end shrink-0">
+                <button onclick="closeTcoModal()" class="px-5 py-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm rounded-lg transition-colors">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: AUTOEVALUACIÓN Y CASOS PRÁCTICOS DE ADQUISICIÓN -->
+    <div id="quiz-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-3xl max-h-[88vh] flex flex-col overflow-hidden my-auto">
+            <!-- Modal Header -->
+            <div class="px-5 py-4 bg-indigo-600 text-white flex items-center justify-between shrink-0">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-2xl">🎯</span>
+                    <h3 class="text-lg sm:text-xl font-bold">Entrenador de casos prácticos de adquisición</h3>
+                </div>
+                <button onclick="closeQuizModal()" class="text-indigo-100 hover:text-white text-3xl font-bold leading-none px-2 py-0.5">&times;</button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-5 sm:p-6 overflow-y-auto custom-scroll space-y-5">
+                <!-- Stepper header -->
+                <div class="flex items-center justify-between bg-indigo-50 p-3 rounded-xl border border-indigo-100 text-xs font-bold text-indigo-900">
+                    <span id="quiz-step-title">Caso 1 de 5</span>
+                    <div class="flex space-x-1.5" id="quiz-dots">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Scenario Description Card -->
+                <div class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200">
+                    <span id="quiz-tag" class="inline-block px-2.5 py-0.5 rounded text-xs font-extrabold bg-indigo-100 text-indigo-800 mb-2">Escenario empresarial</span>
+                    <h4 id="quiz-scenario-title" class="text-base sm:text-lg font-extrabold text-slate-900 mb-2">Empresa en crecimiento acelerado</h4>
+                    <p id="quiz-scenario-desc" class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                        Una startup prevé pasar de 10 a 50 desarrolladores en los próximos 6 meses. Requiere portátiles de gama alta con reemplazo rápido en menos de 24 horas ante fallos.
+                    </p>
+                </div>
+
+                <!-- Question options -->
+                <div>
+                    <label class="block font-bold text-slate-800 text-xs sm:text-sm mb-2.5">
+                        ¿Cuál es el modelo de adquisición de hardware más adecuado para este escenario?
+                    </label>
+                    <div id="quiz-options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <!-- Options generated dynamically -->
+                    </div>
+                </div>
+
+                <!-- Feedback Area -->
+                <div id="quiz-feedback" class="hidden p-4 rounded-xl border text-xs sm:text-sm leading-relaxed">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-5 py-3 bg-slate-100 border-t border-slate-200 flex items-center justify-between shrink-0">
+                <button id="quiz-prev-btn" onclick="prevQuizScenario()" class="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold text-xs sm:text-sm rounded-lg transition-colors disabled:opacity-40">Anterior</button>
+                <button id="quiz-next-btn" onclick="nextQuizScenario()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs sm:text-sm rounded-lg transition-colors">Siguiente caso 👉</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const totalCards = 6;
+        let revealedCount = 0;
+
+        /* Actualización del contador y del estado de los botones */
+        function updateUI() {
+            document.getElementById('counter-badge').innerText = `${revealedCount} / ${totalCards} modelos`;
+
+            const btnNext = document.getElementById('btn-next');
+            if (revealedCount === totalCards) {
+                btnNext.disabled = true;
+                btnNext.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                btnNext.disabled = false;
+                btnNext.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        }
+
+        /* Revelado de tarjeta específica con auto-scroll suave hacia el elemento */
+        function revealSpecificCard(index, shouldScroll = true) {
+            const card = document.getElementById(`card-${index}`);
+            if (card && card.classList.contains('card-hidden')) {
+                card.classList.remove('card-hidden');
+                card.classList.add('card-visible');
+                revealedCount = document.querySelectorAll('.card-visible').length;
+                updateUI();
+
+                if (shouldScroll) {
+                    // Desplazamiento suave para guiar la atención en el aula
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        }
+
+        /* Revelado secuencial con auto-scroll a la nueva tarjeta */
+        function revealNextCard() {
+            for (let i = 0; i < totalCards; i++) {
+                const card = document.getElementById(`card-${i}`);
+                if (card && card.classList.contains('card-hidden')) {
+                    revealSpecificCard(i, true);
+                    break;
+                }
+            }
+        }
+
+        /* Revelado total de todas las tarjetas */
+        function revealAllCards() {
+            for (let i = 0; i < totalCards; i++) {
+                revealSpecificCard(i, false);
+            }
+            // Asegurar que la cuadrícula se ubica cómodamente a la vista
+            document.getElementById('cards-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /* Reinicio de tarjetas */
+        function resetCards() {
+            for (let i = 0; i < totalCards; i++) {
+                const card = document.getElementById(`card-${i}`);
+                if (card) {
+                    card.classList.remove('card-visible');
+                    card.classList.add('card-hidden');
+                }
+
+                const details = document.getElementById(`details-${i}`);
+                const arrow = document.getElementById(`arrow-${i}`);
+                const btnText = document.getElementById(`btn-text-${i}`);
+                if (details && details.classList.contains('expanded')) {
+                    details.classList.remove('expanded');
+                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    if (btnText) btnText.innerText = 'Ver detalles clave';
+                }
+            }
+            revealedCount = 0;
+            updateUI();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Alternar detalles de la tarjeta */
+        function toggleDetails(index, event) {
+            event.stopPropagation();
+            revealSpecificCard(index, false);
+
+            const details = document.getElementById(`details-${index}`);
+            const arrow = document.getElementById(`arrow-${index}`);
+            const btnText = document.getElementById(`btn-text-${index}`);
+
+            if (details) {
+                if (details.classList.contains('expanded')) {
+                    details.classList.remove('expanded');
+                    if (arrow) arrow.style.transform = 'rotate(0deg)';
+                    if (btnText) btnText.innerText = 'Ver detalles clave';
+                } else {
+                    details.classList.add('expanded');
+                    if (arrow) arrow.style.transform = 'rotate(180deg)';
+                    if (btnText) btnText.innerText = 'Ocultar detalles';
+
+                    // Asegurar que el contenido expandido sea visible
+                    setTimeout(() => {
+                        const card = document.getElementById(`card-${index}`);
+                        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+            }
+        }
+
+        /* Lógica del Modal TCO */
+        function openTcoModal() {
+            document.getElementById('tco-modal').classList.remove('hidden');
+            calculateTCO();
+        }
+
+        function closeTcoModal() {
+            document.getElementById('tco-modal').classList.add('hidden');
+        }
+
+        function toggleTcoExplanation() {
+            const panel = document.getElementById('tco-explanation-panel');
+            const arrow = document.getElementById('tco-exp-arrow');
+            if (panel.classList.contains('expanded')) {
+                panel.classList.remove('expanded');
+                if (arrow) arrow.style.transform = 'rotate(0deg)';
+            } else {
+                panel.classList.add('expanded');
+                if (arrow) arrow.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function calculateTCO() {
+            const units = parseInt(document.getElementById('tco-units').value) || 1;
+            const months = parseInt(document.getElementById('tco-months').value) || 36;
+            const buyPrice = parseFloat(document.getElementById('tco-buy-price').value) || 0;
+            const maintYearly = parseFloat(document.getElementById('tco-maint-yearly').value) || 0;
+            const residualPct = parseFloat(document.getElementById('tco-residual-pct').value) || 0;
+            const leaseMonthly = parseFloat(document.getElementById('tco-lease-monthly').value) || 0;
+
+            const years = months / 12;
+
+            // CapEx
+            const capexInitial = units * buyPrice;
+            const capexMaintTotal = units * maintYearly * years;
+            const capexResidualVal = capexInitial * (residualPct / 100);
+            const capexTotalTCO = capexInitial + capexMaintTotal - capexResidualVal;
+
+            // OpEx
+            const opexTotalTCO = units * leaseMonthly * months;
+
+            // Salidas formateadas
+            document.getElementById('tco-out-capex').innerText = capexTotalTCO.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+            document.getElementById('tco-out-capex-sub').innerText = `CapEx Inicial: ${capexInitial.toLocaleString('es-ES')} € | Mantenimiento: ${capexMaintTotal.toLocaleString('es-ES')} € | Residual: -${capexResidualVal.toLocaleString('es-ES')} €`;
+
+            document.getElementById('tco-out-opex').innerText = opexTotalTCO.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+            document.getElementById('tco-out-opex-sub').innerText = `Cuota mensual global: ${(units * leaseMonthly).toLocaleString('es-ES')} €/mes durante ${months} meses`;
+
+            // Conclusiones pedagógicas dinámicas
+            const diff = Math.abs(capexTotalTCO - opexTotalTCO);
+            const notesEl = document.getElementById('tco-pedagogical-notes');
+
+            if (capexTotalTCO < opexTotalTCO) {
+                notesEl.className = "p-4 rounded-xl bg-blue-50 border border-blue-200 text-xs sm:text-sm text-slate-800 leading-relaxed";
+                notesEl.innerHTML = `<strong>💡 Conclusión financiera y operativa:</strong> La <strong>Compra directa (CapEx)</strong> resulta <strong>${diff.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })} más económica</strong> en desembolso acumulado. Sin embargo, exige desembolsar inmediatamente <strong>${capexInitial.toLocaleString('es-ES')} €</strong> de caja. Si la empresa necesita preservar liquidez o renovar equipos cada ${months} meses, el modelo <strong>HaaS/Leasing</strong> compensa la diferencia al integrar soporte y garantía logística.`;
+            } else {
+                notesEl.className = "p-4 rounded-xl bg-purple-50 border border-purple-200 text-xs sm:text-sm text-slate-800 leading-relaxed";
+                notesEl.innerHTML = `<strong>💡 Conclusión financiera y operativa:</strong> El modelo de <strong>Suscripción / HaaS (OpEx)</strong> es <strong>${diff.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 })} más económico</strong> en este escenario, además de evitar la inmovilización de capital inicial (${capexInitial.toLocaleString('es-ES')} € en CapEx). Aporta máxima previsibilidad mes a mes.`;
+            }
+        }
+
+        /* Lógica del Quiz de Casos Prácticos */
+        const quizScenarios = [
+            {
+                tag: "Crecimiento rápido y liquidez",
+                title: "1. Startup en expansión acelerada",
+                desc: "Una empresa de software prevé pasar de 10 a 50 desarrolladores en los próximos 6 meses. La liquidez inicial es justa y requiere portátiles de alta gama con reemplazo rápido en menos de 24h ante averías.",
+                correctIndex: 5, // HaaS
+                explanation: "Hardware como Servicio (HaaS / PCaaS) permite escalar puestos rápidamente, preserva la liquidez inicial (sin CapEx) e incluye soporte y reposición inmediata de equipamiento.",
+                options: ["Compra directa", "Leasing tradicional", "Servicios gestionados (MSP)", "BYOD", "Solución en paquete", "Hardware como Servicio (HaaS)"]
+            },
+            {
+                tag: "Alta seguridad y control crítico",
+                title: "2. Servidor de base de datos hospitalario",
+                desc: "Un hospital va a desplegar el servidor central de historias clínicas. El ciclo de vida previsto es de 7 años y se exige máximo control sobre la infraestructura física y custodia de datos.",
+                correctIndex: 0, // Compra Directa
+                explanation: "Para un activo crítico con un ciclo de vida largo (7 años) y exigencia de control absoluto e inalterable del hardware por normativa, la Compra directa (CapEx) es el modelo idóneo.",
+                options: ["Compra directa", "Arrendamiento (Leasing)", "Servicios gestionados (MSP)", "BYOD", "Solución en paquete", "Hardware como Servicio (HaaS)"]
+            },
+            {
+                tag: "Infraestructura integrada específica",
+                title: "3. Red de terminales punto de venta (TPV)",
+                desc: "Una cadena de restauración requiere equipar 30 locales con terminales táctiles de cobro, lector e impresora con el software del fabricante premontado e inalterable.",
+                correctIndex: 4, // Solución en paquete
+                explanation: "Un sistema TPV en Solución en paquete (Appliance) combina hardware específico y software indivisible 'llave en mano', ofreciendo despliegue rápido y soporte unificado.",
+                options: ["Compra directa", "Arrendamiento (Leasing)", "Servicios gestionados (MSP)", "BYOD", "Solución en paquete", "Hardware como Servicio (HaaS)"]
+            },
+            {
+                tag: "Falta de personal TI interno",
+                title: "4. Gestión de red y ciberseguridad perimetral",
+                desc: "Una PYME de 40 empleados no dispone de administradores de sistemas en plantilla. Necesita instalar y mantener un cortafuegos (Firewall) y Wi-Fi corporativo con monitorización 24/7.",
+                correctIndex: 2, // MSP
+                explanation: "Los Servicios Gestionados (MSP) permiten delegar el hardware perimetral, la administración, la monitorización y la respuesta ante incidentes bajo acuerdos de nivel de servicio (SLA).",
+                options: ["Compra directa", "Arrendamiento (Leasing)", "Servicios gestionados (MSP)", "BYOD", "Solución en paquete", "Hardware como Servicio (HaaS)"]
+            },
+            {
+                tag: "Movilidad y flexibilidad de plantilla",
+                title: "5. Red comercial con movilidad extrema",
+                desc: "Una fuerza de ventas externa prefiere usar sus propios tablets y móviles personales. La empresa busca reducir costes de hardware garantizando el borrado remoto de datos corporativos.",
+                correctIndex: 3, // BYOD
+                explanation: "El modelo BYOD (Bring Your Own Device) reduce la inversión en hardware personal, complementándose con software MDM/MAM para garantizar la protección de datos corporativos.",
+                options: ["Compra directa", "Arrendamiento (Leasing)", "Servicios gestionados (MSP)", "BYOD", "Solución en paquete", "Hardware como Servicio (HaaS)"]
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let selectedAnswers = {};
+
+        function openQuizModal() {
+            document.getElementById('quiz-modal').classList.remove('hidden');
+            renderQuizScenario();
+        }
+
+        function closeQuizModal() {
+            document.getElementById('quiz-modal').classList.add('hidden');
+        }
+
+        function renderQuizScenario() {
+            const scenario = quizScenarios[currentQuizIndex];
+            document.getElementById('quiz-step-title').innerText = `Caso ${currentQuizIndex + 1} de ${quizScenarios.length}`;
+            document.getElementById('quiz-tag').innerText = scenario.tag;
+            document.getElementById('quiz-scenario-title').innerText = scenario.title;
+            document.getElementById('quiz-scenario-desc').innerText = scenario.desc;
+
+            const dotsEl = document.getElementById('quiz-dots');
+            dotsEl.innerHTML = quizScenarios.map((_, idx) => `
+                <div class="w-2.5 h-2.5 rounded-full ${idx === currentQuizIndex ? 'bg-indigo-600' : (selectedAnswers[idx] !== undefined ? 'bg-indigo-300' : 'bg-slate-300')}"></div>
+            `).join('');
+
+            const container = document.getElementById('quiz-options-container');
+            container.innerHTML = scenario.options.map((optText, optIdx) => {
+                const isSelected = selectedAnswers[currentQuizIndex] === optIdx;
+                let btnStyle = "bg-white hover:bg-slate-50 border-slate-200 text-slate-800";
+
+                if (isSelected) {
+                    if (optIdx === scenario.correctIndex) {
+                        btnStyle = "bg-emerald-100 border-emerald-500 text-emerald-900 font-bold";
+                    } else {
+                        btnStyle = "bg-rose-100 border-rose-500 text-rose-900 font-bold";
+                    }
+                }
+
+                return `
+                    <button onclick="selectQuizOption(${optIdx})" class="p-3 border rounded-xl text-left text-xs sm:text-sm transition-all flex items-center justify-between ${btnStyle}">
+                        <span>${optText}</span>
+                        ${isSelected ? (optIdx === scenario.correctIndex ? '<span>✅</span>' : '<span>❌</span>') : ''}
+                    </button>
+                `;
+            }).join('');
+
+            const feedbackEl = document.getElementById('quiz-feedback');
+            if (selectedAnswers[currentQuizIndex] !== undefined) {
+                const chosenIdx = selectedAnswers[currentQuizIndex];
+                feedbackEl.classList.remove('hidden');
+                if (chosenIdx === scenario.correctIndex) {
+                    feedbackEl.className = "p-4 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-900 text-xs sm:text-sm leading-relaxed";
+                    feedbackEl.innerHTML = `<strong>✅ ¡Respuesta correcta!</strong><br/><br/>${scenario.explanation}`;
+                } else {
+                    feedbackEl.className = "p-4 rounded-xl border bg-rose-50 border-rose-200 text-rose-900 text-xs sm:text-sm leading-relaxed";
+                    feedbackEl.innerHTML = `<strong>❌ Respuesta incorrecta.</strong> Has seleccionado <em>${scenario.options[chosenIdx]}</em>.<br/><br/><strong>Modelo recomendado:</strong> ${scenario.options[scenario.correctIndex]}<br/><strong>Justificación:</strong> ${scenario.explanation}`;
+                }
+            } else {
+                feedbackEl.classList.add('hidden');
+            }
+
+            document.getElementById('quiz-prev-btn').disabled = currentQuizIndex === 0;
+            const nextBtn = document.getElementById('quiz-next-btn');
+            if (currentQuizIndex === quizScenarios.length - 1) {
+                nextBtn.innerText = "Finalizar";
+            } else {
+                nextBtn.innerText = "Siguiente caso 👉";
+            }
+        }
+
+        function selectQuizOption(optionIdx) {
+            selectedAnswers[currentQuizIndex] = optionIdx;
+            renderQuizScenario();
+        }
+
+        function prevQuizScenario() {
+            if (currentQuizIndex > 0) {
+                currentQuizIndex--;
+                renderQuizScenario();
+            }
+        }
+
+        function nextQuizScenario() {
+            if (currentQuizIndex < quizScenarios.length - 1) {
+                currentQuizIndex++;
+                renderQuizScenario();
+            } else {
+                closeQuizModal();
+            }
+        }
+
+        // Inicialización al cargar el DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            updateUI();
+        });
+    </script>
+</body>
+</html>

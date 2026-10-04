@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El ciclo de vida de la administración de sistemas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glow-effect {
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.35);
+        }
+        .pulse-slow {
+            animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.94; transform: scale(1.03); }
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <header class="border-b border-slate-800/80 bg-slate-900/90 backdrop-blur sticky top-0 z-40 py-3 px-4 sm:px-8">
+        <div class="max-w-7xl mx-auto flex items-center justify-end">
+            <div>
+                <button id="btn-open-activity" class="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-extrabold text-sm sm:text-base px-5 py-2.5 rounded-xl shadow-lg hover:shadow-orange-500/30 transition-all duration-200 cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <span>Actividad de aula: Caso de crisis</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 flex-1 flex flex-col justify-center">
+
+        <div class="text-center max-w-4xl mx-auto mb-8 md:mb-14">
+            <h1 class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-tight">
+                El ciclo de vida de la <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">administración de sistemas</span>
+            </h1>
+            <p class="mt-4 text-slate-300 text-lg sm:text-xl font-medium leading-relaxed">
+                Un proceso continuo para garantizar la eficiencia, estabilidad y seguridad de la infraestructura tecnológica.
+            </p>
+            <div class="mt-3 inline-block bg-slate-800/80 border border-slate-700 px-4 py-1.5 rounded-full">
+                <p class="text-sm sm:text-base font-semibold text-amber-300">💡 Pulsa en cualquiera de las 5 fases o en el centro para explorar detalles</p>
+            </div>
+        </div>
+
+        <div class="hidden md:block relative w-full max-w-5xl mx-auto aspect-square my-4">
+
+            <!-- Precise SVG Orbital Circle -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 800 800">
+                <defs>
+                    <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.9"/>
+                        <stop offset="40%" stop-color="#c084fc" stop-opacity="0.9"/>
+                        <stop offset="70%" stop-color="#34d399" stop-opacity="0.9"/>
+                        <stop offset="100%" stop-color="#fbbf24" stop-opacity="0.9"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- Background Base Guide Orbit -->
+                <circle cx="400" cy="400" r="280" fill="none" stroke="#334155" stroke-width="6" opacity="0.4"/>
+
+                <!-- Smooth Colored Orbital Loop -->
+                <circle cx="400" cy="400" r="280" fill="none" stroke="url(#circleGrad)" stroke-width="4.5" stroke-dasharray="14 10" class="opacity-80"/>
+            </svg>
+
+            <!-- Center Core Badge -->
+            <div onclick="openCoreModal()" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-slate-900 border-4 border-blue-500/80 hover:border-blue-400 hover:scale-105 transition-all duration-300 flex flex-col items-center justify-center p-4 text-center z-30 glow-effect pulse-slow cursor-pointer group shadow-2xl">
+                <div class="w-14 h-14 rounded-full bg-blue-500/20 text-blue-300 flex items-center justify-center mb-1 group-hover:bg-blue-500/30 group-hover:scale-110 transition-all">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                </div>
+                <h3 class="font-black text-white text-xl sm:text-2xl group-hover:text-blue-300 transition-colors">SysAdmin & DevOps</h3>
+                <p class="text-xs sm:text-sm font-bold text-blue-300 mt-0.5">Mejora continua</p>
+                <span class="mt-2 text-[11px] font-extrabold text-amber-300 bg-amber-950/90 border border-amber-500/80 px-3 py-1 rounded-full group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors flex items-center space-x-1 shadow-md">
+                    <span>🔍 Ver paradigma global</span>
+                </span>
+            </div>
+
+            <!-- Node 1: Planificación y diseño (Top Center) -->
+            <div onclick="openPhaseModal(1)" class="absolute top-[-3%] left-1/2 -translate-x-1/2 w-80 bg-slate-900 border-2 border-blue-500 hover:bg-slate-850 rounded-2xl p-5 shadow-2xl cursor-pointer hover:scale-105 transition-all duration-200 z-10 group">
+                <div class="flex items-center space-x-3 mb-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black text-xl shadow-md shrink-0">1</div>
+                    <h4 class="font-extrabold text-white text-lg group-hover:text-blue-300 transition-colors">Planificación y diseño</h4>
+                </div>
+                <p class="text-sm text-slate-200 leading-relaxed font-semibold">Requisitos, capacidad e infraestructura optimizada para negocio.</p>
+                <div class="mt-3.5 flex flex-wrap gap-2">
+                    <span class="text-xs bg-blue-950 text-blue-200 border border-blue-700/60 font-bold px-3 py-1 rounded-md">Notion</span>
+                    <span class="text-xs bg-blue-950 text-blue-200 border border-blue-700/60 font-bold px-3 py-1 rounded-md">Capacity planning</span>
+                </div>
+            </div>
+
+            <!-- Node 2: Implementación y configuración (Top Right) -->
+            <div onclick="openPhaseModal(2)" class="absolute top-[22%] right-[-3%] w-80 bg-slate-900 border-2 border-purple-500 hover:bg-slate-850 rounded-2xl p-5 shadow-2xl cursor-pointer hover:scale-105 transition-all duration-200 z-10 group">
+                <div class="flex items-center space-x-3 mb-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center font-black text-xl shadow-md shrink-0">2</div>
+                    <h4 class="font-extrabold text-white text-lg group-hover:text-purple-300 transition-colors">Implementación y config.</h4>
+                </div>
+                <p class="text-sm text-slate-200 leading-relaxed font-semibold">Despliegue de infraestructura, automatización e IaC.</p>
+                <div class="mt-3.5 flex flex-wrap gap-2">
+                    <span class="text-xs bg-purple-950 text-purple-200 border border-purple-700/60 font-bold px-3 py-1 rounded-md">PowerShell</span>
+                    <span class="text-xs bg-purple-950 text-purple-200 border border-purple-700/60 font-bold px-3 py-1 rounded-md">Docker</span>
+                </div>
+            </div>
+
+            <!-- Node 3: Operación y monitoreo (Bottom Right) -->
+            <div onclick="openPhaseModal(3)" class="absolute bottom-[4%] right-[-1%] w-80 bg-slate-900 border-2 border-emerald-500 hover:bg-slate-850 rounded-2xl p-5 shadow-2xl cursor-pointer hover:scale-105 transition-all duration-200 z-10 group">
+                <div class="flex items-center space-x-3 mb-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-black text-xl shadow-md shrink-0">3</div>
+                    <h4 class="font-extrabold text-white text-lg group-hover:text-emerald-300 transition-colors">Operación y monitoreo</h4>
+                </div>
+                <p class="text-sm text-slate-200 leading-relaxed font-semibold">Supervisión en tiempo real, métricas y alertas de servicio.</p>
+                <div class="mt-3.5 flex flex-wrap gap-2">
+                    <span class="text-xs bg-emerald-950 text-emerald-200 border border-emerald-700/60 font-bold px-3 py-1 rounded-md">Prometheus</span>
+                    <span class="text-xs bg-emerald-950 text-emerald-200 border border-emerald-700/60 font-bold px-3 py-1 rounded-md">Grafana</span>
+                </div>
+            </div>
+
+            <!-- Node 4: Mantenimiento y soporte (Bottom Left) -->
+            <div onclick="openPhaseModal(4)" class="absolute bottom-[4%] left-[-1%] w-80 bg-slate-900 border-2 border-amber-500 hover:bg-slate-850 rounded-2xl p-5 shadow-2xl cursor-pointer hover:scale-105 transition-all duration-200 z-10 group">
+                <div class="flex items-center space-x-3 mb-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-amber-600 text-white flex items-center justify-center font-black text-xl shadow-md shrink-0">4</div>
+                    <h4 class="font-extrabold text-white text-lg group-hover:text-amber-300 transition-colors">Mantenimiento y soporte</h4>
+                </div>
+                <p class="text-sm text-slate-200 leading-relaxed font-semibold">Parches de seguridad, copias de seguridad y soporte técnico.</p>
+                <div class="mt-3.5 flex flex-wrap gap-2">
+                    <span class="text-xs bg-amber-950 text-amber-200 border border-amber-700/60 font-bold px-3 py-1 rounded-md">ISO 27001</span>
+                    <span class="text-xs bg-amber-950 text-amber-200 border border-amber-700/60 font-bold px-3 py-1 rounded-md">Backups</span>
+                </div>
+            </div>
+
+            <!-- Node 5: Optimización y mejora continua (Top Left) -->
+            <div onclick="openPhaseModal(5)" class="absolute top-[22%] left-[-3%] w-80 bg-slate-900 border-2 border-cyan-500 hover:bg-slate-850 rounded-2xl p-5 shadow-2xl cursor-pointer hover:scale-105 transition-all duration-200 z-10 group">
+                <div class="flex items-center space-x-3 mb-2.5">
+                    <div class="w-10 h-10 rounded-xl bg-cyan-600 text-white flex items-center justify-center font-black text-xl shadow-md shrink-0">5</div>
+                    <h4 class="font-extrabold text-white text-lg group-hover:text-cyan-300 transition-colors">Optimización y mejora</h4>
+                </div>
+                <p class="text-sm text-slate-200 leading-relaxed font-semibold">Análisis de tendencias, SLO/SLA y post-mortem de incidentes.</p>
+                <div class="mt-3.5 flex flex-wrap gap-2">
+                    <span class="text-xs bg-cyan-950 text-cyan-200 border border-cyan-700/60 font-bold px-3 py-1 rounded-md">ITIL / ISO 20000</span>
+                    <span class="text-xs bg-cyan-950 text-cyan-200 border border-cyan-700/60 font-bold px-3 py-1 rounded-md">Post-mortem</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Mobile Layout -->
+        <div class="block md:hidden space-y-4 max-w-md mx-auto my-4">
+
+            <!-- Mobile Core Banner -->
+            <div onclick="openCoreModal()" class="bg-gradient-to-r from-blue-900/80 via-slate-900 to-purple-900/80 border-2 border-blue-500/60 rounded-2xl p-5 shadow-xl cursor-pointer active:scale-98 transition-transform">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center font-black text-2xl shrink-0 border border-blue-500/30">
+                        🔄
+                    </div>
+                    <div>
+                        <span class="text-xs font-black text-amber-300 uppercase tracking-wider block">Paradigma Integrador</span>
+                        <h3 class="font-black text-white text-xl">SysAdmin & DevOps: Visión Global</h3>
+                        <p class="text-xs text-slate-300 mt-0.5 font-medium">Pulsa para ver acrónimos, cultura CALMS, IaC y SLA/SLO.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Item 1 -->
+            <div onclick="openPhaseModal(1)" class="bg-slate-900 border-l-8 border-blue-500 rounded-r-2xl p-5 shadow-lg cursor-pointer active:scale-98 transition-transform">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-black text-blue-400 uppercase tracking-wider">Fase 01</span>
+                    <span class="text-xs font-bold text-slate-300">Notion · Capacity planning</span>
+                </div>
+                <h3 class="font-black text-white text-xl">1. Planificación y diseño</h3>
+                <p class="text-base text-slate-200 mt-1 font-semibold">Evaluar necesidades del negocio, definir arquitectura de sistemas y planificar escalabilidad.</p>
+            </div>
+
+            <!-- Mobile Item 2 -->
+            <div onclick="openPhaseModal(2)" class="bg-slate-900 border-l-8 border-purple-500 rounded-r-2xl p-5 shadow-lg cursor-pointer active:scale-98 transition-transform">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-black text-purple-400 uppercase tracking-wider">Fase 02</span>
+                    <span class="text-xs font-bold text-slate-300">PowerShell · Docker</span>
+                </div>
+                <h3 class="font-black text-white text-xl">2. Implementación y configuración</h3>
+                <p class="text-base text-slate-200 mt-1 font-semibold">Despliegue de servidores, infraestructura como código y contenedorización de servicios.</p>
+            </div>
+
+            <!-- Mobile Item 3 -->
+            <div onclick="openPhaseModal(3)" class="bg-slate-900 border-l-8 border-emerald-500 rounded-r-2xl p-5 shadow-lg cursor-pointer active:scale-98 transition-transform">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-black text-emerald-400 uppercase tracking-wider">Fase 03</span>
+                    <span class="text-xs font-bold text-slate-300">Prometheus · Grafana</span>
+                </div>
+                <h3 class="font-black text-white text-xl">3. Operación y monitoreo</h3>
+                <p class="text-base text-slate-200 mt-1 font-semibold">Supervisión proactiva de métricas (CPU, RAM, red), logs centralizados y gestión de alertas.</p>
+            </div>
+
+            <!-- Mobile Item 4 -->
+            <div onclick="openPhaseModal(4)" class="bg-slate-900 border-l-8 border-amber-500 rounded-r-2xl p-5 shadow-lg cursor-pointer active:scale-98 transition-transform">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-black text-amber-400 uppercase tracking-wider">Fase 04</span>
+                    <span class="text-xs font-bold text-slate-300">ISO 27001 · Backups</span>
+                </div>
+                <h3 class="font-black text-white text-xl">4. Mantenimiento y soporte</h3>
+                <p class="text-base text-slate-200 mt-1 font-semibold">Gestión de parches de seguridad, estrategias de backup/DRP y soporte técnico a usuarios.</p>
+            </div>
+
+            <!-- Mobile Item 5 -->
+            <div onclick="openPhaseModal(5)" class="bg-slate-900 border-l-8 border-cyan-500 rounded-r-2xl p-5 shadow-lg cursor-pointer active:scale-98 transition-transform">
+                <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-black text-cyan-400 uppercase tracking-wider">Fase 05</span>
+                    <span class="text-xs font-bold text-slate-300">ITIL · ISO 20000</span>
+                </div>
+                <h3 class="font-black text-white text-xl">5. Optimización y mejora continua</h3>
+                <p class="text-base text-slate-200 mt-1 font-semibold">Análisis post-incidentes, optimización de costes cloud y alineamiento con buenas prácticas.</p>
+            </div>
+        </div>
+
+    </main>
+
+        <!-- Pie de página académico -->
+    <footer class="mt-12 pt-6 border-t border-slate-800 text-center text-xs text-slate-400 pb-8 bg-slate-950">
+        <p class="font-medium text-slate-300">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+        <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+        <p class="mt-1">
+            Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline">Pablo Felip Monferrer</a>
+            (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+        </p>
+        <p class="mt-2 text-slate-500">
+            Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-400">CC BY-NC-SA 4.0</a> ·
+            <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-400">Repositorio en GitHub</a>
+        </p>
+    </footer>
+
+    <!-- Core Modal -->
+    <div id="core-modal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-slate-900 border-2 border-blue-500/80 rounded-3xl max-w-5xl w-full relative shadow-2xl max-h-[92vh] flex flex-col overflow-hidden">
+
+            <button onclick="closeCoreModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer z-20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="overflow-y-auto p-6 sm:p-10 space-y-6">
+                <!-- Header -->
+                <div class="flex items-center space-x-4 pr-12">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center font-black text-2xl shadow-lg shrink-0">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-black text-white">SysAdmin, DevOps & SRE</h2>
+                        <p class="text-sm sm:text-base font-semibold text-blue-400 mt-0.5">El núcleo articulador y desglose terminológico clave</p>
+                    </div>
+                </div>
+
+                <!-- Core Concept -->
+                <div class="bg-slate-950 border-2 border-slate-800 rounded-2xl p-5 sm:p-6">
+                    <h3 class="text-lg font-extrabold text-white mb-2 flex items-center space-x-2">
+                        <span>🎯 ¿Por qué es el núcleo integrador?</span>
+                    </h3>
+                    <p class="text-sm sm:text-base text-slate-200 leading-relaxed font-medium">
+                        La administración de sistemas no es una secuencia estática de pasos aislados, sino un <strong class="text-blue-300">proceso continuo e incremental</strong>. SysAdmin, DevOps y SRE (*Site Reliability Engineering*) proporcionan la cultura organizativa y los patrones técnicos para garantizar servicios estables y alineados con el negocio.
+                    </p>
+                </div>
+
+                <!-- Terminology & Acronyms Detailed Grid -->
+                <div class="space-y-5">
+
+                    <!-- CALMS breakdown -->
+                    <div class="bg-slate-800/80 border border-amber-500/40 p-5 sm:p-6 rounded-2xl">
+                        <div class="flex items-center space-x-2 text-amber-300 mb-3 font-black text-lg">
+                            <span>🤝 CALMS (Modelo de Madurez DevOps)</span>
+                        </div>
+                        <p class="text-sm sm:text-base text-slate-200 font-medium mb-4 leading-relaxed">
+                            Marco de trabajo propuesto por Jez Humble que evalúa la adopción de DevOps en una organización:
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-sm">
+                            <div class="bg-slate-900/90 p-4 rounded-xl border border-amber-500/20 flex flex-col justify-between">
+                                <div>
+                                    <strong class="text-amber-400 block text-base font-extrabold mb-1">C — Culture</strong>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1 leading-normal">Responsabilidad compartida entre Devs y Ops.</p>
+                            </div>
+                            <div class="bg-slate-900/90 p-4 rounded-xl border border-amber-500/20 flex flex-col justify-between">
+                                <div>
+                                    <strong class="text-amber-400 block text-base font-extrabold mb-1">A — Automation</strong>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1 leading-normal">Eliminación de tareas manuales repetitivas (*toil*).</p>
+                            </div>
+                            <div class="bg-slate-900/90 p-4 rounded-xl border border-amber-500/20 flex flex-col justify-between">
+                                <div>
+                                    <strong class="text-amber-400 block text-base font-extrabold mb-1">L — Lean</strong>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1 leading-normal">Procesos ágiles, entregas pequeñas y sin desperdicio.</p>
+                            </div>
+                            <div class="bg-slate-900/90 p-4 rounded-xl border border-amber-500/20 flex flex-col justify-between">
+                                <div>
+                                    <strong class="text-amber-400 block text-base font-extrabold mb-1">M — Measurement</strong>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1 leading-normal">Métricas de rendimiento y monitorización continua.</p>
+                            </div>
+                            <div class="bg-slate-900/90 p-4 rounded-xl border border-amber-500/20 flex flex-col justify-between">
+                                <div>
+                                    <strong class="text-amber-400 block text-base font-extrabold mb-1">S — Sharing</strong>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1 leading-normal">Transparencia, aprendizaje y post-mortems sin culpa.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- IaC breakdown -->
+                    <div class="bg-slate-800/80 border border-purple-500/40 p-5 sm:p-6 rounded-2xl">
+                        <div class="flex items-center space-x-2 text-purple-300 mb-3 font-black text-lg">
+                            <span>⚙️ IaC (Infrastructure as Code / Infraestructura como Código)</span>
+                        </div>
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed font-medium mb-3">
+                            Práctica de gestionar y aprovisionar la infraestructura TIC (servidores, redes, almacenamiento) mediante <strong class="text-purple-300">archivos de definición legibles por máquina</strong> y bajo control de versiones (Git), en lugar de procesos de configuración manual.
+                        </p>
+                        <div class="mt-3 flex flex-wrap gap-2.5 text-xs sm:text-sm">
+                            <span class="bg-purple-950 text-purple-200 border border-purple-700/60 font-bold px-3 py-1.5 rounded-lg">Ejemplos: Terraform</span>
+                            <span class="bg-purple-950 text-purple-200 border border-purple-700/60 font-bold px-3 py-1.5 rounded-lg">Ansible</span>
+                            <span class="bg-purple-950 text-purple-200 border border-purple-700/60 font-bold px-3 py-1.5 rounded-lg">Dockerfiles</span>
+                            <span class="bg-purple-950 text-purple-200 border border-purple-700/60 font-bold px-3 py-1.5 rounded-lg">PowerShell DSC</span>
+                        </div>
+                    </div>
+
+                    <!-- SLA / SLO breakdown -->
+                    <div class="bg-slate-800/80 border border-emerald-500/40 p-5 sm:p-6 rounded-2xl">
+                        <div class="flex items-center space-x-2 text-emerald-300 mb-3 font-black text-lg">
+                            <span>📊 SLA vs. SLO vs. SLI (Acuerdos y Métricas de Nivel de Servicio)</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div class="bg-slate-900/90 p-4 rounded-xl border border-emerald-500/20">
+                                <strong class="text-emerald-400 font-extrabold block text-base mb-1">SLA (Service Level Agreement)</strong>
+                                <p class="text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">
+                                    <span class="text-slate-400 block font-semibold mb-1.5">Acuerdo de Nivel de Servicio</span>
+                                    Compromiso <strong>legal/comercial</strong> formal con el cliente. Incluye penalizaciones económicas si se incumple (ej. *"Disponibilidad del 99.9% al año"*).
+                                </p>
+                            </div>
+                            <div class="bg-slate-900/90 p-4 rounded-xl border border-emerald-500/20">
+                                <strong class="text-emerald-400 font-extrabold block text-base mb-1">SLO (Service Level Objective)</strong>
+                                <p class="text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">
+                                    <span class="text-slate-400 block font-semibold mb-1.5">Objetivo de Nivel de Servicio</span>
+                                    Meta <strong>técnica interna</strong> fijada por el equipo de SysAdmin/SRE. Suele ser más estricta que el SLA para reaccionar antes de violar el contrato (ej. *"99.95% de uptime"*).
+                                </p>
+                            </div>
+                            <div class="bg-slate-900/90 p-4 rounded-xl border border-emerald-500/20">
+                                <strong class="text-emerald-400 font-extrabold block text-base mb-1">SLI (Service Level Indicator)</strong>
+                                <p class="text-slate-300 font-medium text-xs sm:text-sm leading-relaxed">
+                                    <span class="text-slate-400 block font-semibold mb-1.5">Indicador de Nivel de Servicio</span>
+                                    La <strong>métrica real instantánea</strong> medida en el sistema (ej. *"Latencia HTTP &lt; 200 ms en el 99% de las peticiones en Prometheus"*).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Reference Section -->
+                <div class="bg-blue-950/40 border border-blue-800/50 rounded-2xl p-4.5">
+                    <h4 class="text-xs sm:text-sm font-black text-blue-300 uppercase tracking-wider mb-1.5">📚 Referencia bibliográfica básica de la asignatura</h4>
+                    <p class="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed">
+                        "DevOps is not a title or a team; it's a cultural shift and operational philosophy." — <em class="italic text-slate-300">Limoncelli, Hogan & Chalup, The Practice of System and Network Administration (3rd Ed).</em>
+                    </p>
+                </div>
+
+                <div class="pt-2 flex justify-end">
+                    <button onclick="closeCoreModal()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-base rounded-xl transition-colors cursor-pointer">
+                        Entendido
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Phase Modal -->
+    <div id="phase-modal" class="fixed inset-0 z-50 hidden bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl max-w-2xl w-full relative shadow-2xl max-h-[90vh] flex flex-col overflow-hidden">
+
+            <button onclick="closePhaseModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer z-20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div id="modal-content" class="overflow-y-auto p-6 sm:p-8">
+                <!-- Dynamic Content Injected Here -->
+            </div>
+
+            <div class="p-4 border-t border-slate-800 flex justify-end bg-slate-900 shrink-0">
+                <button onclick="closePhaseModal()" class="px-6 py-2.5 bg-slate-800 hover:bg-slate-700 text-white font-bold text-base rounded-xl transition-colors cursor-pointer">
+                    Cerrar ventana
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Modal -->
+    <div id="activity-modal" class="fixed inset-0 z-50 hidden bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-slate-900 border-2 border-amber-500/60 rounded-3xl max-w-4xl w-full relative shadow-2xl max-h-[92vh] flex flex-col overflow-hidden">
+
+            <button onclick="closeActivityModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 transition-colors cursor-pointer z-20">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <div class="overflow-y-auto p-6 sm:p-8">
+                <!-- Modal Header -->
+                <div class="flex items-center space-x-3 mb-6 pr-12">
+                    <span class="p-3 rounded-2xl bg-amber-500/20 text-amber-300 border border-amber-500/40 shrink-0">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                    </span>
+                    <div>
+                        <h2 class="text-2xl sm:text-3xl font-black text-white">Actividad de aula: Análisis de incidente en cascada</h2>
+                        <p class="text-sm sm:text-base font-semibold text-amber-300 mt-0.5">Dinámica participativa · Trabajo en grupo y puesta en común</p>
+                    </div>
+                </div>
+
+                <!-- Scenario Box -->
+                <div class="bg-slate-950 border-2 border-slate-800 rounded-2xl p-6 mb-6 shadow-inner">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs sm:text-sm font-black text-amber-400 uppercase tracking-wider">🔥 Escenario de crisis real</span>
+                        <span class="text-xs font-bold bg-red-950 text-red-200 border border-red-800/80 px-3 py-1 rounded-full">Severidad P1 (Outage total)</span>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-white mb-3">"La caída del portal de matrícula el primer día de apertura"</h3>
+                    <p class="text-base text-slate-200 leading-relaxed font-medium">
+                        Son las 09:00h del primer día de matriculación. El portal institucional colapsa tras 3 minutos de apertura. Los servidores web devuelven errores <code class="bg-slate-800 px-2 py-0.5 rounded text-amber-300 font-mono font-bold">504 Gateway Timeout</code>, la base de datos principal ha alcanzado el 100% de uso de CPU y no existen réplicas operativas. Los estudiantes inundan las redes sociales y el departamento de soporte no tiene visibilidad de qué servicio ha caído primero.
+                    </p>
+                </div>
+
+                <!-- Activity Steps & Timer Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
+                    <!-- Steps Column -->
+                    <div class="lg:col-span-2 space-y-3.5">
+                        <h4 class="font-extrabold text-slate-100 text-base flex items-center space-x-2">
+                            <span>📋 Fases del trabajo en grupo</span>
+                        </h4>
+
+                        <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 flex items-start space-x-3.5">
+                            <span class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-black text-sm shrink-0 mt-0.5">1</span>
+                            <div>
+                                <h5 class="text-sm sm:text-base font-bold text-white">Fase individual o parejas (3 min)</h5>
+                                <p class="text-xs sm:text-sm text-slate-200 mt-0.5 font-medium">Identifica en qué etapas del ciclo de vida (Planificación, Monitorización, Mantenimiento...) se produjeron los fallos originales que desencadenaron la crisis.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 flex items-start space-x-3.5">
+                            <span class="w-7 h-7 rounded-full bg-amber-600 text-white flex items-center justify-center font-black text-sm shrink-0 mt-0.5">2</span>
+                            <div>
+                                <h5 class="text-sm sm:text-base font-bold text-white">Discusión en grupo (10 min)</h5>
+                                <p class="text-xs sm:text-sm text-slate-200 mt-0.5 font-medium">Propón 3 medidas urgentes de mitigación inmediata y 2 medidas estructurales a largo plazo clasificadas por fase del ciclo.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 flex items-start space-x-3.5">
+                            <span class="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black text-sm shrink-0 mt-0.5">3</span>
+                            <div>
+                                <h5 class="text-sm sm:text-base font-bold text-white">Puesta en común (10-15 min)</h5>
+                                <p class="text-xs sm:text-sm text-slate-200 mt-0.5 font-medium">Un portavoz por grupo defiende su estrategia. El docente evalúa el coste, tiempo de ejecución y viabilidad práctica.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timer Box -->
+                    <div class="bg-slate-950 border-2 border-slate-800 rounded-2xl p-5 flex flex-col items-center justify-center text-center">
+                        <span class="text-xs font-black text-slate-400 uppercase tracking-wider mb-2">⏱️ Temporizador de aula</span>
+                        <div id="timer-display" class="text-5xl font-black font-mono text-amber-400 mb-4 tracking-wider">
+                            10:00
+                        </div>
+                        <div class="flex space-x-2 w-full">
+                            <button id="btn-timer-start" onclick="toggleTimer()" class="flex-1 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs sm:text-sm py-2.5 px-3 rounded-xl transition-colors cursor-pointer">
+                                Iniciar
+                            </button>
+                            <button onclick="resetTimer(10)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl transition-colors cursor-pointer">
+                                10m
+                            </button>
+                            <button onclick="resetTimer(5)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-2.5 px-3 rounded-xl transition-colors cursor-pointer">
+                                5m
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="bg-slate-950 border-2 border-indigo-900/60 rounded-2xl p-5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-lg">💡</span>
+                            <h4 class="text-sm sm:text-base font-extrabold text-indigo-300">¿Os habéis atascado? Pistas para guiar el debate</h4>
+                        </div>
+                        <button id="btn-toggle-hints" onclick="toggleHints()" class="px-4 py-1.5 bg-indigo-950 hover:bg-indigo-900 text-indigo-200 border border-indigo-700/60 font-bold text-xs sm:text-sm rounded-xl transition-colors cursor-pointer">
+                            Mostrar pistas
+                        </button>
+                    </div>
+
+                    <div id="hints-container" class="hidden mt-4 pt-4 border-t border-indigo-900/50 space-y-3">
+                        <div class="bg-slate-900/90 p-3.5 rounded-xl border border-indigo-800/40">
+                            <span class="text-xs font-bold text-blue-400 uppercase block mb-1">🔍 En Planificación y diseño (Fase 1)</span>
+                            <p class="text-xs sm:text-sm text-slate-200 font-medium">Fijaos en la base de datos. ¿Se hicieron pruebas de carga (<em class="italic text-amber-300 font-semibold">Capacity Planning</em>) antes del día límite? ¿Tiene sentido que la app lea y escriba en el mismo nodo de base de datos sin réplicas de lectura?</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-3.5 rounded-xl border border-indigo-800/40">
+                            <span class="text-xs font-bold text-emerald-400 uppercase block mb-1">🔍 En Operación y monitoreo (Fase 3)</span>
+                            <p class="text-xs sm:text-sm text-slate-200 font-medium">¿Por qué el Helpdesk se enteró por Twitter/X antes que los administradores? Pensad en qué regla de alerta en Prometheus (latencia HTTP &gt; 2s o latencia de base de datos) debería haber saltado antes.</p>
+                        </div>
+                        <div class="bg-slate-900/90 p-3.5 rounded-xl border border-indigo-800/40">
+                            <span class="text-xs font-bold text-cyan-400 uppercase block mb-1">🔍 En Optimización y mejora continua (Fase 5)</span>
+                            <p class="text-xs sm:text-sm text-slate-200 font-medium">Una vez solucionado el apaga-fuegos inmediato, ¿qué informe técnico (<em class="italic text-cyan-300 font-semibold">Blameless Post-Mortem</em>) se debe elaborar para evitar que ocurra en el próximo periodo de matrícula?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Phase Data Store
+        const phaseData = {
+            1: {
+                title: "1. Planificación y diseño",
+                color: "text-blue-400",
+                badgeBg: "bg-blue-600",
+                borderColor: "border-blue-500",
+                summary: "Evaluar necesidades del negocio, definir arquitecturas de sistemas y planificar la capacidad informática previa.",
+                tools: ["Notion", "Terraform", "Draw.io", "Capacity planner"],
+                role: "Arquitecto/a de soluciones / SysAdmin principal",
+                realWorld: "En un servicio universitario o e-commerce, esta fase calcula el tráfico estimado para picos (como el periodo de matrícula) diseñando arquitecturas con balanceadores y réplicas de lectura.",
+                riskIfOmitted: "Infraestructura infra-dimensionada que colapsa el primer día o sobredimensionada con costes desorbitados.",
+                keyCommand: "# Estimación de capacidad de almacenamiento e IOPS requeridos\nGet-Volume | Select-Object DriveLetter, SizeRemaining, Size"
+            },
+            2: {
+                title: "2. Implementación y configuración",
+                color: "text-purple-400",
+                badgeBg: "bg-purple-600",
+                borderColor: "border-purple-500",
+                summary: "Instalar hardware, desplegar software y configurar los sistemas mediante automatización para ponerlos en marcha.",
+                tools: ["PowerShell", "Docker", "Ansible", "Kubernetes"],
+                role: "Ingeniero/a DevOps / Administrador/a de sistemas",
+                realWorld: "Automatizar la creación de entornos idénticos mediante contenedores Docker y scripts de PowerShell para evitar incoherencias entre desarrollo y producción.",
+                riskIfOmitted: "Configuraciones manuales no documentadas ('servidores copo de nieve') y despliegues lentos propensos al error humano.",
+                keyCommand: "# Despliegue automatizado de contenedor de servicio web\nDocker run -d -p 8080:80 --name web-service nginx:alpine"
+            },
+            3: {
+                title: "3. Operación y monitoreo",
+                color: "text-emerald-400",
+                badgeBg: "bg-emerald-600",
+                borderColor: "border-emerald-500",
+                summary: "Supervisar el rendimiento y la disponibilidad de los sistemas en tiempo real para detectar y resolver problemas proactivamente.",
+                tools: ["Prometheus", "Grafana", "Nagios", "Zabbix"],
+                role: "Ingeniero/a de fiabilidad de sitios (SRE) / Operador/a NOC",
+                realWorld: "Un panel de Grafana supervisa el consumo de CPU, RAM y tasa de errores HTTP en tiempo real, alertando por Slack si la latencia supera los 500 ms.",
+                riskIfOmitted: "Enterarse de las caídas del sistema a través de las quejas de los usuarios en redes sociales en lugar de alertas automáticas.",
+                keyCommand: "# Consulta Prometheus (PromQL) para tasa de errores HTTP 5xx\nrate(http_requests_total{status=~\"5..\"}[5m])"
+            },
+            4: {
+                title: "4. Mantenimiento y soporte",
+                color: "text-amber-400",
+                badgeBg: "bg-amber-600",
+                borderColor: "border-amber-500",
+                summary: "Aplicar parches de seguridad, realizar copias de seguridad y ofrecer soporte a los usuarios para garantizar la estabilidad a largo plazo.",
+                tools: ["ISO 27001", "Veeam backup", "WSUS", "GLPI / Jira service desk"],
+                role: "Administrador/a de seguridad / Responsable de soporte",
+                realWorld: "Ejecución de políticas periódicas de parches de seguridad y verificación mensual obligatoria de restauración de copias de seguridad (plan DRP).",
+                riskIfOmitted: "Ataques de ransomware por vulnerabilidades no parcheadas o pérdida irreversible de datos por backups corruptos no probados.",
+                keyCommand: "# Comprobación de parches de seguridad instalados recientemente\nGet-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 5"
+            },
+            5: {
+                title: "5. Optimización y mejora continua",
+                color: "text-cyan-400",
+                badgeBg: "bg-cyan-600",
+                borderColor: "border-cyan-500",
+                summary: "Analizar tendencias, evaluar nuevas tecnologías y aplicar mejoras tras los incidentes para elevar la calidad del servicio.",
+                tools: ["ITIL v4", "ISO/IEC 20000", "Post-mortem reports", "FinOps"],
+                role: "Director/a TIC / Arquitecto/a principal de infraestructura",
+                realWorld: "Tras un incidente grave, se realiza una sesión 'Blameless Post-Mortem' para identificar la causa raíz y aplicar cambios en la arquitectura sin buscar culpables.",
+                riskIfOmitted: "Estancamiento tecnológico, repetición continua de los mismos fallos del pasado y costes de infraestructura descontrolados.",
+                keyCommand: "# Análisis de tendencias de eventos de error en logs del sistema\nGet-EventLog -LogName System -EntryType Error | Group-Object Source"
+            }
+        };
+
+        // Modal Controls
+        function openPhaseModal(phaseId) {
+            const data = phaseData[phaseId];
+            if (!data) return;
+
+            const modal = document.getElementById('phase-modal');
+            const content = document.getElementById('modal-content');
+
+            content.innerHTML = `
+                <div class="flex items-center space-x-4 mb-6 pr-10">
+                    <span class="w-12 h-12 rounded-2xl ${data.badgeBg} text-white flex items-center justify-center font-black text-2xl shadow-lg shrink-0">
+                        ${phaseId}
+                    </span>
+                    <div>
+                        <h3 class="text-2xl font-black text-white leading-tight">${data.title}</h3>
+                        <p class="text-sm ${data.color} font-bold mt-0.5">Rol principal: ${data.role}</p>
+                    </div>
+                </div>
+
+                <p class="text-base text-slate-100 leading-relaxed mb-6 bg-slate-950 p-5 rounded-2xl border-2 border-slate-800 font-medium">
+                    ${data.summary}
+                </p>
+
+                <div class="space-y-5">
+                    <div>
+                        <h4 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-2">🛠️ Herramientas del ecosistema TIC</h4>
+                        <div class="flex flex-wrap gap-2">
+                            ${data.tools.map(t => `<span class="bg-slate-800 text-slate-100 border border-slate-700 px-3.5 py-1.5 rounded-xl text-xs font-bold">${t}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-1">🏢 Aplicación en la práctica profesional</h4>
+                        <p class="text-xs sm:text-sm text-slate-200 bg-slate-800/50 p-4 rounded-xl border border-slate-700/60 font-medium leading-relaxed">${data.realWorld}</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-black text-red-400 uppercase tracking-wider mb-1">⚠️ Riesgo operativo si se omite esta fase</h4>
+                        <p class="text-xs sm:text-sm text-slate-200 bg-red-950/40 p-4 rounded-xl border border-red-900/40 font-medium leading-relaxed">${data.riskIfOmitted}</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-black text-slate-400 uppercase tracking-wider mb-1">💻 Ejemplo de comando u operación rápida</h4>
+                        <pre class="bg-slate-950 text-emerald-400 p-4 rounded-xl text-xs sm:text-sm font-mono overflow-x-auto border border-slate-800"><code>${data.keyCommand}</code></pre>
+                    </div>
+                </div>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closePhaseModal() {
+            document.getElementById('phase-modal').classList.add('hidden');
+        }
+
+        // Core Modal Controls
+        function openCoreModal() {
+            document.getElementById('core-modal').classList.remove('hidden');
+        }
+
+        function closeCoreModal() {
+            document.getElementById('core-modal').classList.add('hidden');
+        }
+
+        // Activity Modal Controls
+        document.getElementById('btn-open-activity').addEventListener('click', () => {
+            document.getElementById('activity-modal').classList.remove('hidden');
+        });
+
+        function closeActivityModal() {
+            document.getElementById('activity-modal').classList.add('hidden');
+        }
+
+        // Scaffolding Hints Toggle Logic
+        function toggleHints() {
+            const container = document.getElementById('hints-container');
+            const btn = document.getElementById('btn-toggle-hints');
+            if (container.classList.contains('hidden')) {
+                container.classList.remove('hidden');
+                btn.textContent = 'Ocultar pistas';
+            } else {
+                container.classList.add('hidden');
+                btn.textContent = 'Mostrar pistas';
+            }
+        }
+
+        // Timer Logic for Classroom Projections
+        let timerInterval = null;
+        let timeLeft = 600; // 10 minutes default
+        let isRunning = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timer-display').textContent =
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function toggleTimer() {
+            const btn = document.getElementById('btn-timer-start');
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+                btn.textContent = 'Reanudar';
+                btn.className = btn.className.replace('bg-red-600', 'bg-amber-600');
+            } else {
+                isRunning = true;
+                btn.textContent = 'Pausar';
+                btn.className = btn.className.replace('bg-amber-600', 'bg-red-600');
+                timerInterval = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                    } else {
+                        clearInterval(timerInterval);
+                        isRunning = false;
+                        btn.textContent = '¡Finalizado!';
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer(minutes) {
+            clearInterval(timerInterval);
+            isRunning = false;
+            timeLeft = minutes * 60;
+            const btn = document.getElementById('btn-timer-start');
+            btn.textContent = 'Iniciar';
+            btn.className = 'flex-1 bg-amber-600 hover:bg-amber-500 text-white font-extrabold text-xs sm:text-sm py-2.5 px-3 rounded-xl transition-colors cursor-pointer';
+            updateTimerDisplay();
+        }
+
+        // Close Modals on Backdrop Click or Escape key
+        window.addEventListener('click', (e) => {
+            const phaseModal = document.getElementById('phase-modal');
+            const activityModal = document.getElementById('activity-modal');
+            const coreModal = document.getElementById('core-modal');
+            if (e.target === phaseModal) closePhaseModal();
+            if (e.target === activityModal) closeActivityModal();
+            if (e.target === coreModal) closeCoreModal();
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePhaseModal();
+                closeActivityModal();
+                closeCoreModal();
+            }
+        });
+    </script>
+</body>
+</html>

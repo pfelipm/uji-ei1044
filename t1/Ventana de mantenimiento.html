@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Infografía e interactivo: Anatomía de una ventana de mantenimiento - EI1044 UJI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset y contención de scroll para inserción a página completa en Google Sites */
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            min-height: 100vh;
+            overflow-x: clip; /* Garantiza el funcionamiento de position:sticky dentro de iframes */
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .sites-embed-wrapper {
+            padding: 1.5rem 1rem 3.5rem 1rem;
+            width: 100%;
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .sites-embed-wrapper {
+                padding: 2.25rem 1.75rem 4rem 1.75rem;
+            }
+        }
+
+        /* Transiciones de las tarjetas de fase */
+        .phase-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .phase-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 14px 28px -6px rgba(15, 23, 42, 0.12), 0 6px 12px -4px rgba(15, 23, 42, 0.08);
+        }
+
+        .card-hidden {
+            opacity: 0.22;
+            filter: blur(2.5px) grayscale(75%);
+            transform: scale(0.985);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .card-visible {
+            opacity: 1;
+            filter: blur(0) grayscale(0%);
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        /* Estilización de scrollbars en modales */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Sangría francesa para elementos de lista */
+        .hanging-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="sites-embed-wrapper">
+        <main class="w-full bg-white p-5 sm:p-8 md:p-10 rounded-2xl shadow-xl border border-slate-200">
+
+            <!-- Encabezado Institucional y Descriptivo -->
+            <header class="text-center mb-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs sm:text-sm font-bold mb-3 tracking-wide">
+                    <span>⚙️ Operaciones y gestión de cambios: continuidad del servicio y mitigación de riesgo</span>
+                </div>
+                <h1 class="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+                    Anatomía de una ventana de mantenimiento
+                </h1>
+                <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-4xl mx-auto leading-relaxed">
+                    Las 3 fases críticas para ejecutar intervenciones de infraestructura y software minimizando el riesgo operativo. En administración de sistemas, el éxito no es la ausencia de incidencias, sino la preparación metódica ante imprevistos.
+                </p>
+            </header>
+
+            <!-- Barra de control Sticky Dock persistente -->
+            <div id="sticky-maintenance-dock" class="sticky top-2 sm:top-3 z-40 bg-slate-900/95 text-white p-2.5 sm:p-3 rounded-xl shadow-2xl border border-slate-700/80 mb-8 flex flex-wrap items-center justify-between gap-2.5 backdrop-blur-md transition-all">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-xs uppercase font-extrabold text-slate-300 tracking-wider hidden sm:inline">Fase visible:</span>
+                    <span id="dock-counter-badge" class="bg-blue-600 text-white text-xs sm:text-sm font-black px-3 py-1 rounded-full shadow-inner ring-1 ring-blue-400/40">
+                        0 / 3 fases
+                    </span>
+                    <span id="dock-checklist-badge" class="hidden md:inline-flex bg-slate-800 text-emerald-300 text-xs font-bold px-2.5 py-1 rounded-md border border-slate-700">
+                        Checklist: 0 / 15 verificadas
+                    </span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <button onclick="openSimulationModal()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-md flex items-center gap-1.5">
+                        <span>🚨 Simulador de crisis</span>
+                    </button>
+
+                    <div class="h-6 w-px bg-slate-700 mx-1 hidden sm:block"></div>
+
+                    <button id="dock-prev-btn" onclick="revealPrevPhase()" disabled class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 active:bg-slate-900 text-slate-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700 disabled:opacity-40 disabled:cursor-not-allowed">
+                        ◀ Anterior
+                    </button>
+                    <button id="dock-next-btn" onclick="revealNextPhase()" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 text-white font-bold text-xs sm:text-sm rounded-lg transition-all shadow-md flex items-center gap-1.5 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <span>Comenzar</span>
+                        <span>👉</span>
+                    </button>
+                    <button onclick="revealAllPhases()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700">
+                        Ver todas
+                    </button>
+                    <button onclick="resetPhases()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-rose-900/60 text-slate-300 hover:text-rose-200 font-semibold text-xs sm:text-sm rounded-lg transition-colors border border-slate-700" title="Reiniciar fases y lista de comprobación">
+                        🔄
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cuadrícula de las 3 fases (3 columnas) -->
+            <div id="phases-grid" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+
+                <!-- COLUMNA 1: ANTES (PLANIFICACIÓN) -->
+                <div id="phase-card-0" class="phase-card card-hidden bg-white border border-blue-200 border-t-8 border-t-blue-600 rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-blue-100 p-2.5 rounded-lg text-blue-700">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                    </svg>
+                                </div>
+                                <span class="text-xs font-black px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 border border-blue-200">Fase 1 de 3</span>
+                            </div>
+                            <span class="text-xs font-extrabold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-100" id="phase-0-check-count">0/5 listas</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 mb-1">Antes: planificación</h2>
+                        <p class="text-xs sm:text-sm font-bold text-blue-600 mb-4">(Preparación previa y mitigación del riesgo)</p>
+
+                        <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-5 border-b border-slate-100 pb-3">
+                            El 70% del éxito de cualquier parada programada se decide antes de tocar el primer comando. La improvisación es la causa principal de caídas de servicio prolongadas.
+                        </p>
+
+                        <!-- Checklist de tareas Fase 1 -->
+                        <div class="space-y-4 text-sm sm:text-base">
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-blue-700 transition-colors block font-bold text-sm sm:text-base">Definir el plan de acción:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">¿Qué se modifica, por qué, quién lo ejecuta y cuánto tiempo exacto tomará?</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-blue-700 transition-colors block font-bold text-sm sm:text-base">Comunicar a los usuarios:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Avisar con antelación fijando día, franja horaria, sistemas afectados y canal de seguimiento.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-blue-700 transition-colors block font-bold text-sm sm:text-base">Probar en entorno de pruebas (<em class="italic font-medium">staging</em>):</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Replicar y validar los scripts o parches en una réplica fiel de producción.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-blue-700 transition-colors block font-bold text-sm sm:text-base">Plan de marcha atrás (<em class="italic font-medium">rollback</em>):</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Fijar la hora límite de no retorno y los pasos exactos para restaurar el estado anterior.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-blue-700 transition-colors block font-bold text-sm sm:text-base">Copia de seguridad (<em class="italic font-medium">backup</em>) previa:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Generar copias íntegras y verificar su consistencia inmediatamente antes de iniciar.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs sm:text-sm text-blue-900 bg-blue-50/70 p-3.5 rounded-lg border border-blue-100">
+                        <span class="font-black">💡 Regla de oro SysAdmin:</span> Si no dispones de un plan de <em class="italic font-semibold">rollback</em> probado, la intervención no está autorizada para producción.
+                    </div>
+                </div>
+
+                <!-- COLUMNA 2: DURANTE (EJECUCIÓN) -->
+                <div id="phase-card-1" class="phase-card card-hidden bg-white border border-orange-200 border-t-8 border-t-orange-500 rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-orange-100 p-2.5 rounded-lg text-orange-700">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.096 2.572-1.065z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </div>
+                                <span class="text-xs font-black px-2.5 py-1 rounded-full bg-orange-100 text-orange-900 border border-orange-200">Fase 2 de 3</span>
+                            </div>
+                            <span class="text-xs font-extrabold text-orange-700 bg-orange-50 px-2.5 py-1 rounded-md border border-orange-100" id="phase-1-check-count">0/5 listas</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 mb-1">Durante: ejecución</h2>
+                        <p class="text-xs sm:text-sm font-bold text-orange-600 mb-4">(Aplicación metódica y disciplina de cambio)</p>
+
+                        <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-5 border-b border-slate-100 pb-3">
+                            En la ventana no se improvisa ni se añaden cambios «de paso». Se sigue el guion paso a paso cronometrando los hitos acordados.
+                        </p>
+
+                        <!-- Checklist de tareas Fase 2 -->
+                        <div class="space-y-4 text-sm sm:text-base">
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-orange-600 focus:ring-orange-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-orange-700 transition-colors block font-bold text-sm sm:text-base">Notificar el inicio de la ventana:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Emitir mensaje de arranque a los canales técnicos y a la dirección de operaciones.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-orange-600 focus:ring-orange-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-orange-700 transition-colors block font-bold text-sm sm:text-base">Restringir accesos y aislar servicios:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Bloquear inicios de sesión externos, deshabilitar balanceadores y activar páginas de mantenimiento.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-orange-600 focus:ring-orange-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-orange-700 transition-colors block font-bold text-sm sm:text-base">Aplicar los cambios metódicamente:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Ejecutar los procedimientos probados en <em class="italic font-medium">staging</em> sin saltarse ningún paso intermedio.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-orange-600 focus:ring-orange-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-orange-700 transition-colors block font-bold text-sm sm:text-base">Verificación inicial (<em class="italic font-medium">smoke test</em>):</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Validar servicios elementales: puertos abiertos, demonios levantados y conectividad de bases de datos.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-orange-600 focus:ring-orange-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-orange-700 transition-colors block font-bold text-sm sm:text-base">Notificar la finalización y reapertura:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Restablecer accesos normales y comunicar a la plantilla la disponibilidad del servicio.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs sm:text-sm text-orange-950 bg-orange-50/70 p-3.5 rounded-lg border border-orange-100">
+                        <span class="font-black">⏰ Control del tiempo:</span> Si a la hora de no retorno el <em class="italic font-semibold">smoke test</em> no pasa, se aborta y se aplica el <em class="italic font-semibold">rollback</em> sin vacilar.
+                    </div>
+                </div>
+
+                <!-- COLUMNA 3: DESPUÉS (VERIFICACIÓN Y CIERRE) -->
+                <div id="phase-card-2" class="phase-card card-hidden bg-white border border-emerald-200 border-t-8 border-t-emerald-600 rounded-xl p-5 sm:p-6 flex flex-col justify-between shadow-sm">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-emerald-100 p-2.5 rounded-lg text-emerald-700">
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <span class="text-xs font-black px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-200">Fase 3 de 3</span>
+                            </div>
+                            <span class="text-xs font-extrabold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-100" id="phase-2-check-count">0/5 listas</span>
+                        </div>
+
+                        <h2 class="text-xl sm:text-2xl font-black text-slate-900 mb-1">Después: verificación</h2>
+                        <p class="text-xs sm:text-sm font-bold text-emerald-600 mb-4">(Auditoría postcambio y mejora continua)</p>
+
+                        <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-5 border-b border-slate-100 pb-3">
+                            La ventana no concluye al restablecer logins. El seguimiento activo durante las horas posteriores previene caídas silenciosas en el negocio.
+                        </p>
+
+                        <!-- Checklist de tareas Fase 3 -->
+                        <div class="space-y-4 text-sm sm:text-base">
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-emerald-700 transition-colors block font-bold text-sm sm:text-base">Monitorización intensiva postcambio:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Supervisar telemetría, tasas de error 5xx, consumo de CPU/RAM y latencias en paneles Prometheus/Grafana.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-emerald-700 transition-colors block font-bold text-sm sm:text-base">Soporte proactivo y guardia técnica:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Mantener personal de sistemas en alerta reforzada durante las primeras horas de uso real.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-emerald-700 transition-colors block font-bold text-sm sm:text-base">Recoger retorno de experiencia (<em class="italic font-medium">feedback</em>):</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Consultar con usuarios clave de los departamentos afectados para confirmar normalidad operativa.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-emerald-700 transition-colors block font-bold text-sm sm:text-base">Actualizar la CMDB y documentación:</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Registrar las nuevas versiones, esquemas IP o topologías en la base de datos de configuración corporativa.</span>
+                                </div>
+                            </label>
+
+                            <label class="hanging-item cursor-pointer group">
+                                <input type="checkbox" onchange="toggleCheck(this)" class="mt-1 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4 cursor-pointer">
+                                <div>
+                                    <strong class="text-slate-900 group-hover:text-emerald-700 transition-colors block font-bold text-sm sm:text-base">Balance retrospectivo (<em class="italic font-medium">post-mortem</em> sin culpas):</strong>
+                                    <span class="text-slate-600 text-xs sm:text-sm leading-relaxed">Analizar qué funcionó bien, qué falló y documentar lecciones aprendidas según las buenas prácticas SRE.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-slate-100 text-xs sm:text-sm text-emerald-950 bg-emerald-50/70 p-3.5 rounded-lg border border-emerald-100">
+                        <span class="font-black">📘 Cultura SRE / DevOps:</span> El objetivo del <em class="italic font-semibold">post-mortem</em> no es señalar culpables, sino subsanar vulnerabilidades en el proceso.
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Panel de síntesis ejecutiva para el laboratorio de sistemas -->
+            <section class="bg-slate-900 text-white rounded-xl p-5 sm:p-7 border border-slate-800 space-y-3.5">
+                <div class="flex items-center space-x-3 text-amber-400">
+                    <span class="text-2xl sm:text-3xl">⚠️</span>
+                    <h3 class="text-base sm:text-xl font-bold">Impacto en SLA y continuidad del negocio:</h3>
+                </div>
+                <p class="text-slate-200 text-sm sm:text-base leading-relaxed">
+                    Las paradas no planificadas penalizan directamente los acuerdos de nivel de servicio (SLA). Una ventana correctamente tipificada en el catálogo de servicios de TI (según la norma <strong>ISO/IEC 20000</strong> y el marco <strong>ITIL</strong>) permite aplicar parches de seguridad críticos y evolutivos sin comprometer la confianza de la organización ni incurrir en sanciones económicas.
+                </p>
+                <div class="pt-3 text-xs sm:text-sm text-slate-400 italic border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+                    <span>Bibliografía de referencia: Tom Limoncelli et al. (2020), <em>The Practice of System and Network Administration</em>.</span>
+                    <span class="not-italic font-bold text-slate-300">Tema 1: Gestión de infraestructura</span>
+                </div>
+            </section>
+
+                <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+</main>
+    </div>
+
+    <!-- MODAL: SIMULADOR DE CRISIS Y TOMA DE DECISIONES -->
+    <div id="simulation-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 w-full max-w-2xl max-h-[88vh] flex flex-col overflow-hidden my-auto">
+            <!-- Modal Header -->
+            <div class="px-5 py-4 bg-emerald-600 text-white flex items-center justify-between shrink-0">
+                <div class="flex items-center space-x-2.5">
+                    <span class="text-2xl">🚨</span>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold">Simulador de toma de decisiones en vivo</h3>
+                        <p class="text-xs text-emerald-100">Dilema operativo de ventana de mantenimiento</p>
+                    </div>
+                </div>
+                <button onclick="closeSimulationModal()" class="text-emerald-100 hover:text-white text-3xl font-bold leading-none px-2 py-0.5">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-5 sm:p-6 overflow-y-auto custom-scroll space-y-4 text-sm sm:text-base">
+                <div class="bg-rose-50 border-l-4 border-rose-500 p-4 rounded-r-xl space-y-1.5">
+                    <span class="text-xs sm:text-sm font-black text-rose-800 uppercase tracking-wide">Incidencia crítica durante la ventana (03:40 AM)</span>
+                    <p class="text-rose-950 leading-relaxed font-semibold text-sm sm:text-base">
+                        Son las 03:40 AM. La ventana termina a las 05:00 AM. La actualización de base de datos ha fallado arrojando un error de corrupción de esquema. Aplicar el <em class="italic font-bold">rollback</em> lleva 50 minutos. Intentar solucionar el error a mano te llevará un tiempo estimado desconocido (mínimo 90 minutos).
+                    </p>
+                </div>
+
+                <label class="block font-bold text-slate-900 text-sm sm:text-base">
+                    Como administrador responsable de la intervención, ¿cuál es la decisión correcta?
+                </label>
+
+                <div class="space-y-2.5" id="sim-options">
+                    <button onclick="evalDecision('A')" class="w-full text-left p-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors text-xs sm:text-sm">
+                        <strong>A)</strong> Seguir investigando en caliente el error para intentar dejar el nuevo software instalado a tiempo.
+                    </button>
+                    <button onclick="evalDecision('B')" class="w-full text-left p-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors text-xs sm:text-sm">
+                        <strong>B)</strong> Abortar inmediatamente la intervención, aplicar el plan de <em class="italic font-medium">rollback</em> y convocar <em class="italic font-medium">post-mortem</em> para reprogramar.
+                    </button>
+                    <button onclick="evalDecision('C')" class="w-full text-left p-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 transition-colors text-xs sm:text-sm">
+                        <strong>C)</strong> Dejar el servicio caído hasta las 08:00 AM para que lo resuelva el turno de mañana.
+                    </button>
+                </div>
+
+                <div id="sim-feedback" class="hidden p-4 rounded-xl border text-xs sm:text-sm leading-relaxed mt-3"></div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-5 py-3 bg-slate-100 border-t border-slate-200 flex items-center justify-end shrink-0">
+                <button onclick="closeSimulationModal()" class="px-5 py-2 bg-slate-700 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm rounded-lg transition-colors">
+                    Entendido / Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT DE INTERACTIVIDAD Y PERSISTENCIA -->
+    <script>
+        const TOTAL_PHASES = 3;
+        let visiblePhasesCount = 0; // Arranca en 0 para formular la pregunta pedagógica en el aula
+
+        function updatePhasesUI() {
+            document.getElementById('dock-counter-badge').textContent = `${visiblePhasesCount} / ${TOTAL_PHASES} fases`;
+
+            for (let i = 0; i < TOTAL_PHASES; i++) {
+                const card = document.getElementById(`phase-card-${i}`);
+                if (card) {
+                    if (i < visiblePhasesCount) {
+                        card.classList.remove('card-hidden');
+                        card.classList.add('card-visible');
+                    } else {
+                        card.classList.remove('card-visible');
+                        card.classList.add('card-hidden');
+                    }
+                }
+            }
+
+            const prevBtn = document.getElementById('dock-prev-btn');
+            const nextBtn = document.getElementById('dock-next-btn');
+
+            prevBtn.disabled = (visiblePhasesCount === 0);
+            nextBtn.disabled = (visiblePhasesCount === TOTAL_PHASES);
+
+            const nextBtnText = nextBtn.querySelector('span:first-child');
+            if (nextBtnText) {
+                nextBtnText.textContent = (visiblePhasesCount === 0) ? 'Comenzar' : 'Siguiente fase';
+            }
+        }
+
+        function revealNextPhase() {
+            if (visiblePhasesCount < TOTAL_PHASES) {
+                const targetIndex = visiblePhasesCount;
+                visiblePhasesCount++;
+                updatePhasesUI();
+
+                const targetCard = document.getElementById(`phase-card-${targetIndex}`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        }
+
+        function revealPrevPhase() {
+            if (visiblePhasesCount > 0) {
+                visiblePhasesCount--;
+                updatePhasesUI();
+
+                if (visiblePhasesCount > 0) {
+                    const targetCard = document.getElementById(`phase-card-${visiblePhasesCount - 1}`);
+                    if (targetCard) {
+                        targetCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }
+        }
+
+        function revealAllPhases() {
+            visiblePhasesCount = TOTAL_PHASES;
+            updatePhasesUI();
+            const grid = document.getElementById('phases-grid');
+            if (grid) {
+                grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        function resetPhases() {
+            visiblePhasesCount = 0;
+            updatePhasesUI();
+
+            // Desmarcar todos los checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(box => {
+                box.checked = false;
+            });
+            updateChecklistStats();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* Lógica del Checklist interactivo */
+        function toggleCheck(checkboxEl) {
+            updateChecklistStats();
+        }
+
+        function updateChecklistStats() {
+            const allBoxes = document.querySelectorAll('input[type="checkbox"]');
+            const total = allBoxes.length;
+            const checked = Array.from(allBoxes).filter(b => b.checked).length;
+
+            const badge = document.getElementById('dock-checklist-badge');
+            if (badge) {
+                badge.textContent = `Checklist: ${checked} / ${total} verificadas`;
+                if (checked === total) {
+                    badge.className = "hidden md:inline-flex bg-emerald-600 text-white text-xs font-bold px-2.5 py-1 rounded-md shadow-xs";
+                } else {
+                    badge.className = "hidden md:inline-flex bg-slate-800 text-emerald-300 text-xs font-bold px-2.5 py-1 rounded-md border border-slate-700";
+                }
+            }
+
+            // Actualizar contadores por fase individual
+            for (let phase = 0; phase < 3; phase++) {
+                const phaseCard = document.getElementById(`phase-card-${phase}`);
+                if (phaseCard) {
+                    const phaseBoxes = phaseCard.querySelectorAll('input[type="checkbox"]');
+                    const phaseChecked = Array.from(phaseBoxes).filter(b => b.checked).length;
+                    const counterEl = document.getElementById(`phase-${phase}-check-count`);
+                    if (counterEl) {
+                        counterEl.textContent = `${phaseChecked}/5 listas`;
+                        if (phaseChecked === 5) {
+                            counterEl.className = "text-xs font-extrabold text-white bg-emerald-600 px-2.5 py-1 rounded-md shadow-xs";
+                        } else {
+                            const colors = ['text-blue-700 bg-blue-50 border-blue-100', 'text-orange-700 bg-orange-50 border-orange-100', 'text-emerald-700 bg-emerald-50 border-emerald-100'];
+                            counterEl.className = `text-xs font-extrabold px-2.5 py-1 rounded-md border ${colors[phase]}`;
+                        }
+                    }
+                }
+            }
+        }
+
+        /* Modal de simulación de crisis */
+        function openSimulationModal() {
+            document.getElementById('simulation-modal').classList.remove('hidden');
+            const feedback = document.getElementById('sim-feedback');
+            feedback.classList.add('hidden');
+        }
+
+        function closeSimulationModal() {
+            document.getElementById('simulation-modal').classList.add('hidden');
+        }
+
+        function evalDecision(option) {
+            const feedback = document.getElementById('sim-feedback');
+            feedback.classList.remove('hidden');
+
+            if (option === 'B') {
+                feedback.className = "p-4 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-950 text-xs sm:text-sm leading-relaxed";
+                feedback.innerHTML = `<strong>✅ ¡Decisión impecable de ingeniería!</strong><br/><br/>A las 03:40 AM faltan 80 minutos para abrir servicio. Si el <em class="italic font-medium">rollback</em> toma 50 minutos, continuar improvisando rompería el SLA a las 05:00 AM garantizando una caída crítica en horario laboral. Abortar a tiempo y revertir al estado sano es la marca distintiva de un administrador sénior.`;
+            } else if (option === 'A') {
+                feedback.className = "p-4 rounded-xl border bg-rose-50 border-rose-200 text-rose-950 text-xs sm:text-sm leading-relaxed";
+                feedback.innerHTML = `<strong>❌ Error grave de gestión del cambio (Trampa de la perseverancia):</strong><br/><br/>Intentar arreglarlo en caliente sin estimación clara te hará sobrepasar las 05:00 AM con el servicio inoperativo. Afectarás a cientos de usuarios reales a primera hora de la mañana y romperás el SLA pactado.`;
+            } else {
+                feedback.className = "p-4 rounded-xl border bg-rose-50 border-rose-200 text-rose-950 text-xs sm:text-sm leading-relaxed";
+                feedback.innerHTML = `<strong>❌ Inaceptable profesionalmente:</strong><br/><br/>Abandonar una infraestructura rota antes del arranque de la jornada laboral sin aplicar <em class="italic font-medium">rollback</em> ni alertar a la dirección vulnera los principios de responsabilidad operativa del SysAdmin.`;
+            }
+        }
+
+        // Inicialización al cargar el DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePhasesUI();
+            updateChecklistStats();
+        });
+    </script>
+</body>
+</html>

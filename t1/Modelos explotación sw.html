@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Modelos de explotación de software en la nube y on-premise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        *, ::before, ::after {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+            min-height: 100vh;
+            height: auto !important;
+            overflow-x: hidden;
+            overflow-y: auto !important;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            font-size: 16px;
+        }
+
+        .sites-embed-wrapper {
+            padding-top: 2rem;
+            padding-bottom: 3rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .sites-embed-wrapper {
+                padding-top: 2.5rem;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        .strategy-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px -8px rgba(15, 23, 42, 0.15);
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .tab-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: transparent;
+            color: #475569;
+            border: 1px solid transparent;
+        }
+
+        .tab-btn:not(.active):hover {
+            background-color: #ffffff;
+            color: #1d4ed8;
+            border-color: #cbd5e1;
+            box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .tab-btn.active {
+            background-color: #1d4ed8;
+            color: #ffffff !important;
+            border-color: #1d4ed8;
+            box-shadow: 0 4px 12px -2px rgba(29, 78, 216, 0.3);
+        }
+
+        .tab-btn.active:hover {
+            background-color: #1e40af;
+            color: #ffffff !important;
+            box-shadow: 0 6px 16px -2px rgba(29, 78, 216, 0.4);
+        }
+
+        .layer {
+            padding: 0.6rem 0.75rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+        .you-manage {
+            background-color: #bae6fd;
+            border: 1px solid #38bdf8;
+            color: #0369a1;
+        }
+        .provider-manages {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+        }
+
+        .modal-backdrop {
+            background-color: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <div class="sites-embed-wrapper">
+        <main class="w-full bg-white p-6 sm:p-10 md:p-12 rounded-2xl shadow-xl border border-slate-200">
+
+            <!-- Header Section -->
+            <header class="text-center mb-10">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-sm font-bold mb-4">
+                    <span>💡 Modelos TI: On-Premise vs Cloud</span>
+                </div>
+                <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight leading-tight">
+                    Modelos de explotación de software en la nube y on-premise
+                </h1>
+                <p class="text-slate-700 mt-4 text-lg sm:text-xl max-w-4xl mx-auto leading-relaxed font-semibold">
+                    Análisis comparativo de los modelos de servicio (On-Premise, IaaS, PaaS, Serverless y SaaS)
+                </p>
+            </header>
+
+            <!-- Navigation Tabs -->
+            <div class="flex flex-wrap items-center justify-center gap-3 bg-slate-100 p-3 sm:p-4 rounded-2xl border border-slate-200 mb-10">
+                <button onclick="switchTab('models')" id="tab-models" class="tab-btn active px-5 py-3 rounded-xl text-sm sm:text-base font-extrabold">
+                    📦 Modelos de servicio
+                </button>
+                <button onclick="switchTab('pizza')" id="tab-pizza" class="tab-btn px-5 py-3 rounded-xl text-sm sm:text-base font-extrabold">
+                    🍕 Analogía de la pizza
+                </button>
+                <button onclick="switchTab('responsibility')" id="tab-responsibility" class="tab-btn px-5 py-3 rounded-xl text-sm sm:text-base font-extrabold">
+                    🛡️ Responsabilidad compartida
+                </button>
+                <button onclick="openQuizModal()" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm sm:text-base rounded-xl transition-all shadow-md hover:shadow-lg hover:-translate-y-0.5 flex items-center gap-2">
+                    🎯 Casos prácticos
+                </button>
+            </div>
+
+            <!-- SECTION 1: MODELOS DE SERVICIO -->
+            <div id="section-models" class="tab-content space-y-8">
+
+                <!-- Stack diagram ("Quién gestiona qué") -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">🏛️ Pila tecnológica: ¿Quién gestiona cada capa?</h2>
+                        <p class="text-base sm:text-lg text-slate-600 mt-2 font-medium">Comparativa directa del nivel de control y delegación desde On-Premise hasta SaaS.</p>
+
+                        <div class="flex items-center justify-center gap-8 mt-4 text-sm font-bold">
+                            <span class="flex items-center gap-2 text-sky-900">
+                                <span class="w-4 h-4 rounded bg-sky-200 border-2 border-sky-400 inline-block"></span> Tú gestionas
+                            </span>
+                            <span class="flex items-center gap-2 text-slate-700">
+                                <span class="w-4 h-4 rounded bg-slate-200 border-2 border-slate-400 inline-block"></span> El proveedor gestiona
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Grid de 5 columnas para On-Premise, IaaS, PaaS, Serverless, SaaS -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+
+                        <!-- On-Premise Stack Column -->
+                        <div class="bg-white border-2 border-slate-300 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+                            <div class="text-center mb-4">
+                                <span class="text-xs sm:text-sm font-black text-slate-800 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-300 uppercase tracking-wider">On-Premise</span>
+                                <h3 class="text-base font-extrabold text-slate-900 mt-2">100% Local</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-xs font-black text-sky-800 text-center mb-1.5 uppercase tracking-wider">Tú Gestionas</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border border-sky-300 gap-0.5">
+                                        <div class="layer you-manage">Aplicaciones</div>
+                                        <div class="layer you-manage">Datos</div>
+                                        <div class="layer you-manage">Runtime</div>
+                                        <div class="layer you-manage">Middleware</div>
+                                        <div class="layer you-manage">Sistema Operativo</div>
+                                        <div class="layer you-manage">Virtualización</div>
+                                        <div class="layer you-manage">Servidores</div>
+                                        <div class="layer you-manage">Almacenamiento</div>
+                                        <div class="layer you-manage">Red / HW</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-black text-slate-500 text-center mb-1 uppercase tracking-wider">El Proveedor</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border-2 border-dashed border-slate-300 h-10 justify-center">
+                                        <p class="text-slate-500 text-center text-xs italic font-semibold">Nada (Todo es tuyo)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IaaS Stack Column -->
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+                            <div class="text-center mb-4">
+                                <span class="text-xs sm:text-sm font-black text-indigo-700 bg-indigo-50 px-3 py-1.5 rounded-full border border-indigo-200 uppercase tracking-wider">IaaS</span>
+                                <h3 class="text-base font-extrabold text-slate-900 mt-2">Infraestructura</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-xs font-black text-sky-800 text-center mb-1.5 uppercase tracking-wider">Tú Gestionas</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border border-sky-300 gap-0.5">
+                                        <div class="layer you-manage">Aplicaciones</div>
+                                        <div class="layer you-manage">Datos</div>
+                                        <div class="layer you-manage">Runtime</div>
+                                        <div class="layer you-manage">Middleware</div>
+                                        <div class="layer you-manage">Sistema Operativo</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-black text-slate-600 text-center mb-1.5 uppercase tracking-wider">El Proveedor</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border border-slate-300 gap-0.5">
+                                        <div class="layer provider-manages">Virtualización</div>
+                                        <div class="layer provider-manages">Servidores</div>
+                                        <div class="layer provider-manages">Almacenamiento</div>
+                                        <div class="layer provider-manages">Red</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PaaS Stack Column -->
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+                            <div class="text-center mb-4">
+                                <span class="text-xs sm:text-sm font-black text-teal-700 bg-teal-50 px-3 py-1.5 rounded-full border border-teal-200 uppercase tracking-wider">PaaS</span>
+                                <h3 class="text-base font-extrabold text-slate-900 mt-2">Plataforma</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-xs font-black text-sky-800 text-center mb-1.5 uppercase tracking-wider">Tú Gestionas</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border border-sky-300 gap-0.5">
+                                        <div class="layer you-manage">Aplicaciones</div>
+                                        <div class="layer you-manage">Datos</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-black text-slate-600 text-center mb-1.5 uppercase tracking-wider">El Proveedor</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border border-slate-300 gap-0.5">
+                                        <div class="layer provider-manages">Runtime</div>
+                                        <div class="layer provider-manages">Middleware</div>
+                                        <div class="layer provider-manages">Sistema Operativo</div>
+                                        <div class="layer provider-manages">Virtualización</div>
+                                        <div class="layer provider-manages">Servidores</div>
+                                        <div class="layer provider-manages">Almacenamiento</div>
+                                        <div class="layer provider-manages">Red</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Serverless Stack Column -->
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+                            <div class="text-center mb-4">
+                                <span class="text-xs sm:text-sm font-black text-purple-700 bg-purple-50 px-3 py-1.5 rounded-full border border-purple-200 uppercase tracking-wider">Serverless</span>
+                                <h3 class="text-base font-extrabold text-slate-900 mt-2">Sin Servidor</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-xs font-black text-sky-800 text-center mb-1.5 uppercase tracking-wider">Tú Gestionas</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border border-sky-300 gap-0.5">
+                                        <div class="layer you-manage">Código función</div>
+                                        <div class="layer you-manage">Triggers / Eventos</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-black text-slate-600 text-center mb-1.5 uppercase tracking-wider">El Proveedor</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border border-slate-300 gap-0.5">
+                                        <div class="layer provider-manages">Auto-escalado</div>
+                                        <div class="layer provider-manages">Runtime</div>
+                                        <div class="layer provider-manages">Sistema Operativo</div>
+                                        <div class="layer provider-manages">Virtualización</div>
+                                        <div class="layer provider-manages">Servidores</div>
+                                        <div class="layer provider-manages">Almacenamiento</div>
+                                        <div class="layer provider-manages">Red</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- SaaS Stack Column -->
+                        <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+                            <div class="text-center mb-4">
+                                <span class="text-xs sm:text-sm font-black text-blue-700 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-200 uppercase tracking-wider">SaaS</span>
+                                <h3 class="text-base font-extrabold text-slate-900 mt-2">Software</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-xs font-black text-sky-800 text-center mb-1.5 uppercase tracking-wider">Tú Gestionas</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border-2 border-dashed border-sky-300 h-12 justify-center">
+                                        <p class="text-sky-800 text-center text-xs italic font-bold">Nada (Solo usas)</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-black text-slate-600 text-center mb-1.5 uppercase tracking-wider">El Proveedor</p>
+                                    <div class="flex flex-col-reverse rounded-xl overflow-hidden border border-slate-300 gap-0.5">
+                                        <div class="layer provider-manages">Aplicaciones</div>
+                                        <div class="layer provider-manages">Datos</div>
+                                        <div class="layer provider-manages">Runtime</div>
+                                        <div class="layer provider-manages">Middleware</div>
+                                        <div class="layer provider-manages">Sistema Operativo</div>
+                                        <div class="layer provider-manages">Virtualización</div>
+                                        <div class="layer provider-manages">Servidores</div>
+                                        <div class="layer provider-manages">Almacenamiento</div>
+                                        <div class="layer provider-manages">Red</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Descriptive Cards for all 5 Service Models -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- On-Premise Card -->
+                    <div class="strategy-card bg-white border border-slate-200 border-t-8 border-t-slate-700 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-slate-100 text-slate-900 text-xs font-black px-3 py-1 rounded-full border border-slate-300 uppercase">
+                                    On-Premise
+                                </span>
+                                <span class="text-xs font-extrabold text-slate-600">CapEx Alto / OpEx Continuo</span>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-900 mb-1">Local / Tradicional</h2>
+                            <p class="text-xs font-bold text-slate-600 mb-3">(Infraestructura propia)</p>
+                            <p class="text-sm italic font-medium text-slate-600 mb-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
+                                🍕 "Compras la harina, haces la masa, cortas los ingredientes, enciendes tu horno y limpias la cocina."
+                            </p>
+                            <p class="text-base text-slate-700 leading-relaxed mb-5 font-medium">
+                                Tú eres dueño y gestionas absolutamente todo: el servidor físico, el centro de datos, la red, el sistema operativo, la seguridad, las bases de datos y la aplicación.
+                            </p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm space-y-2">
+                            <div><strong class="text-slate-900">Ejemplos:</strong> Servidores Dell PowerEdge / HPE ProLiant en Datacenter propio, VMware vSphere / ESXi, OpenStack local, SAN/NAS de almacenamiento físico.</div>
+                            <div><strong class="text-emerald-700">Ventaja:</strong> Control total de privacidad, aislamiento, personalización y cumplimiento normativo estricto.</div>
+                            <div><strong class="text-rose-700">Desventaja:</strong> Costes iniciales (CapEx) altísimos, mantenimiento 100% interno y lenta escalabilidad.</div>
+                        </div>
+                    </div>
+
+                    <!-- IaaS Card -->
+                    <div class="strategy-card bg-white border border-slate-200 border-t-8 border-t-indigo-600 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-indigo-100 text-indigo-900 text-xs font-black px-3 py-1 rounded-full border border-indigo-200 uppercase">
+                                    IaaS
+                                </span>
+                                <span class="text-xs font-extrabold text-slate-600">CapEx Bajo / OpEx Medio</span>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-900 mb-1">Infraestructura</h2>
+                            <p class="text-xs font-bold text-indigo-600 mb-3">(Infrastructure as a Service)</p>
+                            <p class="text-sm italic font-medium text-slate-600 mb-4 bg-indigo-50/60 p-3 rounded-lg border border-indigo-100">
+                                🍕 "Compras una pizza congelada y un horno alquilado. Solo calientas, cocinas y sirves."
+                            </p>
+                            <p class="text-base text-slate-700 leading-relaxed mb-5 font-medium">
+                                El proveedor te alquila el hardware básico (servidores, almacenamiento y red en la nube), pero tú debes instalar y administrar el SO, middleware y aplicaciones.
+                            </p>
+                        </div>
+                        <div class="bg-indigo-50/70 p-4 rounded-xl border border-indigo-100 text-sm space-y-2">
+                            <div><strong class="text-indigo-950">Ejemplos:</strong> AWS EC2, Azure Virtual Machines, Google Compute Engine (GCE), DigitalOcean Droplets, Linode / Akamai Cloud, OpenStack IaaS.</div>
+                            <div><strong class="text-emerald-700">Ventaja:</strong> Flexibilidad total del entorno informático, elasticidad y pago por uso.</div>
+                            <div><strong class="text-rose-700">Desventaja:</strong> Requiere conocimientos complejos de sysadmin, parches de SO y hardening.</div>
+                        </div>
+                    </div>
+
+                    <!-- PaaS Card -->
+                    <div class="strategy-card bg-white border border-slate-200 border-t-8 border-t-teal-600 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-teal-100 text-teal-900 text-xs font-black px-3 py-1 rounded-full border border-teal-200 uppercase">
+                                    PaaS
+                                </span>
+                                <span class="text-xs font-extrabold text-slate-600">OpEx Optimizado</span>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-900 mb-1">Plataforma</h2>
+                            <p class="text-xs font-bold text-teal-600 mb-3">(Platform as a Service)</p>
+                            <p class="text-sm italic font-medium text-slate-600 mb-4 bg-teal-50/60 p-3 rounded-lg border border-teal-100">
+                                🍕 "Pizzería 'Haz tu propia pizza' / Kit con base lista: Te dan la cocina equipada, el horno encendido y la masa base con tomate. Tú aportas tu receta e ingredientes (código)."
+                            </p>
+                            <p class="text-base text-slate-700 leading-relaxed mb-5 font-medium">
+                                El proveedor te da el entorno completo listo (servidor, SO y herramientas de desarrollo). Tú solo te encargas de escribir, subir y gestionar el código.
+                            </p>
+                        </div>
+                        <div class="bg-teal-50/70 p-4 rounded-xl border border-teal-100 text-sm space-y-2">
+                            <div><strong class="text-teal-950">Ejemplos:</strong> Heroku, AWS Elastic Beanstalk, Google App Engine, Vercel, Netlify, Red Hat OpenShift, Render, Fly.io.</div>
+                            <div><strong class="text-emerald-700">Ventaja:</strong> Foco 100% en el desarrollo del producto sin gestionar servidores ni parches.</div>
+                            <div><strong class="text-rose-700">Desventaja:</strong> Menor control sobre configuraciones de bajo nivel y riesgo de vendor lock-in.</div>
+                        </div>
+                    </div>
+
+                    <!-- Serverless Card -->
+                    <div class="strategy-card bg-white border border-slate-200 border-t-8 border-t-purple-600 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-purple-100 text-purple-900 text-xs font-black px-3 py-1 rounded-full border border-purple-200 uppercase">
+                                    Serverless / FaaS
+                                </span>
+                                <span class="text-xs font-extrabold text-slate-600">OpEx por Ejecución</span>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-900 mb-1">Sin servidor</h2>
+                            <p class="text-xs font-bold text-purple-600 mb-3">(Function as a Service)</p>
+                            <p class="text-sm italic font-medium text-slate-600 mb-4 bg-purple-50/60 p-3 rounded-lg border border-purple-100">
+                                🍕 "Cocinero exprés por plato/rebanada: Sin cocina encendida en reposo. Al pulsar un botón, un chef prepara al instante una porción exacta y se marcha."
+                            </p>
+                            <p class="text-base text-slate-700 leading-relaxed mb-5 font-medium">
+                                Ejecución de fragmentos de código activados por eventos. El proveedor escala automáticamente de cero a miles de peticiones sin servidor siempre activo.
+                            </p>
+                        </div>
+                        <div class="bg-purple-50/70 p-4 rounded-xl border border-purple-100 text-sm space-y-2">
+                            <div><strong class="text-purple-950">Ejemplos:</strong> AWS Lambda, Azure Functions, Google Cloud Run Functions, Vercel Functions, Cloudflare Workers, Netlify Functions.</div>
+                            <div><strong class="text-emerald-700">Ventaja:</strong> Coste cero cuando no se usa, escalado horizontal automático e instantáneo.</div>
+                            <div><strong class="text-rose-700">Desventaja:</strong> Latencia por "cold starts" e incompatibilidad con procesos de larga duración.</div>
+                        </div>
+                    </div>
+
+                    <!-- SaaS Card -->
+                    <div class="strategy-card bg-white border border-slate-200 border-t-8 border-t-blue-600 rounded-2xl p-6 flex flex-col justify-between shadow-sm">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="bg-blue-100 text-blue-900 text-xs font-black px-3 py-1 rounded-full border border-blue-200 uppercase">
+                                    SaaS
+                                </span>
+                                <span class="text-xs font-extrabold text-slate-600">Suscripción OpEx Pura</span>
+                            </div>
+                            <h2 class="text-2xl font-black text-slate-900 mb-1">Software como servicio</h2>
+                            <p class="text-xs font-bold text-blue-600 mb-3">(Software as a Service)</p>
+                            <p class="text-sm italic font-medium text-slate-600 mb-4 bg-blue-50/60 p-3 rounded-lg border border-blue-100">
+                                🍕 "Delivery a domicilio o restaurante: Te entregan la pizza totalmente lista para comer. No cocinas, no horneas ni limpias."
+                            </p>
+                            <p class="text-base text-slate-700 leading-relaxed mb-5 font-medium">
+                                El proveedor gestiona el 100% de la plataforma, el código y los datos. Tú solo usas la aplicación terminada a través de un navegador web o app móvil.
+                            </p>
+                        </div>
+                        <div class="bg-blue-50/70 p-4 rounded-xl border border-blue-100 text-sm space-y-2">
+                            <div><strong class="text-blue-950">Ejemplos:</strong> Microsoft 365, Google Workspace (Gmail, Docs), Salesforce, Netflix, Zoom, Slack, HubSpot, Workday, Dropbox.</div>
+                            <div><strong class="text-emerald-700">Ventaja:</strong> Adopción inmediata, cero mantenimiento de software, parches o infraestructura.</div>
+                            <div><strong class="text-rose-700">Desventaja:</strong> Personalización muy limitada, poca flexibilidad y dependencia total del proveedor.</div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SECTION 2: ANALOGÍA DE LA PIZZA -->
+            <div id="section-pizza" class="tab-content hidden space-y-8">
+
+                <div class="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+                    <div class="max-w-4xl mx-auto text-center space-y-3">
+                        <span class="text-4xl">🍕</span>
+                        <h2 class="text-2xl sm:text-4xl font-black text-slate-900">La analogía de la pizza</h2>
+                        <p class="text-base sm:text-lg text-slate-700 leading-relaxed font-medium">
+                            La famosa analogía de la pizza explica los modelos de servicio según quién se encarga de los ingredientes, el horno y el trabajo. Al comparar la gestión local (<strong>On-Premise</strong>) frente a los servicios en la nube (<strong>IaaS, PaaS, Serverless y SaaS</strong>), la división es la siguiente:
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 5 Coherent Pizza Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    <!-- 1. On-Premise Card -->
+                    <div class="bg-white border-2 border-slate-300 rounded-2xl p-6 shadow-sm space-y-4 relative overflow-hidden flex flex-col justify-between">
+                        <div class="absolute top-0 right-0 bg-slate-800 text-white px-3 py-1 rounded-bl-xl font-black text-xs uppercase tracking-wider">
+                            1. On-Premise
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 pt-2">
+                                <span class="text-3xl">🏠</span>
+                                <div>
+                                    <h3 class="text-lg font-extrabold text-slate-900">Infraestructura local</h3>
+                                    <p class="text-xs font-bold text-slate-500 uppercase">On-Premise (Tradicional)</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>🍕</span> La analogía:
+                                    </h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed">
+                                        Compras la harina, haces la masa, cortas los ingredientes, enciendes tu propio horno, horneas, pones la mesa, comes y al final limpias toda la cocina.
+                                    </p>
+                                </div>
+
+                                <div class="bg-sky-50 p-4 rounded-xl border border-sky-200">
+                                    <h4 class="text-xs font-black text-sky-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>💻</span> En la tecnología:
+                                    </h4>
+                                    <p class="text-sm text-sky-950 leading-relaxed">
+                                        Tú eres dueño y gestionas absolutamente todo: el servidor físico, el centro de datos, la red, el sistema operativo, la seguridad y la aplicación.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. IaaS Card -->
+                    <div class="bg-white border-2 border-indigo-200 rounded-2xl p-6 shadow-sm space-y-4 relative overflow-hidden flex flex-col justify-between">
+                        <div class="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 rounded-bl-xl font-black text-xs uppercase tracking-wider">
+                            2. IaaS
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 pt-2">
+                                <span class="text-3xl">🛒</span>
+                                <div>
+                                    <h3 class="text-lg font-extrabold text-slate-900">Infraestructura como servicio</h3>
+                                    <p class="text-xs font-bold text-indigo-600 uppercase">Infrastructure as a Service</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="bg-indigo-50/60 p-4 rounded-xl border border-indigo-100">
+                                    <h4 class="text-xs font-black text-indigo-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>🍕</span> La analogía:
+                                    </h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed">
+                                        Alquilas la cocina industrial y el horno (hardware). Tú llevas la masa, el queso, preparas la salsa, configuras la temperatura y horneas la pizza.
+                                    </p>
+                                </div>
+
+                                <div class="bg-sky-50 p-4 rounded-xl border border-sky-200">
+                                    <h4 class="text-xs font-black text-sky-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>💻</span> En la tecnología:
+                                    </h4>
+                                    <p class="text-sm text-sky-950 leading-relaxed">
+                                        El proveedor te alquila el hardware básico (servidores, almacenamiento y red en la nube), pero tú debes instalar y administrar el sistema operativo, middleware y la aplicación.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. PaaS Card -->
+                    <div class="bg-white border-2 border-teal-200 rounded-2xl p-6 shadow-sm space-y-4 relative overflow-hidden flex flex-col justify-between">
+                        <div class="absolute top-0 right-0 bg-teal-600 text-white px-3 py-1 rounded-bl-xl font-black text-xs uppercase tracking-wider">
+                            3. PaaS
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 pt-2">
+                                <span class="text-3xl">🧑‍🍳</span>
+                                <div>
+                                    <h3 class="text-lg font-extrabold text-slate-900">Plataforma como servicio</h3>
+                                    <p class="text-xs font-bold text-teal-600 uppercase">Platform as a Service</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="bg-teal-50/60 p-4 rounded-xl border border-teal-100">
+                                    <h4 class="text-xs font-black text-teal-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>🍕</span> La analogía):
+                                    </h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed">
+                                        Te ofrecen un puesto de trabajo con la base de masa ya leudada, salsa de la casa lista y el horno precalentado a la temperatura perfecta (plataforma/runtime). Tú solo colocas tu combinación especial de ingredientes (código/datos) y presionas hornear.
+                                    </p>
+                                </div>
+
+                                <div class="bg-sky-50 p-4 rounded-xl border border-sky-200">
+                                    <h4 class="text-xs font-black text-sky-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>💻</span> En la tecnología:
+                                    </h4>
+                                    <p class="text-sm text-sky-950 leading-relaxed">
+                                        El proveedor te da el entorno completo listo (servidor, sistema operativo y herramientas de desarrollo/runtime). Tú solo te encargas de escribir, subir y gestionar tu propia aplicación o receta de código.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Serverless Card -->
+                    <div class="bg-white border-2 border-purple-200 rounded-2xl p-6 shadow-sm space-y-4 relative overflow-hidden flex flex-col justify-between">
+                        <div class="absolute top-0 right-0 bg-purple-600 text-white px-3 py-1 rounded-bl-xl font-black text-xs uppercase tracking-wider">
+                            4. Serverless
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 pt-2">
+                                <span class="text-3xl">⚡</span>
+                                <div>
+                                    <h3 class="text-lg font-extrabold text-slate-900">Sin servidor / Funciones</h3>
+                                    <p class="text-xs font-bold text-purple-600 uppercase">Function as a Service (FaaS)</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="bg-purple-50/60 p-4 rounded-xl border border-purple-100">
+                                    <h4 class="text-xs font-black text-purple-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>🍕</span> La analogía:
+                                    </h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed">
+                                        No hay cocina encendida consumiendo gas continuamente. Al tocar un timbre (evento), un chef aparece instantáneamente, prepara exactamente una porción de pizza en segundos, te la sirve y desaparece. Solo pagas los milisegundos exactos de preparación.
+                                    </p>
+                                </div>
+
+                                <div class="bg-sky-50 p-4 rounded-xl border border-sky-200">
+                                    <h4 class="text-xs font-black text-sky-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>💻</span> En la tecnología:
+                                    </h4>
+                                    <p class="text-sm text-sky-950 leading-relaxed">
+                                        Ejecución de código desencadenada por eventos (FaaS). No hay servidores encendidos en reposo; el proveedor aprovisiona la infraestructura en milisegundos al recibir una petición, ejecuta la función y destruye el entorno al terminar.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. SaaS Card -->
+                    <div class="bg-white border-2 border-blue-200 rounded-2xl p-6 shadow-sm space-y-4 relative overflow-hidden flex flex-col justify-between md:col-span-2 lg:col-span-1">
+                        <div class="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 rounded-bl-xl font-black text-xs uppercase tracking-wider">
+                            5. SaaS
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3 pt-2">
+                                <span class="text-3xl">🍽️</span>
+                                <div>
+                                    <h3 class="text-lg font-extrabold text-slate-900">Software como servicio</h3>
+                                    <p class="text-xs font-bold text-blue-600 uppercase">Software as a Service</p>
+                                </div>
+                            </div>
+
+                            <div class="space-y-3">
+                                <div class="bg-blue-50/60 p-4 rounded-xl border border-blue-100">
+                                    <h4 class="text-xs font-black text-blue-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>🍕</span> La analogía (Restaurante o Delivery a domicilio):
+                                    </h4>
+                                    <p class="text-sm text-slate-700 leading-relaxed">
+                                        Pides un delivery o te sientas a comer en el restaurante. Te sirven la pizza 100% terminada. Comes, disfrutas y no te preocupas por comprar masa, hornear ni limpiar la vajilla.
+                                    </p>
+                                </div>
+
+                                <div class="bg-sky-50 p-4 rounded-xl border border-sky-200">
+                                    <h4 class="text-xs font-black text-sky-900 uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                                        <span>💻</span> En la tecnología:
+                                    </h4>
+                                    <p class="text-sm text-sky-950 leading-relaxed">
+                                        El proveedor gestiona el 100% de la plataforma, el código y los datos. Tú solo usas la aplicación terminada a través del navegador (como Gmail, Netflix o Zoom).
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SECTION 3: MATRIZ DE RESPONSABILIDAD COMPARTIDA -->
+            <div id="section-responsibility" class="tab-content hidden space-y-8">
+
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
+                    <div class="max-w-3xl mx-auto text-center space-y-2">
+                        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">🛡️ Matriz completa de responsabilidad compartida</h2>
+                        <p class="text-base text-slate-600 font-medium">
+                            Desglose exhaustivo por dominio operativo y capa de seguridad desde On-Premise hasta SaaS.
+                        </p>
+                    </div>
+
+                    <!-- Key badges for quick high-contrast reading -->
+                    <div class="flex flex-wrap items-center justify-center gap-4 mt-6 text-sm font-bold">
+                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-sky-800 text-white shadow-sm">
+                            👤 Cliente (Tú gestionas)
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-purple-700 text-white shadow-sm">
+                            🤝 Compartido
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-200 text-slate-900 border border-slate-400">
+                            ☁️ Proveedor (Cloud)
+                        </span>
+                    </div>
+
+                    <div class="mt-6 overflow-x-auto custom-scroll rounded-xl border border-slate-200">
+                        <table class="w-full text-left text-sm sm:text-base border-collapse bg-white">
+                            <thead>
+                                <tr class="bg-slate-900 text-white font-black">
+                                    <th class="p-4 border-b border-slate-700 min-w-[220px]">Capa / Dominio de Responsabilidad</th>
+                                    <th class="p-4 border-b border-slate-700 text-center bg-slate-800">On-Premise</th>
+                                    <th class="p-4 border-b border-slate-700 text-center">IaaS</th>
+                                    <th class="p-4 border-b border-slate-700 text-center">PaaS</th>
+                                    <th class="p-4 border-b border-slate-700 text-center">Serverless</th>
+                                    <th class="p-4 border-b border-slate-700 text-center">SaaS</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 font-medium text-slate-800">
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Clasificación y Gobierno de Datos</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Gestión de Identidades y Accesos (IAM)</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Configuración y Seguridad de la Aplicación</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Middleware y Entorno de Ejecución (Runtime)</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Gestión y Parches de Sistema Operativo</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Configuración de Red Virtual y Cortafuegos</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-purple-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-purple-700 text-white font-extrabold text-xs sm:text-sm shadow-sm">Compartido</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Virtualización e Hipervisor</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Infraestructura y Servidores Físicos</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Almacenamiento y Red Física</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4 font-bold bg-slate-50">Seguridad Física del Centro de Datos</td>
+                                    <td class="p-3.5 text-center bg-sky-50/50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-sky-800 text-white font-extrabold text-xs sm:text-sm shadow-sm">Cliente</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50 border-r border-slate-100"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                    <td class="p-3.5 text-center bg-slate-50"><span class="inline-block px-3 py-1 rounded-lg bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm border border-slate-300">Proveedor</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+                <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+</main>
+    </div>
+
+    <!-- MODAL: CASOS PRÁCTICOS / QUIZ -->
+    <div id="quiz-modal" class="fixed inset-0 modal-backdrop hidden items-center justify-center z-50 p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 my-8 space-y-6">
+            <div class="flex items-center justify-between border-b border-slate-200 pb-4">
+                <h3 class="text-2xl font-black text-slate-900 flex items-center gap-2">
+                    🎯 Casos prácticos de adquisición
+                </h3>
+                <button onclick="closeQuizModal()" class="text-slate-400 hover:text-slate-600 text-2xl font-bold">&times;</button>
+            </div>
+
+            <div id="quiz-container" class="space-y-4">
+                <p class="text-slate-700 font-extrabold text-base sm:text-lg" id="quiz-question">
+                    Una entidad bancaria requiere mantener sus bases de datos bajo control físico directo en sus propias instalaciones para cumplir estrictamente la ley de protección de datos local. ¿Qué modelo debe aplicar?
+                </p>
+
+                <div class="space-y-2.5" id="quiz-options">
+                    <!-- Dynamic Options filled by JavaScript -->
+                </div>
+
+                <div id="quiz-feedback" class="hidden p-4 rounded-xl text-sm sm:text-base font-bold"></div>
+            </div>
+
+            <div class="flex justify-between items-center border-t border-slate-200 pt-4">
+                <span id="quiz-score" class="text-sm font-extrabold text-slate-600">Aciertos: 0 / 0</span>
+                <button onclick="closeQuizModal()" class="px-6 py-2.5 bg-slate-800 text-white font-extrabold rounded-xl hover:bg-slate-900 transition-colors">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        /* Switch Tab Logic */
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            document.getElementById('section-' + tabId).classList.remove('hidden');
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        /* Modal Quiz / Practical Cases logic */
+        let currentQuestion = 0;
+        let score = 0;
+        let totalAnswered = 0;
+
+        const questions = [
+            {
+                q: "1. Una entidad bancaria requiere mantener sus bases de datos bajo control físico directo en sus propias instalaciones para cumplir estrictamente la ley de protección de datos local. ¿Qué modelo debe aplicar?",
+                a: "On-Premise",
+                exp: "¡Correcto! En On-Premise la empresa mantiene la propiedad y gestión física del 100% de la infraestructura y centro de datos."
+            },
+            {
+                q: "2. Una startup desea desplegar funciones activadas por eventos en la nube como Vercel Functions o Google Cloud Run Functions sin aprovisionar ni gestionar ningún servidor. ¿Cuál es el modelo exacto?",
+                a: "Serverless",
+                exp: "¡Correcto! Serverless / FaaS permite la ejecución de funciones desencadenadas por eventos con autoescalado automático desde cero."
+            },
+            {
+                q: "3. Un equipo de desarrollo necesita desplegar una aplicación web en Heroku u OpenShift administrando solo el código y los datos, delegando el sistema operativo y el runtime al proveedor. ¿Qué modelo utilizan?",
+                a: "PaaS",
+                exp: "¡Correcto! En PaaS (Plataforma como servicio) el proveedor gestiona el SO, middleware y runtime, dejando al cliente solo la aplicación y los datos."
+            },
+            {
+                q: "4. Una empresa decide reemplazar su correo interno y suite ofimática por Microsoft 365 y Zoom a través del navegador web. ¿Qué modelo es?",
+                a: "SaaS",
+                exp: "¡Excelente! En SaaS (Software como servicio) el usuario final simplemente consume la aplicación terminada sin gestionar infraestructura ni código."
+            }
+        ];
+
+        function openQuizModal() {
+            currentQuestion = 0;
+            score = 0;
+            totalAnswered = 0;
+            showQuestion();
+            document.getElementById('quiz-modal').classList.remove('hidden');
+            document.getElementById('quiz-modal').classList.add('flex');
+        }
+
+        function closeQuizModal() {
+            document.getElementById('quiz-modal').classList.add('hidden');
+            document.getElementById('quiz-modal').classList.remove('flex');
+        }
+
+        function showQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('quiz-question').innerText = q.q;
+            document.getElementById('quiz-feedback').classList.add('hidden');
+            document.getElementById('quiz-score').innerText = `Aciertos: ${score} / ${totalAnswered}`;
+
+            const optionsContainer = document.getElementById('quiz-options');
+            optionsContainer.innerHTML = `
+                <button onclick="checkAnswer('On-Premise')" class="w-full text-left p-3.5 border-2 border-slate-200 rounded-xl hover:border-blue-600 font-bold text-slate-800 text-sm sm:text-base transition-colors">
+                    A) On-Premise (Hacerlo en casa desde cero)
+                </button>
+                <button onclick="checkAnswer('IaaS')" class="w-full text-left p-3.5 border-2 border-slate-200 rounded-xl hover:border-blue-600 font-bold text-slate-800 text-sm sm:text-base transition-colors">
+                    B) IaaS (Infraestructura como servicio)
+                </button>
+                <button onclick="checkAnswer('PaaS')" class="w-full text-left p-3.5 border-2 border-slate-200 rounded-xl hover:border-blue-600 font-bold text-slate-800 text-sm sm:text-base transition-colors">
+                    C) PaaS (Plataforma como servicio)
+                </button>
+                <button onclick="checkAnswer('Serverless')" class="w-full text-left p-3.5 border-2 border-slate-200 rounded-xl hover:border-blue-600 font-bold text-slate-800 text-sm sm:text-base transition-colors">
+                    D) Serverless / FaaS (Sin servidor)
+                </button>
+                <button onclick="checkAnswer('SaaS')" class="w-full text-left p-3.5 border-2 border-slate-200 rounded-xl hover:border-blue-600 font-bold text-slate-800 text-sm sm:text-base transition-colors">
+                    E) SaaS (Software como servicio)
+                </button>
+            `;
+        }
+
+        function checkAnswer(selected) {
+            const q = questions[currentQuestion];
+            const feedbackEl = document.getElementById('quiz-feedback');
+            totalAnswered++;
+
+            if (selected === q.a) {
+                score++;
+                feedbackEl.className = "p-4 rounded-xl text-sm sm:text-base font-bold bg-emerald-100 text-emerald-900 border border-emerald-300";
+                feedbackEl.innerHTML = "✅ " + q.exp;
+            } else {
+                feedbackEl.className = "p-4 rounded-xl text-sm sm:text-base font-bold bg-rose-100 text-rose-900 border border-rose-300";
+                feedbackEl.innerHTML = `❌ Respuesta incorrecta. La respuesta correcta era <strong>${q.a}</strong>.`;
+            }
+
+            feedbackEl.classList.remove('hidden');
+            document.getElementById('quiz-score').innerText = `Aciertos: ${score} / ${totalAnswered}`;
+
+            setTimeout(() => {
+                if (currentQuestion < questions.length - 1) {
+                    currentQuestion++;
+                    showQuestion();
+                }
+            }, 2600);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía - La tríada CIA y extendida (interactiva)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .cia-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cia-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+        }
+        /* Estilos para revelado progresivo */
+        .card-hidden {
+            opacity: 0.2;
+            filter: blur(4px) grayscale(80%);
+            transform: scale(0.96);
+            cursor: pointer;
+            user-select: none;
+        }
+        .card-visible {
+            opacity: 1;
+            filter: blur(0) grayscale(0%);
+            transform: scale(1);
+        }
+        /* Transiciones suaves para el modal */
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 flex items-center justify-center min-h-screen p-4 sm:p-8">
+
+    <main id="main-container" class="bg-white rounded-2xl shadow-xl p-6 sm:p-10 w-full max-w-5xl relative my-6">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">La tríada CIA de la seguridad</h1>
+            <p class="text-slate-600 mt-2 text-base sm:text-lg">Los pilares fundamentales de la seguridad de la información y la administración de sistemas.</p>
+
+            <div class="mt-6 flex flex-wrap justify-center gap-3">
+                <button id="expand-btn" onclick="toggleExtendedGrid(event)" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-semibold text-sm py-2.5 px-5 rounded-xl shadow transition-all duration-200 cursor-pointer">
+                    <span id="expand-btn-text">✨ Ampliar con la tríada extendida (+3 pilares)</span>
+                </button>
+
+                <!-- Botón de apertura del Popup / Modal interactivo -->
+                <button onclick="openActivityModal()" class="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold text-sm py-2.5 px-5 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer border border-amber-400">
+                    <span>⚡ Lanzar reto interactivo SysAdmin</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Barra de Controles e Indicador de Progreso -->
+        <div class="flex flex-wrap items-center justify-between gap-4 bg-slate-100 p-4 rounded-xl border border-slate-200 mb-8">
+            <div class="flex items-center space-x-2">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Progreso tríada básica:</span>
+                <span id="counter-badge" class="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-full">0 / 3 Bloques</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <button id="btn-next" onclick="revealNextCard()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-medium text-sm rounded-lg transition-colors shadow-sm flex items-center space-x-1">
+                    <span>Revelar siguiente</span>
+                    <span>👉</span>
+                </button>
+                <button id="btn-all" onclick="revealAllCards()" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium text-sm rounded-lg transition-colors">
+                    Revelar todas
+                </button>
+                <button id="btn-reset" onclick="resetCards()" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-600 font-medium text-sm rounded-lg transition-colors">
+                    🔄 Reiniciar
+                </button>
+            </div>
+        </div>
+
+        <!-- Grilla 1: Tríada CIA Clásica -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Card 1: Confidencialidad -->
+            <div id="card-0" onclick="revealSpecificCard(0)" class="cia-card card-hidden bg-blue-50 border border-blue-200 rounded-xl p-6 flex flex-col justify-between relative">
+                <div class="absolute top-3 right-3 text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded font-mono font-semibold">1</div>
+                <div>
+                    <div class="text-center mb-4">
+                        <span class="text-5xl">🔒</span>
+                        <h2 class="text-xl font-bold text-blue-800 mt-2">Confidencialidad</h2>
+                    </div>
+                    <p class="text-sm text-blue-900 mb-4 leading-relaxed">Asegura que la información solo sea accesible para personas o procesos autorizados, evitando filtraciones.</p>
+                    <div>
+                        <h3 class="font-semibold text-xs uppercase tracking-wider text-blue-800 border-b border-blue-200 pb-1 mb-2">Medidas habituales:</h3>
+                        <ul class="text-sm text-blue-900 space-y-2">
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 shrink-0">🔹</span><span>Cifrado de datos en tránsito y almacenamiento.</span></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 shrink-0">🔹</span><span>Gestión de contraseñas y permisos de acceso.</span></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2 shrink-0">🔹</span><span>Uso de conexiones seguras y VPNs.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Integridad -->
+            <div id="card-1" onclick="revealSpecificCard(1)" class="cia-card card-hidden bg-green-50 border border-green-200 rounded-xl p-6 flex flex-col justify-between relative">
+                <div class="absolute top-3 right-3 text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded font-mono font-semibold">2</div>
+                <div>
+                    <div class="text-center mb-4">
+                        <span class="text-5xl">✅</span>
+                        <h2 class="text-xl font-bold text-green-800 mt-2">Integridad</h2>
+                    </div>
+                    <p class="text-sm text-green-900 mb-4 leading-relaxed">Garantiza que la información se mantenga exacta, auténtica y sin modificaciones no autorizadas o accidentales.</p>
+                    <div>
+                        <h3 class="font-semibold text-xs uppercase tracking-wider text-green-800 border-b border-green-200 pb-1 mb-2">Medidas habituales:</h3>
+                        <ul class="text-sm text-green-900 space-y-2">
+                            <li class="flex items-start"><span class="text-green-600 mr-2 shrink-0">🔹</span><span>Verificación mediante sumas HASH (SHA-256).</span></li>
+                            <li class="flex items-start"><span class="text-green-600 mr-2 shrink-0">🔹</span><span>Firmas digitales y control de cambios.</span></li>
+                            <li class="flex items-start"><span class="text-green-600 mr-2 shrink-0">🔹</span><span>Protección contra escritura en ficheros críticos.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Disponibilidad -->
+            <div id="card-2" onclick="revealSpecificCard(2)" class="cia-card card-hidden bg-amber-50 border border-amber-200 rounded-xl p-6 flex flex-col justify-between relative">
+                <div class="absolute top-3 right-3 text-xs bg-amber-200 text-amber-800 px-2 py-0.5 rounded font-mono font-semibold">3</div>
+                <div>
+                    <div class="text-center mb-4">
+                        <span class="text-5xl">⏰</span>
+                        <h2 class="text-xl font-bold text-amber-800 mt-2">Disponibilidad</h2>
+                    </div>
+                    <p class="text-sm text-amber-900 mb-4 leading-relaxed">Garantiza que los servicios, servidores y datos estén operativos y accesibles cuando los usuarios los necesiten.</p>
+                    <div>
+                        <h3 class="font-semibold text-xs uppercase tracking-wider text-amber-800 border-b border-amber-200 pb-1 mb-2">Medidas habituales:</h3>
+                        <ul class="text-sm text-amber-900 space-y-2">
+                            <li class="flex items-start"><span class="text-amber-600 mr-2 shrink-0">🔹</span><span>Copias de seguridad periódicas.</span></li>
+                            <li class="flex items-start"><span class="text-amber-600 mr-2 shrink-0">🔹</span><span>Sistemas y servidores redundantes.</span></li>
+                            <li class="flex items-start"><span class="text-amber-600 mr-2 shrink-0">🔹</span><span>Planes de recuperación ante caídas o desastres.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grilla 2: Tríada CIA Extendida -->
+        <div id="extended-grid" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 border-t border-slate-200 pt-8">
+
+            <!-- Autenticidad -->
+            <div class="cia-card bg-purple-50 border border-purple-200 rounded-xl p-6 flex flex-col justify-between relative">
+                <div>
+                    <div class="text-center mb-4">
+                        <span class="text-5xl">🔑</span>
+                        <h2 class="text-xl font-bold text-purple-800 mt-2">Autenticidad</h2>
+                    </div>
+                    <p class="text-sm text-purple-900 mb-4 leading-relaxed">Permite confirmar y verificar de forma inequívoca la identidad de un usuario, equipo o mensaje.</p>
+                    <div>
+                        <h3 class="font-semibold text-xs uppercase tracking-wider text-purple-800 border-b border-purple-200 pb-1 mb-2">Medidas habituales:</h3>
+                        <ul class="text-sm text-purple-900 space-y-2">
+                            <li class="flex items-start"><span class="text-purple-600 mr-2 shrink-0">🔹</span><span>Autenticación de doble factor (2FA/MFA).</span></li>
+                            <li class="flex items-start"><span class="text-purple-600 mr-2 shrink-0">🔹</span><span>Certificados digitales y credenciales seguras.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Repudio -->
+            <div class="cia-card bg-teal-50 border border-teal-200 rounded-xl p-6 flex flex-col justify-between relative">
+                <div>
+                    <div class="text-center mb-4">
+                        <span class="text-5xl">✍️</span>
+                        <h2 class="text-xl font-bold text-teal-800 mt-2">No Repudio</h2>
+                    </div>
+                    <p class="text-sm text-teal-900 mb-4 leading-relaxed">Impide que el emisor de un mensaje o el autor de una acción niegue posteriormente haberla realizado.</p>
+                    <div>
+                        <h3 class="font-semibold text-xs uppercase tracking-wider text-teal-800 border-b border-teal-200 pb-1 mb-2">Medidas habituales:</h3>
+                        <ul class="text-sm text-teal-900 space-y-2">
+                            <li class="flex items-start"><span class="text-teal-600 mr-2 shrink-0">🔹</span><span>Firma digital con clave privada.</span></li>
+                            <li class="flex items-start"><span class="text-teal-600 mr-2 shrink-0">🔹</span><span>Registros de transacciones y sellado de tiempo.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trazabilidad -->
+            <div class="cia-card bg-indigo-50 border border-indigo-200 rounded-xl p-6 flex flex-col justify-between relative">
+                <div>
+                    <div class="text-center mb-4">
+                        <span class="text-5xl">📜</span>
+                        <h2 class="text-xl font-bold text-indigo-800 mt-2">Trazabilidad</h2>
+                    </div>
+                    <p class="text-sm text-indigo-900 mb-4 leading-relaxed">Permite seguir el rastro y auditar la secuencia de acciones y cambios realizados en el sistema.</p>
+                    <div>
+                        <h3 class="font-semibold text-xs uppercase tracking-wider text-indigo-800 border-b border-indigo-200 pb-1 mb-2">Medidas habituales:</h3>
+                        <ul class="text-sm text-indigo-900 space-y-2">
+                            <li class="flex items-start"><span class="text-indigo-600 mr-2 shrink-0">🔹</span><span>Registros de eventos (Logs centralizados).</span></li>
+                            <li class="flex items-start"><span class="text-indigo-600 mr-2 shrink-0">🔹</span><span>Auditoría de accesos y comandos ejecutados.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+</main>
+
+    <!-- POPUP / MODAL PARA LA ACTIVIDAD INTERACTIVA -->
+    <div id="activity-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+        <!-- Fondo oscuro semitransparente con desenfoque -->
+        <div onclick="closeActivityModal()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm transition-opacity"></div>
+
+        <!-- Contenedor del Modal -->
+        <div class="relative bg-slate-900 text-white rounded-2xl shadow-2xl max-w-3xl w-full border border-slate-700 z-10 overflow-hidden my-auto max-h-[90vh] flex flex-col">
+
+            <!-- Cabecera del Modal -->
+            <div class="bg-slate-800/80 px-6 py-4 border-b border-slate-700 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-2">
+                    <span class="bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">⚡ Actividad en clase</span>
+                    <h3 class="text-lg font-bold text-white">Reto SysAdmin: identifica los pilares</h3>
+                </div>
+                <button onclick="closeActivityModal()" class="text-slate-400 hover:text-white hover:bg-slate-700 p-1.5 rounded-lg transition-colors text-xl font-bold leading-none">
+                    ✕
+                </button>
+            </div>
+
+            <!-- Cuerpo del Modal (Con Scroll si es necesario) -->
+            <div class="p-6 overflow-y-auto space-y-6">
+                <!-- Control de Navegación de Casos Prácticos -->
+                <div class="flex items-center justify-between bg-slate-800 p-2 sm:p-3 rounded-xl border border-slate-700">
+                    <button onclick="prevScenario()" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1">
+                        <span>◀</span> <span class="hidden sm:inline">Anterior</span>
+                    </button>
+                    <span id="scenario-counter" class="text-xs sm:text-sm font-mono font-semibold text-amber-400">Caso 1 / 5</span>
+                    <button onclick="nextScenario()" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-600 active:bg-slate-500 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1">
+                        <span class="hidden sm:inline">Siguiente</span> <span>▶</span>
+                    </button>
+                </div>
+
+                <!-- Tarjeta del Caso Práctico -->
+                <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-5">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span id="scenario-icon" class="text-3xl">💾</span>
+                        <div>
+                            <h4 id="scenario-title" class="text-lg font-bold text-amber-400">Título del Caso</h4>
+                            <span id="scenario-category" class="text-xs text-slate-400 font-mono">Categoría</span>
+                        </div>
+                    </div>
+                    <p id="scenario-desc" class="text-slate-200 text-sm sm:text-base leading-relaxed bg-slate-950/50 p-4 rounded-xl font-sans border border-slate-800">
+                        Descripción del caso...
+                    </p>
+                </div>
+
+                <!-- Pregunta y selección para el alumnado -->
+                <div>
+                    <p class="text-sm font-medium text-slate-300 mb-3">🎯 <strong>Análisis de seguridad:</strong> Selecciona los pilares que aplican a este escenario antes de comprobar la solución:</p>
+                    <div id="pillars-selector" class="flex flex-wrap gap-2.5">
+                        <!-- Botones de pilares generados dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Bloque Explicativo (Oculto por defecto hasta revelar) -->
+                <div id="solution-box" class="hidden p-5 bg-emerald-950/90 border border-emerald-500/50 rounded-xl text-emerald-100 space-y-2">
+                    <div class="flex items-center gap-2 text-emerald-400 font-bold text-sm sm:text-base">
+                        <span>💡 Solución y explicación técnica:</span>
+                    </div>
+                    <p id="scenario-explanation" class="text-sm leading-relaxed text-emerald-200">
+                        Explicación paso a paso...
+                    </p>
+                </div>
+            </div>
+
+            <!-- Pie del Modal -->
+            <div class="bg-slate-800/80 px-6 py-4 border-t border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+                <button id="btn-reveal-solution" onclick="revealScenarioSolution()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer">
+                    <span>🔍 Revelar solución y justificación</span>
+                </button>
+                <div class="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+                    <button onclick="resetScenarioSelection()" class="text-xs text-slate-400 hover:text-slate-200 underline">
+                        Limpiar selección
+                    </button>
+                    <button onclick="closeActivityModal()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs sm:text-sm font-semibold rounded-lg transition-colors">
+                        Cerrar ventana
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Lógica de la Tríada Básica (Tarjetas visuales superiores)
+        const totalBasicCards = 3;
+        let revealedCount = 0;
+
+        function updateUI() {
+            document.getElementById('counter-badge').innerText = `${revealedCount} / ${totalBasicCards} Bloques`;
+            const btnNext = document.getElementById('btn-next');
+            if (btnNext) {
+                btnNext.disabled = (revealedCount === totalBasicCards);
+                btnNext.classList.toggle('opacity-50', revealedCount === totalBasicCards);
+                btnNext.classList.toggle('cursor-not-allowed', revealedCount === totalBasicCards);
+            }
+        }
+
+        function revealSpecificCard(index) {
+            const card = document.getElementById(`card-${index}`);
+            if (card && card.classList.contains('card-hidden')) {
+                card.classList.remove('card-hidden');
+                card.classList.add('card-visible');
+                revealedCount = document.querySelectorAll('.cia-card.card-visible').length;
+                updateUI();
+            }
+        }
+
+        function revealNextCard() {
+            for (let i = 0; i < totalBasicCards; i++) {
+                const card = document.getElementById(`card-${i}`);
+                if (card && card.classList.contains('card-hidden')) {
+                    revealSpecificCard(i);
+                    break;
+                }
+            }
+        }
+
+        function revealAllCards() {
+            for (let i = 0; i < totalBasicCards; i++) {
+                revealSpecificCard(i);
+            }
+        }
+
+        function resetCards() {
+            for (let i = 0; i < totalBasicCards; i++) {
+                const card = document.getElementById(`card-${i}`);
+                if (card) {
+                    card.classList.remove('card-visible');
+                    card.classList.add('card-hidden');
+                }
+            }
+            revealedCount = 0;
+            updateUI();
+        }
+
+        function toggleExtendedGrid(event) {
+            event.stopPropagation();
+            const extendedGrid = document.getElementById('extended-grid');
+            const btnText = document.getElementById('expand-btn-text');
+            const isHidden = extendedGrid.classList.contains('hidden');
+
+            if (isHidden) {
+                extendedGrid.classList.remove('hidden');
+                btnText.innerText = '🔼 Ocultar tríada extendida';
+            } else {
+                extendedGrid.classList.add('hidden');
+                btnText.innerText = '✨ Ampliar con la tríada extendida (+3 pilares)';
+            }
+        }
+
+        // Lógica de Modal / Popup
+        function openActivityModal() {
+            const modal = document.getElementById('activity-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+        }
+
+        function closeActivityModal() {
+            const modal = document.getElementById('activity-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Permitir cerrar modal presionando la tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeActivityModal();
+            }
+        });
+
+        // Casos Prácticos Didácticos y Simplificados para la Clase de SysAdmin (EI1044)
+        const sysadminScenarios = [
+            {
+                icon: "💾",
+                title: "Copias de seguridad cifradas y automáticas fuera del servidor",
+                category: "Infraestructura y almacenamiento",
+                desc: "Un administrador programa una tarea diaria para generar una copia de seguridad de la base de datos de la empresa. La copia se cifra con contraseña antes de enviarse a un servidor de almacenamiento externo.",
+                pillars: ["Disponibilidad", "Integridad", "Confidencialidad"],
+                explanation: "<b>Disponibilidad:</b> Si el servidor principal falla o sufre un ransomware, se pueden restaurar los datos sin pérdida de servicio.<br><b>Integridad:</b> Al ser un proceso automatizado y aislado, se asegura que la copia contiene los datos intactos sin modificaciones accidentales.<br><b>Confidencialidad:</b> El cifrado evita que personas ajenas puedan leer la información si interceptan la copia almacenada fuera de la empresa."
+            },
+            {
+                icon: "📲",
+                title: "Autenticación de doble factor (2FA) para el personal",
+                category: "Gestión de usuarios y accesos",
+                desc: "Para acceder a la plataforma corporativa, la empresa requiere ingresar la contraseña habitual y confirmar un código generado por una aplicación en el teléfono móvil del empleado.",
+                pillars: ["Autenticidad", "Confidencialidad"],
+                explanation: "<b>Autenticidad:</b> Confirma que quien intenta iniciar sesión es realmente el usuario legítimo y poseedor del dispositivo verificado.<br><b>Confidencialidad:</b> Evita que usuarios no autorizados accedan a los datos corporativos aunque hayan descubierto la contraseña."
+            },
+            {
+                icon: "🔍",
+                title: "Verificación de la suma HASH (SHA-256) antes de la instalación",
+                category: "Mantenimiento y despliegue",
+                desc: "Antes de instalar un nuevo programa en los servidores, la administradora calcula la suma de verificación HASH del archivo descargado y comprueba que coincide exactamente con el código publicado en la web oficial.",
+                pillars: ["Integridad", "Autenticidad"],
+                explanation: "<b>Integridad:</b> Asegura que el archivo descargado no se ha dañado en la descarga ni ha sido alterado de forma maliciosa.<br><b>Autenticidad:</b> Permite confirmar que el instalador proviene realmente de la fuente oficial del desarrollador."
+            },
+            {
+                icon: "📜",
+                title: "Registro centralizado de eventos y auditoría de acceso (logs)",
+                category: "Explotación de sistemas y seguridad",
+                desc: "Cada vez que un administrador inicia sesión o modifica la configuración de un servidor, la acción queda registrada de forma automática en un servidor de logs centralizado donde no se pueden borrar o editar eventos pasados.",
+                pillars: ["Trazabilidad", "No Repudio", "Integridad"],
+                explanation: "<b>Trazabilidad:</b> Permite reconstruir la secuencia temporal exacta de acciones realizadas en el sistema.<br><b>No Repudio:</b> El usuario no puede negar haber realizado una acción si está firmada y registrada en el sistema de logs.<br><b>Integridad:</b> La imposibilidad de alterar logs pasados garantiza la veracidad del historial de auditoría."
+            },
+            {
+                icon: "⚖️",
+                title: "Servidores web duplicados con balanceador de carga",
+                category: "Alta disponibilidad",
+                desc: "La página web del centro educativo funciona sobre dos servidores simultáneos. Si uno de los servidores sufre una avería de hardware o se apaga por mantenimiento, el tráfico se redirige automáticamente al segundo servidor sin interrupción para los estudiantes.",
+                pillars: ["Disponibilidad"],
+                explanation: "<b>Disponibilidad:</b> Mantiene la plataforma activa y accesible 24/7 incluso si falla uno de los componentes físicos o de software."
+            }
+        ];
+
+        const allPillarsList = ["Confidencialidad", "Integridad", "Disponibilidad", "Autenticidad", "No Repudio", "Trazabilidad"];
+        let currentScenarioIdx = 0;
+        let selectedPillars = new Set();
+        let isRevealed = false;
+
+        function loadScenario(idx) {
+            currentScenarioIdx = idx;
+            isRevealed = false;
+            selectedPillars.clear();
+
+            const scenario = sysadminScenarios[idx];
+            document.getElementById('scenario-counter').innerText = `Caso ${idx + 1} / ${sysadminScenarios.length}`;
+            document.getElementById('scenario-icon').innerText = scenario.icon;
+            document.getElementById('scenario-title').innerText = scenario.title;
+            document.getElementById('scenario-category').innerText = `Categoría: ${scenario.category}`;
+            document.getElementById('scenario-desc').innerText = scenario.desc;
+            document.getElementById('scenario-explanation').innerHTML = scenario.explanation;
+            document.getElementById('solution-box').classList.add('hidden');
+
+            renderPillarSelector();
+        }
+
+        function renderPillarSelector() {
+            const container = document.getElementById('pillars-selector');
+            container.innerHTML = '';
+            const scenario = sysadminScenarios[currentScenarioIdx];
+
+            allPillarsList.forEach(pillar => {
+                const isSelected = selectedPillars.has(pillar);
+                const isCorrect = scenario.pillars.includes(pillar);
+
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                chip.onclick = () => togglePillarSelection(pillar);
+
+                let baseStyles = "px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all border cursor-pointer flex items-center gap-1.5 ";
+
+                if (!isRevealed) {
+                    if (isSelected) {
+                        baseStyles += "bg-amber-500 text-slate-950 border-amber-400 shadow-md scale-105 font-bold";
+                    } else {
+                        baseStyles += "bg-slate-800 text-slate-300 border-slate-700 hover:border-slate-500 hover:text-white";
+                    }
+                } else {
+                    // Estado Revelado
+                    if (isCorrect) {
+                        baseStyles += "bg-emerald-600 text-white border-emerald-400 shadow-lg ring-2 ring-emerald-400/50 scale-105 font-bold";
+                    } else if (isSelected && !isCorrect) {
+                        baseStyles += "bg-rose-950 text-rose-300 border-rose-800 line-through opacity-70";
+                    } else {
+                        baseStyles += "bg-slate-800/40 text-slate-500 border-slate-800 opacity-40";
+                    }
+                }
+
+                chip.className = baseStyles;
+                chip.innerHTML = `${isSelected ? '✓ ' : ''}${pillar}${isRevealed && isCorrect ? ' ⭐' : ''}`;
+                container.appendChild(chip);
+            });
+        }
+
+        function togglePillarSelection(pillar) {
+            if (isRevealed) return;
+            if (selectedPillars.has(pillar)) {
+                selectedPillars.delete(pillar);
+            } else {
+                selectedPillars.add(pillar);
+            }
+            renderPillarSelector();
+        }
+
+        function resetScenarioSelection() {
+            selectedPillars.clear();
+            isRevealed = false;
+            document.getElementById('solution-box').classList.add('hidden');
+            renderPillarSelector();
+        }
+
+        function revealScenarioSolution() {
+            isRevealed = true;
+            renderPillarSelector();
+            document.getElementById('solution-box').classList.remove('hidden');
+        }
+
+        function prevScenario() {
+            const nextIdx = (currentScenarioIdx - 1 + sysadminScenarios.length) % sysadminScenarios.length;
+            loadScenario(nextIdx);
+        }
+
+        function nextScenario() {
+            const nextIdx = (currentScenarioIdx + 1) % sysadminScenarios.length;
+            loadScenario(nextIdx);
+        }
+
+        // Inicialización
+        updateUI();
+        loadScenario(0);
+    </script>
+</body>
+</html>

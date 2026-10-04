@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: La caja de herramientas del sysadmin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tool-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        #tooltip {
+            display: none;
+            position: absolute;
+            z-index: 100;
+            transition: opacity 0.2s;
+        }
+        #add-tool-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: none; /* Initially hidden */
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 200;
+        }
+        #add-tool-modal.visible {
+            display: flex;
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .tool-item {
+            cursor: pointer;
+            position: relative;
+        }
+        #notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, transform 0.5s, visibility 0.5s;
+            z-index: 300;
+        }
+        #notification.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -10px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <main id="infographic-content" class="bg-slate-50 p-6 rounded-lg">
+            <header class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-bold text-slate-900">La caja de herramientas del sysadmin</h1>
+                <p class="text-slate-600 mt-2 max-w-2xl mx-auto">Una selección de herramientas y tecnologías esenciales para la administración de sistemas informáticos, desde la monitorización y automatización hasta la seguridad y recuperación.</p>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Card 1: Monitorización -->
+                <div class="tool-card bg-white rounded-xl shadow-md p-6 flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-cyan-100 p-2 rounded-lg mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-cyan-800">Monitorización</h2>
+                    </div>
+                    <p class="text-slate-600 mb-4 flex-grow">Vigilar la salud, el rendimiento y la seguridad de los sistemas en tiempo real para anticiparse a los problemas.</p>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 mb-2">Ejemplos:</h3>
+                        <ul class="space-y-2 text-sm" data-color-classes="bg-cyan-50 text-cyan-900">
+                            <li class="tool-item bg-cyan-50 text-cyan-900 font-medium px-3 py-1 rounded-full" data-desc="Estándar de la industria para monitorización de infraestructura de TI." data-url="https://www.nagios.org/">Nagios</li>
+                            <li class="tool-item bg-cyan-50 text-cyan-900 font-medium px-3 py-1 rounded-full" data-desc="Solución open source de monitorización de nivel empresarial para redes y aplicaciones." data-url="https://www.zabbix.com/">Zabbix</li>
+                            <li class="tool-item bg-cyan-50 text-cyan-900 font-medium px-3 py-1 rounded-full" data-desc="Plataforma de monitorización y observabilidad basada en un stack de código abierto (Prometheus + Grafana)." data-url="https://prometheus.io/">Prometheus & Grafana</li>
+                            <li class="tool-item bg-cyan-50 text-cyan-900 font-medium px-3 py-1 rounded-full" data-desc="Plataforma para la agregación, búsqueda y visualización de logs. Esencial para la resolución de problemas." data-url="https://www.elastic.co/es/what-is/elk-stack">ELK Stack</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2: Automatización y Orquestación -->
+                <div class="tool-card bg-white rounded-xl shadow-md p-6 flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 p-2 rounded-lg mr-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.096 2.572-1.065z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-purple-800">Automatización</h2>
+                    </div>
+                    <p class="text-slate-600 mb-4 flex-grow">Eliminar tareas manuales y gestionar la configuración de múltiples sistemas de forma centralizada y reproducible (IaC).</p>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 mb-2">Ejemplos:</h3>
+                        <ul class="space-y-2 text-sm" data-color-classes="bg-purple-50 text-purple-900">
+                            <li class="tool-item bg-purple-50 text-purple-900 font-medium px-3 py-1 rounded-full" data-desc="Potente motor de automatización open source, simple y sin agentes." data-url="https://www.ansible.com/">Ansible</li>
+                            <li class="tool-item bg-purple-50 text-purple-900 font-medium px-3 py-1 rounded-full" data-desc="Herramienta de gestión de configuración basada en un modelo declarativo y arquitectura agente/servidor." data-url="https://www.puppet.com/">Puppet</li>
+                            <li class="tool-item bg-purple-50 text-purple-900 font-medium px-3 py-1 rounded-full" data-desc="Utilidad para construir, versionar y desplegar infraestructura de forma segura y eficiente." data-url="https://www.terraform.io/">Terraform</li>
+                            <li class="tool-item bg-purple-50 text-purple-900 font-medium px-3 py-1 rounded-full" data-desc="Framework de Microsoft para la automatización y scripting en línea de comandos." data-url="https://learn.microsoft.com/es-es/powershell/">PowerShell</li>
+                            <li class="tool-item bg-purple-50 text-purple-900 font-medium px-3 py-1 rounded-full" data-desc="Conjunto de herramientas de Microsoft para automatizar el despliegue de sistemas operativos Windows." data-url="https://www.microsoft.com/es-es/download/details.aspx?id=10333">Windows AIK / MDT</li>
+                            <li class="tool-item bg-purple-50 text-purple-900 font-medium px-3 py-1 rounded-full" data-desc="Método de instalación automatizada para sistemas operativos Linux basados en Red Hat." data-url="https://en.wikipedia.org/wiki/Kickstart_(Linux)">Kickstart (Linux)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 3: Gestión de Incidencias e Inventario -->
+                <div class="tool-card bg-white rounded-xl shadow-md p-6 flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-orange-100 p-2 rounded-lg mr-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-orange-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                           </svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-orange-800">Incidencias e inventario</h2>
+                    </div>
+                    <p class="text-slate-600 mb-4 flex-grow">Canalizar peticiones de usuarios y mantener un registro del hardware y software de la organización (ITSM).</p>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 mb-2">Ejemplos:</h3>
+                        <ul class="space-y-2 text-sm" data-color-classes="bg-orange-50 text-orange-900">
+                            <li class="tool-item bg-orange-50 text-orange-900 font-medium px-3 py-1 rounded-full" data-desc="Combinación potente: GLPI para la gestión de incidencias (ITSM) y OCS Inventory para el inventariado automático de hardware y software." data-url="https://glpi-project.org/">GLPI + OCS Inventory</li>
+                            <li class="tool-item bg-orange-50 text-orange-900 font-medium px-3 py-1 rounded-full" data-desc="Herramienta ITSM de Atlassian para la gestión de servicios, incidentes y cambios." data-url="https://www.atlassian.com/es/software/jira/service-management">Jira Service Management</li>
+                            <li class="tool-item bg-orange-50 text-orange-900 font-medium px-3 py-1 rounded-full" data-desc="Herramienta de gestión de proyectos y seguimiento de incidencias, flexible y de código abierto." data-url="https://www.redmine.org/">Redmine</li>
+                             <li class="tool-item bg-orange-50 text-orange-900 font-medium px-3 py-1 rounded-full" data-desc="Plataforma de helpdesk y gestión de tickets en la nube, enfocada en la experiencia del cliente." data-url="https://www.freshworks.com/">Freshdesk</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 4: Acceso Remoto -->
+                <div class="tool-card bg-white rounded-xl shadow-md p-6 flex flex-col">
+                    <div class="flex items-center mb-4">
+                       <div class="bg-indigo-100 p-2 rounded-lg mr-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                       </div>
+                        <h2 class="text-xl font-bold text-indigo-800">Acceso remoto</h2>
+                    </div>
+                    <p class="text-slate-600 mb-4 flex-grow">Administrar sistemas de forma segura desde cualquier ubicación, sin necesidad de acceso físico.</p>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 mb-2">Ejemplos:</h3>
+                        <ul class="space-y-2 text-sm" data-color-classes="bg-indigo-50 text-indigo-900">
+                            <li class="tool-item bg-indigo-50 text-indigo-900 font-medium px-3 py-1 rounded-full" data-desc="Implementación de referencia del protocolo SSH. Es el estándar de facto en sistemas Unix-like." data-url="https://www.openssh.com/">OpenSSH</li>
+                            <li class="tool-item bg-indigo-50 text-indigo-900 font-medium px-3 py-1 rounded-full" data-desc="Popular cliente SSH y Telnet para Windows, ligero y highly configurable." data-url="https://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</li>
+                            <li class="tool-item bg-indigo-50 text-indigo-900 font-medium px-3 py-1 rounded-full" data-desc="Protocolo de Microsoft para conectarse a un escritorio gráfico remoto a través de una red." data-url="https://learn.microsoft.com/es-es/windows-server/remote/remote-desktop-services/welcome-to-rds">RDP</li>
+                             <li class="tool-item bg-indigo-50 text-indigo-900 font-medium px-3 py-1 rounded-full" data-desc="Cliente FTP, FTPS y SFTP multiplataforma, gratuito y de código abierto." data-url="https://filezilla-project.org/">FileZilla</li>
+                             <li class="tool-item bg-indigo-50 text-indigo-900 font-medium px-3 py-1 rounded-full" data-desc="Software de control remoto VNC, robusto y fácil de usar, ideal para soporte técnico." data-url="https://www.uvnc.com/">UltraVNC</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 5: Copias de Seguridad y Recuperación -->
+                <div class="tool-card bg-white rounded-xl shadow-md p-6 flex flex-col">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-2 rounded-lg mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h5V4H4zm0 9v5h5v-5H4zm9-9v5h5V4h-5zm0 9v5h5v-5h-5z" /></svg>
+                        </div>
+                        <h2 class="text-xl font-bold text-green-800">Backup y recuperación</h2>
+                    </div>
+                    <p class="text-slate-600 mb-4 flex-grow">Proteger los datos contra pérdidas y garantizar su restauración rápida y fiable en caso de desastre.</p>
+                    <div>
+                        <h3 class="font-semibold text-slate-800 mb-2">Ejemplos:</h3>
+                        <ul class="space-y-2 text-sm" data-color-classes="bg-green-50 text-green-900">
+                            <li class="tool-item bg-green-50 text-green-900 font-medium px-3 py-1 rounded-full" data-desc="Líder en soluciones de copia de seguridad, recuperación y gestión de datos para entornos modernos." data-url="https://www.veeam.com/es">Veeam</li>
+                            <li class="tool-item bg-green-50 text-green-900 font-medium px-3 py-1 rounded-full" data-desc="Solución de código abierto de nivel empresarial para la gestión de copias de seguridad y recuperación de datos en red." data-url="https://www.bacula.org/">Bacula</li>
+                            <li class="tool-item bg-green-50 text-green-900 font-medium px-3 py-1 rounded-full" data-desc="Fork de código abierto de Bacula que ofrece funcionalidades avanzadas para backup, archivo y recuperación." data-url="https://www.bareos.org/">Bareos</li>
+                            <li class="tool-item bg-green-50 text-green-900 font-medium px-3 py-1 rounded-full" data-desc="Utilidad estándar para transferir y sincronizar archivos de forma incremental entre sistemas." data-url="https://rsync.samba.org/">rsync</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 6: Redes y Seguridad -->
+                 <div class="tool-card bg-white rounded-xl shadow-md p-6 flex flex-col">
+                    <div class="flex items-center mb-4">
+                         <div class="bg-red-100 p-2 rounded-lg mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                         </div>
+                        <h2 class="text-xl font-bold text-red-800">Redes y seguridad</h2>
+                    </div>
+                    <p class="text-slate-600 mb-4 flex-grow">Herramientas para analizar, diagnosticar y securizar la infraestructura de red de la organización.</p>
+                     <div>
+                        <h3 class="font-semibold text-slate-800 mb-2">Ejemplos:</h3>
+                        <ul class="space-y-2 text-sm" data-color-classes="bg-red-50 text-red-900">
+                            <li class="tool-item bg-red-50 text-red-900 font-medium px-3 py-1 rounded-full" data-desc="Potente escáner de red para descubrir hosts y servicios, creando un mapa de la red." data-url="https://nmap.org/">Nmap</li>
+                            <li class="tool-item bg-red-50 text-red-900 font-medium px-3 py-1 rounded-full" data-desc="El analizador de protocolos de red más popular del mundo. Indispensable para troubleshooting." data-url="https://www.wireshark.org/">Wireshark</li>
+                            <li class="tool-item bg-red-50 text-red-900 font-medium px-3 py-1 rounded-full" data-desc="Herramienta de línea de comandos para el diagnóstico de rutas y la medición de la latencia de paquetes." data-url="https://es.wikipedia.org/wiki/Traceroute">Traceroute / tracert</li>
+                            <li class="tool-item bg-red-50 text-red-900 font-medium px-3 py-1 rounded-full" data-desc="Firewall de código abierto con funcionalidades de UTM (Unified Threat Management)." data-url="https://www.pfsense.org/">pfSense</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer id="actions-container" class="mt-8 flex flex-col sm:flex-row items-center justify-center p-6 space-y-4 sm:space-y-0 sm:space-x-4 bg-white rounded-xl shadow-md">
+            <p class="text-slate-600 text-center sm:text-left">¿Falta alguna herramienta? ¡Añádela!</p>
+            <button id="add-tool-btn" class="w-full sm:w-auto bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                Añadir herramienta
+            </button>
+            <button id="download-btn" class="w-full sm:w-auto bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-700 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                   <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Descargar como PNG
+            </button>
+        </footer>
+        <!-- Pie de página académico -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-4">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a>
+                (Profesor Asociado, Depto. Lenguajes y Sistemas Informáticos)
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Add Tool Modal -->
+    <div id="add-tool-modal">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md m-4 transform transition-all" id="modal-content">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">Añadir nueva herramienta</h2>
+            <form id="add-tool-form">
+                <div class="space-y-4">
+                    <div>
+                        <label for="tool-category" class="block text-sm font-medium text-slate-700">Categoría</label>
+                        <select id="tool-category" name="category" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-slate-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <!-- Options will be populated by JS -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="tool-name" class="block text-sm font-medium text-slate-700">Nombre de la herramienta</label>
+                        <input type="text" id="tool-name" name="name" required class="mt-1 block w-full border border-slate-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    <div>
+                        <label for="tool-url" class="block text-sm font-medium text-slate-700">Sitio web (opcional)</label>
+                        <input type="url" id="tool-url" name="url" placeholder="https://ejemplo.com" class="mt-1 block w-full border border-slate-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-end space-x-3">
+                    <button type="button" id="cancel-btn" class="bg-slate-200 text-slate-700 px-4 py-2 rounded-md hover:bg-slate-300 transition">Cancelar</button>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Añadir</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tooltip container -->
+    <div id="tooltip" class="w-64 bg-slate-800 text-white text-sm rounded-lg shadow-lg p-3">
+        <p id="tooltip-desc" class="mb-2"></p>
+        <a id="tooltip-link" href="#" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline font-semibold">Visitar web oficial &rarr;</a>
+    </div>
+
+    <!-- Notification element -->
+    <div id="notification" class="bg-green-500 text-white">¡Herramienta añadida!</div>
+
+    <!-- Flash effect overlay -->
+    <div id="flash-overlay" class="fixed inset-0 bg-white opacity-0 pointer-events-none transition-opacity duration-500 z-[200]"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tooltip = document.getElementById('tooltip');
+            const tooltipDesc = document.getElementById('tooltip-desc');
+            const tooltipLink = document.getElementById('tooltip-link');
+            const addToolModal = document.getElementById('add-tool-modal');
+            const addToolBtn = document.getElementById('add-tool-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const addToolForm = document.getElementById('add-tool-form');
+            const categorySelect = document.getElementById('tool-category');
+            const downloadBtn = document.getElementById('download-btn');
+            const infographicContent = document.getElementById('infographic-content');
+            const flashOverlay = document.getElementById('flash-overlay');
+            const notification = document.getElementById('notification');
+
+            let hideTooltipTimeout;
+            let categories = [];
+
+            // --- Tooltip Logic ---
+            function showTooltip(e) {
+                clearTimeout(hideTooltipTimeout);
+                const desc = e.target.dataset.desc;
+                const url = e.target.dataset.url;
+                if (desc) {
+                    tooltipDesc.textContent = desc;
+                    tooltipLink.href = url || '#';
+                    tooltipLink.style.display = url && url !== '#' ? 'inline-block' : 'none';
+                    tooltip.style.display = 'block';
+
+                    const rect = e.target.getBoundingClientRect();
+                    const tooltipRect = tooltip.getBoundingClientRect();
+
+                    let top = rect.top + window.scrollY - tooltipRect.height - 10;
+                    if (top < window.scrollY) { // Check if tooltip goes off-screen at the top
+                      top = rect.bottom + window.scrollY + 10;
+                    }
+
+                    let left = rect.left + window.scrollX + (rect.width / 2) - (tooltipRect.width / 2);
+                    if (left < 0) left = 5;
+                    if (left + tooltipRect.width > window.innerWidth) left = window.innerWidth - tooltipRect.width - 5;
+
+                    tooltip.style.top = `${top}px`;
+                    tooltip.style.left = `${left}px`;
+                    tooltip.style.opacity = '1';
+                }
+            }
+
+            function hideTooltip() {
+                hideTooltipTimeout = setTimeout(() => {
+                    tooltip.style.opacity = '0';
+                    setTimeout(() => { tooltip.style.display = 'none'; }, 200);
+                }, 100);
+            }
+
+            function attachTooltipEvents(element) {
+                element.addEventListener('mouseenter', showTooltip);
+                element.addEventListener('mouseleave', hideTooltip);
+            }
+
+            document.querySelectorAll('.tool-item').forEach(attachTooltipEvents);
+            tooltip.addEventListener('mouseenter', () => clearTimeout(hideTooltipTimeout));
+            tooltip.addEventListener('mouseleave', hideTooltip);
+
+            function populateCategories() {
+                categories = [];
+                categorySelect.innerHTML = '';
+                document.querySelectorAll('.tool-card').forEach(card => {
+                    const title = card.querySelector('h2').textContent;
+                    const list = card.querySelector('ul');
+                    const colorClasses = list.dataset.colorClasses.split(' ');
+
+                    categories.push({ name: title, listElement: list, colorClasses: colorClasses });
+
+                    const option = document.createElement('option');
+                    option.value = title;
+                    option.textContent = title;
+                    categorySelect.appendChild(option);
+                });
+            }
+
+            function showModal() {
+                addToolModal.classList.add('visible');
+            }
+
+            function hideModal() {
+                addToolModal.classList.remove('visible');
+                addToolForm.reset();
+            }
+
+            addToolBtn.addEventListener('click', showModal);
+            cancelBtn.addEventListener('click', hideModal);
+            addToolModal.addEventListener('click', (e) => {
+                if (e.target === addToolModal) hideModal();
+            });
+
+            addToolForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const selectedCategoryName = categorySelect.value;
+                const toolName = document.getElementById('tool-name').value.trim();
+                const toolUrl = document.getElementById('tool-url').value.trim();
+
+                if (!toolName) {
+                    const toolNameInput = document.getElementById('tool-name');
+                    toolNameInput.classList.add('border-red-500');
+                    toolNameInput.focus();
+                    setTimeout(() => toolNameInput.classList.remove('border-red-500'), 2000);
+                    return;
+                }
+
+                const categoryInfo = categories.find(cat => cat.name === selectedCategoryName);
+                if (categoryInfo) {
+                    const newTool = document.createElement('li');
+                    newTool.classList.add('tool-item', 'font-medium', 'px-3', 'py-1', 'rounded-full', ...categoryInfo.colorClasses);
+                    newTool.textContent = toolName;
+                    newTool.dataset.desc = 'Herramienta añadida en clase.'; // Hardcoded description
+                    if (toolUrl) newTool.dataset.url = toolUrl;
+
+                    attachTooltipEvents(newTool);
+
+                    categoryInfo.listElement.appendChild(newTool);
+                    showNotification(`'${toolName}' añadido a ${selectedCategoryName}!`);
+                }
+
+                hideModal();
+            });
+
+            function showNotification(message) {
+                notification.textContent = message;
+                notification.classList.add('show');
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+
+            downloadBtn.addEventListener('click', () => {
+
+                flashOverlay.style.opacity = '0.75';
+                setTimeout(() => {
+                    flashOverlay.style.opacity = '0';
+                }, 200);
+
+                const actionsContainer = document.getElementById('actions-container');
+                actionsContainer.style.visibility = 'hidden';
+
+                setTimeout(() => {
+                     html2canvas(infographicContent, {
+                        scale: 2,
+                        useCORS: true,
+                        backgroundColor: '#f8fafc' // bg-slate-50
+                    }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.download = 'caja-herramientas-sysadmin.png';
+                        link.href = canvas.toDataURL('image/png');
+                        link.click();
+                        actionsContainer.style.visibility = 'visible';
+                    }).catch(err => {
+                        console.error('Error al generar la imagen:', err);
+                        actionsContainer.style.visibility = 'visible';
+                    });
+                }, 300);
+            });
+
+            // Initial population
+            populateCategories();
+        });
+    </script>
+</body>
+</html>
