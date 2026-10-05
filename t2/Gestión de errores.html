@@ -158,7 +158,7 @@
         <!-- Header -->
         <header class="text-center mb-12">
             <h1 class="text-4xl md:text-6xl font-extrabold text-white">Gestión de <span class="accent-text">Errores</span></h1>
-            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Creando Scripts a Prueba de Fallos</p>
+            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Creando scripts a prueba de fallos</p>
         </header>
 
         <!-- Section 1: Tipos de Errores -->
@@ -188,7 +188,7 @@
                 <svg class="w-10 h-10 accent-text mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <h2 class="text-3xl text-white">El Método Moderno: <code>try</code>, <code>catch</code> y <code>finally</code></h2>
+                <h2 class="text-3xl text-white">El método moderno: <code>try</code>, <code>catch</code> y <code>finally</code></h2>
             </div>
             <p class="text-lg text-slate-300 mb-6">Esta estructura es el estándar profesional para manejar errores de forma controlada. Te permite "intentar" ejecutar un código y tener un "plan B" si algo sale mal.</p>
             <div class="code-block">
@@ -210,12 +210,12 @@
             </div>
              <div class="mt-6 p-4 bg-red-900/30 border border-red-700 rounded-lg">
                 <div>
-                    <p class="font-bold text-red-300 text-lg">La Clave: <code>-ErrorAction Stop</code></p>
+                    <p class="font-bold text-red-300 text-lg">La clave: <code>-ErrorAction Stop</code></p>
                     <p class="text-slate-300 mt-2">El bloque <code>catch</code> solo se activa con errores que detienen la ejecución. Usa <code>-ErrorAction Stop</code> en tus comandos dentro del <code>try</code> para forzar que cualquier error sea tratado como "grave" y active el <code>catch</code>.</p>
                 </div>
                 <hr class="border-red-700 my-4">
                 <div>
-                    <p class="font-bold text-red-300 text-lg">La Regla General: <code>$ErrorActionPreference</code></p>
+                    <p class="font-bold text-red-300 text-lg">La regla general: <code>$ErrorActionPreference</code></p>
                     <p class="text-slate-300 mt-2">Esta variable automática define el comportamiento predeterminado para toda la sesión. Su valor por defecto es <code>Continue</code> (muestra el error y sigue). El parámetro <code>-ErrorAction</code> anula esta regla general para un comando específico.</p>
                 </div>
             </div>
@@ -223,20 +223,20 @@
 
         <!-- Section 3: Comparativa -->
         <section class="section-card">
-            <h2 class="text-3xl text-white text-center mb-6">Comparativa de Métodos de Gestión de errores</h2>
+            <h2 class="text-3xl text-white text-center mb-6">Comparativa de métodos de gestión de errores</h2>
             <div class="space-y-6">
                 <div class="bg-slate-800 p-6 rounded-lg border border-slate-700">
-                    <h3 class="font-bold text-xl accent-text mb-2"><code>if ($?)</code> (El Verificador Básico)</h3>
+                    <h3 class="font-bold text-xl accent-text mb-2"><code>if ($?)</code> (El verificador básico)</h3>
                     <p class="text-slate-300">Comprueba si el <span class="font-bold">último comando</span> tuvo éxito. Es simple y directo.</p>
                     <p class="text-slate-400 mt-2"><strong>Ideal para:</strong> Lógicas simples de "si esto funcionó, haz lo siguiente".</p>
                 </div>
                 <div class="bg-slate-800 p-6 rounded-lg border border-green-700 ring-2 ring-green-500">
-                    <h3 class="font-bold text-xl text-green-400 mb-2"><code>try/catch</code> (El Estándar Profesional - ¡Usa este!)</h3>
+                    <h3 class="font-bold text-xl text-green-400 mb-2"><code>try/catch</code> (El estándar profesional - ¡Usa este!)</h3>
                     <p class="text-slate-300">Permite manejar errores de forma <span class="font-bold">precisa</span> dentro de un bloque de código específico, ofreciendo control total sobre la excepción.</p>
                      <p class="text-slate-400 mt-2"><strong>Ideal para:</strong> Prácticamente todos los scripts. Es la forma más robusta y legible.</p>
                 </div>
                 <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 opacity-60">
-                    <h3 class="font-bold text-xl text-yellow-400 mb-2"><code>trap {}</code> (El Método Obsoleto)</h3>
+                    <h3 class="font-bold text-xl text-yellow-400 mb-2"><code>trap {}</code> (El método obsoleto)</h3>
                     <p class="text-slate-300">Define un "capturador" de errores global para todo un script o función. Es menos preciso y su uso está desaconsejado en código moderno.</p>
                     <p class="text-slate-400 mt-2"><strong>Ideal para:</strong> Entender scripts antiguos. Evitar en código nuevo.</p>
                 </div>
