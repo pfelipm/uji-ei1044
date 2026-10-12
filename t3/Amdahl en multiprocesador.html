@@ -132,12 +132,12 @@
             <!-- Estadísticas -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-6 border-t">
                 <div class="text-center p-4 bg-blue-50 rounded-lg">
-                    <p class="text-sm font-semibold text-blue-800">Aceleración (Speedup)</p>
-                    <p id="acceleration-value" class="stat-value">6.25x</p>
+                    <p class="text-sm font-semibold text-blue-800">Aceleración (<i>speedup</i>)</p>
+                    <p id="acceleration-value" class="stat-value">6,25×</p>
                 </div>
                 <div class="text-center p-4 bg-red-50 rounded-lg">
                     <p class="text-sm font-semibold text-red-800">Límite teórico máximo</p>
-                    <p id="limit-value" class="stat-value">10.00x</p>
+                    <p id="limit-value" class="stat-value">10,00×</p>
                 </div>
             </div>
 
@@ -208,8 +208,10 @@
                 const limit = f_sequential > 0 ? 1 / f_sequential : Infinity;
 
                 // 3. Actualizar estadísticas
-                accelerationValue.textContent = `${acceleration.toFixed(2)}x`;
-                limitValue.textContent = limit === Infinity ? '∞' : `${limit.toFixed(2)}x`;
+                const accStr = acceleration.toFixed(2).replace('.', ',');
+                const limStr = isFinite(limit) ? limit.toFixed(2).replace('.', ',') : '∞';
+                accelerationValue.textContent = `${accStr}×`;
+                limitValue.textContent = `${limStr}${isFinite(limit) ? '×' : ''}`;
 
                 // 4. Actualizar visualizaciones de las barras
                 // Barra original
