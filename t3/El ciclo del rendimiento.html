@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     },
                     title: {
                         display: true,
-                        text: 'Tasa de Abandono por Tiempos de Carga Lentos',
+                        text: 'Tasa de abandono por tiempos de carga lentos',
                         font: { size: 16 }
                     },
                     ...tooltipTitleCallback.plugins
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('systemHealthChart')) {
         const ctx = document.getElementById('systemHealthChart').getContext('2d');
-        const originalLabels = ['Tiempo de Respuesta (R)', 'Productividad (X)', 'Utilización CPU (U)'];
+        const originalLabels = ['Tiempo de respuesta (R)', 'Productividad (X)', 'Utilización CPU (U)'];
         const wrappedLabels = originalLabels.map(l => wrapLabels(l, 16));
         new Chart(ctx, {
             type: 'radar',
@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 labels: wrappedLabels,
                 datasets: [
                     {
-                        label: 'Sistema Sano',
+                        label: 'Sistema sano',
                         data: [20, 85, 30],
                         backgroundColor: 'rgba(0, 160, 176, 0.2)',
                         borderColor: '#00A0B0',
@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         borderWidth: 2
                     },
                     {
-                        label: 'Sistema Estresado',
+                        label: 'Sistema estresado',
                         data: [80, 50, 95],
                         backgroundColor: 'rgba(204, 51, 63, 0.2)',
                         borderColor: '#CC333F',
@@ -338,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 plugins: {
                      title: {
                         display: true,
-                        text: 'Firma de Rendimiento del Sistema',
+                        text: 'Firma de rendimiento del sistema',
                         font: { size: 16 }
                     },
                     ...tooltipTitleCallback.plugins
@@ -383,17 +383,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 maintainAspectRatio: false,
                 scales: {
                     x: {
-                        title: { display: true, text: 'Factor de Mejora del Componente (k)' }
+                        title: { display: true, text: 'Factor de mejora del componente (k)' }
                     },
                     y: {
-                        title: { display: true, text: 'Aceleración Global del Sistema (A)' },
+                        title: { display: true, text: 'Aceleración global del sistema (A)' },
                         beginAtZero: true
                     }
                 },
                 plugins: {
                      title: {
                         display: true,
-                        text: 'Impacto de la Mejora según la Utilización',
+                        text: 'Impacto de la mejora según la utilización',
                         font: { size: 16 }
                     },
                     ...tooltipTitleCallback.plugins
@@ -404,14 +404,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('optimisticLimitsChart')) {
         const ctx = document.getElementById('optimisticLimitsChart').getContext('2d');
-        const originalLabels = ['Sistema Original', 'Sistema con Mejora en Cuello de Botella'];
+        const originalLabels = ['Sistema original', 'Sistema con mejora en cuello de botella'];
         const wrappedLabels = originalLabels.map(l => wrapLabels(l, 16));
         new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: wrappedLabels,
                 datasets: [{
-                    label: 'Productividad Máxima (transacciones/s)',
+                    label: 'Productividad máxima (transacciones/s)',
                     data: [120, 250],
                     backgroundColor: ['#EB6841', '#00A0B0'],
                     borderColor: ['#CC333F', '#6A4A3C'],
@@ -430,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 plugins: {
                      title: {
                         display: true,
-                        text: 'Aumento de Capacidad Teórica',
+                        text: 'Aumento de capacidad teórica',
                         font: { size: 16 }
                     },
                     legend: {
@@ -447,15 +447,15 @@ document.addEventListener('DOMContentLoaded', function () {
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['Coste (€)', 'Mejora de Rendimiento (%)'],
+                labels: ['Coste (€)', 'Mejora de rendimiento (%)'],
                 datasets: [
                     {
-                        label: 'Opción A: Mejorar CPU (No es cuello de botella)',
+                        label: 'Opción A: mejorar CPU (no es cuello de botella)',
                         data: [1500, 5],
                         backgroundColor: '#EB6841',
                     },
                     {
-                        label: 'Opción B: Mejorar Disco (Sí es cuello de botella)',
+                        label: 'Opción B: mejorar disco (sí es cuello de botella)',
                         data: [800, 40],
                         backgroundColor: '#00A0B0',
                     }
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
                  plugins: {
                      title: {
                         display: true,
-                        text: 'Análisis Coste/Beneficio de Actualización',
+                        text: 'Análisis coste/beneficio de actualización',
                         font: { size: 16 }
                     },
                     ...tooltipTitleCallback.plugins
