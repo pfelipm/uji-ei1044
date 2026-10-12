@@ -40,15 +40,89 @@
 
     <!-- Contenedor principal de la infografía -->
     <div class="w-full max-w-5xl bg-white rounded-xl shadow-2xl overflow-hidden">
-        <div class="p-8 sm:p-10">
+        <div class="p-6 sm:p-10">
             <!-- Cabecera -->
             <header class="text-center border-b border-slate-200 pb-6 mb-8">
-                <h1 class="text-3xl sm:text-4xl font-bold text-slate-800">Amdahl vs. Gustafson</h1>
-                <p class="mt-2 text-lg text-slate-500">Dos perspectivas clave sobre el rendimiento en computación paralela</p>
+                <h1 class="text-3xl sm:text-4xl font-black text-slate-800">Amdahl vs. Gustafson</h1>
+                <p class="mt-2 text-base sm:text-lg text-slate-600">Dos perspectivas complementarias sobre el rendimiento en computación paralela</p>
             </header>
 
-            <!-- Tabla Comparativa -->
-            <div class="overflow-x-auto">
+            <!-- Las dos visiones filosóficas enfrentadas -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-blue-50/70 p-6 rounded-2xl border border-blue-200">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-xs font-bold text-blue-700 uppercase tracking-wider bg-blue-100 px-2 py-0.5 rounded">Ley de Amdahl (1967)</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-blue-900 mb-2">Perspectiva de aceleración (<i>strong scaling</i>)</h2>
+                    <p class="text-2xl font-black text-blue-800 my-2">«¿Cuánto más rápido resuelvo el mismo problema?»</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        La carga de trabajo se mantiene <strong>fija</strong>. Añadir más núcleos reduce el tiempo, pero la fracción estrictamente secuencial (<i>s</i>) impone un muro asintótico infranqueable: <strong><i>S</i><sub>max</sub> = 1 / <i>s</i></strong>.
+                    </p>
+                </div>
+
+                <div class="bg-emerald-50/70 p-6 rounded-2xl border border-emerald-200">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="text-xs font-bold text-emerald-700 uppercase tracking-wider bg-emerald-100 px-2 py-0.5 rounded">Ley de Gustafson (1988)</span>
+                    </div>
+                    <h2 class="text-xl font-bold text-emerald-900 mb-2">Perspectiva de capacidad (<i>weak scaling</i>)</h2>
+                    <p class="text-2xl font-black text-emerald-800 my-2">«¿Cuánto más trabajo proceso en el mismo tiempo?»</p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        El tiempo disponible se mantiene <strong>fijo</strong>. Con más núcleos aumentamos el tamaño y la resolución del problema. La fracción secuencial se diluye y la aceleración crece casi de forma lineal: <strong><i>S</i> = <i>s</i> + <i>p</i>(1 &minus; <i>s</i>)</strong>.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Comparador interactivo: ¿Qué predice cada ley con p núcleos? -->
+            <div class="bg-slate-900 text-white p-6 sm:p-8 rounded-2xl mb-10 shadow-lg border border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+                    <div>
+                        <h3 class="text-xl sm:text-2xl font-bold text-white">Laboratorio interactivo: el abismo entre ambas leyes</h3>
+                        <p class="text-slate-400 text-sm mt-1">Con una fracción secuencial fija del 10% (<i>s</i> = 0,10), observa cómo diverge la aceleración predicha.</p>
+                    </div>
+                    <div class="flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-xl border border-slate-700">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Núcleos (<i>p</i>):</span>
+                        <span id="display-p" class="font-mono text-2xl font-black text-amber-400">16</span>
+                    </div>
+                </div>
+
+                <!-- Slider interactivo -->
+                <div class="py-6 border-b border-slate-800">
+                    <input id="slider-cores" type="range" min="1" max="128" value="16" step="1" 
+                           class="w-full h-3 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-400"
+                           oninput="updateCoresComparison()">
+                    <div class="flex justify-between text-xs font-semibold text-slate-400 mt-2">
+                        <span>1 núcleo</span>
+                        <span>16 núcleos</span>
+                        <span>32 núcleos</span>
+                        <span>64 núcleos</span>
+                        <span>128 núcleos</span>
+                    </div>
+                </div>
+
+                <!-- Resultados comparados en paralelo -->
+                <div class="grid md:grid-cols-2 gap-6 pt-6 text-center">
+                    <div class="p-5 rounded-xl bg-blue-950/60 border border-blue-800/80">
+                        <p class="text-xs font-bold uppercase tracking-wider text-blue-300">Aceleración según Amdahl (<i>strong scaling</i>)</p>
+                        <p id="res-amdahl" class="text-5xl sm:text-6xl font-black text-blue-400 my-2">6,40×</p>
+                        <p class="text-xs text-slate-300">Techo asintótico infranqueable: <strong>10,00×</strong> ($1 / 0,10$)</p>
+                        <div class="w-full bg-slate-800 h-2.5 rounded-full mt-3 overflow-hidden">
+                            <div id="bar-amdahl" class="bg-blue-500 h-full rounded-full transition-all" style="width: 64%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-xl bg-emerald-950/60 border border-emerald-800/80">
+                        <p class="text-xs font-bold uppercase tracking-wider text-emerald-300">Aceleración según Gustafson (<i>weak scaling</i>)</p>
+                        <p id="res-gustafson" class="text-5xl sm:text-6xl font-black text-emerald-400 my-2">14,50×</p>
+                        <p class="text-xs text-slate-300">Escalado continuo sin techo fijo: <strong>casi lineal</strong></p>
+                        <div class="w-full bg-slate-800 h-2.5 rounded-full mt-3 overflow-hidden">
+                            <div id="bar-gustafson" class="bg-emerald-500 h-full rounded-full transition-all" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla comparativa -->
+            <div class="overflow-x-auto mb-8">
                 <table class="w-full text-sm sm:text-base border-collapse">
                     <thead>
                         <tr class="bg-slate-50">
@@ -64,73 +138,73 @@
                             <td class="table-cell text-slate-700"><strong>Tiempo de ejecución fijo</strong></td>
                         </tr>
                         <tr>
-                            <td class="table-cell font-medium text-slate-600">Pregunta Clave</td>
+                            <td class="table-cell font-medium text-slate-600">Pregunta clave</td>
                             <td class="table-cell text-slate-700">¿Cuánto más rápido puedo resolver <em>este</em> problema?</td>
                             <td class="table-cell text-slate-700">¿Cuánto problema <em>más grande</em> puedo resolver en el mismo tiempo?</td>
                         </tr>
                         <tr>
-                            <td class="table-cell font-medium text-slate-600">Variable Principal</td>
+                            <td class="table-cell font-medium text-slate-600">Variable principal</td>
                             <td class="table-cell text-slate-700">El tiempo de ejecución se reduce.</td>
                             <td class="table-cell text-slate-700">El tamaño del problema crece.</td>
                         </tr>
                         <tr>
-                            <td class="table-cell font-medium text-slate-600">Cuello de Botella</td>
+                            <td class="table-cell font-medium text-slate-600">Cuello de botella</td>
                             <td class="table-cell text-slate-700">La porción <strong>serie (secuencial)</strong> del código es un límite estricto.</td>
                             <td class="table-cell text-slate-700">La porción serie es solo una pequeña penalización que no limita el crecimiento.</td>
                         </tr>
                          <tr>
-                            <td class="table-cell font-medium text-slate-600">Modelo de Escalado</td>
-                            <td class="table-cell text-slate-700"><span class="font-semibold text-blue-700">Strong Scaling</span> (Escalado Fuerte)</td>
-                            <td class="table-cell text-slate-700"><span class="font-semibold text-emerald-700">Weak Scaling</span> (Escalado Débil)</td>
+                            <td class="table-cell font-medium text-slate-600">Modelo de escalado</td>
+                            <td class="table-cell text-slate-700"><span class="font-semibold text-blue-700">Strong scaling</span> (escalado fuerte)</td>
+                            <td class="table-cell text-slate-700"><span class="font-semibold text-emerald-700">Weak scaling</span> (escalado débil)</td>
                         </tr>
                         <tr>
-                            <td class="table-cell font-medium text-slate-600">Límite Teórico</td>
-                            <td class="table-cell text-slate-700">La aceleración está limitada por <code class="bg-slate-200 px-1 rounded">1/s</code>, donde 's' es la fracción serie.</td>
-                            <td class="table-cell text-slate-700">La aceleración es casi lineal al número de procesadores.</td>
+                            <td class="table-cell font-medium text-slate-600">Límite teórico</td>
+                            <td class="table-cell text-slate-700">La aceleración está limitada asintóticamente por <code class="bg-slate-200 px-1 rounded">1/s</code>, donde <i>s</i> es la fracción serie.</td>
+                            <td class="table-cell text-slate-700">La aceleración es casi lineal respecto al número de procesadores: <code class="bg-slate-200 px-1 rounded">s + p(1 - s)</code>.</td>
                         </tr>
                         <tr>
-                            <td class="table-cell font-medium text-slate-600">Analogía</td>
-                            <td class="table-cell text-slate-700">8 cocineros haciendo <strong>una</strong> pizza. El límite es el único horno (la parte serie).</td>
-                            <td class="table-cell text-slate-700">8 cocineros haciendo <strong>ocho</strong> pizzas. Usan 8 hornos y hacen 8 veces más trabajo.</td>
+                            <td class="table-cell font-medium text-slate-600">Analogía cotidiana</td>
+                            <td class="table-cell text-slate-700">8 cocineros preparando <strong>una</strong> pizza. El cuello de botella es el único horno (la parte serie: hornear la masa).</td>
+                            <td class="table-cell text-slate-700">8 cocineros horneando <strong>ocho</strong> pizzas a la vez. Multiplican por ocho el trabajo terminado en el mismo tiempo.</td>
                         </tr>
                         <tr class="bg-slate-50">
-                            <td class="table-cell font-medium text-slate-600">Aplicación Típica</td>
-                            <td class="table-cell text-slate-700">Informática de propósito general, acelerar tareas con una fuerte componente secuencial (ej. GUI, I/O).</td>
-                            <td class="table-cell text-slate-700">Computación de Alto Rendimiento (HPC), Big Data, simulaciones científicas (más procesadores = más precisión/datos).</td>
+                            <td class="table-cell font-medium text-slate-600">Aplicación típica</td>
+                            <td class="table-cell text-slate-700">Informática de propósito general, bases de datos transaccionales (OLTP), acelerar tareas con fuerte componente secuencial o latencia interactiva (GUI, I/O).</td>
+                            <td class="table-cell text-slate-700">Computación de alto rendimiento (HPC), Big Data, entrenamiento de IA y simulaciones científicas masivas (más procesadores = mayor resolución/precisión de datos).</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <!-- Sección Desplegable del Caso Práctico -->
-            <div class="mt-8 border-t border-slate-200 pt-6">
+            <div class="border-t border-slate-200 pt-6">
                 <button id="toggleButton" class="w-full flex justify-between items-center text-left p-4 rounded-lg bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
-                    <span class="text-lg font-semibold text-slate-800">Caso práctico: debate de adquisición en la UJI</span>
+                    <span class="text-lg font-semibold text-slate-800">Caso práctico: debate de adquisición de infraestructura en la UJI</span>
                     <svg id="toggleIcon" class="w-6 h-6 text-slate-600 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </button>
                 <div id="collapsibleContent" class="collapsible-content">
                     <div class="mt-4 p-6 bg-slate-50 rounded-lg text-slate-700 space-y-4">
                         <p class="font-medium">Escenario:</p>
-                        <p>Somos el departamento de TI de la Universitat Jaume I y tenemos presupuesto para un nuevo servidor. Debemos elegir la opción que ofrezca el mejor retorno de la inversión para nuestras necesidades.</p>
+                        <p>Imagina que dispones de un presupuesto de <strong>50.000 €</strong> para renovar servidores departamentales en la Universitat Jaume I. Debemos elegir la opción con mejor retorno de la inversión según las cargas previstas:</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
                             <div class="bg-white p-4 rounded-lg border border-blue-200">
-                                <h3 class="font-bold text-blue-800">Opción A: "El Multitarea"</h3>
-                                <p class="mt-1">Un servidor con <strong>64 núcleos</strong> a una frecuencia modesta de <strong>2.0 GHz</strong>.</p>
+                                <h3 class="font-bold text-blue-800">Opción A: «El maratoniano multitarea»</h3>
+                                <p class="mt-1">Un servidor con <strong>64 núcleos</strong> a una frecuencia modesta de <strong>2,2 GHz</strong> (gran paralelismo agregado, menor velocidad monohilo).</p>
                             </div>
                              <div class="bg-white p-4 rounded-lg border border-emerald-200">
-                                <h3 class="font-bold text-emerald-800">Opción B: "El Velocista"</h3>
-                                <p class="mt-1">Un servidor con <strong>16 núcleos</strong> a una frecuencia muy alta de <strong>4.5 GHz</strong>.</p>
+                                <h3 class="font-bold text-emerald-800">Opción B: «El velocista»</h3>
+                                <p class="mt-1">Un servidor con <strong>8 núcleos</strong> a una frecuencia muy alta de <strong>5,0 GHz</strong> y máxima memoria caché L3 por núcleo (excelente rendimiento monohilo y baja latencia).</p>
                             </div>
                         </div>
-                        <p class="font-medium pt-4">Preguntas para el debate:</p>
+                        <p class="font-medium pt-4">Preguntas para el debate guiado:</p>
                         <ul class="list-disc list-outside pl-5 space-y-2">
-                            <li>¿Qué ley (Amdahl o Gustafson) justifica mejor una u otra compra si el servidor va a alojar el <strong>Aula Virtual</strong> (miles de peticiones PHP pequeñas y concurrentes, pero limitadas por I/O y partes de código serie)?</li>
-                            <li>¿Y si el objetivo principal fuera dar servicio al <strong>clúster de supercomputación</strong> del departamento de Química para ejecutar simulaciones masivas que pueden escalar en precisión y tamaño de datos?</li>
-                            <li><strong>Conclusión:</strong> ¿Qué opción elegiríais y por qué? Argumentad vuestra decisión basándoos en los conceptos de "Strong Scaling" vs. "Weak Scaling".</li>
+                            <li>¿Qué ley (Amdahl o Gustafson) justifica mejor una u otra compra si el servidor va a alojar el <strong>Aula Virtual / ERP</strong> (miles de peticiones web transaccionales, consultas SQL secuenciales y bloqueos de disco/red)?</li>
+                            <li>¿Y si el objetivo fuera dar servicio al <strong>clúster de supercomputación e IA</strong> de los grupos de investigación (simulaciones moleculares o entrenamiento de modelos que escalan con el tamaño de los datos)?</li>
+                            <li><strong>Conclusión de ingeniería:</strong> ¿Qué opción elegiríais en cada caso? Argumentad vuestra decisión basándoos en los conceptos de <i>strong scaling</i> frente a <i>weak scaling</i>.</li>
                         </ul>
                         <!-- Botón para abrir el modal -->
                         <div class="text-center mt-6">
-                            <button id="openModalButton" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                            <button id="openModalButton" class="bg-blue-600 text-white font-bold py-2.5 px-6 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 shadow-sm">
                                 Ver solución razonada
                             </button>
                         </div>
@@ -149,18 +223,18 @@
             </div>
             <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
                 <div>
-                    <h3 class="font-semibold text-lg text-slate-700">1. Servidor para el Aula Virtual</h3>
-                    <p class="mt-2 text-slate-600">Este es un problema de <strong>Amdahl</strong>. La carga de trabajo (atender una petición web) tiene un tamaño fijo y una parte secuencial importante (acceso a base de datos, I/O de disco). El objetivo es reducir la latencia de cada petición individual. Aquí, la velocidad del núcleo es crítica.</p>
-                    <p class="mt-2 text-blue-800 font-semibold bg-blue-50 p-3 rounded-md">La elección correcta es la <strong>Opción B: "El Velocista"</strong>. Sus núcleos de 4.5 GHz procesarán cada tarea secuencial mucho más rápido, lo que resulta en una mejor experiencia para el usuario, aunque tenga menos núcleos. Se rige por el "Strong Scaling".</p>
+                    <h3 class="font-semibold text-lg text-slate-700">1. Servidor para el Aula Virtual y sistemas de gestión (ERP / base de datos)</h3>
+                    <p class="mt-2 text-slate-600">Este es un problema gobernado por la <strong>ley de Amdahl</strong>. Cada petición web transaccional y cada consulta SQL tiene una carga fija con una fracción secuencial crítica (bloqueos de concurrencia, acceso a disco, serialización de transacciones). El objetivo es minimizar la latencia de cada petición individual. Aquí la potencia y frecuencia por núcleo es determinante.</p>
+                    <p class="mt-2 text-blue-800 font-semibold bg-blue-50 p-3 rounded-md">La elección adecuada es la <strong>opción B: «El velocista»</strong> (8 núcleos a 5,0 GHz). Procesará la fracción secuencial mucho más rápido y evitará cuellos de botella de latencia, ofreciendo una experiencia ágil a miles de usuarios concurrentes. Se rige por el modelo de <i>strong scaling</i>.</p>
                 </div>
                  <div>
-                    <h3 class="font-semibold text-lg text-slate-700">2. Servidor para el clúster de supercomputación (HPC)</h3>
-                    <p class="mt-2 text-slate-600">Este es un problema de <strong>Gustafson</strong>. Las simulaciones científicas son altamente paralelizables. Con más núcleos, los investigadores no buscan hacer la misma simulación más rápido, sino hacer una simulación *más grande* o *más precisa* en el mismo tiempo. El tamaño del problema escala con los recursos.</p>
-                    <p class="mt-2 text-emerald-800 font-semibold bg-emerald-50 p-3 rounded-md">La elección correcta es la <strong>Opción A: "El Multitarea"</strong>. Los 64 núcleos, aunque más lentos individualmente, ofrecen una capacidad de procesamiento paralelo masiva. Permite resolver problemas mucho mayores, lo cual es el objetivo en HPC. Se rige por el "Weak Scaling".</p>
+                    <h3 class="font-semibold text-lg text-slate-700">2. Servidor para el clúster de supercomputación (HPC) e inteligencia artificial</h3>
+                    <p class="mt-2 text-slate-600">Este es un problema regido por la <strong>ley de Gustafson</strong>. Las simulaciones de dinámica molecular, cálculo matricial y entrenamiento de IA son masivamente paralelizables. Al disponer de más procesadores, los investigadores no buscan resolver la misma simulación en menos segundos, sino ejecutar modelos con mayor resolución espacial, más partículas o más parámetros en el mismo tiempo disponible de cálculo.</p>
+                    <p class="mt-2 text-emerald-800 font-semibold bg-emerald-50 p-3 rounded-md">La elección adecuada es la <strong>opción A: «El maratoniano multitarea»</strong> (64 núcleos a 2,2 GHz). Aunque la frecuencia individual sea menor, la potencia agregada paralela es colosal. Permite abordar problemas de una magnitud inalcanzable para la otra máquina. Se rige por el modelo de <i>weak scaling</i>.</p>
                 </div>
                  <div>
-                    <h3 class="font-semibold text-lg text-slate-700">3. Conclusión final</h3>
-                    <p class="mt-2 text-slate-600">No existe un "mejor servidor" universal. La elección depende radicalmente de la naturaleza de la carga de trabajo. Como administradores de sistemas, es crucial analizar el problema antes de adquirir hardware. Para tareas empresariales típicas (web, bases de datos), la velocidad de un solo hilo (Amdahl) sigue siendo reina. Para la computación científica y el Big Data, el número de núcleos (Gustafson) es el rey.</p>
+                    <h3 class="font-semibold text-lg text-slate-700">3. Conclusión de ingeniería y gobernanza TI</h3>
+                    <p class="mt-2 text-slate-600">No existe el «servidor perfecto» en abstracto. La decisión de inversión depende íntegramente del perfil de carga del software. Como administradores de sistemas e ingenieros informáticos, el primer paso es siempre medir y caracterizar la fracción secuencial de la carga de trabajo antes de firmar la compra de infraestructura.</p>
                 </div>
             </div>
              <div class="p-4 bg-slate-50 text-right rounded-b-xl">
@@ -190,6 +264,34 @@
     </footer>
 
     <script>
+        // Lógica del laboratorio interactivo de núcleos Amdahl vs. Gustafson
+        function updateCoresComparison() {
+            const p = parseInt(document.getElementById('slider-cores').value);
+            document.getElementById('display-p').textContent = p;
+
+            const s = 0.10; // 10% secuencial
+            const f = 0.90; // 90% paralelizable
+
+            // Amdahl: S = 1 / (s + f / p)
+            const sAmdahl = 1 / (s + (f / p));
+            // Gustafson: S = s + p * f
+            const sGustafson = s + (p * f);
+
+            const amdahlStr = sAmdahl.toFixed(2).replace('.', ',');
+            const gustafsonStr = sGustafson.toFixed(2).replace('.', ',');
+
+            document.getElementById('res-amdahl').textContent = `${amdahlStr}×`;
+            document.getElementById('res-gustafson').textContent = `${gustafsonStr}×`;
+
+            // Anchura de barras (normalizada para visualización)
+            const maxRef = 128 * 0.90 + 0.10; // ~115.3
+            const pctAmdahl = Math.min((sAmdahl / 10) * 100, 100);
+            const pctGustafson = Math.min((sGustafson / maxRef) * 100, 100);
+
+            document.getElementById('bar-amdahl').style.width = `${pctAmdahl}%`;
+            document.getElementById('bar-gustafson').style.width = `${pctGustafson}%`;
+        }
+
         // Lógica para la sección desplegable principal
         const toggleButton = document.getElementById('toggleButton');
         const collapsibleContent = document.getElementById('collapsibleContent');
