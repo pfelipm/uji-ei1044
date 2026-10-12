@@ -81,11 +81,11 @@
                         <span class="text-sm font-bold text-slate-500">Componente</span>
                     </div>
                     <div class="w-full md:w-1/2">
-                        <span class="text-sm font-bold text-slate-500">Tiempo de Uso (%)</span>
+                        <span class="text-sm font-bold text-slate-500">Tiempo de uso (%)</span>
                     </div>
                     <div class="w-full md:w-1/4 flex items-center justify-center gap-6">
                          <span class="text-sm font-bold text-slate-500 w-16 text-center">Mejorar</span>
-                         <span class="text-sm font-bold text-slate-500 w-24 text-center">Factor (k)</span>
+                         <span class="text-sm font-bold text-slate-500 w-24 text-center">Factor (<i>k</i>)</span>
                     </div>
                     <div class="w-12"></div> <!-- Espacio para el botón de eliminar -->
                 </div>
@@ -102,18 +102,57 @@
                  <h2 class="text-2xl font-bold text-slate-800 text-center">3. Resultados del análisis</h2>
                  <div class="grid md:grid-cols-2 gap-8 mt-6">
                     <div class="result-card text-white p-8 rounded-2xl text-center">
-                        <h3 class="text-2xl font-bold opacity-80">Aceleración (Speedup)</h3>
-                        <p id="speedup-result" class="text-7xl font-black mt-2">1.00x</p>
-                        <p class="mt-2 opacity-70">El sistema es X veces más rápido con las mejoras aplicadas.</p>
+                        <h3 class="text-2xl font-bold opacity-80">Aceleración global (<i>speedup</i>)</h3>
+                        <p id="speedup-result" class="text-7xl font-black mt-2">1,00×</p>
+                        <p id="speedup-gain-text" class="mt-2 text-sm opacity-90 font-medium">El sistema es 1,00 veces más rápido con las mejoras aplicadas.</p>
                     </div>
                     <div class="bg-slate-700 text-white p-8 rounded-2xl text-center">
-                        <h3 class="text-2xl font-bold opacity-80">Límite teórico</h3>
+                        <h3 class="text-2xl font-bold opacity-80">Límite teórico asintótico</h3>
                         <p id="limit-result" class="text-7xl font-black mt-2">∞</p>
-                        <p class="mt-2 opacity-70">La máxima aceleración posible si la mejora fuera infinita.</p>
+                        <p id="limit-desc-text" class="mt-2 text-sm opacity-90 font-medium">La máxima aceleración posible si todas las mejoras seleccionadas fueran infinitas.</p>
                     </div>
                  </div>
-                 <div class="mt-6 p-4 bg-blue-50 text-blue-800 rounded-lg text-center">
-                    <p><strong>Fórmula Aplicada:</strong> A = 1 / ((1 - Σf<sub class="italic">mejorada</sub>) + Σ(f<sub class="italic">mejorada</sub>/kᵢ))</p>
+
+                 <!-- Gráfico comparativo de barras apiladas: Antes vs. Después -->
+                 <div class="mt-8 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                         <div>
+                             <h3 class="text-lg font-bold text-slate-800">Desglose de tiempo de ejecución: antes vs. después</h3>
+                             <p class="text-xs sm:text-sm text-slate-500">Comprueba visualmente cómo se contrae cada componente y el impacto del tiempo residual no mejorable.</p>
+                         </div>
+                         <div id="chart-legend" class="flex flex-wrap items-center gap-3 text-xs font-semibold">
+                             <!-- Leyenda dinámica de colores generada por JS -->
+                         </div>
+                     </div>
+
+                     <!-- Barras apiladas -->
+                     <div class="space-y-4">
+                         <div>
+                             <div class="flex justify-between text-xs sm:text-sm font-semibold text-slate-600 mb-1.5">
+                                 <span>Tiempo original de referencia</span>
+                                 <span class="font-mono font-bold">100,0% (1,00 T)</span>
+                             </div>
+                             <div id="bar-original" class="w-full h-8 bg-slate-200 rounded-lg overflow-hidden flex shadow-inner">
+                                 <!-- Segmentos apilados originales -->
+                             </div>
+                         </div>
+
+                         <div>
+                             <div class="flex justify-between text-xs sm:text-sm font-semibold text-slate-600 mb-1.5">
+                                 <span>Tiempo acelerado con mejoras</span>
+                                 <span id="label-improved-time" class="font-mono font-bold text-indigo-700">100,0% (1,00 T)</span>
+                             </div>
+                             <div class="w-full bg-slate-200/50 rounded-lg overflow-hidden h-8">
+                                 <div id="bar-improved-container" class="h-full flex transition-all duration-300">
+                                     <!-- Segmentos apilados acelerados -->
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div class="mt-6 p-4 bg-blue-50 text-blue-900 rounded-xl border border-blue-200 text-center">
+                    <p class="text-sm sm:text-base font-mono"><strong>Fórmula aplicada:</strong> <i>A</i> = 1 / ((1 - &Sigma;<i>f</i><sub>mejorada</sub>) + &Sigma;(<i>f</i><sub>mejorada</sub> / <i>k</i><sub>i</sub>))</p>
                  </div>
             </div>
         </main>
@@ -241,15 +280,117 @@ document.addEventListener('DOMContentLoaded', () => {
         const unimprovedFractionTotal = 1 - sumFImproved;
         const speedup = 1 / (unimprovedFractionTotal + sumFOverK);
         const limit = 1 / unimprovedFractionTotal;
+
+        const speedupStr = speedup.toFixed(2).replace('.', ',');
+        const limitStr = isFinite(limit) ? limit.toFixed(2).replace('.', ',') : '∞';
         
-        speedupResult.textContent = `${speedup.toFixed(2)}x`;
-        limitResult.textContent = isFinite(limit) ? `${limit.toFixed(2)}x` : `∞`;
+        speedupResult.textContent = `${speedupStr}×`;
+        limitResult.textContent = isFinite(limit) ? `${limitStr}×` : `∞`;
+
+        document.getElementById('speedup-gain-text').textContent = `El sistema es ${speedupStr} veces más rápido con las mejoras aplicadas.`;
+        if (isFinite(limit)) {
+            document.getElementById('limit-desc-text').textContent = `Techo insuperable de ${limitStr}× si todos los componentes seleccionados tuvieran aceleración infinita.`;
+        } else {
+            document.getElementById('limit-desc-text').textContent = `La máxima aceleración posible si todas las mejoras seleccionadas fueran infinitas.`;
+        }
+
+        renderStackedBars(components, unimprovedFractionTotal, sumFOverK);
+    };
+
+    // Paleta de colores atractiva para componentes
+    const palette = [
+        { bg: 'bg-blue-500', hex: '#3b82f6', text: 'text-blue-700' },
+        { bg: 'bg-emerald-500', hex: '#10b981', text: 'text-emerald-700' },
+        { bg: 'bg-amber-500', hex: '#f59e0b', text: 'text-amber-700' },
+        { bg: 'bg-purple-500', hex: '#a855f7', text: 'text-purple-700' },
+        { bg: 'bg-cyan-500', hex: '#06b6d4', text: 'text-cyan-700' },
+        { bg: 'bg-rose-500', hex: '#f43f5e', text: 'text-rose-700' }
+    ];
+
+    const renderStackedBars = (comps, unimprovedFrac, improvedFracTotal) => {
+        const barOrig = document.getElementById('bar-original');
+        const barImpCont = document.getElementById('bar-improved-container');
+        const legend = document.getElementById('chart-legend');
+
+        barOrig.innerHTML = '';
+        barImpCont.innerHTML = '';
+        legend.innerHTML = '';
+
+        let assignedTotal = 0;
+
+        comps.forEach((comp, idx) => {
+            const color = palette[idx % palette.length];
+            assignedTotal += comp.fraction;
+
+            // Leyenda
+            const legItem = document.createElement('div');
+            legItem.className = 'flex items-center gap-1.5';
+            legItem.innerHTML = `<span class="w-3 h-3 rounded-full ${color.bg} inline-block"></span> <span>${comp.name}</span>`;
+            legend.appendChild(legItem);
+
+            // Barra original
+            if (comp.fraction > 0) {
+                const segOrig = document.createElement('div');
+                segOrig.className = `${color.bg} h-full flex items-center justify-center text-white text-[11px] font-bold overflow-hidden transition-all`;
+                segOrig.style.width = `${comp.fraction}%`;
+                segOrig.title = `${comp.name}: ${comp.fraction}% del tiempo`;
+                if (comp.fraction >= 8) {
+                    segOrig.textContent = `${comp.name} (${comp.fraction}%)`;
+                }
+                barOrig.appendChild(segOrig);
+            }
+
+            // Barra acelerada (fracción nueva relativa al tiempo total original)
+            if (comp.fraction > 0) {
+                const effectiveFrac = comp.isImproved ? (comp.fraction / comp.improvementFactor) : comp.fraction;
+                const segImp = document.createElement('div');
+                segImp.className = `${color.bg} h-full flex items-center justify-center text-white text-[11px] font-bold overflow-hidden transition-all ${comp.isImproved ? 'opacity-90' : 'opacity-70'}`;
+                segImp.style.width = `${effectiveFrac}%`;
+                segImp.title = `${comp.name} acelerado: ${effectiveFrac.toFixed(1)}%`;
+                if (effectiveFrac >= 8) {
+                    segImp.textContent = `${comp.name} (${effectiveFrac.toFixed(1)}%)`;
+                }
+                barImpCont.appendChild(segImp);
+            }
+        });
+
+        // Porción no asignada o resto del sistema
+        const remainder = Math.max(0, 100 - assignedTotal);
+        if (remainder > 0) {
+            // Leyenda
+            const legResto = document.createElement('div');
+            legResto.className = 'flex items-center gap-1.5 text-slate-500';
+            legResto.innerHTML = `<span class="w-3 h-3 rounded-full bg-slate-400 inline-block"></span> <span>Resto / No asignado</span>`;
+            legend.appendChild(legResto);
+
+            const segRestoOrig = document.createElement('div');
+            segRestoOrig.className = 'bg-slate-300 h-full flex items-center justify-center text-slate-700 text-[11px] font-semibold overflow-hidden';
+            segRestoOrig.style.width = `${remainder}%`;
+            segRestoOrig.title = `Resto del sistema: ${remainder}%`;
+            if (remainder >= 8) segRestoOrig.textContent = `Resto (${remainder}%)`;
+            barOrig.appendChild(segRestoOrig);
+
+            const segRestoImp = document.createElement('div');
+            segRestoImp.className = 'bg-slate-300 h-full flex items-center justify-center text-slate-700 text-[11px] font-semibold overflow-hidden';
+            segRestoImp.style.width = `${remainder}%`;
+            segRestoImp.title = `Resto del sistema: ${remainder}%`;
+            if (remainder >= 8) segRestoImp.textContent = `Resto (${remainder}%)`;
+            barImpCont.appendChild(segRestoImp);
+        }
+
+        // Ajustar ancho del contenedor mejorado en relación al 100% original
+        const newTotalFrac = (unimprovedFrac + improvedFracTotal) * 100;
+        barImpCont.style.width = `${Math.min(newTotalFrac, 100)}%`;
+
+        const newTotalStr = newTotalFrac.toFixed(1).replace('.', ',');
+        const newRatioStr = (newTotalFrac / 100).toFixed(2).replace('.', ',');
+        document.getElementById('label-improved-time').textContent = `${newTotalStr}% (${newRatioStr} T)`;
     };
 
     addComponentBtn.addEventListener('click', () => {
         const name = componentNameInput.value.trim();
         if (name) {
-            components.push({ id: nextId++, name, fraction: 0, isImproved: false, improvementFactor: 1.5 });
+            components.push({ id: nextId++, name, fraction: 20, isImproved: false, improvementFactor: 2.0 });
             componentNameInput.value = '';
             render();
         }
@@ -278,8 +419,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.querySelector('[data-type="fraction"]').value = value;
             }
             updateTotalFractionUI();
+            calculate();
         } else if (type === 'k-factor') {
             component.improvementFactor = parseFloat(e.target.value) || 1;
+            calculate();
         }
     });
 
@@ -294,7 +437,6 @@ document.addEventListener('DOMContentLoaded', () => {
             component.isImproved = e.target.checked;
             render();
         } else {
-            // Recalculate for text inputs and when slider is released
             calculate();
         }
     });
@@ -307,6 +449,13 @@ document.addEventListener('DOMContentLoaded', () => {
             render();
         }
     });
+
+    // Componentes de ejemplo iniciales para enriquecer la experiencia inmediata
+    components = [
+        { id: nextId++, name: 'CPU', fraction: 50, isImproved: true, improvementFactor: 2.0 },
+        { id: nextId++, name: 'Disco NVMe', fraction: 30, isImproved: false, improvementFactor: 3.0 },
+        { id: nextId++, name: 'Red', fraction: 20, isImproved: false, improvementFactor: 4.0 }
+    ];
 
     render();
 });

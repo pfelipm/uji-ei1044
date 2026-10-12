@@ -115,8 +115,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.34-4.992M3.66 16.008a9.004 9.004 0 0016.68 0M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 12V3m0 9l4.33-2.5" />
                 </svg>
-                <h3>Fracción mejorable (f)</h3>
-                <p class="mt-2 text-slate-600">Es el porcentaje de tiempo que un sistema dedica a la parte que queremos mejorar. Si tu app pasa el 60% del tiempo usando la CPU, entonces f = 0.6.</p>
+                <h3>Fracción mejorable (<i>f</i>)</h3>
+                <p class="mt-2 text-slate-600">Es el porcentaje de tiempo que un sistema dedica a la parte que queremos mejorar. Si tu aplicación pasa el 60% del tiempo usando la CPU, entonces <i>f</i> = 0,60.</p>
             </div>
             <!-- Card del Concepto -->
             <div class="card flex flex-col items-center text-center">
@@ -124,8 +124,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
-                <h3>Factor de mejora (k)</h3>
-                <p class="mt-2 text-slate-600">Indica cuántas veces más rápido es el nuevo componente. Si una nueva CPU es el doble de rápida, entonces k = 2.</p>
+                <h3>Factor de mejora (<i>k</i>)</h3>
+                <p class="mt-2 text-slate-600">Indica cuántas veces más rápido es el nuevo componente. Si una nueva CPU es el doble de rápida, entonces <i>k</i> = 2.</p>
             </div>
         </div>
 
@@ -138,52 +138,165 @@
             <p class="mt-4 opacity-80">Esta fórmula predice la mejora máxima posible en el rendimiento TOTAL de un sistema.</p>
         </div>
 
-        <!-- Caso de Estudio -->
+        <!-- Caso de estudio interactivo y simulador de parámetros -->
         <div class="case-study">
-            <h2 class="text-3xl font-bold text-blue-800 mb-6">Caso de estudio: ¿compramos la nueva CPU?</h2>
-            <div class="grid md:grid-cols-3 gap-6 items-center">
-                <div class="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <p class="text-lg font-semibold text-slate-700">Fracción mejorable</p>
-                    <p class="text-5xl font-extrabold text-blue-600"><i>f</i> = 0.6</p>
-                    <p class="text-sm text-slate-500">(La CPU se usa el 60% del tiempo)</p>
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-blue-800">Simulador interactivo: explora el impacto de <i>f</i> y <i>k</i></h2>
+                    <p class="text-slate-700 text-base mt-1">Ajusta la fracción mejorable y la aceleración del componente para observar la respuesta del sistema.</p>
                 </div>
-                <div class="text-center text-5xl font-bold text-slate-400">+</div>
-                <div class="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <p class="text-lg font-semibold text-slate-700">Factor de mejora</p>
-                    <p class="text-5xl font-extrabold text-blue-600"><i>k</i> = 2</p>
-                    <p class="text-sm text-slate-500">(La nueva CPU es 2x más rápida)</p>
+                <!-- Presets didácticos -->
+                <div class="flex flex-wrap gap-2 items-center">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Escenarios:</span>
+                    <button type="button" onclick="setPreset(0.60, 2)" class="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition shadow-sm">CPU estándar (0,60 / 2×)</button>
+                    <button type="button" onclick="setPreset(0.20, 10)" class="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition shadow-sm">Inversión inútil (0,20 / 10×)</button>
+                    <button type="button" onclick="setPreset(0.90, 8)" class="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition shadow-sm">Cuello de botella (0,90 / 8×)</button>
+                    <button type="button" onclick="setPreset(0.95, 32)" class="px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-md bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition shadow-sm">Paralelismo masivo (0,95 / 32×)</button>
                 </div>
             </div>
-            <div class="mt-8 text-center bg-white p-6 rounded-lg shadow">
-                 <p class="text-xl font-semibold text-slate-800">Cálculo: <i>A</i> = 1 / ((1 - 0.6) + (0.6 / 2)) = 1 / (0.4 + 0.3) = 1 / 0.7</p>
-                <div class="mt-4">
-                    <span class="text-2xl font-bold text-slate-700">Aceleración global:</span>
-                    <span class="text-6xl font-black text-indigo-600 ml-4">1.43x</span>
+
+            <!-- Controles y Sliders destacados con impacto visual gigante para proyección -->
+            <div class="grid md:grid-cols-2 gap-6 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-blue-100 mb-6">
+                <!-- Tarjeta prominente f -->
+                <div class="bg-blue-50/60 p-6 rounded-xl border border-blue-200/80 flex flex-col justify-between">
+                    <div class="text-center mb-4">
+                        <span class="text-xs font-bold text-blue-700 uppercase tracking-wider block mb-1">Fracción mejorable del sistema</span>
+                        <div class="text-5xl sm:text-6xl font-black text-blue-700 tracking-tight my-2">
+                            <i>f</i> = <span id="display-f-val">0,60</span>
+                        </div>
+                        <p id="desc-f" class="text-sm sm:text-base font-medium text-slate-600">(La CPU o componente acelerado se usa el 60% del tiempo)</p>
+                    </div>
+
+                    <div class="space-y-2 mt-4 pt-4 border-t border-blue-200/60">
+                        <input id="input-f" type="range" min="0.05" max="0.99" step="0.01" value="0.60" 
+                               class="w-full h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                               oninput="updateSimulation()">
+                        <div class="flex justify-between text-xs sm:text-sm font-semibold text-slate-500">
+                            <span>5% (residual)</span>
+                            <span>50%</span>
+                            <span>99% (cuello crítico)</span>
+                        </div>
+                    </div>
                 </div>
-                <p class="mt-4 text-lg text-red-600 font-semibold bg-red-50 p-3 rounded-md">¡Una mejora del 100% en el componente solo nos da una mejora del 43% en el sistema!</p>
+
+                <!-- Tarjeta prominente k -->
+                <div class="bg-blue-50/60 p-6 rounded-xl border border-blue-200/80 flex flex-col justify-between">
+                    <div class="text-center mb-4">
+                        <span class="text-xs font-bold text-blue-700 uppercase tracking-wider block mb-1">Factor de aceleración local</span>
+                        <div class="text-5xl sm:text-6xl font-black text-blue-700 tracking-tight my-2">
+                            <i>k</i> = <span id="display-k-val">2,00×</span>
+                        </div>
+                        <p id="desc-k" class="text-sm sm:text-base font-medium text-slate-600">(El nuevo componente es 2 veces más rápido que el original)</p>
+                    </div>
+
+                    <div class="space-y-2 mt-4 pt-4 border-t border-blue-200/60">
+                        <input id="input-k" type="range" min="1" max="32" step="0.5" value="2" 
+                               class="w-full h-3 bg-blue-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                               oninput="updateSimulation()">
+                        <div class="flex justify-between text-xs sm:text-sm font-semibold text-slate-500">
+                            <span>1× (sin mejora)</span>
+                            <span>8×</span>
+                            <span>16×</span>
+                            <span>32× (acelerador extremo)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de Resultados y Desglose -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-blue-100">
+                <div class="text-center pb-5 border-b border-slate-100">
+                    <p class="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wider mb-2">Fórmula desarrollada paso a paso</p>
+                    <p id="calc-step-by-step" class="text-lg sm:text-2xl font-mono font-semibold text-slate-800 leading-relaxed">
+                        <i>A</i> = 1 / ((1 - 0,60) + (0,60 / 2)) = 1 / (0,40 + 0,30) = 1 / 0,70
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-3 gap-6 pt-6 text-center">
+                    <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+                        <p class="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wider">Aceleración global (<i>A</i>)</p>
+                        <p id="res-speedup" class="text-5xl sm:text-6xl font-black text-indigo-600 my-2">1,43×</p>
+                        <p id="res-gain-pct" class="text-sm font-bold text-indigo-700 bg-indigo-50 py-1.5 px-3 rounded-lg inline-block border border-indigo-200">+42,9% de mejora total</p>
+                    </div>
+
+                    <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+                        <p class="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wider">Límite asintótico (<i>A</i><sub>max</sub>)</p>
+                        <p id="res-asymptote" class="text-5xl sm:text-6xl font-black text-rose-600 my-2">2,50×</p>
+                        <p id="res-asymptote-desc" class="text-sm font-bold text-rose-700 bg-rose-50 py-1.5 px-3 rounded-lg inline-block border border-rose-200">Techo insuperable (<i>k</i> &rarr; &infin;)</p>
+                    </div>
+
+                    <div class="p-5 bg-slate-50 rounded-xl border border-slate-200">
+                        <p class="text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wider">Eficiencia alcanzada</p>
+                        <p id="res-efficiency" class="text-5xl sm:text-6xl font-black text-emerald-600 my-2">57,1%</p>
+                        <p id="res-efficiency-desc" class="text-sm font-bold text-emerald-700 bg-emerald-50 py-1.5 px-3 rounded-lg inline-block border border-emerald-200">del potencial máximo</p>
+                    </div>
+                </div>
+
+                <div id="dynamic-insight" class="mt-6 p-5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-base sm:text-lg font-medium">
+                    <!-- Mensaje contextual generado dinámicamente -->
+                </div>
             </div>
         </div>
 
-        <!-- Rendimientos Decrecientes -->
+        <!-- Rendimientos decrecientes: Gráfica interactiva SVG -->
         <div class="card">
-            <h3 class="text-center text-2xl font-bold text-blue-800 mb-4">El límite del rendimiento: la parte no mejorable manda</h3>
-            <p class="text-center text-slate-600 mb-6">Incluso con una mejora infinita (<i>k</i> &rarr; &infin;), la aceleración máxima posible está limitada por la fracción no mejorable del sistema. La fórmula se simplifica a: <strong class="text-blue-700 font-mono"><i>A</i><sub>max</sub> = 1 / (1 - <i>f</i>)</strong></p>
-            <div class="diminishing-returns-graph">
-                 <svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid meet" class="w-full h-full">
-                    <path d="M 0 140 C 50 110, 150 40, 300 30" stroke="#3b82f6" stroke-width="3" fill="none" />
-                    <line x1="0" y1="25" x2="300" y2="25" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
-                    <text x="5" y="20" font-family="Inter" font-size="10" fill="#ef4444" font-weight="600">Límite teórico con f=0.6 (A_max = 2.5x)</text>
-                    <text x="240" y="45" font-family="Inter" font-size="10" fill="#3b82f6" font-weight="600">Aceleración</text>
-                 </svg>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+                <div>
+                    <h3 class="text-2xl sm:text-3xl font-bold text-blue-800">Curva interactiva de rendimientos decrecientes</h3>
+                    <p class="text-slate-700 text-base mt-1">Visualización en tiempo real de cómo evoluciona la aceleración conforme aumenta la inversión en <i>k</i>.</p>
+                </div>
+                <div class="flex items-center gap-4 text-sm font-bold">
+                    <span class="flex items-center gap-1.5 text-blue-600"><span class="w-3.5 h-3.5 rounded-full bg-blue-500 inline-block"></span> Curva <i>A</i>(<i>k</i>)</span>
+                    <span class="flex items-center gap-1.5 text-rose-600"><span class="w-4 h-0.5 bg-rose-500 border border-rose-500 border-dashed inline-block"></span> Asíntota <i>A</i><sub>max</sub></span>
+                    <span class="flex items-center gap-1.5 text-amber-600"><span class="w-3.5 h-3.5 rounded-full bg-amber-500 border-2 border-white shadow-sm inline-block"></span> Punto actual</span>
+                </div>
             </div>
-            <p class="text-center mt-4 text-sm text-slate-500">La curva de mejora se aplana. Cada euro invertido rinde menos.</p>
+
+            <div class="bg-slate-900 rounded-2xl p-5 sm:p-6 shadow-inner border border-slate-800 relative">
+                <!-- Contenedor SVG reactivo -->
+                <svg id="interactive-chart" viewBox="0 0 700 320" class="w-full h-72 sm:h-96 select-none overflow-visible">
+                    <defs>
+                        <linearGradient id="curveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/>
+                            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.0"/>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Cuadrícula de fondo -->
+                    <g id="grid-lines" stroke="#334155" stroke-width="1"></g>
+
+                    <!-- Ejes -->
+                    <line x1="60" y1="20" x2="60" y2="280" stroke="#64748b" stroke-width="2" />
+                    <line x1="60" y1="280" x2="680" y2="280" stroke="#64748b" stroke-width="2" />
+                    <text x="670" y="272" fill="#cbd5e1" font-size="13" text-anchor="end" font-weight="700">Factor local k &rarr;</text>
+                    <text x="65" y="28" fill="#cbd5e1" font-size="13" font-weight="700">Aceleración global A</text>
+
+                    <!-- Área bajo la curva -->
+                    <path id="chart-area" d="" fill="url(#curveGradient)" />
+
+                    <!-- Curva de aceleración -->
+                    <path id="chart-curve" d="" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" />
+
+                    <!-- Línea de asíntota -->
+                    <line id="chart-asymptote-line" x1="60" y1="0" x2="680" y2="0" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="6,4" />
+                    <text id="chart-asymptote-text" x="670" y="0" fill="#fca5a5" font-size="13" text-anchor="end" font-weight="bold">Límite A_max</text>
+
+                    <!-- Punto de estado actual (k, A) -->
+                    <line id="chart-cursor-v" x1="0" y1="280" x2="0" y2="0" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.8" />
+                    <circle id="chart-current-point" cx="0" cy="0" r="7" fill="#f59e0b" stroke="#ffffff" stroke-width="2.5" />
+                    <text id="chart-current-label" x="0" y="0" fill="#fef08a" font-size="13" font-weight="bold" text-anchor="middle">1,43×</text>
+                </svg>
+            </div>
+            <p id="chart-caption" class="text-center mt-4 text-base font-medium text-slate-600">
+                Conforme <i>k</i> se aleja hacia la derecha, la pendiente disminuye drásticamente: cada unidad de aceleración adicional produce una mejora global progresivamente menor.
+            </p>
         </div>
 
         <!-- Conclusión -->
         <div class="conclusion text-center w-full block">
-            <h2 class="text-2xl font-bold text-indigo-800 mb-2">Conclusión clave del administrador</h2>
-            <p class="text-lg text-indigo-700">La ley de Amdahl es nuestra herramienta para evitar gastos inútiles. Nos obliga a responder la pregunta más importante: ¿Estamos mejorando la parte del sistema que realmente importa?</p>
-            <p class="mt-4 text-xl font-bold bg-white p-4 rounded-md shadow-sm text-slate-800">«Monitoriza primero para encontrar <code>f</code>, después invierte para mejorar <code>k</code>».</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-indigo-800 mb-2">Conclusión clave del administrador</h2>
+            <p class="text-lg sm:text-xl text-indigo-700">La ley de Amdahl es nuestra herramienta para evitar gastos inútiles. Nos obliga a responder la pregunta más importante: ¿Estamos mejorando la parte del sistema que realmente importa?</p>
+            <p class="mt-4 text-xl sm:text-2xl font-bold bg-white p-5 rounded-xl shadow-sm text-slate-800">«Monitoriza primero para encontrar <code>f</code>, después invierte para mejorar <code>k</code>».</p>
         </div>
     </main>
     
@@ -204,5 +317,226 @@
         </footer>
 </div>
 
+    <script>
+        function setPreset(f, k) {
+            document.getElementById('input-f').value = f;
+            document.getElementById('input-k').value = k;
+            updateSimulation();
+        }
+
+        function updateSimulation() {
+            const f = parseFloat(document.getElementById('input-f').value);
+            const k = parseFloat(document.getElementById('input-k').value);
+
+            // Textos descriptivos de los sliders
+            const fPct = (f * 100).toFixed(0);
+            const fStr = f.toFixed(2).replace('.', ',');
+            const kStr = k.toFixed(2).replace('.', ',');
+            const kSingleStr = k.toFixed(1).replace('.', ',');
+
+            document.getElementById('display-f-val').textContent = `${fStr}`;
+            document.getElementById('desc-f').textContent = `(La CPU o componente acelerado se usa el ${fPct}% del tiempo)`;
+
+            document.getElementById('display-k-val').textContent = `${kStr}×`;
+            document.getElementById('desc-k').textContent = `(El nuevo componente es ${kSingleStr} veces más rápido que el original)`;
+
+            // Cálculos
+            // A = 1 / ((1 - f) + (f / k))
+            const nonImprovable = 1 - f;
+            const improvableAfter = f / k;
+            const newTotalTimeFraction = nonImprovable + improvableAfter;
+            const speedup = 1 / newTotalTimeFraction;
+            const gainPct = (speedup - 1) * 100;
+
+            // Límite Amax = 1 / (1 - f)
+            const aMax = nonImprovable > 0.0001 ? (1 / nonImprovable) : Infinity;
+            const efficiency = (speedup / aMax) * 100;
+
+            const nonImpStr = nonImprovable.toFixed(2).replace('.', ',');
+            const impAftStr = improvableAfter.toFixed(2).replace('.', ',');
+            const newTotStr = newTotalTimeFraction.toFixed(2).replace('.', ',');
+            const speedupStr = speedup.toFixed(2).replace('.', ',');
+            const aMaxStr = isFinite(aMax) ? aMax.toFixed(2).replace('.', ',') : '∞';
+            const gainPctStr = gainPct.toFixed(1).replace('.', ',');
+            const effStr = efficiency.toFixed(1).replace('.', ',');
+
+            // Desglose paso a paso
+            document.getElementById('calc-step-by-step').innerHTML = 
+                `<i>A</i> = 1 / ((1 - ${fStr}) + (${fStr} / ${kSingleStr})) = ` +
+                `1 / (${nonImpStr} + ${impAftStr}) = ` +
+                `1 / ${newTotStr} = <strong>${speedupStr}×</strong>`;
+
+            // Tarjetas de resultados
+            document.getElementById('res-speedup').textContent = `${speedupStr}×`;
+            document.getElementById('res-gain-pct').textContent = `+${gainPctStr}% de mejora total`;
+            document.getElementById('res-asymptote').textContent = `${aMaxStr}×`;
+            document.getElementById('res-efficiency').textContent = `${effStr}%`;
+
+            // Insight contextual
+            const insightBox = document.getElementById('dynamic-insight');
+            let insightText = '';
+            if (f < 0.35) {
+                insightText = `⚠️ <strong>Poco margen de mejora (<i>f</i> = ${fPct}%):</strong> Aunque aceleres este componente enormemente (${kSingleStr}×), el sistema pasa la mayor parte del tiempo (${(nonImprovable*100).toFixed(0)}%) haciendo otras cosas. La aceleración nunca podrá superar los ${aMaxStr}×. Invertir aquí apenas se notará en producción.`;
+                insightBox.className = 'mt-6 p-5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-base sm:text-lg font-medium';
+            } else if (f >= 0.85) {
+                insightText = `🎯 <strong>Excelente objetivo de optimización (<i>f</i> = ${fPct}%):</strong> Has localizado el cuello de botella principal. La aceleración del componente se traduce en un gran beneficio para el sistema total (+${gainPct.toFixed(0)}%), con un potencial máximo de hasta ${aMaxStr}×.`;
+                insightBox.className = 'mt-6 p-5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-base sm:text-lg font-medium';
+            } else {
+                insightText = `💡 <strong>Compromiso intermedio (<i>f</i> = ${fPct}%):</strong> Con una mejora local de ${kSingleStr}× obtienes un factor global de ${speedupStr}× (has aprovechado el ${efficiency.toFixed(0)}% del techo teórico de ${aMaxStr}×). A partir de aquí, duplicar la inversión en hardware apenas moverá la aguja.`;
+                insightBox.className = 'mt-6 p-5 rounded-xl bg-blue-50 border border-blue-200 text-blue-900 text-base sm:text-lg font-medium';
+            }
+            insightBox.innerHTML = insightText;
+
+            // Renderizar gráfica SVG reactiva
+            renderChart(f, k, speedup, aMax);
+        }
+
+        function renderChart(f, kVal, currentA, aMax) {
+            const chartW = 700;
+            const chartH = 320;
+            const padL = 60;
+            const padR = 20;
+            const padT = 25;
+            const padB = 40;
+
+            const plotW = chartW - padL - padR; // 620
+            const plotH = chartH - padT - padB; // 255
+
+            // Rango k de 1 a 32 en el eje X
+            const kMin = 1;
+            const kMax = 32;
+
+            // Escala Y dinámica
+            let yMaxDisplay;
+            if (isFinite(aMax) && aMax <= 15) {
+                yMaxDisplay = Math.max(aMax * 1.15, currentA * 1.25, 2.5);
+            } else {
+                yMaxDisplay = Math.max(currentA * 1.35, 10);
+            }
+
+            function scaleX(k) {
+                return padL + ((k - kMin) / (kMax - kMin)) * plotW;
+            }
+
+            function scaleY(val) {
+                const clamped = Math.min(val, yMaxDisplay);
+                return padT + plotH - (clamped / yMaxDisplay) * plotH;
+            }
+
+            // Cuadrícula y etiquetas
+            const gridG = document.getElementById('grid-lines');
+            gridG.innerHTML = '';
+
+            // Ticks Y
+            const yStep = yMaxDisplay > 8 ? 2 : 1;
+            for (let yVal = 1; yVal <= yMaxDisplay; yVal += yStep) {
+                const py = scaleY(yVal);
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', padL);
+                line.setAttribute('y1', py);
+                line.setAttribute('x2', chartW - padR);
+                line.setAttribute('y2', py);
+                line.setAttribute('stroke', '#334155');
+                line.setAttribute('stroke-dasharray', '2,4');
+                gridG.appendChild(line);
+
+                const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                label.setAttribute('x', padL - 10);
+                label.setAttribute('y', py + 4);
+                label.setAttribute('fill', '#e2e8f0');
+                label.setAttribute('font-size', '12');
+                label.setAttribute('font-weight', '600');
+                label.setAttribute('text-anchor', 'end');
+                label.textContent = `${yVal}×`;
+                gridG.appendChild(label);
+            }
+
+            // Ticks X (1, 4, 8, 16, 24, 32)
+            const xTicks = [1, 4, 8, 12, 16, 20, 24, 28, 32];
+            xTicks.forEach(tx => {
+                const px = scaleX(tx);
+                const tLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                tLine.setAttribute('x1', px);
+                tLine.setAttribute('y1', padT);
+                tLine.setAttribute('x2', px);
+                tLine.setAttribute('y2', chartH - padB);
+                tLine.setAttribute('stroke', '#334155');
+                tLine.setAttribute('stroke-dasharray', '2,4');
+                gridG.appendChild(tLine);
+
+                const tText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                tText.setAttribute('x', px);
+                tText.setAttribute('y', chartH - padB + 18);
+                tText.setAttribute('fill', '#e2e8f0');
+                tText.setAttribute('font-size', '12');
+                tText.setAttribute('font-weight', '600');
+                tText.setAttribute('text-anchor', 'middle');
+                tText.textContent = `${tx}×`;
+                gridG.appendChild(tText);
+            });
+
+            // Puntos de la curva A(k)
+            const points = [];
+            const steps = 60;
+            for (let i = 0; i <= steps; i++) {
+                const curK = kMin + (i / steps) * (kMax - kMin);
+                const curA = 1 / ((1 - f) + (f / curK));
+                points.push({ x: scaleX(curK), y: scaleY(curA) });
+            }
+
+            // Trazado de línea y área
+            let curveD = `M ${points[0].x.toFixed(1)} ${points[0].y.toFixed(1)}`;
+            for (let i = 1; i < points.length; i++) {
+                curveD += ` L ${points[i].x.toFixed(1)} ${points[i].y.toFixed(1)}`;
+            }
+            document.getElementById('chart-curve').setAttribute('d', curveD);
+
+            const baseY = chartH - padB;
+            const areaD = `${curveD} L ${points[points.length - 1].x.toFixed(1)} ${baseY} L ${points[0].x.toFixed(1)} ${baseY} Z`;
+            document.getElementById('chart-area').setAttribute('d', areaD);
+
+            // Asíntota horizontal
+            const asympLine = document.getElementById('chart-asymptote-line');
+            const asympText = document.getElementById('chart-asymptote-text');
+            if (isFinite(aMax) && aMax <= yMaxDisplay * 1.05) {
+                const asympY = scaleY(aMax);
+                asympLine.setAttribute('y1', asympY);
+                asympLine.setAttribute('y2', asympY);
+                asympLine.setAttribute('opacity', '1');
+
+                const aMaxFmt = aMax.toFixed(2).replace('.', ',');
+                asympText.setAttribute('y', Math.max(asympY - 6, 16));
+                asympText.textContent = `Asíntota máxima teórica A_max = ${aMaxFmt}× (1 / (1 - f))`;
+                asympText.setAttribute('opacity', '1');
+            } else {
+                asympLine.setAttribute('opacity', '0');
+                asympText.setAttribute('opacity', '0');
+            }
+
+            // Punto actual (kVal, currentA)
+            const ptX = scaleX(Math.min(kVal, kMax));
+            const ptY = scaleY(currentA);
+
+            const ptCircle = document.getElementById('chart-current-point');
+            ptCircle.setAttribute('cx', ptX);
+            ptCircle.setAttribute('cy', ptY);
+
+            const curLineV = document.getElementById('chart-cursor-v');
+            curLineV.setAttribute('x1', ptX);
+            curLineV.setAttribute('x2', ptX);
+            curLineV.setAttribute('y1', chartH - padB);
+            curLineV.setAttribute('y2', ptY);
+
+            const curLabel = document.getElementById('chart-current-label');
+            curLabel.setAttribute('x', ptX);
+            curLabel.setAttribute('y', ptY - 12);
+            curLabel.textContent = `${currentA.toFixed(2).replace('.', ',')}×`;
+        }
+
+        // Inicialización al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            updateSimulation();
+        });
+    </script>
 </body>
 </html>
