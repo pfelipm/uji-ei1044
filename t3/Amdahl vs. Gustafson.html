@@ -61,14 +61,14 @@
                             La carga de trabajo se mantiene <strong>fija</strong>. Añadir núcleos reduce el tiempo, pero la fracción estrictamente secuencial (<i>s</i>) impone un techo de cristal insuperable:
                         </p>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-blue-200/80 bg-white/80 p-3.5 rounded-xl border">
-                        <div class="flex justify-between items-center text-sm sm:text-base font-mono">
-                            <span class="text-slate-600">Aceleración:</span>
-                            <strong class="text-blue-900"><i>A</i> = 1 / (<i>s</i> + <i>f</i> / <i>p</i>)</strong>
+                    <div class="mt-5 pt-4 border-t border-blue-200/80 bg-white/90 p-4 rounded-xl border border-blue-100 space-y-2.5">
+                        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-sm sm:text-base font-mono">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 font-sans">Aceleración sobre carga fija:</span>
+                            <span class="text-blue-900 font-bold whitespace-nowrap"><i>A</i> = 1 / (<i>s</i> + <i>f</i> / <i>p</i>)</span>
                         </div>
-                        <div class="flex justify-between items-center text-sm sm:text-base font-mono mt-1 text-rose-700">
-                            <span>Límite asintótico (<i>p</i> &rarr; &infin;):</span>
-                            <strong><i>A</i><sub>max</sub> = 1 / <i>s</i></strong>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-sm sm:text-base font-mono pt-2 border-t border-slate-100 text-rose-700">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 font-sans">Límite asintótico (<i>p</i> &rarr; &infin;):</span>
+                            <span class="font-bold whitespace-nowrap"><i>A</i><sub>max</sub> = 1 / <i>s</i></span>
                         </div>
                     </div>
                 </div>
@@ -85,14 +85,14 @@
                             El tiempo disponible se mantiene <strong>fijo</strong>. Con más núcleos agrandamos el problema: la fracción secuencial se diluye y la capacidad escala de forma casi lineal:
                         </p>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-emerald-200/80 bg-white/80 p-3.5 rounded-xl border">
-                        <div class="flex justify-between items-center text-sm sm:text-base font-mono">
-                            <span class="text-slate-600">Aceleración escalada:</span>
-                            <strong class="text-emerald-900"><i>A</i><sub>scaled</sub> = <i>s</i> + <i>p</i>(1 &minus; <i>s</i>)</strong>
+                    <div class="mt-5 pt-4 border-t border-emerald-200/80 bg-white/90 p-4 rounded-xl border border-emerald-100 space-y-2.5">
+                        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-sm sm:text-base font-mono">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 font-sans">Aceleración escalada:</span>
+                            <span class="text-emerald-900 font-bold whitespace-nowrap"><i>A</i><sub>scaled</sub> = <i>s</i> + <i>p</i>(1 &minus; <i>s</i>)</span>
                         </div>
-                        <div class="flex justify-between items-center text-sm sm:text-base font-mono mt-1 text-emerald-700">
-                            <span>Comportamiento con <i>p</i> grande:</span>
-                            <strong><i>A</i><sub>scaled</sub> &approx; <i>p</i> &middot; <i>f</i> (lineal)</strong>
+                        <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 text-sm sm:text-base font-mono pt-2 border-t border-slate-100 text-emerald-700">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-500 font-sans">Tendencia con <i>p</i> grande:</span>
+                            <span class="font-bold whitespace-nowrap"><i>A</i><sub>scaled</sub> &approx; <i>p</i> &middot; <i>f</i> (lineal)</span>
                         </div>
                     </div>
                 </div>
