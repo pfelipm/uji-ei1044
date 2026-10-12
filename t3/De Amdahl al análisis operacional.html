@@ -173,49 +173,68 @@
             </div>
 
             <!-- PARTE 2: ANÁLISIS OPERACIONAL -->
-            <div class="card p-6">
-                <h2 class="card-title text-2xl mb-2">🚦 Parte 2: análisis operacional</h2>
-                <p class="text-gray-600 mb-4"><strong>Concepto Clave:</strong> "Un trabajo <em>demanda</em> servicio de múltiples recursos... ¡a la vez!"</p>
-
-                <!-- Visualización de colas -->
-                <div class="space-y-4">
-                     <div>
-                        <h3 class="font-semibold text-gray-700 mb-2">Visualización de carga del sistema</h3>
-                        <div class="bg-gray-100 p-4 rounded-lg h-48 flex flex-col justify-around">
-                            <!-- Fila CPU -->
-                            <div class="flex items-center">
-                                <span class="font-bold text-gray-600 w-16">CPU</span>
-                                <div id="cpu-queue-container" class="flex flex-wrap items-center"></div>
-                                <div class="w-12 h-12 bg-blue-500 rounded text-white flex items-center justify-center font-bold ml-2">CPU</div>
-                            </div>
-                             <!-- Fila Disco -->
-                            <div class="flex items-center">
-                                <span class="font-bold text-gray-600 w-16">Disco</span>
-                                <div id="disk-queue-container" class="flex flex-wrap items-center"></div>
-                                <div class="w-12 h-12 bg-gray-600 rounded text-white flex items-center justify-center font-bold ml-2">Disco</div>
-                            </div>
-                        </div>
+            <div class="card p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="card-title text-2xl">🚦 Parte 2: análisis operacional</h2>
+                        <span id="system-status-badge" class="px-2.5 py-1 rounded-full text-xs font-bold border transition-colors bg-emerald-50 text-emerald-700 border-emerald-200">
+                            Carga ligera
+                        </span>
                     </div>
+                    <p class="text-gray-600 mb-4"><strong>Concepto clave:</strong> «Un trabajo <em>demanda</em> servicio de múltiples recursos... ¡y compite con otros trabajos!»</p>
 
-                    <!-- Controles y estadísticas -->
-                     <div class="pt-4 space-y-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <label for="lambda-slider" class="font-semibold text-gray-700">Tasa de Llegadas (λ₀)</label>
-                                <p class="text-sm text-gray-500">Aumenta la carga para ver el "Caos de las Colas".</p>
+                    <!-- Visualización de colas -->
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="font-semibold text-gray-700">Visualización de carga y colas</h3>
+                                <span class="text-xs text-slate-500 font-mono">D<sub>CPU</sub> = 0,7s · D<sub>Disco</sub> = 0,3s</span>
                             </div>
-                            <span id="lambda-value" class="text-xl font-bold text-blue-600">0.5 pet/s</span>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 h-48 flex flex-col justify-around">
+                                <!-- Fila CPU -->
+                                <div class="flex items-center">
+                                    <div class="w-20 flex flex-col">
+                                        <span class="font-bold text-slate-700 text-sm">CPU</span>
+                                        <span class="text-[10px] text-rose-600 font-semibold uppercase">Cuello</span>
+                                    </div>
+                                    <div id="cpu-queue-container" class="flex flex-wrap items-center flex-1 min-h-[24px]"></div>
+                                    <div class="w-12 h-12 bg-blue-600 rounded-lg text-white flex items-center justify-center font-bold ml-2 shadow-sm shrink-0">CPU</div>
+                                </div>
+                                <!-- Fila Disco -->
+                                <div class="flex items-center pt-2 border-t border-slate-200/60">
+                                    <div class="w-20 flex flex-col">
+                                        <span class="font-bold text-slate-700 text-sm">Disco</span>
+                                        <span class="text-[10px] text-slate-400 font-semibold uppercase">Secundario</span>
+                                    </div>
+                                    <div id="disk-queue-container" class="flex flex-wrap items-center flex-1 min-h-[24px]"></div>
+                                    <div class="w-12 h-12 bg-slate-600 rounded-lg text-white flex items-center justify-center font-bold ml-2 shadow-sm shrink-0">Disco</div>
+                                </div>
+                            </div>
                         </div>
-                        <input id="lambda-slider" type="range" min="0.1" max="1.4" value="0.5" step="0.01" class="slider">
 
-                        <div class="grid grid-cols-2 gap-4 text-center">
-                            <div class="p-4 bg-blue-50 rounded-lg">
-                                <p class="text-sm font-semibold text-blue-800">T. RESPUESTA (R)</p>
-                                <p id="response-time-value" class="stat-value">1.25s</p>
+                        <!-- Controles y estadísticas -->
+                        <div class="pt-2 space-y-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <label for="lambda-slider" class="font-semibold text-gray-700">Tasa de llegadas (<i>&lambda;</i><sub>0</sub>)</label>
+                                    <p class="text-sm text-gray-500">Aumenta la concurrencia para ver la contención en colas.</p>
+                                </div>
+                                <span id="lambda-value" class="text-xl font-bold text-blue-600">0.50 pet/s</span>
                             </div>
-                            <div class="p-4 bg-blue-50 rounded-lg">
-                                <p class="text-sm font-semibold text-blue-800">UTILIZACIÓN CPU</p>
-                                <p id="utilization-value" class="stat-value">35%</p>
+                            <input id="lambda-slider" type="range" min="0.05" max="1.42" value="0.5" step="0.01" class="slider">
+
+                            <!-- Desglose de tiempo y utilización -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="p-4 bg-blue-50/80 rounded-xl border border-blue-100 text-center">
+                                    <p class="text-xs font-bold uppercase tracking-wider text-blue-800">T. de respuesta (<i>R</i>)</p>
+                                    <p id="response-time-value" class="stat-value my-1">1.43s</p>
+                                    <p id="response-breakdown" class="text-xs text-slate-600 font-mono">1,00s serv. + 0,43s cola</p>
+                                </div>
+                                <div class="p-4 bg-blue-50/80 rounded-xl border border-blue-100 text-center">
+                                    <p class="text-xs font-bold uppercase tracking-wider text-blue-800">Utilización CPU (<i>U</i><sub>CPU</sub>)</p>
+                                    <p id="utilization-value" class="stat-value my-1">35%</p>
+                                    <p id="saturation-hint" class="text-xs text-emerald-700 font-semibold">Zona estable</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -223,6 +242,85 @@
             </div>
 
         </div>
+
+        <!-- Sección de contraste conceptual: De la tarea al sistema en producción -->
+        <section class="mt-10 bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200">
+            <div class="mb-6">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-50 text-purple-700 border border-purple-200">
+                    <span>💡 Síntesis conceptual</span>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800 mt-2">El salto de perspectiva: tarea solitaria frente a sistema concurrente</h2>
+                <p class="text-slate-600 text-sm md:text-base mt-1">
+                    Comprender por qué las conclusiones de optimización cambian radicalmente al pasar de una estación monohilo a un centro de cálculo multiusuario:
+                </p>
+            </div>
+
+            <!-- Tabla comparativa en 4 pilares -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <!-- Tarjeta 1 -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold uppercase text-slate-500 mb-1">1. Supuesto de partida</div>
+                        <h3 class="font-bold text-slate-800 text-base mb-2">Entorno de ejecución</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            <strong>Amdahl:</strong> el trabajo corre en solitario (vacío total, cero colas, sin interferencias ajenas).<br>
+                            <strong>Análisis operacional:</strong> múltiples peticiones compiten de forma concurrente por recursos compartidos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold uppercase text-slate-500 mb-1">2. Tiempo de respuesta</div>
+                        <h3 class="font-bold text-slate-800 text-base mb-2">Impacto de la carga</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            <strong>Amdahl:</strong> constante e invariante a la carga exterior (el pastel dura siempre 1,0 s).<br>
+                            <strong>Análisis operacional:</strong> explota de forma no lineal conforme <i>U</i> supera el 70-80% debido a la espera en cola.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="p-5 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold uppercase text-slate-500 mb-1">3. Fenómeno modelado</div>
+                        <h3 class="font-bold text-slate-800 text-base mb-2">Qué estamos evaluando</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            <strong>Amdahl:</strong> la ganancia local de acelerar un componente o paralelizar un algoritmo.<br>
+                            <strong>Análisis operacional:</strong> la capacidad máxima del sistema, la contención y el riesgo de saturación global.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 4 -->
+                <div class="p-5 rounded-xl border border-blue-200 bg-blue-50/60 flex flex-col justify-between">
+                    <div>
+                        <div class="text-xs font-bold uppercase text-blue-800 mb-1">4. La paradoja del cuello</div>
+                        <h3 class="font-bold text-blue-950 text-base mb-2">¿Cuánto ganamos al duplicar CPU?</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            En Amdahl, duplicar la CPU solo da <strong>1,54&times;</strong> de mejora (frenado por el disco). Pero en un servidor al 95% de carga, ¡duplicar la CPU disuelve la cola y reduce el tiempo de respuesta <strong>más de 10&times;</strong>!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preguntas detonantes para debate en clase -->
+            <div class="p-5 rounded-xl bg-slate-900 text-slate-200 border border-slate-800">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-lg">🎯</span>
+                    <h3 class="text-base font-bold text-white">Preguntas para el debate en clase</h3>
+                </div>
+                <ul class="list-disc list-outside pl-5 space-y-2 text-sm text-slate-300">
+                    <li>
+                        <strong>El cliente indignado:</strong> si los usuarios reportan que una transacción que tardaba 1 segundo ahora tarda 15 segundos, ¿se ha degradado el código según Amdahl o nos hemos estrellado contra la asíntota de colas del análisis operacional?
+                    </li>
+                    <li>
+                        <strong>Decisión de inversión:</strong> antes de gastar presupuesto en optimizar el componente disco (que según Amdahl representa el 30% del pastel), ¿tiene sentido tocarlo si la CPU está al 90% de utilización y el disco solo al 35%?
+                    </li>
+                </ul>
+            </div>
+        </section>
         <!-- Pie de página -->
         <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
             <div>
@@ -300,11 +398,15 @@
             const lambdaValue = document.getElementById('lambda-value');
             const responseTimeValue = document.getElementById('response-time-value');
             const utilizationValue = document.getElementById('utilization-value');
+            const responseBreakdown = document.getElementById('response-breakdown');
+            const saturationHint = document.getElementById('saturation-hint');
+            const systemStatusBadge = document.getElementById('system-status-badge');
             const cpuQueueContainer = document.getElementById('cpu-queue-container');
             const diskQueueContainer = document.getElementById('disk-queue-container');
 
             const D_cpu = 0.7; // Demanda de Servicio CPU
             const D_disk = 0.3; // Demanda de Servicio Disco
+            const D_total = D_cpu + D_disk; // 1.0s
 
             function updateOA() {
                 const lambda = parseFloat(lambdaSlider.value);
@@ -318,21 +420,46 @@
                 if (U_cpu >= 1 || U_disk >= 1) {
                     responseTimeValue.textContent = '∞';
                     utilizationValue.textContent = '100%';
-                    // Max out queues for visual effect
-                    updateQueueVisuals(10, 'cpu'); // Max de 10 para visualización
+                    responseBreakdown.textContent = '1,00s serv. + ∞ cola';
+                    saturationHint.textContent = '¡Colapso por saturación!';
+                    saturationHint.className = 'text-xs text-rose-700 font-bold';
+                    systemStatusBadge.textContent = 'Saturación (U ≥ 100%)';
+                    systemStatusBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold border transition-colors bg-rose-100 text-rose-800 border-rose-300';
+                    updateQueueVisuals(10, 'cpu');
                     updateQueueVisuals(10, 'disk');
                     return;
                 }
                 
-                utilizationValue.textContent = `${(U_cpu * 100).toFixed(0)}%`;
+                const uCpuPercent = U_cpu * 100;
+                utilizationValue.textContent = `${uCpuPercent.toFixed(0)}%`;
 
                 // Calcular Tiempo de Respuesta (usando fórmula M/M/1 para cada estación)
                 // R_i = D_i / (1 - U_i)
                 const R_cpu = D_cpu / (1 - U_cpu);
                 const R_disk = D_disk / (1 - U_disk);
                 const R_total = R_cpu + R_disk;
+                const W_total = R_total - D_total; // Tiempo en cola exclusivamente
 
                 responseTimeValue.textContent = `${R_total.toFixed(2)}s`;
+                responseBreakdown.textContent = `1,00s serv. + ${W_total.toFixed(2)}s cola`;
+
+                // Estados de saturación dinámicos
+                if (uCpuPercent < 50) {
+                    saturationHint.textContent = 'Zona estable';
+                    saturationHint.className = 'text-xs text-emerald-700 font-semibold';
+                    systemStatusBadge.textContent = 'Carga ligera';
+                    systemStatusBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold border transition-colors bg-emerald-50 text-emerald-700 border-emerald-200';
+                } else if (uCpuPercent < 80) {
+                    saturationHint.textContent = 'Contención creciente';
+                    saturationHint.className = 'text-xs text-amber-700 font-semibold';
+                    systemStatusBadge.textContent = 'Carga moderada';
+                    systemStatusBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold border transition-colors bg-amber-50 text-amber-700 border-amber-200';
+                } else {
+                    saturationHint.textContent = 'Peligro: asíntota no lineal';
+                    saturationHint.className = 'text-xs text-rose-700 font-bold';
+                    systemStatusBadge.textContent = 'Congestión severa';
+                    systemStatusBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold border transition-colors bg-rose-50 text-rose-700 border-rose-300';
+                }
                 
                 // Calcular y visualizar longitud de la cola
                 // N_q = U^2 / (1 - U)
