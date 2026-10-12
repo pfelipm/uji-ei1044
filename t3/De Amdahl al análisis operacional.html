@@ -193,24 +193,44 @@
                                 <h3 class="font-semibold text-gray-700 text-sm sm:text-base">Visualización de colas y concurrencia</h3>
                                 <span class="text-xs sm:text-sm text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">Cada trabajo: <strong>0,7s de CPU</strong> y <strong>0,3s de disco</strong></span>
                             </div>
-                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 h-52 flex flex-col justify-around">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 h-56 flex flex-col justify-around">
                                 <!-- Fila CPU -->
                                 <div class="flex items-center">
                                     <div class="w-32 flex flex-col shrink-0">
                                         <span class="font-bold text-slate-800 text-sm sm:text-base">CPU</span>
-                                        <span id="cpu-status-detail" class="text-xs text-rose-600 font-semibold">Uso: 35% · Cola: 0</span>
+                                        <span id="cpu-status-detail" class="text-xs text-rose-600 font-semibold">Uso: 35% · Espera: 0</span>
                                     </div>
-                                    <div id="cpu-queue-container" class="flex flex-wrap items-center flex-1 min-h-[28px] px-2"></div>
-                                    <div class="w-12 h-12 bg-blue-600 rounded-lg text-white flex items-center justify-center font-bold shadow-sm shrink-0 text-sm">CPU</div>
+                                    <!-- Cola de peticiones esperando -->
+                                    <div class="flex items-center flex-1 overflow-hidden px-2">
+                                        <span class="text-[10px] text-slate-400 font-mono uppercase tracking-wider mr-2 hidden sm:inline">Cola:</span>
+                                        <div id="cpu-queue-container" class="flex flex-wrap items-center flex-1 min-h-[28px]"></div>
+                                    </div>
+                                    <!-- Centro de servicio CPU -->
+                                    <div class="flex flex-col items-center ml-2 shrink-0">
+                                        <div id="cpu-server-box" class="w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-sm text-sm transition-all bg-blue-600">
+                                            CPU
+                                        </div>
+                                        <span id="cpu-busy-badge" class="text-[10px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">Ocupado</span>
+                                    </div>
                                 </div>
                                 <!-- Fila Disco -->
                                 <div class="flex items-center pt-2 border-t border-slate-200/60">
                                     <div class="w-32 flex flex-col shrink-0">
                                         <span class="font-bold text-slate-800 text-sm sm:text-base">Disco</span>
-                                        <span id="disk-status-detail" class="text-xs text-slate-500 font-semibold">Uso: 15% · Cola: 0</span>
+                                        <span id="disk-status-detail" class="text-xs text-slate-500 font-semibold">Uso: 15% · Espera: 0</span>
                                     </div>
-                                    <div id="disk-queue-container" class="flex flex-wrap items-center flex-1 min-h-[28px] px-2"></div>
-                                    <div class="w-12 h-12 bg-slate-600 rounded-lg text-white flex items-center justify-center font-bold shadow-sm shrink-0 text-sm">Disco</div>
+                                    <!-- Cola de peticiones esperando -->
+                                    <div class="flex items-center flex-1 overflow-hidden px-2">
+                                        <span class="text-[10px] text-slate-400 font-mono uppercase tracking-wider mr-2 hidden sm:inline">Cola:</span>
+                                        <div id="disk-queue-container" class="flex flex-wrap items-center flex-1 min-h-[28px]"></div>
+                                    </div>
+                                    <!-- Centro de servicio Disco -->
+                                    <div class="flex flex-col items-center ml-2 shrink-0">
+                                        <div id="disk-server-box" class="w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-sm text-sm transition-all bg-slate-600">
+                                            Disco
+                                        </div>
+                                        <span id="disk-busy-badge" class="text-[10px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded bg-slate-200 text-slate-700">Libre</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -419,6 +439,10 @@
             const diskQueueContainer = document.getElementById('disk-queue-container');
             const cpuStatusDetail = document.getElementById('cpu-status-detail');
             const diskStatusDetail = document.getElementById('disk-status-detail');
+            const cpuServerBox = document.getElementById('cpu-server-box');
+            const diskServerBox = document.getElementById('disk-server-box');
+            const cpuBusyBadge = document.getElementById('cpu-busy-badge');
+            const diskBusyBadge = document.getElementById('disk-busy-badge');
 
             const D_cpu = 0.7; // Demanda de Servicio CPU
             const D_disk = 0.3; // Demanda de Servicio Disco
@@ -442,10 +466,14 @@
                     saturationHint.className = 'text-xs sm:text-sm text-rose-700 font-bold';
                     systemStatusBadge.textContent = 'Saturación (U ≥ 100%)';
                     systemStatusBadge.className = 'px-3 py-1 rounded-full text-xs sm:text-sm font-bold border transition-colors bg-rose-100 text-rose-800 border-rose-300';
-                    cpuStatusDetail.textContent = 'Uso: 100% · Cola: saturada';
-                    diskStatusDetail.textContent = `Uso: ${(U_disk * 100).toFixed(0)}% · Cola: ligera`;
+                    cpuStatusDetail.textContent = 'Uso: 100% · En espera: saturada';
+                    diskStatusDetail.textContent = `Uso: ${(U_disk * 100).toFixed(0)}% · En espera: 0`;
+                    cpuBusyBadge.textContent = 'Colapsado';
+                    cpuBusyBadge.className = 'text-[10px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 animate-pulse';
+                    diskBusyBadge.textContent = 'Atendiendo';
+                    diskBusyBadge.className = 'text-[10px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800';
                     updateQueueVisuals(10, 'cpu');
-                    updateQueueVisuals(10, 'disk');
+                    updateQueueVisuals(0, 'disk');
                     return;
                 }
                 
@@ -481,14 +509,35 @@
                     systemStatusBadge.textContent = 'Congestión severa';
                     systemStatusBadge.className = 'px-3 py-1 rounded-full text-xs sm:text-sm font-bold border transition-colors bg-rose-50 text-rose-700 border-rose-300';
                 }
+
+                // Estado de actividad del servidor físico (CPU y Disco)
+                if (uCpuPercent > 5) {
+                    cpuBusyBadge.textContent = 'Atendiendo';
+                    cpuBusyBadge.className = 'text-[10px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded bg-blue-100 text-blue-800';
+                    cpuServerBox.className = 'w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-md text-sm transition-all bg-blue-600 ring-2 ring-blue-300 ring-offset-1';
+                } else {
+                    cpuBusyBadge.textContent = 'Libre';
+                    cpuBusyBadge.className = 'text-[10px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded bg-slate-100 text-slate-600';
+                    cpuServerBox.className = 'w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-sm text-sm transition-all bg-blue-500/70';
+                }
+
+                if (uDiskPercent > 5) {
+                    diskBusyBadge.textContent = 'Atendiendo';
+                    diskBusyBadge.className = 'text-[10px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded bg-slate-200 text-slate-800 font-bold';
+                    diskServerBox.className = 'w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-md text-sm transition-all bg-slate-700 ring-2 ring-slate-300 ring-offset-1';
+                } else {
+                    diskBusyBadge.textContent = 'Libre';
+                    diskBusyBadge.className = 'text-[10px] font-bold uppercase mt-1 px-1.5 py-0.5 rounded bg-slate-100 text-slate-600';
+                    diskServerBox.className = 'w-12 h-12 rounded-lg text-white flex items-center justify-center font-bold shadow-sm text-sm transition-all bg-slate-500/70';
+                }
                 
-                // Calcular y visualizar longitud de la cola
+                // Calcular longitud de cola de espera pura
                 // N_q = U^2 / (1 - U)
                 const Nq_cpu = (U_cpu * U_cpu) / (1 - U_cpu);
                 const Nq_disk = (U_disk * U_disk) / (1 - U_disk);
                 
-                cpuStatusDetail.textContent = `Uso: ${uCpuPercent.toFixed(0)}% · Cola: ${Math.round(Nq_cpu)} pet.`;
-                diskStatusDetail.textContent = `Uso: ${uDiskPercent.toFixed(0)}% · Cola: ${Math.round(Nq_disk)} pet.`;
+                cpuStatusDetail.textContent = `Uso: ${uCpuPercent.toFixed(0)}% · En espera: ${Math.round(Nq_cpu)} pet.`;
+                diskStatusDetail.textContent = `Uso: ${uDiskPercent.toFixed(0)}% · En espera: ${Math.round(Nq_disk)} pet.`;
 
                 updateQueueVisuals(Nq_cpu, 'cpu');
                 updateQueueVisuals(Nq_disk, 'disk');
