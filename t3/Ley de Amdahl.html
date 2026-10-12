@@ -143,21 +143,21 @@
             <h2 class="text-3xl font-bold text-blue-800 mb-6">Caso de estudio: ¿compramos la nueva CPU?</h2>
             <div class="grid md:grid-cols-3 gap-6 items-center">
                 <div class="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <p class="text-lg font-semibold text-slate-700">Fracción Mejorable</p>
-                    <p class="text-5xl font-extrabold text-blue-600">f = 0.6</p>
+                    <p class="text-lg font-semibold text-slate-700">Fracción mejorable</p>
+                    <p class="text-5xl font-extrabold text-blue-600"><i>f</i> = 0.6</p>
                     <p class="text-sm text-slate-500">(La CPU se usa el 60% del tiempo)</p>
                 </div>
                 <div class="text-center text-5xl font-bold text-slate-400">+</div>
                 <div class="text-center p-4 bg-white rounded-lg shadow-sm">
-                    <p class="text-lg font-semibold text-slate-700">Factor de Mejora</p>
-                    <p class="text-5xl font-extrabold text-blue-600">k = 2</p>
+                    <p class="text-lg font-semibold text-slate-700">Factor de mejora</p>
+                    <p class="text-5xl font-extrabold text-blue-600"><i>k</i> = 2</p>
                     <p class="text-sm text-slate-500">(La nueva CPU es 2x más rápida)</p>
                 </div>
             </div>
             <div class="mt-8 text-center bg-white p-6 rounded-lg shadow">
-                 <p class="text-xl font-semibold text-slate-800">Cálculo: A = 1 / ((1 - 0.6) + (0.6 / 2)) = 1 / (0.4 + 0.3) = 1 / 0.7</p>
+                 <p class="text-xl font-semibold text-slate-800">Cálculo: <i>A</i> = 1 / ((1 - 0.6) + (0.6 / 2)) = 1 / (0.4 + 0.3) = 1 / 0.7</p>
                 <div class="mt-4">
-                    <span class="text-2xl font-bold text-slate-700">Aceleración Global:</span>
+                    <span class="text-2xl font-bold text-slate-700">Aceleración global:</span>
                     <span class="text-6xl font-black text-indigo-600 ml-4">1.43x</span>
                 </div>
                 <p class="mt-4 text-lg text-red-600 font-semibold bg-red-50 p-3 rounded-md">¡Una mejora del 100% en el componente solo nos da una mejora del 43% en el sistema!</p>
@@ -167,12 +167,12 @@
         <!-- Rendimientos Decrecientes -->
         <div class="card">
             <h3 class="text-center text-2xl font-bold text-blue-800 mb-4">El límite del rendimiento: la parte no mejorable manda</h3>
-            <p class="text-center text-slate-600 mb-6">Incluso con una mejora infinita (k → ∞), la aceleración máxima posible está limitada por la fracción NO mejorable del sistema. La fórmula se simplifica a: <strong class="text-blue-700">A_max = 1 / (1 - f)</strong></p>
+            <p class="text-center text-slate-600 mb-6">Incluso con una mejora infinita (<i>k</i> &rarr; &infin;), la aceleración máxima posible está limitada por la fracción no mejorable del sistema. La fórmula se simplifica a: <strong class="text-blue-700 font-mono"><i>A</i><sub>max</sub> = 1 / (1 - <i>f</i>)</strong></p>
             <div class="diminishing-returns-graph">
                  <svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid meet" class="w-full h-full">
                     <path d="M 0 140 C 50 110, 150 40, 300 30" stroke="#3b82f6" stroke-width="3" fill="none" />
                     <line x1="0" y1="25" x2="300" y2="25" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
-                    <text x="5" y="20" font-family="Inter" font-size="10" fill="#ef4444" font-weight="600">Límite Teórico con f=0.6 (A_max = 2.5x)</text>
+                    <text x="5" y="20" font-family="Inter" font-size="10" fill="#ef4444" font-weight="600">Límite teórico con f=0.6 (A_max = 2.5x)</text>
                     <text x="240" y="45" font-family="Inter" font-size="10" fill="#3b82f6" font-weight="600">Aceleración</text>
                  </svg>
             </div>
@@ -183,7 +183,7 @@
         <div class="conclusion text-center w-full block">
             <h2 class="text-2xl font-bold text-indigo-800 mb-2">Conclusión clave del administrador</h2>
             <p class="text-lg text-indigo-700">La ley de Amdahl es nuestra herramienta para evitar gastos inútiles. Nos obliga a responder la pregunta más importante: ¿Estamos mejorando la parte del sistema que realmente importa?</p>
-            <p class="mt-4 text-xl font-bold bg-white p-4 rounded-md shadow-sm text-slate-800">"Monitoriza primero para encontrar 'f', después invierte para mejorar 'k'".</p>
+            <p class="mt-4 text-xl font-bold bg-white p-4 rounded-md shadow-sm text-slate-800">«Monitoriza primero para encontrar <code>f</code>, después invierte para mejorar <code>k</code>».</p>
         </div>
     </main>
     
