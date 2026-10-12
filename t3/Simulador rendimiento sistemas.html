@@ -66,7 +66,7 @@
                     
                     <h3 class="text-xl font-semibold text-[#EB6841] mt-6 mb-3">Parámetros de carga</h3>
                     <div class="slider-container">
-                        <label for="arrivalRate" class="font-semibold">Tasa de Llegadas (λ₀) [req/s]</label>
+                        <label for="arrivalRate" class="font-semibold">Tasa de llegadas (λ₀) [req/s]</label>
                         <span id="arrivalRateValue" class="font-mono text-lg font-bold">10</span>
                         <input type="range" id="arrivalRate" min="1" max="100" value="10" class="col-span-2">
                     </div>
@@ -74,7 +74,7 @@
                     <h3 class="text-xl font-semibold text-[#EB6841] mt-8 mb-3">Características del sistema</h3>
                     <div class="space-y-4">
                         <div class="slider-container">
-                            <label for="sCpu" class="font-semibold">Tiempo Servicio CPU (S<sub>cpu</sub>) [ms/visita]</label>
+                            <label for="sCpu" class="font-semibold">Tiempo de servicio CPU (S<sub>cpu</sub>) [ms/visita]</label>
                             <span id="sCpuValue" class="font-mono text-lg font-bold">2</span>
                             <input type="range" id="sCpu" min="1" max="50" value="2" class="col-span-2">
                         </div>
@@ -84,12 +84,12 @@
                             <input type="range" id="vCpu" min="1" max="100" value="20" class="col-span-2">
                         </div>
                         <div class="slider-container mt-4">
-                            <label for="sDisk" class="font-semibold">Tiempo Servicio Disco (S<sub>disk</sub>) [ms/visita]</label>
+                            <label for="sDisk" class="font-semibold">Tiempo de servicio disco (S<sub>disk</sub>) [ms/visita]</label>
                             <span id="sDiskValue" class="font-mono text-lg font-bold">10</span>
                             <input type="range" id="sDisk" min="1" max="100" value="10" class="col-span-2">
                         </div>
                         <div class="slider-container">
-                            <label for="vDisk" class="font-semibold">Visitas a Disco (V<sub>disk</sub>) [visitas/req]</label>
+                            <label for="vDisk" class="font-semibold">Visitas a disco (V<sub>disk</sub>) [visitas/req]</label>
                             <span id="vDiskValue" class="font-mono text-lg font-bold">8</span>
                             <input type="range" id="vDisk" min="1" max="100" value="8" class="col-span-2">
                         </div>
@@ -98,7 +98,7 @@
                     <div class="mt-8 border-t pt-6">
                         <h3 class="text-xl font-semibold text-[#00A0B0] mb-3">Parámetros de visualización</h3>
                         <div class="slider-container">
-                            <label for="slowdownThreshold" class="font-semibold">Umbral de Lentitud (SLA) [ms]</label>
+                            <label for="slowdownThreshold" class="font-semibold">Umbral de lentitud (SLA) [ms]</label>
                             <span id="slowdownThresholdValue" class="font-mono text-lg font-bold">200</span>
                             <input type="range" id="slowdownThreshold" min="100" max="1000" step="50" value="200" class="col-span-2">
                         </div>
@@ -120,7 +120,7 @@
                     </div>
                     <div class="grid grid-cols-2 gap-x-6 gap-y-4 text-center">
                         <div>
-                            <p class="text-gray-600">Tiempo Respuesta (R)</p>
+                            <p class="text-gray-600">Tiempo de respuesta (R)</p>
                             <p id="responseTime" class="metric-value text-[#CC333F]">0 ms</p>
                         </div>
                         <div>
@@ -132,7 +132,7 @@
                             <p id="utilCpu" class="metric-value text-[#EB6841]">0%</p>
                         </div>
                         <div>
-                            <p class="text-gray-600">Utilización Disco (U<sub>disk</sub>)</p>
+                            <p class="text-gray-600">Utilización disco (U<sub>disk</sub>)</p>
                             <p id="utilDisk" class="metric-value text-[#EDC951]">0%</p>
                         </div>
                     </div>
@@ -231,14 +231,14 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     const ctx = document.getElementById('kiviatChart').getContext('2d');
-    const chartLabels = ['Índice de Lentitud', 'Utilización CPU', 'CPU ociosa', 'Productividad', 'Disco ocioso', 'Utilización disco'];
+    const chartLabels = ['Índice de lentitud', 'Utilización CPU', 'CPU ociosa', 'Productividad', 'Disco ocioso', 'Utilización disco'];
     
     const kiviatChart = new Chart(ctx, {
         type: 'radar',
         data: {
             labels: chartLabels,
             datasets: [{
-                label: 'Firma Actual',
+                label: 'Firma actual',
                 data: [0, 0, 100, 100, 100, 0],
                 backgroundColor: colors.stable.bg,
                 borderColor: colors.stable.border,
@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 pointRadius: 4
             },
             {
-                label: 'Sistema Ideal',
+                label: 'Sistema ideal',
                 data: [0, 0, 100, 100, 100, 0],
                 backgroundColor: 'rgba(106, 74, 60, 0.05)',
                 borderColor: colors.ideal,
