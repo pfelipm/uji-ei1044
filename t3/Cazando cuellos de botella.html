@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: el arte de la caza del cuello de botella</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: transparent; 
+        }
+        .infographic-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 2rem;
+        }
+        .header h1 {
+            font-weight: 900;
+            font-size: 3rem;
+            color: #1e3a8a;
+            letter-spacing: -0.05em;
+        }
+        .header .subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #475569;
+            margin-top: 0.5rem;
+        }
+        .icon {
+            width: 60px;
+            height: 60px;
+        }
+        .card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            height: 100%;
+        }
+        .card h3 {
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 1.25rem;
+        }
+        .formula-card {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .formula {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .bottleneck-highlight {
+            background-color: #fef2f2;
+            border: 2px solid #ef4444;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            transition: all 0.2s ease-in-out;
+        }
+        .conclusion {
+            background-color: #eef2ff;
+            border-top: 3px solid #6366f1;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="infographic-container pb-8">
+    <header class="header">
+        <h1 class="font-black text-blue-900 text-5xl">El arte de la caza del cuello de botella</h1>
+        <p class="subtitle">Cómo encontrar el componente que frena todo tu sistema</p>
+    </header>
+
+    <main class="flex flex-col gap-12">
+        <!-- Intro: ¿Qué es un cuello de botella? -->
+        <div class="text-center">
+            <div class="text-5xl mb-4">🍾</div>
+            <h2 class="text-2xl font-bold text-slate-800">Todo sistema tiene un límite. El cuello de botella es el componente que define ese límite.</h2>
+            <p class="mt-2 text-slate-600">Es el recurso más lento en la cadena, el que más se satura y el que dicta la capacidad máxima de todo el sistema. Nuestra misión es encontrarlo.</p>
+        </div>
+        
+        <!-- Las Pistas: Métricas Clave -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="card text-center">
+                <h3>Pista nº 1: visitas por trabajo (Vᵢ)</h3>
+                <p class="mt-2 text-slate-600">¿Cuántas veces una transacción necesita usar cada recurso? (Ej: 16 visitas a la CPU, 7 al Disco A...)</p>
+            </div>
+            <div class="card text-center">
+                <h3>Pista nº 2: tiempo de servicio (Sᵢ)</h3>
+                <p class="mt-2 text-slate-600">¿Cuánto tiempo está ocupado el recurso en cada una de esas visitas? (Ej: 0.01s por visita a la CPU)</p>
+            </div>
+        </div>
+
+        <!-- El Arma Secreta: La Demanda de Servicio -->
+        <div class="formula-card">
+            <h2 class="text-2xl font-bold mb-4">El arma secreta: la demanda de servicio (Dᵢ)</h2>
+            <div class="formula">
+                Dᵢ = Vᵢ × Sᵢ
+            </div>
+            <p class="mt-4 opacity-80">Esta simple multiplicación nos revela el tiempo TOTAL que un trabajo exige de cada recurso. El recurso con la mayor Demanda de Servicio es... ¡el cuello de botella!</p>
+        </div>
+
+        <!-- Caso Práctico: Servidor Web -->
+        <div>
+            <h2 class="text-3xl font-bold text-blue-800 mb-6 text-center">Caso práctico: detectives en un servidor web</h2>
+            <div class="grid md:grid-cols-3 gap-6 items-stretch">
+                <!-- CPU -->
+                <div class="card p-4 flex flex-col">
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <div class="text-5xl">🧠</div>
+                        <h3 class="text-2xl">CPU</h3>
+                    </div>
+                    <p class="text-center text-slate-600">V = 16 visitas</p>
+                    <p class="text-center text-slate-600">S = 0.01 s/visita</p>
+                    <p class="mt-auto pt-4 text-center text-2xl font-bold text-blue-800 bg-blue-50 p-3 rounded-lg">D = 0.16s</p>
+                </div>
+                <!-- Disco 1 -->
+                <div class="card p-4 flex flex-col">
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <div class="text-5xl">💾</div>
+                        <h3 class="text-2xl">Disco 1</h3>
+                    </div>
+                    <p class="text-center text-slate-600">V = 7 visitas</p>
+                    <p class="text-center text-slate-600">S = 0.02 s/visita</p>
+                    <p class="mt-auto pt-4 text-center text-2xl font-bold text-blue-800 bg-blue-50 p-3 rounded-lg">D = 0.14s</p>
+                </div>
+                <!-- Disco 2 - The Bottleneck -->
+                <div class="card p-4 flex flex-col bottleneck-highlight">
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <div class="text-5xl">💾</div>
+                        <h3 class="text-2xl text-red-700">Disco 2</h3>
+                    </div>
+                    <p class="text-center text-slate-600">V = 8 visitas</p>
+                    <p class="text-center text-slate-600">S = 0.03 s/visita</p>
+                    <p class="mt-auto pt-4 text-center text-2xl font-bold text-red-800 bg-red-100 p-3 rounded-lg">D = 0.24s</p>
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <p class="text-2xl font-bold bg-amber-100 text-amber-800 p-4 rounded-lg inline-flex items-center gap-3">
+                    <span class="text-3xl">🕵️‍♂️</span>
+                    ¡Caso resuelto! El Disco 2 es el Cuello de Botella.
+                </p>
+            </div>
+        </div>
+
+        <!-- Y ahora qué: Predecir el futuro -->
+        <div class="card bg-slate-50">
+            <h3 class="text-center text-2xl font-bold text-blue-800 mb-4">«¿Y ahora, qué?»: prediciendo el futuro del sistema</h3>
+            <p class="text-center text-slate-600 mb-6">Encontrar el cuello de botella (D<sub>b</sub> = 0.24s) nos permite calcular los límites teóricos de nuestro sistema:</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="text-center bg-white p-6 rounded-lg border border-slate-200">
+                    <h4 class="text-xl font-bold text-slate-700">Productividad Máxima (X<sub>opt</sub>)</h4>
+                    <p class="text-lg mt-2">X<sub>opt</sub> = 1 / D<sub>b</sub> = 1 / 0.24</p>
+                    <p class="text-4xl font-extrabold text-indigo-600 mt-2">4.16 pet/s</p>
+                    <p class="text-sm text-slate-500 mt-2">El sistema NUNCA podrá procesar más de ~4 peticiones por segundo.</p>
+                </div>
+                <div class="text-center bg-white p-6 rounded-lg border border-slate-200">
+                    <h4 class="text-xl font-bold text-slate-700">Tiempo de Respuesta Mínimo (R<sub>opt</sub>)</h4>
+                    <p class="text-lg mt-2">R<sub>opt</sub> = Σ Dᵢ = 0.16 + 0.14 + 0.24</p>
+                    <p class="text-4xl font-extrabold text-indigo-600 mt-2">0.54s</p>
+                    <p class="text-sm text-slate-500 mt-2">En el mejor de los casos (sin colas), una petición tardará 0.54s.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="conclusion text-center w-full block">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-2">Conclusión clave del administrador</h2>
+            <p class="text-lg text-indigo-700">La caza del cuello de botella no es magia, es método. Con dos métricas simples y una multiplicación, pasamos de "la web va lenta" a "necesitamos mejorar el Disco 2, y aquí están los números que lo demuestran".</p>
+        </div>
+    </main>
+    
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+</div>
+
+</body>
+</html>

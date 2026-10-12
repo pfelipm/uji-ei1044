@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: eligiendo el modelo correcto (análisis operacional)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background-color: #f3f4f6;
+            border-radius: 0.5rem;
+            min-height: 120px;
+        }
+        .flow-arrow {
+            position: relative;
+            background-color: #9ca3af;
+            height: 3px;
+            flex-grow: 1;
+            min-width: 30px;
+        }
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: -5px;
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-left: 10px solid #6b7280;
+        }
+        .bidirectional-arrow::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: -5px;
+            width: 0;
+            height: 0;
+            border-top: 7px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-right: 10px solid #6b7280;
+        }
+        .icon-bubble {
+            font-size: 2.5rem;
+            padding: 1rem;
+            background-color: #e0e7ff;
+            border-radius: 9999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">Análisis operacional 🧭</h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-2">Eligiendo el modelo correcto</p>
+            <p class="text-md text-gray-500 mt-4">La guía para clasificar tu sistema y prepararte para la acción.</p>
+        </header>
+
+        <main class="space-y-12">
+
+            <!-- Bloque de introducción metodológica: La vaca esférica y los modelos -->
+            <section id="aproximaciones-modelo" class="bg-white p-8 rounded-lg shadow-md border-l-4 border-indigo-500">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-4 flex justify-center">
+                        <div class="rounded-xl overflow-hidden shadow-lg border border-slate-200 max-w-xs bg-slate-50">
+                            <img src="aproximaciones.jpg" alt="Aproximaciones: La vaca esférica en ingeniería y modelado" class="w-full h-auto object-cover">
+                            <p class="text-[11px] text-center text-slate-500 py-1.5 px-2 bg-slate-100">«Supongamos una vaca esférica en el vacío...»</p>
+                        </div>
+                    </div>
+                    <div class="md:col-span-8 space-y-3">
+                        <h2 class="text-2xl font-bold text-slate-800">El arte de la aproximación: ¿por qué modelamos?</h2>
+                        <p class="text-slate-600 leading-relaxed">
+                            Cuenta el clásico chiste científico que, ante el reto de calcular el volumen de una vaca lechera, el físico plantea complejas ecuaciones de fluidos, el matemático busca una demostración abstracta y el ingeniero concluye: <em>«supongamos primero que la vaca es una esfera homogénea y aplicamos \(V = \frac{4}{3}\pi r^3\)»</em>.
+                        </p>
+                        <p class="text-slate-600 leading-relaxed">
+                            En administración de sistemas informáticos ocurre exactamente lo mismo. Un servidor real ejecuta millones de instrucciones, interrupciones hardware y fluctuaciones de red imposibles de modelar al milímetro. El <strong>análisis operacional</strong> no busca reproducir cada bit, sino <strong>construir un modelo simplificado y manejable</strong> que capture la esencia del flujo de trabajo con la precisión justa para tomar decisiones de capacidad, diagnóstico y diseño sin ahogarnos en el ruido.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="open-vs-closed" class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center justify-center"><span class="text-4xl mr-4">↔️</span> El primer cruce de caminos: ¿red abierta o cerrada?</h2>
+                <p class="text-center text-lg text-gray-600 mb-8">La primera pregunta que debemos hacernos es: ¿de dónde vienen los clientes y a dónde van? La respuesta determina la naturaleza fundamental de nuestro sistema.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="border-2 border-blue-500 rounded-lg p-6 bg-blue-50">
+                        <h3 class="text-2xl font-bold text-blue-800 mb-4 text-center">A) Modelo de red abierta</h3>
+                        <div class="flow-diagram mb-4">
+                            <span class="text-4xl">☁️</span>
+                            <div class="flow-arrow mx-2"></div>
+                            <span class="text-4xl">🖥️</span>
+                            <div class="flow-arrow mx-2"></div>
+                            <span class="text-4xl">☁️</span>
+                        </div>
+                        <p class="font-semibold text-center text-blue-700 mb-4">Existe una fuente "infinita" de clientes. <strong>Llegan, se les sirve y se van para siempre.</strong></p>
+                        <ul class="list-disc list-outside pl-5 space-y-3 text-gray-700">
+                            <li><strong>Variable que la define:</strong> la <strong>tasa de llegadas (\(\lambda_0\))</strong>, que es independiente del estado del sistema.</li>
+                            <li><strong>Ejemplo del mundo real:</strong> un servidor web público recibiendo peticiones de miles de usuarios en Internet.</li>
+                            <li class="bg-blue-100 p-2 rounded-md list-none -ml-5"><strong>Conexión a problemas:</strong> este es el modelo para el <strong>"Caso 1: El dilema de la actualización"</strong>.</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-2 border-purple-500 rounded-lg p-6 bg-purple-50">
+                        <h3 class="text-2xl font-bold text-purple-800 mb-4 text-center">B) Modelo de red cerrada</h3>
+                        <div class="flow-diagram mb-4">
+                           <div class="text-center relative">
+                               <p class="absolute -top-5 left-1/2 -translate-x-1/2 font-bold text-purple-700">Z</p>
+                               <span class="text-4xl">👨‍💻</span>
+                           </div>
+                           <div class="relative flex-grow mx-2">
+                                <div class="flow-arrow w-full bidirectional-arrow"></div>
+                                <p class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-full font-bold text-purple-700 bg-f3f4f6 px-1">N</p>
+                           </div>
+                           <span class="text-4xl">🖥️</span>
+                        </div>
+                        <p class="font-semibold text-center text-purple-700 mb-4">Hay una población <strong>finita y constante</strong> de clientes (N) que <strong>circulan por el sistema.</strong></p>
+                        <ul class="list-disc list-outside pl-5 space-y-3 text-gray-700">
+                            <li><strong>Variables que la definen:</strong> el <strong>número de clientes (N)</strong> y el <strong>tiempo de reflexión (Z)</strong>.</li>
+                            <li><strong>Ejemplo del mundo real:</strong> un sistema de 15 terminales de entrada de datos con 15 operadores fijos.</li>
+                            <li class="bg-purple-100 p-2 rounded-md list-none -ml-5"><strong>Conexión a problemas:</strong> este es el modelo necesario para el <strong>"Caso 2: La saturación"</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="class-type" class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center justify-center"><span class="text-4xl mr-4">🤔</span> La segunda decisión: ¿todos los clientes son iguales?</h2>
+                <p class="text-center text-lg text-gray-600 mb-8">Una vez sabemos si nuestro sistema es abierto o cerrado, debemos preguntarnos por la naturaleza de los trabajos que procesa.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="border rounded-lg p-6 text-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">A) Modelo monoclase</h3>
+                        <div class="icon-bubble mx-auto mb-4 bg-green-100 text-green-700">📦</div>
+                        <p class="font-semibold text-gray-700 mb-3">Todos los clientes son estadísticamente idénticos. Se comportan de la misma manera y tienen las mismas demandas de servicio.</p>
+                        <p class="text-gray-600"><strong>Cuándo se usa:</strong> es el modelo que usamos por defecto para enseñar y simplificar. ¡Todos los escenarios que hemos visto hasta ahora son monoclase!</p>
+                    </div>
+
+                    <div class="border rounded-lg p-6 text-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">B) Modelo multiclase</h3>
+                        <div class="flex items-center justify-center icon-bubble mx-auto mb-4 bg-yellow-100 text-yellow-700"><span>📦</span><span class="font-bold">+</span><span>⚙️</span></div>
+                        <p class="font-semibold text-gray-700 mb-3">Existen diferentes tipos (clases) de clientes. Cada clase tiene un comportamiento y unas demandas distintas.</p>
+                        <p class="text-gray-600"><strong>Ejemplo avanzado:</strong> un servidor de base de datos que atiende a consultas rápidas (Clase 1) y actualizaciones lentas (Clase 2).</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+</body>
+</html>

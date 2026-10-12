@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: la caja de herramientas del análisis operacional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .formula {
+            font-family: monospace;
+            background-color: #eef2ff;
+            color: #4338ca;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            display: inline-block;
+        }
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-700">Análisis operacional en acción</h1>
+            <h2 class="text-2xl md:text-3xl text-gray-600 mt-2">La caja de herramientas 🧰</h2>
+            <p class="text-lg md:text-xl text-gray-500 mt-4 max-w-3xl mx-auto">Ahora que conocemos el mapa y las reglas, vamos a usar las herramientas para resolver problemas reales. La clave es elegir la <i>receta</i> correcta para cada sistema.</p>
+        </header>
+
+        <main class="bg-white p-6 md:p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Panel central: elige tu batalla</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="border-2 border-blue-500 rounded-lg p-6 bg-blue-50 flex flex-col">
+                    <h3 class="text-2xl font-bold text-blue-800 mb-4 text-center flex items-center justify-center"><span class="text-4xl mr-3">🌐</span> Modelo de Red Abierta</h3>
+                    
+                    <div class="flex-grow space-y-4">
+                        <div>
+                            <h4 class="font-bold text-lg text-blue-900">¿Cuándo se usa?</h4>
+                            <p class="text-gray-700">Para sistemas con una fuente <i>infinita</i> de clientes. Llegan, se les sirve y se van.</p>
+                            <p class="text-sm text-gray-500 mt-1"><strong>Ejemplos:</strong> Servidores web, APIs públicas, sistemas de streaming.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-lg text-blue-900">La receta (el algoritmo de resolución)</h4>
+                            <ol class="space-y-4 mt-2">
+                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3">1</div><div><strong>Calcular utilizaciones (Uᵢ):</strong><br><span class="formula mt-1">Uᵢ = λ₀ × Dᵢ</span></div></li>
+                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3">2</div><div><strong>Calcular tiempos de respuesta por recurso (Rᵢ):</strong><br><span class="formula mt-1">Rᵢ = Sᵢ / (1 - Uᵢ)</span><p class="text-xs text-red-600 mt-1">¡Rᵢ se dispara cuando Uᵢ se acerca al 100%!</p></div></li>
+                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3">3</div><div><strong>Calcular tiempo de respuesta total (R):</strong><br><span class="formula mt-1">R = Σ (Vᵢ × Rᵢ)</span></div></li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-blue-100 p-3 rounded-md text-center text-blue-800 font-semibold">
+                        <p>Esta es la herramienta para el <strong>Caso Práctico 1: El Dilema de la Actualización</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="border-2 border-purple-500 rounded-lg p-6 bg-purple-50 flex flex-col">
+                    <h3 class="text-2xl font-bold text-purple-800 mb-4 text-center flex items-center justify-center"><span class="text-4xl mr-3">🔄</span> Modelo de Red Cerrada</h3>
+                    
+                    <div class="flex-grow space-y-4">
+                        <div>
+                            <h4 class="font-bold text-lg text-purple-900">¿Cuándo se usa?</h4>
+                            <p class="text-gray-700">Para sistemas con una población finita y constante de clientes (N) que circulan sin salir.</p>
+                            <p class="text-sm text-gray-500 mt-1"><strong>Ejemplos:</strong> Sistemas de terminales, procesos batch con hilos fijos.</p>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-lg text-purple-900">El atajo del administrador (límites)</h4>
+                            <p class="text-gray-600 mb-2">En lugar del algoritmo MVA completo, calculamos el punto de colapso del sistema.</p>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold text-center text-purple-800">Concepto clave: el punto de saturación (N*)</h5>
+                                <p class="text-sm text-center text-gray-600 mb-2">Es el "número mágico" de usuarios. Por encima de él, el sistema colapsa.</p>
+                                <div class="text-center"><span class="formula text-lg">N* = (ΣDᵢ + Z) / Dₑ</span></div>
+                                <p class="text-xs text-center text-gray-500 mt-1">Donde Dₑ es la demanda del cuello de botella.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-purple-100 p-3 rounded-md text-center text-purple-800 font-semibold">
+                        <p>Esta es la herramienta para el <strong>Caso Práctico 2: La Saturación</strong>.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <section id="objective" class="mt-12 bg-white p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">El objetivo final: el ciclo de mejora</h2>
+            <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 text-center">
+                <div class="p-3 bg-indigo-100 rounded-lg"><strong>1. MODELAR</strong><p class="text-xs">Calcular rendimiento base</p></div>
+                <div class="text-2xl font-bold text-indigo-400">→</div>
+                <div class="p-3 bg-indigo-100 rounded-lg"><strong>2. PROPONER</strong><p class="text-xs">Plantear una mejora</p></div>
+                <div class="text-2xl font-bold text-indigo-400">→</div>
+                <div class="p-3 bg-indigo-100 rounded-lg"><strong>3. RECALCULAR</strong><p class="text-xs">Predecir nuevo rendimiento</p></div>
+                <div class="text-2xl font-bold text-indigo-400">→</div>
+                <div class="p-3 bg-indigo-100 rounded-lg"><strong>4. DECIDIR</strong><p class="text-xs">Comparar coste/beneficio</p></div>
+            </div>
+            <p class="mt-6 text-center text-lg text-gray-700 font-semibold">Usamos estos modelos para justificar con <span class="bg-yellow-200 px-2 py-1 rounded">NÚMEROS</span> por qué una mejora es (o no es) una buena idea.</p>
+        </section>
+
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

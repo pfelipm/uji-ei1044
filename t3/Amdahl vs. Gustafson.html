@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amdahl vs. Gustafson - EI1044</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .table-cell {
+            vertical-align: top;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb; /* slate-200 */
+        }
+        /* Estilo para la transición suave de la sección desplegable */
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .collapsible-content.expanded {
+            max-height: 1000px; /* Suficientemente grande para el contenido */
+        }
+        /* Estilos para el modal */
+        #solutionModal {
+            transition: opacity 0.3s ease;
+        }
+        #modalPanel {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-100 flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
+
+    <!-- Contenedor principal de la infografía -->
+    <div class="w-full max-w-5xl bg-white rounded-xl shadow-2xl overflow-hidden">
+        <div class="p-8 sm:p-10">
+            <!-- Cabecera -->
+            <header class="text-center border-b border-slate-200 pb-6 mb-8">
+                <h1 class="text-3xl sm:text-4xl font-bold text-slate-800">Amdahl vs. Gustafson</h1>
+                <p class="mt-2 text-lg text-slate-500">Dos perspectivas clave sobre el rendimiento en computación paralela</p>
+            </header>
+
+            <!-- Tabla Comparativa -->
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm sm:text-base border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50">
+                            <th class="table-cell text-left font-semibold text-slate-700 w-1/4">Característica</th>
+                            <th class="table-cell text-left font-semibold text-blue-800 w-3/8">Ley de Amdahl (Gene Amdahl, 1967)</th>
+                            <th class="table-cell text-left font-semibold text-emerald-800 w-3/8">Ley de Gustafson (John Gustafson, 1988)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-cell font-medium text-slate-600">Perspectiva</td>
+                            <td class="table-cell text-slate-700"><strong>Carga de trabajo fija</strong></td>
+                            <td class="table-cell text-slate-700"><strong>Tiempo de ejecución fijo</strong></td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell font-medium text-slate-600">Pregunta Clave</td>
+                            <td class="table-cell text-slate-700">¿Cuánto más rápido puedo resolver <em>este</em> problema?</td>
+                            <td class="table-cell text-slate-700">¿Cuánto problema <em>más grande</em> puedo resolver en el mismo tiempo?</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell font-medium text-slate-600">Variable Principal</td>
+                            <td class="table-cell text-slate-700">El tiempo de ejecución se reduce.</td>
+                            <td class="table-cell text-slate-700">El tamaño del problema crece.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell font-medium text-slate-600">Cuello de Botella</td>
+                            <td class="table-cell text-slate-700">La porción <strong>serie (secuencial)</strong> del código es un límite estricto.</td>
+                            <td class="table-cell text-slate-700">La porción serie es solo una pequeña penalización que no limita el crecimiento.</td>
+                        </tr>
+                         <tr>
+                            <td class="table-cell font-medium text-slate-600">Modelo de Escalado</td>
+                            <td class="table-cell text-slate-700"><span class="font-semibold text-blue-700">Strong Scaling</span> (Escalado Fuerte)</td>
+                            <td class="table-cell text-slate-700"><span class="font-semibold text-emerald-700">Weak Scaling</span> (Escalado Débil)</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell font-medium text-slate-600">Límite Teórico</td>
+                            <td class="table-cell text-slate-700">La aceleración está limitada por <code class="bg-slate-200 px-1 rounded">1/s</code>, donde 's' es la fracción serie.</td>
+                            <td class="table-cell text-slate-700">La aceleración es casi lineal al número de procesadores.</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell font-medium text-slate-600">Analogía</td>
+                            <td class="table-cell text-slate-700">8 cocineros haciendo <strong>una</strong> pizza. El límite es el único horno (la parte serie).</td>
+                            <td class="table-cell text-slate-700">8 cocineros haciendo <strong>ocho</strong> pizzas. Usan 8 hornos y hacen 8 veces más trabajo.</td>
+                        </tr>
+                        <tr class="bg-slate-50">
+                            <td class="table-cell font-medium text-slate-600">Aplicación Típica</td>
+                            <td class="table-cell text-slate-700">Informática de propósito general, acelerar tareas con una fuerte componente secuencial (ej. GUI, I/O).</td>
+                            <td class="table-cell text-slate-700">Computación de Alto Rendimiento (HPC), Big Data, simulaciones científicas (más procesadores = más precisión/datos).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sección Desplegable del Caso Práctico -->
+            <div class="mt-8 border-t border-slate-200 pt-6">
+                <button id="toggleButton" class="w-full flex justify-between items-center text-left p-4 rounded-lg bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                    <span class="text-lg font-semibold text-slate-800">Caso Práctico: Debate de Adquisición en la UJI</span>
+                    <svg id="toggleIcon" class="w-6 h-6 text-slate-600 transition-transform transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div id="collapsibleContent" class="collapsible-content">
+                    <div class="mt-4 p-6 bg-slate-50 rounded-lg text-slate-700 space-y-4">
+                        <p class="font-medium">Escenario:</p>
+                        <p>Somos el departamento de TI de la Universitat Jaume I y tenemos presupuesto para un nuevo servidor. Debemos elegir la opción que ofrezca el mejor retorno de la inversión para nuestras necesidades.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                            <div class="bg-white p-4 rounded-lg border border-blue-200">
+                                <h3 class="font-bold text-blue-800">Opción A: "El Multitarea"</h3>
+                                <p class="mt-1">Un servidor con <strong>64 núcleos</strong> a una frecuencia modesta de <strong>2.0 GHz</strong>.</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg border border-emerald-200">
+                                <h3 class="font-bold text-emerald-800">Opción B: "El Velocista"</h3>
+                                <p class="mt-1">Un servidor con <strong>16 núcleos</strong> a una frecuencia muy alta de <strong>4.5 GHz</strong>.</p>
+                            </div>
+                        </div>
+                        <p class="font-medium pt-4">Preguntas para el debate:</p>
+                        <ul class="list-disc list-outside pl-5 space-y-2">
+                            <li>¿Qué ley (Amdahl o Gustafson) justifica mejor una u otra compra si el servidor va a alojar el <strong>Aula Virtual</strong> (miles de peticiones PHP pequeñas y concurrentes, pero limitadas por I/O y partes de código serie)?</li>
+                            <li>¿Y si el objetivo principal fuera dar servicio al <strong>clúster de supercomputación</strong> del departamento de Química para ejecutar simulaciones masivas que pueden escalar en precisión y tamaño de datos?</li>
+                            <li><strong>Conclusión:</strong> ¿Qué opción elegiríais y por qué? Argumentad vuestra decisión basándoos en los conceptos de "Strong Scaling" vs. "Weak Scaling".</li>
+                        </ul>
+                        <!-- Botón para abrir el modal -->
+                        <div class="text-center mt-6">
+                            <button id="openModalButton" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                                Ver solución razonada
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de la Solución -->
+    <div id="solutionModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 hidden z-50">
+        <div id="modalPanel" class="bg-white rounded-xl shadow-2xl w-full max-w-5xl transform scale-95">
+            <div class="p-6 border-b border-slate-200 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-slate-800">Análisis del caso práctico</h2>
+                <button id="closeModalButton" class="text-slate-500 hover:text-slate-800 text-3xl leading-none">&times;</button>
+            </div>
+            <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+                <div>
+                    <h3 class="font-semibold text-lg text-slate-700">1. Servidor para el Aula Virtual</h3>
+                    <p class="mt-2 text-slate-600">Este es un problema de <strong>Amdahl</strong>. La carga de trabajo (atender una petición web) tiene un tamaño fijo y una parte secuencial importante (acceso a base de datos, I/O de disco). El objetivo es reducir la latencia de cada petición individual. Aquí, la velocidad del núcleo es crítica.</p>
+                    <p class="mt-2 text-blue-800 font-semibold bg-blue-50 p-3 rounded-md">La elección correcta es la <strong>Opción B: "El Velocista"</strong>. Sus núcleos de 4.5 GHz procesarán cada tarea secuencial mucho más rápido, lo que resulta en una mejor experiencia para el usuario, aunque tenga menos núcleos. Se rige por el "Strong Scaling".</p>
+                </div>
+                 <div>
+                    <h3 class="font-semibold text-lg text-slate-700">2. Servidor para el clúster de supercomputación (HPC)</h3>
+                    <p class="mt-2 text-slate-600">Este es un problema de <strong>Gustafson</strong>. Las simulaciones científicas son altamente paralelizables. Con más núcleos, los investigadores no buscan hacer la misma simulación más rápido, sino hacer una simulación *más grande* o *más precisa* en el mismo tiempo. El tamaño del problema escala con los recursos.</p>
+                    <p class="mt-2 text-emerald-800 font-semibold bg-emerald-50 p-3 rounded-md">La elección correcta es la <strong>Opción A: "El Multitarea"</strong>. Los 64 núcleos, aunque más lentos individualmente, ofrecen una capacidad de procesamiento paralelo masiva. Permite resolver problemas mucho mayores, lo cual es el objetivo en HPC. Se rige por el "Weak Scaling".</p>
+                </div>
+                 <div>
+                    <h3 class="font-semibold text-lg text-slate-700">3. Conclusión final</h3>
+                    <p class="mt-2 text-slate-600">No existe un "mejor servidor" universal. La elección depende radicalmente de la naturaleza de la carga de trabajo. Como administradores de sistemas, es crucial analizar el problema antes de adquirir hardware. Para tareas empresariales típicas (web, bases de datos), la velocidad de un solo hilo (Amdahl) sigue siendo reina. Para la computación científica y el Big Data, el número de núcleos (Gustafson) es el rey.</p>
+                </div>
+            </div>
+             <div class="p-4 bg-slate-50 text-right rounded-b-xl">
+                <button id="closeModalButton2" class="bg-slate-600 text-white font-bold py-2 px-5 rounded-lg hover:bg-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Pie de página -->
+    <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+        <div>
+            <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                <span>👁️🗨️</span>
+                <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+            </a>
+        </div>
+        <div class="space-y-1 text-slate-400">
+            <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p>
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica para la sección desplegable principal
+        const toggleButton = document.getElementById('toggleButton');
+        const collapsibleContent = document.getElementById('collapsibleContent');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        toggleButton.addEventListener('click', () => {
+            const isExpanded = collapsibleContent.classList.toggle('expanded');
+            toggleIcon.classList.toggle('rotate-180', isExpanded);
+        });
+
+        // Lógica para el modal de la solución
+        const solutionModal = document.getElementById('solutionModal');
+        const modalPanel = document.getElementById('modalPanel');
+        const openModalButton = document.getElementById('openModalButton');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const closeModalButton2 = document.getElementById('closeModalButton2');
+
+        const openModal = () => {
+            solutionModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Evita el scroll del fondo
+            setTimeout(() => {
+                solutionModal.classList.remove('opacity-0');
+                modalPanel.classList.remove('scale-95');
+            }, 10);
+        };
+        
+        const closeModal = () => {
+             solutionModal.classList.add('opacity-0');
+             modalPanel.classList.add('scale-95');
+             setTimeout(() => {
+                solutionModal.classList.add('hidden');
+                document.body.style.overflow = ''; // Restaura el scroll
+            }, 300);
+        };
+
+        openModalButton.addEventListener('click', openModal);
+        closeModalButton.addEventListener('click', closeModal);
+        closeModalButton2.addEventListener('click', closeModal);
+        
+        // Cerrar el modal al hacer clic fuera del panel
+        solutionModal.addEventListener('click', (event) => {
+            if (event.target === solutionModal) {
+                closeModal();
+            }
+        });
+        
+         // Pre-aplicar clases de transición para la animación de entrada
+        solutionModal.classList.add('opacity-0');
+        modalPanel.classList.add('scale-95');
+
+    </script>
+</body>
+</html>

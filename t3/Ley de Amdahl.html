@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: la ley de Amdahl</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: transparent; 
+        }
+        .infographic-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            /* Se elimina la sombra para una integración perfecta en fondos blancos */
+            /* box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); */
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 2rem;
+        }
+        .header h1 {
+            font-weight: 900;
+            font-size: 3rem;
+            color: #1e3a8a;
+            letter-spacing: -0.05em;
+        }
+        .header .subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #475569;
+            margin-top: 0.5rem;
+        }
+        .icon {
+            width: 60px;
+            height: 60px;
+        }
+        .card {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            height: 100%;
+        }
+        .card h3 {
+            font-weight: 700;
+            color: #1e3a8a;
+            font-size: 1.25rem;
+        }
+        .formula-card {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .formula {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .case-study {
+            background-color: #f0f9ff;
+            border-left: 5px solid #3b82f6;
+            padding: 2rem;
+            border-radius: 0 1rem 1rem 0;
+        }
+        .conclusion {
+            background-color: #eef2ff;
+            border-top: 3px solid #6366f1;
+            padding: 2rem;
+            border-radius: 1rem;
+        }
+        .diminishing-returns-graph {
+            height: 250px;
+            width: 100%;
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="infographic-container pb-8">
+    <header class="header">
+        <h1 class="font-black text-blue-900 text-5xl">La ley de Amdahl</h1>
+        <p class="subtitle">Un Baño de Realidad para Decisiones de Inversión</p>
+    </header>
+
+    <main class="flex flex-col gap-12">
+        <!-- Fila de Conceptos Clave -->
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Card del Concepto -->
+            <div class="card flex flex-col items-center text-center">
+                 <svg class="icon text-blue-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.34-4.992M3.66 16.008a9.004 9.004 0 0016.68 0M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 12V3m0 9l4.33-2.5" />
+                </svg>
+                <h3>Fracción mejorable (f)</h3>
+                <p class="mt-2 text-slate-600">Es el porcentaje de tiempo que un sistema dedica a la parte que queremos mejorar. Si tu app pasa el 60% del tiempo usando la CPU, entonces f = 0.6.</p>
+            </div>
+            <!-- Card del Concepto -->
+            <div class="card flex flex-col items-center text-center">
+                <svg class="icon text-blue-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+                <h3>Factor de mejora (k)</h3>
+                <p class="mt-2 text-slate-600">Indica cuántas veces más rápido es el nuevo componente. Si una nueva CPU es el doble de rápida, entonces k = 2.</p>
+            </div>
+        </div>
+
+        <!-- Card de la Fórmula -->
+        <div class="formula-card">
+            <h2 class="text-2xl font-bold mb-4">La fórmula de la aceleración global (A)</h2>
+            <div class="formula">
+                A = 1 / ((1 - f) + (f / k))
+            </div>
+            <p class="mt-4 opacity-80">Esta fórmula predice la mejora máxima posible en el rendimiento TOTAL de un sistema.</p>
+        </div>
+
+        <!-- Caso de Estudio -->
+        <div class="case-study">
+            <h2 class="text-3xl font-bold text-blue-800 mb-6">Caso de estudio: ¿compramos la nueva CPU?</h2>
+            <div class="grid md:grid-cols-3 gap-6 items-center">
+                <div class="text-center p-4 bg-white rounded-lg shadow-sm">
+                    <p class="text-lg font-semibold text-slate-700">Fracción Mejorable</p>
+                    <p class="text-5xl font-extrabold text-blue-600">f = 0.6</p>
+                    <p class="text-sm text-slate-500">(La CPU se usa el 60% del tiempo)</p>
+                </div>
+                <div class="text-center text-5xl font-bold text-slate-400">+</div>
+                <div class="text-center p-4 bg-white rounded-lg shadow-sm">
+                    <p class="text-lg font-semibold text-slate-700">Factor de Mejora</p>
+                    <p class="text-5xl font-extrabold text-blue-600">k = 2</p>
+                    <p class="text-sm text-slate-500">(La nueva CPU es 2x más rápida)</p>
+                </div>
+            </div>
+            <div class="mt-8 text-center bg-white p-6 rounded-lg shadow">
+                 <p class="text-xl font-semibold text-slate-800">Cálculo: A = 1 / ((1 - 0.6) + (0.6 / 2)) = 1 / (0.4 + 0.3) = 1 / 0.7</p>
+                <div class="mt-4">
+                    <span class="text-2xl font-bold text-slate-700">Aceleración Global:</span>
+                    <span class="text-6xl font-black text-indigo-600 ml-4">1.43x</span>
+                </div>
+                <p class="mt-4 text-lg text-red-600 font-semibold bg-red-50 p-3 rounded-md">¡Una mejora del 100% en el componente solo nos da una mejora del 43% en el sistema!</p>
+            </div>
+        </div>
+
+        <!-- Rendimientos Decrecientes -->
+        <div class="card">
+            <h3 class="text-center text-2xl font-bold text-blue-800 mb-4">El límite del rendimiento: la parte no mejorable manda</h3>
+            <p class="text-center text-slate-600 mb-6">Incluso con una mejora infinita (k → ∞), la aceleración máxima posible está limitada por la fracción NO mejorable del sistema. La fórmula se simplifica a: <strong class="text-blue-700">A_max = 1 / (1 - f)</strong></p>
+            <div class="diminishing-returns-graph">
+                 <svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid meet" class="w-full h-full">
+                    <path d="M 0 140 C 50 110, 150 40, 300 30" stroke="#3b82f6" stroke-width="3" fill="none" />
+                    <line x1="0" y1="25" x2="300" y2="25" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" />
+                    <text x="5" y="20" font-family="Inter" font-size="10" fill="#ef4444" font-weight="600">Límite Teórico con f=0.6 (A_max = 2.5x)</text>
+                    <text x="240" y="45" font-family="Inter" font-size="10" fill="#3b82f6" font-weight="600">Aceleración</text>
+                 </svg>
+            </div>
+            <p class="text-center mt-4 text-sm text-slate-500">La curva de mejora se aplana. Cada euro invertido rinde menos.</p>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="conclusion text-center w-full block">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-2">Conclusión clave del administrador</h2>
+            <p class="text-lg text-indigo-700">La Ley de Amdahl es nuestra herramienta para evitar gastos inútiles. Nos obliga a responder la pregunta más importante: ¿Estamos mejorando la parte del sistema que realmente importa?</p>
+            <p class="mt-4 text-xl font-bold bg-white p-4 rounded-md shadow-sm text-slate-800">"Monitoriza primero para encontrar 'f', después invierte para mejorar 'k'".</p>
+        </div>
+    </main>
+    
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de redes de colas - EI1044</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-active {
+            border-bottom-color: #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        .tab {
+            border-bottom: 2px solid transparent;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Simulador de redes de colas</h1>
+            <p class="text-md text-gray-600 mt-2">Modela y predice el rendimiento de sistemas mediante el análisis operacional.</p>
+        </header>
+
+        <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-5xl mx-auto">
+
+            <!-- Pestañas para seleccionar el tipo de red -->
+            <div class="border-b border-gray-200 mb-6">
+                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                    <button id="tab-open" class="py-3 px-1 border-b-2 text-sm font-medium tab tab-active">
+                        Red Abierta (Transaccional)
+                    </button>
+                    <button id="tab-closed" class="py-3 px-1 border-b-2 text-sm font-medium tab text-gray-500 hover:text-gray-700 hover:border-gray-300">
+                        Red Cerrada (Interactiva)
+                    </button>
+                </nav>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Columna de Configuración -->
+                <div id="config-panel">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Configuración del sistema</h2>
+
+                    <!-- Configuración Específica de Red -->
+                    <div id="network-config" class="mb-6 space-y-4">
+                        <!-- Red Abierta -->
+                        <div id="open-network-params">
+                            <label for="lambda" class="block text-sm font-medium text-gray-700">Tasa de Llegada de Trabajos (λ)</label>
+                            <input type="number" id="lambda" value="2" min="0.1" step="0.1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                        </div>
+                        <!-- Red Cerrada -->
+                        <div id="closed-network-params" class="hidden">
+                            <div>
+                                <label for="users" class="block text-sm font-medium text-gray-700">Número de Usuarios (N)</label>
+                                <input type="number" id="users" value="10" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                            </div>
+                            <div>
+                                <label for="think-time" class="block text-sm font-medium text-gray-700">Tiempo de Reflexión (Z) <span class="text-xs text-gray-500 font-normal">(en segundos)</span></label>
+                                <input type="number" id="think-time" value="5" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-6">
+
+                    <!-- Dispositivos -->
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Dispositivos del sistema</h3>
+                    <div id="devices-container" class="space-y-4">
+                        <!-- Dispositivo de ejemplo 1 -->
+                        <div class="device-item bg-gray-50 p-4 rounded-lg border">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold text-gray-700">Dispositivo 1 (CPU)</span>
+                                <button class="remove-device text-red-500 hover:text-red-700 text-sm font-medium" style="display: none;">Eliminar</button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-600">Razón de Visita (V)</label>
+                                    <input type="number" value="10" min="1" class="device-visits mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-600">Tiempo de Servicio (S)</label>
+                                    <input type="number" value="0.02" min="0.001" step="0.001" class="device-service-time mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Dispositivo de ejemplo 2 -->
+                        <div class="device-item bg-gray-50 p-4 rounded-lg border">
+                             <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold text-gray-700">Dispositivo 2 (Disco)</span>
+                                <button class="remove-device text-red-500 hover:text-red-700 text-sm font-medium">Eliminar</button>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-600">Razón de Visita (V)</label>
+                                    <input type="number" value="8" min="1" class="device-visits mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-600">Tiempo de Servicio (S)</label>
+                                    <input type="number" value="0.04" min="0.001" step="0.001" class="device-service-time mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="add-device" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Añadir Dispositivo</button>
+
+                </div>
+
+                <!-- Columna de Resultados y Gráficas -->
+                <div id="results-panel">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Análisis de rendimiento</h2>
+                    
+                    <!-- Resultados clave -->
+                    <div id="key-metrics" class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-blue-100 p-4 rounded-lg text-center">
+                            <h4 class="text-sm font-semibold text-blue-800">Tiempo de respuesta (R)</h4>
+                            <p id="response-time" class="text-2xl font-bold text-blue-900">-</p>
+                        </div>
+                        <div class="bg-green-100 p-4 rounded-lg text-center">
+                            <h4 class="text-sm font-semibold text-green-800">Productividad (X)</h4>
+                            <p id="throughput" class="text-2xl font-bold text-green-900">-</p>
+                        </div>
+                        <div class="bg-yellow-100 p-4 rounded-lg text-center col-span-2">
+                             <h4 class="text-sm font-semibold text-yellow-800">Cuello de botella</h4>
+                             <p id="bottleneck" class="text-lg font-bold text-yellow-900">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Detalles por dispositivo -->
+                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Métricas por dispositivo</h3>
+                    <div id="device-details" class="space-y-2 text-sm">
+                        <!-- Los detalles se generan dinámicamente -->
+                    </div>
+                    
+                    <hr class="my-6">
+
+                    <!-- Gráficas -->
+                     <div class="flex justify-between items-center mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Límites asintóticos</h3>
+                        <button id="expand-chart-btn" title="Expandir gráfico" class="text-gray-500 hover:text-blue-600 p-1 rounded-full transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M7 17v4h4M17 7V3h-4M17 17h4v-4M7 7H3v4"></path></svg>
+                        </button>
+                     </div>
+                    <div class="bg-gray-50 p-4 rounded-lg relative min-h-[300px]">
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal para el gráfico -->
+    <div id="chart-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-5xl h-full max-h-[85vh] relative flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Gráfico de rendimiento</h3>
+                <button id="close-modal" title="Cerrar" class="text-gray-500 hover:text-gray-900 transition-colors duration-200">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex-grow relative">
+                <canvas id="modal-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    // --- ELEMENTOS DEL DOM ---
+    const tabOpen = document.getElementById('tab-open');
+    const tabClosed = document.getElementById('tab-closed');
+    const openNetworkParams = document.getElementById('open-network-params');
+    const closedNetworkParams = document.getElementById('closed-network-params');
+    const devicesContainer = document.getElementById('devices-container');
+    const addDeviceBtn = document.getElementById('add-device');
+    const lambdaInput = document.getElementById('lambda');
+    const usersInput = document.getElementById('users');
+    const thinkTimeInput = document.getElementById('think-time');
+
+    const responseTimeEl = document.getElementById('response-time');
+    const throughputEl = document.getElementById('throughput');
+    const bottleneckEl = document.getElementById('bottleneck');
+    const deviceDetailsEl = document.getElementById('device-details');
+    
+    const chartModal = document.getElementById('chart-modal');
+    const closeModalBtn = document.getElementById('close-modal');
+    const expandChartBtn = document.getElementById('expand-chart-btn');
+
+    let chart;
+    let modalChart;
+    let lastAsymptotesData = null;
+    let currentNetworkType = 'open';
+
+    // --- LÓGICA DE LA APLICACIÓN ---
+
+    // Cambiar entre pestañas
+    function switchTab(type) {
+        currentNetworkType = type;
+        if (type === 'open') {
+            tabOpen.classList.add('tab-active');
+            tabClosed.classList.remove('tab-active');
+            openNetworkParams.classList.remove('hidden');
+            closedNetworkParams.classList.add('hidden');
+        } else {
+            tabOpen.classList.remove('tab-active');
+            tabClosed.classList.add('tab-active');
+            openNetworkParams.classList.add('hidden');
+            closedNetworkParams.classList.remove('hidden');
+        }
+        updateCalculations();
+    }
+
+    // Añadir y eliminar dispositivos
+    function addDevice() {
+        const deviceCount = devicesContainer.children.length + 1;
+        const newDevice = document.createElement('div');
+        newDevice.className = 'device-item bg-gray-50 p-4 rounded-lg border';
+        newDevice.innerHTML = `
+            <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-gray-700">Dispositivo ${deviceCount}</span>
+                <button class="remove-device text-red-500 hover:text-red-700 text-sm font-medium">Eliminar</button>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-600">Razón de Visita (V)</label>
+                    <input type="number" value="1" min="1" class="device-visits mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-600">Tiempo de Servicio (S)</label>
+                    <input type="number" value="0.01" min="0.001" step="0.001" class="device-service-time mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                </div>
+            </div>`;
+        devicesContainer.appendChild(newDevice);
+        updateEventListeners();
+        updateCalculations();
+    }
+
+    function removeDevice(event) {
+        // Solo eliminar si hay más de un dispositivo
+        if (devicesContainer.children.length > 1) {
+            event.target.closest('.device-item').remove();
+            // Renumerar dispositivos
+            Array.from(devicesContainer.children).forEach((device, index) => {
+                device.querySelector('span').textContent = `Dispositivo ${index + 1}`;
+            });
+            updateCalculations();
+        } else {
+            // Opcional: mostrar un mensaje de que no se puede eliminar el último
+        }
+    }
+
+    // Actualizar los event listeners para los botones de eliminar
+    function updateEventListeners() {
+        document.querySelectorAll('.remove-device').forEach(btn => {
+            btn.removeEventListener('click', removeDevice); // Evitar duplicados
+            btn.addEventListener('click', removeDevice);
+        });
+        document.querySelectorAll('#config-panel input').forEach(input => {
+            input.removeEventListener('change', updateCalculations);
+            input.addEventListener('change', updateCalculations);
+        });
+    }
+
+
+    // --- CÁLCULOS DE ANÁLISIS OPERACIONAL ---
+    
+    function getSystemData() {
+        const devices = Array.from(document.querySelectorAll('.device-item')).map((el, i) => ({
+            id: i + 1,
+            visits: parseFloat(el.querySelector('.device-visits').value) || 0,
+            serviceTime: parseFloat(el.querySelector('.device-service-time').value) || 0,
+        }));
+
+        devices.forEach(d => {
+            d.demand = d.visits * d.serviceTime;
+        });
+
+        const totalDemand = devices.reduce((sum, d) => sum + d.demand, 0);
+        const bottleneckDevice = devices.reduce((bottleneck, current) => 
+            (current.demand > bottleneck.demand) ? current : bottleneck, devices[0]
+        );
+
+        return { devices, totalDemand, bottleneckDevice };
+    }
+
+    function calculateOpenNetwork(systemData) {
+        const { devices, totalDemand, bottleneckDevice } = systemData;
+        const lambda = parseFloat(lambdaInput.value) || 0;
+
+        if (!bottleneckDevice || lambda <= 0) return {};
+        
+        // Capacidad máxima del sistema
+        const maxThroughput = 1 / bottleneckDevice.demand;
+
+        if (lambda >= maxThroughput) {
+             return { error: `Sistema saturado. Tasa de llegada (λ=${lambda.toFixed(2)}) excede la capacidad máxima (Xmax=${maxThroughput.toFixed(2)}).` };
+        }
+
+        devices.forEach(d => {
+            d.utilization = lambda * d.demand;
+            // Ecuación del tiempo de respuesta por estación
+            d.responseTime = d.serviceTime / (1 - d.utilization);
+        });
+
+        // Ley General del Tiempo de Respuesta
+        const systemResponseTime = devices.reduce((sum, d) => sum + (d.visits * d.responseTime), 0);
+        
+        // En red abierta, la productividad es igual a la tasa de llegada (si no está saturada)
+        const systemThroughput = lambda;
+
+        return {
+            responseTime: systemResponseTime,
+            throughput: systemThroughput,
+            devices: devices,
+            bottleneck: bottleneckDevice,
+            asymptotes: {
+                minR: totalDemand,
+                maxX: maxThroughput
+            }
+        };
+    }
+    
+    function calculateClosedNetwork(systemData) {
+        const { devices, totalDemand, bottleneckDevice } = systemData;
+        const N = parseInt(usersInput.value) || 0;
+        const Z = parseFloat(thinkTimeInput.value) || 0;
+
+        if (!bottleneckDevice || N <= 0) return {};
+        
+        // Aplicamos el Algoritmo de Valor Medio (MVA)
+        let Ni = new Array(devices.length).fill(0); // Trabajos por dispositivo
+        let R = 0, X = 0;
+
+        for (let n = 1; n <= N; n++) {
+            let Ri = devices.map((d, i) => (Ni[i] + 1) * d.serviceTime);
+            R = devices.reduce((sum, d, i) => sum + d.visits * Ri[i], 0);
+            X = n / (Z + R);
+            Ni = devices.map((d, i) => X * d.visits * Ri[i]);
+        }
+        
+        devices.forEach((d, i) => {
+            d.utilization = X * d.demand;
+            d.responseTime = (Ni[i] / X) / d.visits; // R_i = N_i / X_i
+        });
+        
+        // Punto teórico de saturación
+        const N_star = Math.ceil((totalDemand + Z) / bottleneckDevice.demand);
+
+        return {
+            responseTime: R,
+            throughput: X,
+            devices: devices,
+            bottleneck: bottleneckDevice,
+            asymptotes: {
+                minR: totalDemand,
+                maxX: 1 / bottleneckDevice.demand,
+                N_star: N_star
+            }
+        };
+    }
+    
+    function updateCalculations() {
+        const systemData = getSystemData();
+        let results;
+
+        if (currentNetworkType === 'open') {
+            results = calculateOpenNetwork(systemData);
+        } else {
+            results = calculateClosedNetwork(systemData);
+        }
+        
+        lastAsymptotesData = results && !results.error ? results.asymptotes : null;
+        updateUI(results);
+    }
+    
+    // --- ACTUALIZACIÓN DE LA UI ---
+    
+    function updateUI(results) {
+        if (!results || results.error) {
+            responseTimeEl.textContent = 'N/A';
+            throughputEl.textContent = 'N/A';
+            bottleneckEl.textContent = results ? results.error : 'Datos inválidos.';
+            deviceDetailsEl.innerHTML = '';
+            if (chart) chart.destroy();
+            return;
+        }
+
+        responseTimeEl.textContent = `${results.responseTime.toFixed(3)} s`;
+        throughputEl.textContent = `${results.throughput.toFixed(3)} trab/s`;
+        bottleneckEl.textContent = `Dispositivo ${results.bottleneck.id} (D=${results.bottleneck.demand.toFixed(3)}s)`;
+
+        deviceDetailsEl.innerHTML = results.devices.map(d => `
+            <div class="flex justify-between items-center bg-gray-100 p-2 rounded-md">
+                <span>Dispositivo ${d.id}</span>
+                <div class="flex space-x-4">
+                    <span>D: <strong>${d.demand.toFixed(3)}s</strong></span>
+                    <span>U: <strong>${(d.utilization * 100).toFixed(2)}%</strong></span>
+                </div>
+            </div>
+        `).join('');
+        
+        updateChart(results ? results.asymptotes : null);
+    }
+
+    function renderChart(canvasId, asymptotes) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        if (!asymptotes) {
+            return null;
+        }
+
+        let datasets, labels, xlabel;
+
+        if (currentNetworkType === 'open') {
+            xlabel = 'Tasa de Llegada (λ)';
+            const maxX = asymptotes.maxX * 1.2;
+            const step = maxX / 20;
+            labels = Array.from({length: 21}, (_, i) => i * step);
+
+            datasets = [{
+                label: 'Tiempo de respuesta (R)',
+                data: labels.map(l => {
+                    if (l >= asymptotes.maxX) return null;
+                    const systemData = getSystemData();
+                    let tempR = 0;
+                    systemData.devices.forEach(d => {
+                        const util = l * d.demand;
+                        if (util < 1) {
+                           tempR += d.visits * (d.serviceTime / (1 - util));
+                        }
+                    });
+                    return tempR;
+                }),
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                yAxisID: 'yR',
+                tension: 0.1,
+                fill: true
+            }, {
+                label: 'Productividad (X)',
+                data: labels.map(l => (l < asymptotes.maxX) ? l : asymptotes.maxX),
+                borderColor: '#16a34a',
+                yAxisID: 'yX',
+            }, {
+                 label: 'Capacidad Máxima (Xmax)',
+                 data: labels.map(() => asymptotes.maxX),
+                 borderColor: '#f97316',
+                 borderDash: [5, 5],
+                 pointRadius: 0,
+                 yAxisID: 'yX'
+            }];
+
+        } else { // Closed network
+            xlabel = 'Número de Usuarios (N)';
+            const maxN = Math.max(30, (asymptotes.N_star || 10) * 2);
+            labels = Array.from({length: maxN + 1}, (_, i) => i);
+
+            const mvaR = [0];
+            const mvaX = [0];
+            
+            let Ni_mva = new Array(getSystemData().devices.length).fill(0);
+            for (let n = 1; n <= maxN; n++) {
+                const systemData = getSystemData();
+                let Ri_mva = systemData.devices.map((d, i) => (Ni_mva[i] + 1) * d.serviceTime);
+                let R_mva = systemData.devices.reduce((sum, d, i) => sum + d.visits * Ri_mva[i], 0);
+                let X_mva = n / ((parseFloat(thinkTimeInput.value) || 0) + R_mva);
+                Ni_mva = systemData.devices.map((d, i) => X_mva * d.visits * Ri_mva[i]);
+                mvaR.push(R_mva);
+                mvaX.push(X_mva);
+            }
+
+            datasets = [{
+                label: 'Tiempo de Respuesta (MVA)',
+                data: mvaR,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                yAxisID: 'yR',
+                tension: 0.1,
+                fill: true
+            }, {
+                label: 'Productividad (MVA)',
+                data: mvaX,
+                borderColor: '#16a34a',
+                yAxisID: 'yX',
+                tension: 0.1
+            }, {
+                label: 'Asíntota R',
+                data: labels.map(n => Math.max(asymptotes.minR, n * (1/asymptotes.maxX) - (parseFloat(thinkTimeInput.value) || 0))),
+                borderColor: '#a855f7',
+                borderDash: [5, 5],
+                yAxisID: 'yR',
+                pointRadius: 0,
+                fill: false
+            }, {
+                label: 'Asíntota X',
+                data: labels.map(n => Math.min(asymptotes.maxX, n / (asymptotes.minR + (parseFloat(thinkTimeInput.value) || 0)))),
+                borderColor: '#f97316',
+                borderDash: [5, 5],
+                yAxisID: 'yX',
+                pointRadius: 0,
+                fill: false
+            }];
+        }
+
+
+        return new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels.map(l => l.toFixed(1)),
+                datasets: datasets,
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: xlabel
+                        }
+                    },
+                    yR: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Tiempo de respuesta (R)'
+                        }
+                    },
+                    yX: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Productividad (X)'
+                        },
+                        grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        bodySpacing: 4,
+                        titleSpacing: 6,
+                    }
+                }
+            }
+        });
+    }
+
+    function updateChart(asymptotes) {
+        if (chart) {
+            chart.destroy();
+        }
+        chart = renderChart('performance-chart', asymptotes);
+    }
+    
+    // --- INICIALIZACIÓN ---
+    tabOpen.addEventListener('click', () => switchTab('open'));
+    tabClosed.addEventListener('click', () => switchTab('closed'));
+    addDeviceBtn.addEventListener('click', addDevice);
+    
+    expandChartBtn.addEventListener('click', () => {
+        if (lastAsymptotesData) {
+            chartModal.classList.remove('hidden');
+            chartModal.classList.add('flex'); // Usar flex para centrar
+            if (modalChart) {
+                modalChart.destroy();
+            }
+            // Retraso para permitir que el DOM del modal se renderice antes de dibujar
+            setTimeout(() => {
+                modalChart = renderChart('modal-chart', lastAsymptotesData);
+            }, 50); 
+        }
+    });
+
+    const closeModal = () => {
+        chartModal.classList.add('hidden');
+        chartModal.classList.remove('flex');
+        if (modalChart) {
+            modalChart.destroy();
+            modalChart = null;
+        }
+    };
+
+    closeModalBtn.addEventListener('click', closeModal);
+    chartModal.addEventListener('click', (event) => {
+        if (event.target === chartModal) { // Si se hace clic en el fondo
+            closeModal();
+        }
+    });
+
+    // Inicializar listeners y cálculos al cargar
+    document.addEventListener('DOMContentLoaded', () => {
+        updateEventListeners();
+        updateCalculations();
+    });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: el mapa de tu sistema (análisis operacional)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .flow-arrow {
+            position: relative;
+            background-color: #9ca3af;
+            height: 4px;
+            min-width: 30px;
+            flex-grow: 1;
+        }
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            right: -2px;
+            top: -6px;
+            width: 0;
+            height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 12px solid #6b7280;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="max-w-7xl mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">Análisis operacional en acción 🗺️</h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-2">El mapa de tu sistema</p>
+            <p class="text-md text-gray-500 mt-4 max-w-2xl mx-auto">De la complejidad real a un modelo que podemos entender y medir.</p>
+        </header>
+
+        <main class="space-y-12">
+
+            <section id="what-is-ao" class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center"><span class="text-4xl mr-4">🧠</span> ¿Qué es el Análisis Operacional (AO)?</h2>
+                <p class="text-lg mb-6">Es una técnica de detective. En lugar de basarse en complejas suposiciones teóricas, el AO utiliza <strong>datos medibles y observables</strong> (operacionales) de un sistema real para construir un modelo simple que nos permite predecir su rendimiento.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-blue-100 p-6 rounded-lg border border-blue-200">
+                        <h3 class="font-bold text-blue-800 text-lg">Se basa en la realidad</h3>
+                        <p class="text-base text-blue-700 mt-1">Usamos lo que medimos, no lo que suponemos.</p>
+                    </div>
+                    <div class="bg-green-100 p-6 rounded-lg border border-green-200">
+                        <h3 class="font-bold text-green-800 text-lg">Busca el equilibrio</h3>
+                        <p class="text-base text-green-700 mt-1">Entiende el sistema como un flujo estable de trabajo.</p>
+                    </div>
+                    <div class="bg-purple-100 p-6 rounded-lg border border-purple-200">
+                        <h3 class="font-bold text-purple-800 text-lg">Su objetivo</h3>
+                        <p class="text-base text-purple-700 mt-1">Predecir el Tiempo de Respuesta (R) y la Productividad (X).</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="model" class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Dibujando el mapa: el modelo de red de colas</h2>
+                
+                <div class="mb-12">
+                    <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">Modelo básico: una única estación</h3>
+                    <div class="flex items-center justify-center">
+                        <div class="text-center">
+                            <p class="font-bold">Clientes</p>
+                            <p class="text-4xl">📦</p>
+                        </div>
+                        <div class="flow-arrow mx-4"></div>
+                        <div class="p-4 border-2 border-dashed border-gray-400 rounded-lg">
+                            <p class="font-bold text-center mb-2 text-indigo-700">Estación: CPU</p>
+                            <div class="flex items-center bg-gray-100 p-2 rounded-lg">
+                                <div class="text-center mr-2">
+                                    <p class="text-sm font-semibold">Cola</p>
+                                    <div class="flex space-x-1 text-2xl"><span>🚶</span><span>🚶</span></div>
+                                </div>
+                                <div class="text-center ml-2">
+                                    <p class="text-sm font-semibold">Servidor</p>
+                                    <p class="text-4xl">🛠️</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="flow-arrow mx-4"></div>
+                         <div class="text-center">
+                            <p class="font-bold">Salida</p>
+                            <p class="text-4xl">🏁</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-10 border-gray-300">
+
+                <div class="mb-10">
+                    <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">Modelo realista: múltiples estaciones en paralelo</h3>
+                    <p class="text-center text-gray-600 mb-6 max-w-3xl mx-auto">En un sistema real, un trabajo visita múltiples recursos. Tras usar la CPU, puede requerir acceso a uno de varios discos antes de finalizar.</p>
+                     <div class="flex items-center justify-center">
+                        <div class="text-center">
+                            <p class="font-bold">Clientes</p>
+                            <p class="text-4xl">📦</p>
+                        </div>
+                        <div class="flow-arrow mx-2"></div>
+                        <div class="p-4 border-2 border-dashed border-gray-400 rounded-lg">
+                            <p class="font-bold text-center mb-2 text-indigo-700">CPU</p>
+                            <div class="flex items-center bg-gray-100 p-2 rounded-lg">
+                                <div class="text-center mr-2"><p class="text-sm">Cola</p><div class="flex text-2xl"><span>🚶</span></div></div>
+                                <div class="text-center ml-2"><p class="text-sm">Servidor</p><p class="text-4xl">🖥️</p></div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative mx-4 h-28 w-20">
+                            <div class="absolute top-1/2 left-0 w-1/2 h-px bg-gray-400"></div>
+                            <div class="flow-arrow" style="position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 50%;"></div>
+                            <div class="absolute top-0 left-1/2 w-px h-full bg-gray-400"></div>
+                            <div class="absolute top-0 left-1/2 w-1/2 h-px bg-gray-400"></div>
+                            <div class="absolute bottom-0 left-1/2 w-1/2 h-px bg-gray-400"></div>
+                        </div>
+
+                        <div class="flex flex-col space-y-4">
+                             <div class="p-3 border-2 border-dashed border-gray-400 rounded-lg flex items-center">
+                                <div class="flex-grow">
+                                    <p class="font-bold text-center mb-1 text-indigo-700">Disco 1</p>
+                                    <div class="flex items-center bg-gray-100 p-1 rounded-lg">
+                                        <div class="text-center mr-1"><p class="text-xs">Cola</p><div class="flex text-lg"><span>🚶</span></div></div>
+                                        <div class="text-center ml-1"><p class="text-xs">Servidor</p><p class="text-3xl">💾</p></div>
+                                    </div>
+                                </div>
+                                <div class="flow-arrow ml-4"></div>
+                            </div>
+                             <div class="p-3 border-2 border-dashed border-gray-400 rounded-lg flex items-center">
+                                 <div class="flex-grow">
+                                    <p class="font-bold text-center mb-1 text-indigo-700">Disco 2</p>
+                                    <div class="flex items-center bg-gray-100 p-1 rounded-lg">
+                                        <div class="text-center mr-1"><p class="text-xs">Cola</p><div class="flex text-lg"><span>🚶</span></div></div>
+                                        <div class="text-center ml-1"><p class="text-xs">Servidor</p><p class="text-3xl">💾</p></div>
+                                    </div>
+                                </div>
+                                <div class="flow-arrow ml-4"></div>
+                            </div>
+                        </div>
+                        <div class="relative mx-4 h-28 w-16">
+                           <div class="absolute top-0 right-1/2 w-1/2 h-px bg-gray-400"></div>
+                           <div class="absolute bottom-0 right-1/2 w-1/2 h-px bg-gray-400"></div>
+                           <div class="absolute top-0 right-1/2 w-px h-full bg-gray-400"></div>
+                           <div class="flow-arrow" style="position: absolute; left: 50%; top: 50%; transform: translateY(-50%); width: 50%;"></div>
+                        </div>
+                        <div class="text-center">
+                            <p class="font-bold">Salida</p>
+                            <p class="text-4xl">🏁</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Los componentes del mapa</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center p-6 bg-gray-50 rounded-lg">
+                        <p class="text-5xl mb-3">📦</p>
+                        <h4 class="font-bold text-xl">El cliente (o trabajo)</h4>
+                        <p class="text-base text-gray-600 mt-2">La unidad de trabajo que se mueve por el sistema (petición web, transacción, etc.).</p>
+                    </div>
+                     <div class="text-center p-6 bg-gray-50 rounded-lg">
+                        <p class="text-5xl mb-3">🏪</p>
+                        <h4 class="font-bold text-xl">La estación de servicio</h4>
+                        <p class="text-base text-gray-600 mt-2">Representa un recurso del sistema (CPU, Disco, Red) donde los clientes son "atendidos".</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg">
+                        <p class="text-5xl mb-3">🚶🚶‍♀️</p>
+                        <h4 class="font-bold text-xl">La cola de espera</h4>
+                        <p class="text-base text-gray-600 mt-2">Donde se acumulan los clientes si el servidor está ocupado. ¡La lentitud nace aquí!</p>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg">
+                        <p class="text-5xl mb-3">🛠️</p>
+                        <h4 class="font-bold text-xl">El servidor</h4>
+                        <p class="text-base text-gray-600 mt-2">El recurso en sí mismo, el que realiza el trabajo. Solo puede atender a un cliente a la vez.</p>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+        
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

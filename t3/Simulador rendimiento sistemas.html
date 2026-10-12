@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador interactivo de rendimiento de sistemas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .slider-container {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 0.5rem 1rem;
+            align-items: center;
+        }
+        .slider-container input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+        .slider-container input[type="range"]:hover {
+            opacity: 1;
+        }
+        .slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #00A0B0;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .metric-value {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#00A0B0] mb-2">Simulador de rendimiento de sistemas</h1>
+            <p class="text-lg md:text-xl text-[#6A4A3C]">Experimenta cómo los parámetros de carga y sistema afectan al rendimiento.</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-[#6A4A3C] mb-4 border-b pb-2">🕹️ Controles del simulador</h2>
+                    
+                    <h3 class="text-xl font-semibold text-[#EB6841] mt-6 mb-3">Parámetros de carga</h3>
+                    <div class="slider-container">
+                        <label for="arrivalRate" class="font-semibold">Tasa de Llegadas (λ₀) [req/s]</label>
+                        <span id="arrivalRateValue" class="font-mono text-lg font-bold">10</span>
+                        <input type="range" id="arrivalRate" min="1" max="100" value="10" class="col-span-2">
+                    </div>
+
+                    <h3 class="text-xl font-semibold text-[#EB6841] mt-8 mb-3">Características del sistema</h3>
+                    <div class="space-y-4">
+                        <div class="slider-container">
+                            <label for="sCpu" class="font-semibold">Tiempo Servicio CPU (S<sub>cpu</sub>) [ms/visita]</label>
+                            <span id="sCpuValue" class="font-mono text-lg font-bold">2</span>
+                            <input type="range" id="sCpu" min="1" max="50" value="2" class="col-span-2">
+                        </div>
+                        <div class="slider-container">
+                            <label for="vCpu" class="font-semibold">Visitas a CPU (V<sub>cpu</sub>) [visitas/req]</label>
+                            <span id="vCpuValue" class="font-mono text-lg font-bold">20</span>
+                            <input type="range" id="vCpu" min="1" max="100" value="20" class="col-span-2">
+                        </div>
+                        <div class="slider-container mt-4">
+                            <label for="sDisk" class="font-semibold">Tiempo Servicio Disco (S<sub>disk</sub>) [ms/visita]</label>
+                            <span id="sDiskValue" class="font-mono text-lg font-bold">10</span>
+                            <input type="range" id="sDisk" min="1" max="100" value="10" class="col-span-2">
+                        </div>
+                        <div class="slider-container">
+                            <label for="vDisk" class="font-semibold">Visitas a Disco (V<sub>disk</sub>) [visitas/req]</label>
+                            <span id="vDiskValue" class="font-mono text-lg font-bold">8</span>
+                            <input type="range" id="vDisk" min="1" max="100" value="8" class="col-span-2">
+                        </div>
+                    </div>
+
+                    <div class="mt-8 border-t pt-6">
+                        <h3 class="text-xl font-semibold text-[#00A0B0] mb-3">Parámetros de visualización</h3>
+                        <div class="slider-container">
+                            <label for="slowdownThreshold" class="font-semibold">Umbral de Lentitud (SLA) [ms]</label>
+                            <span id="slowdownThresholdValue" class="font-mono text-lg font-bold">200</span>
+                            <input type="range" id="slowdownThreshold" min="100" max="1000" step="50" value="200" class="col-span-2">
+                        </div>
+                    </div>
+
+                    <div class="mt-8 text-center">
+                        <button id="resetButton" class="bg-gray-400 text-white font-bold py-2 px-6 rounded-lg hover:bg-gray-500 transition-colors">
+                            Restablecer Valores Estándar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-bold text-[#6A4A3C] mb-4 border-b pb-2">📈 Resultados</h2>
+                    <div class="text-center my-4">
+                        <h3 class="text-xl font-semibold">Estado del sistema: <span id="systemStatus" class="font-bold"></span></h3>
+                    </div>
+                    <div class="grid grid-cols-2 gap-x-6 gap-y-4 text-center">
+                        <div>
+                            <p class="text-gray-600">Tiempo Respuesta (R)</p>
+                            <p id="responseTime" class="metric-value text-[#CC333F]">0 ms</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Productividad (X)</p>
+                            <p id="throughput" class="metric-value text-[#00A0B0]">0 req/s</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Utilización CPU (U<sub>cpu</sub>)</p>
+                            <p id="utilCpu" class="metric-value text-[#EB6841]">0%</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600">Utilización Disco (U<sub>disk</sub>)</p>
+                            <p id="utilDisk" class="metric-value text-[#EDC951]">0%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="text-2xl font-bold text-[#6A4A3C]">🧬 Firma de rendimiento</h2>
+                        <button id="expandChartButton" title="Ampliar" class="text-gray-400 hover:text-[#00A0B0] hover:border-[#00A0B0] transition-colors p-1 border-2 border-gray-300 rounded-md flex items-center justify-center">
+                           <span class="text-lg font-bold">[+]</span>
+                        </button>
+                    </div>
+                    <div class="w-full h-80 md:h-96 mx-auto">
+                        <canvas id="kiviatChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div id="chartModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 hidden z-50">
+        <div class="bg-white rounded-lg shadow-xl p-6 relative w-full max-w-4xl">
+            <button id="closeModalButton" class="absolute top-2 right-3 text-3xl font-bold text-gray-500 hover:text-gray-800">&times;</button>
+            <h3 class="text-2xl font-bold text-center mb-4 text-[#6A4A3C]">Firma de rendimiento (ampliada)</h3>
+            <div class="w-full h-[70vh]">
+                <canvas id="modalKiviatChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const sliders = {
+        arrivalRate: document.getElementById('arrivalRate'),
+        sCpu: document.getElementById('sCpu'),
+        vCpu: document.getElementById('vCpu'),
+        sDisk: document.getElementById('sDisk'),
+        vDisk: document.getElementById('vDisk'),
+        slowdownThreshold: document.getElementById('slowdownThreshold'),
+    };
+
+    const defaultValues = {
+        arrivalRate: 10,
+        sCpu: 2,
+        vCpu: 20,
+        sDisk: 10,
+        vDisk: 8,
+        slowdownThreshold: 200,
+    };
+
+    const values = {
+        arrivalRate: document.getElementById('arrivalRateValue'),
+        sCpu: document.getElementById('sCpuValue'),
+        vCpu: document.getElementById('vCpuValue'),
+        sDisk: document.getElementById('sDiskValue'),
+        vDisk: document.getElementById('vDiskValue'),
+        slowdownThreshold: document.getElementById('slowdownThresholdValue'),
+    };
+
+    const results = {
+        responseTime: document.getElementById('responseTime'),
+        throughput: document.getElementById('throughput'),
+        utilCpu: document.getElementById('utilCpu'),
+        utilDisk: document.getElementById('utilDisk'),
+        systemStatus: document.getElementById('systemStatus'),
+    };
+
+    const resetButton = document.getElementById('resetButton');
+    const modal = document.getElementById('chartModal');
+    const expandChartButton = document.getElementById('expandChartButton');
+    const closeModalButton = document.getElementById('closeModalButton');
+    let modalChart = null;
+
+    const colors = {
+        stable: { bg: 'rgba(0, 160, 176, 0.2)', border: '#00A0B0' },
+        risk: { bg: 'rgba(235, 104, 65, 0.2)', border: '#EB6841' },
+        saturated: { bg: 'rgba(204, 51, 63, 0.2)', border: '#CC333F' },
+        goodMetric: '#00A0B0',
+        badMetric: '#CC333F',
+        ideal: '#6A4A3C'
+    };
+
+    const ctx = document.getElementById('kiviatChart').getContext('2d');
+    const chartLabels = ['Índice de Lentitud', 'Utilización CPU', 'CPU ociosa', 'Productividad', 'Disco ocioso', 'Utilización disco'];
+    
+    const kiviatChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                label: 'Firma Actual',
+                data: [0, 0, 100, 100, 100, 0],
+                backgroundColor: colors.stable.bg,
+                borderColor: colors.stable.border,
+                pointBackgroundColor: colors.stable.border,
+                borderWidth: 3,
+                pointRadius: 4
+            },
+            {
+                label: 'Sistema Ideal',
+                data: [0, 0, 100, 100, 100, 0],
+                backgroundColor: 'rgba(106, 74, 60, 0.05)',
+                borderColor: colors.ideal,
+                pointRadius: 0,
+                borderWidth: 2,
+                borderDash: [5, 5],
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { display: true },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    pointLabels: { 
+                        font: { size: 12, weight: 'bold' },
+                        color: function(context) {
+                            const goodMetrics = ['CPU ociosa', 'Productividad', 'Disco ocioso'];
+                            if (goodMetrics.includes(context.label)) {
+                                return colors.goodMetric;
+                            }
+                            return colors.badMetric;
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: { 
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) { label += ': '; }
+                            if (context.parsed.r !== null) { label += context.parsed.r.toFixed(2); }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    function calculateAndUpdate() {
+        const lambda = parseFloat(sliders.arrivalRate.value);
+        const s_cpu = parseFloat(sliders.sCpu.value) / 1000; 
+        const v_cpu = parseFloat(sliders.vCpu.value);
+        const s_disk = parseFloat(sliders.sDisk.value) / 1000;
+        const v_disk = parseFloat(sliders.vDisk.value);
+        const slowdownThreshold = parseFloat(sliders.slowdownThreshold.value);
+
+        values.arrivalRate.textContent = lambda;
+        values.sCpu.textContent = (s_cpu * 1000).toFixed(0);
+        values.vCpu.textContent = v_cpu;
+        values.sDisk.textContent = (s_disk * 1000).toFixed(0);
+        values.vDisk.textContent = v_disk;
+        values.slowdownThreshold.textContent = slowdownThreshold;
+
+        const d_cpu = v_cpu * s_cpu;
+        const d_disk = v_disk * s_disk;
+
+        const u_cpu = lambda * d_cpu;
+        const u_disk = lambda * d_disk;
+
+        let r_cpu, r_disk, total_r, throughput, status, statusColor, chartColors;
+        const max_u = Math.max(u_cpu, u_disk);
+
+        if (max_u >= 1.0) {
+            total_r = Infinity;
+            throughput = 1 / Math.max(d_cpu, d_disk);
+            status = "¡SATURADO!";
+            statusColor = colors.saturated.border;
+            chartColors = colors.saturated;
+
+            results.responseTime.textContent = '∞ ms';
+            results.throughput.textContent = throughput.toFixed(2) + ' req/s';
+        } else {
+            r_cpu = s_cpu / (1 - u_cpu);
+            r_disk = s_disk / (1 - u_disk);
+            total_r = (v_cpu * r_cpu) + (v_disk * r_disk);
+            throughput = lambda;
+
+            if (max_u > 0.8) {
+                status = "EN RIESGO";
+                statusColor = colors.risk.border;
+                chartColors = colors.risk;
+            } else {
+                status = "ESTABLE";
+                statusColor = colors.stable.border;
+                chartColors = colors.stable;
+            }
+            
+            results.responseTime.textContent = (total_r * 1000).toFixed(2) + ' ms';
+            results.throughput.textContent = throughput.toFixed(2) + ' req/s';
+        }
+
+        results.utilCpu.textContent = (u_cpu * 100).toFixed(2) + '%';
+        results.utilDisk.textContent = (u_disk * 100).toFixed(2) + '%';
+        results.systemStatus.textContent = status;
+        results.systemStatus.style.color = statusColor;
+
+        const responseTimeNormalized = Math.min(100, ((total_r * 1000) / slowdownThreshold) * 100);
+        const throughputNormalized = Math.min(100, throughput); 
+        
+        const currentDataset = kiviatChart.data.datasets[0];
+        
+        const cpu_idle = Math.max(0, 100 - u_cpu * 100);
+        const disk_idle = Math.max(0, 100 - u_disk * 100);
+        
+        // ['Índice de Lentitud', 'Utilización CPU', 'CPU ociosa', 'Productividad', 'Disco ocioso', 'Utilización disco']
+        currentDataset.data = [
+            isFinite(total_r) ? responseTimeNormalized : 100,
+            Math.min(100, u_cpu * 100),
+            cpu_idle,
+            throughputNormalized,
+            disk_idle,
+            Math.min(100, u_disk * 100)
+        ];
+        
+        currentDataset.backgroundColor = chartColors.bg;
+        currentDataset.borderColor = chartColors.border;
+        currentDataset.pointBackgroundColor = chartColors.border;
+        
+        kiviatChart.update();
+    }
+
+    function resetToDefaults() {
+        for (const key in sliders) {
+            sliders[key].value = defaultValues[key];
+        }
+        calculateAndUpdate();
+    }
+
+    function openModal() {
+        modal.classList.remove('hidden');
+        const modalCtx = document.getElementById('modalKiviatChart').getContext('2d');
+        const modalOptions = JSON.parse(JSON.stringify(kiviatChart.options));
+        modalOptions.plugins.legend = { 
+            position: 'bottom',
+            labels: { usePointStyle: true, font: { size: 14 } }
+        };
+        modalOptions.scales.r.pointLabels.font.size = 14;
+
+        if (modalChart) {
+            modalChart.destroy();
+        }
+
+        modalChart = new Chart(modalCtx, {
+            type: 'radar',
+            data: JSON.parse(JSON.stringify(kiviatChart.data)),
+            options: modalOptions
+        });
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+        if (modalChart) {
+            modalChart.destroy();
+            modalChart = null;
+        }
+    }
+
+    for (const key in sliders) {
+        sliders[key].addEventListener('input', calculateAndUpdate);
+    }
+
+    resetButton.addEventListener('click', resetToDefaults);
+    expandChartButton.addEventListener('click', openModal);
+    closeModalButton.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    calculateAndUpdate();
+});
+</script>
+
+</body>
+</html>

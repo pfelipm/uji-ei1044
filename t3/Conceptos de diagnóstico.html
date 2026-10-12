@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: conceptos de diagnóstico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .concept-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            border-top: 6px solid;
+        }
+        .concept-card h3 {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .concept-card .emoji {
+            font-size: 2rem;
+            margin-right: 0.75rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#00A0B0] mb-4">Conceptos de diagnóstico</h1>
+            <p class="text-lg md:text-xl text-[#6A4A3C]">Ampliando nuestra visión: monitores, costes y análisis visual.</p>
+        </header>
+
+        <div class="space-y-12">
+            <!-- Tipos de Monitores -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold text-center text-[#6A4A3C] mb-8">1. Tipos de monitores: ¿cómo observamos el sistema?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="concept-card" style="border-color: #00A0B0;">
+                        <h3 style="color: #00A0B0;"><span class="emoji">💻</span>Software</h3>
+                        <p class="mt-2">Programas que se ejecutan en el propio sistema para recolectar datos. Son los más comunes y flexibles.</p>
+                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> Fácil de usar y muy versátil.</p>
+                        <p><strong class="text-red-600">Desventaja:</strong> Genera sobrecarga (overhead) al consumir recursos del sistema que mide.</p>
+                    </div>
+                    <div class="concept-card" style="border-color: #EB6841;">
+                        <h3 style="color: #EB6841;"><span class="emoji">🔧</span>Hardware</h3>
+                        <p class="mt-2">Dispositivos externos conectados al sistema mediante sondas. Miden señales eléctricas directamente.</p>
+                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> No intrusivo, no genera overhead y es extremadamente rápido.</p>
+                        <p><strong class="text-red-600">Desventaja:</strong> Caro, complejo de instalar y no puede medir eventos de software.</p>
+                    </div>
+                    <div class="concept-card" style="border-color: #EDC951;">
+                        <h3 style="color: #EDC951;"><span class="emoji">🧬</span>Híbrido</h3>
+                        <p class="mt-2">Combinan una parte software (sonda) y una parte hardware (procesador externo) para analizar los datos.</p>
+                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> Lo mejor de ambos mundos, potente y con bajo overhead.</p>
+                        <p><strong class="text-red-600">Desventaja:</strong> Muy específico y poco común en entornos estándar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overhead -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold text-center text-[#6A4A3C] mb-8">2. El coste oculto de medir: la sobrecarga (overhead)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p>Toda acción de monitorización o gestión del sistema operativo consume recursos (CPU, memoria) que no se dedican al trabajo útil del usuario. A este "coste" lo llamamos sobrecarga.</p>
+                        <div class="mt-4 bg-gray-50 p-4 rounded-lg">
+                            <p class="text-lg text-center font-mono font-bold">Uso Total CPU = Trabajo de Usuario + Sobrecarga</p>
+                        </div>
+                        <p class="mt-4">Es crucial que la sobrecarga de nuestras herramientas de monitorización sea lo más baja posible para no alterar el comportamiento del sistema que estamos midiendo.</p>
+                    </div>
+                    <div class="w-full h-64">
+                        <canvas id="overheadChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diagramas de Kiviat -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-3xl font-bold text-center text-[#6A4A3C] mb-8">3. La firma de rendimiento: diagramas de Kiviat</h2>
+                <p class="text-center">Estos gráficos (como el de nuestro simulador) son una forma potente de visualizar la "salud" de un sistema de un solo vistazo, comparando su estado actual con un ideal.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                    <div class="w-full h-80">
+                        <canvas id="kiviatSano"></canvas>
+                    </div>
+                    <div class="w-full h-80">
+                        <canvas id="kiviatCuelloBotella"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const kiviatOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            r: {
+                angleLines: { display: true },
+                suggestedMin: 0,
+                suggestedMax: 100,
+                pointLabels: { font: { size: 12 } }
+            }
+        },
+        plugins: {
+            legend: { display: false },
+            title: { display: true, font: { size: 16 } }
+        }
+    };
+
+    // Gráfico Overhead
+    if (document.getElementById('overheadChart')) {
+        const ctx = document.getElementById('overheadChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Trabajo de Usuario', 'Sobrecarga del SO', 'Sobrecarga del Monitor'],
+                datasets: [{
+                    data: [85, 12, 3],
+                    backgroundColor: ['#00A0B0', '#EB6841', '#EDC951'],
+                    borderColor: '#ffffff',
+                    borderWidth: 4,
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: {
+                    title: { display: true, text: 'Distribución del Uso de la CPU' },
+                    legend: { position: 'bottom' }
+                },
+                cutout: '50%'
+            }
+        });
+    }
+
+    // Gráfico Kiviat Sano
+    if (document.getElementById('kiviatSano')) {
+        const ctxSano = document.getElementById('kiviatSano').getContext('2d');
+        const optionsSano = JSON.parse(JSON.stringify(kiviatOptions));
+        optionsSano.plugins.title.text = 'Sistema Equilibrado y Estable';
+        new Chart(ctxSano, {
+            type: 'radar',
+            data: {
+                labels: ['Lentitud', 'Uti. CPU', 'CPU Ociosa', 'Productividad', 'Disco Ocioso', 'Uti. Disco'],
+                datasets: [{
+                    label: 'Firma Actual',
+                    data: [10, 20, 80, 90, 80, 20],
+                    backgroundColor: 'rgba(0, 160, 176, 0.2)',
+                    borderColor: '#00A0B0',
+                    borderWidth: 2
+                }]
+            },
+            options: optionsSano
+        });
+    }
+
+    // Gráfico Kiviat Cuello de Botella
+    if (document.getElementById('kiviatCuelloBotella')) {
+        const ctxCuello = document.getElementById('kiviatCuelloBotella').getContext('2d');
+        const optionsCuello = JSON.parse(JSON.stringify(kiviatOptions));
+        optionsCuello.plugins.title.text = 'Sistema con Cuello de Botella en Disco';
+        new Chart(ctxCuello, {
+            type: 'radar',
+            data: {
+                labels: ['Lentitud', 'Uti. CPU', 'CPU Ociosa', 'Productividad', 'Disco Ocioso', 'Uti. Disco'],
+                datasets: [{
+                    label: 'Firma Actual',
+                    data: [85, 30, 70, 40, 5, 95],
+                    backgroundColor: 'rgba(235, 104, 65, 0.2)',
+                    borderColor: '#EB6841',
+                    borderWidth: 2
+                }]
+            },
+            options: optionsCuello
+        });
+    }
+});
+</script>
+</body>
+</html>

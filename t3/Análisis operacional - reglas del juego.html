@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: las reglas del juego (análisis operacional)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .formula {
+            font-family: monospace;
+            background-color: #eef2ff;
+            color: #4338ca;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 1.1rem;
+            display: inline-block;
+        }
+        .code-inline {
+            font-family: monospace;
+            background-color: #fefce8;
+            color: #a16207;
+            padding: 0.1rem 0.4rem;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-indigo-600">Análisis operacional ⚖️</h1>
+            <p class="text-lg md:text-xl text-gray-600 mt-2">Las Reglas del Juego</p>
+            <p class="text-md text-gray-500 mt-4 max-w-3xl mx-auto">Midiendo el presente para predecir el futuro. Las leyes que gobiernan el rendimiento.</p>
+        </header>
+
+        <main class="space-y-12">
+
+            <section id="variables" class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center"><span class="text-4xl mr-4">📊</span> ¿Qué Medimos en el Mapa? (Las Variables Operacionales)</h2>
+                <p class="text-lg mb-8">Para entender el flujo de trabajo, observamos el sistema durante un periodo de tiempo (T) y medimos cuatro cantidades fundamentales. A partir de ellas, derivamos todo lo demás, agrupándolas en tres categorías: <strong class="font-semibold text-indigo-700">Flujo, Tiempo y Carga</strong>.</p>
+
+                <div class="mb-8 p-4 bg-gray-50 rounded-lg">
+                    <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Las 4 mediciones base</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                        <div class="bg-indigo-50 p-4 rounded-lg"><strong>T:</strong> Intervalo Observación</div>
+                        <div class="bg-indigo-50 p-4 rounded-lg"><strong>Aᵢ:</strong> Llegadas al recurso <i>i</i></div>
+                        <div class="bg-indigo-50 p-4 rounded-lg"><strong>Cᵢ:</strong> Completados por <i>i</i></div>
+                        <div class="bg-indigo-50 p-4 rounded-lg"><strong>Bᵢ:</strong> Tiempo Ocupado de <i>i</i></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-semibold text-center text-blue-700">Métricas de flujo (ritmo)</h3>
+                        <div class="border border-blue-200 p-6 rounded-lg bg-blue-50">
+                            <h4 class="text-xl font-bold mb-2">Tasa de llegada (λᵢ)</h4>
+                            <p class="mb-3"><span class="formula">λᵢ = Aᵢ / T</span></p>
+                            <p class="text-sm text-gray-600">Ritmo al que los trabajos llegan a un recurso.</p>
+                        </div>
+                        <div class="border border-blue-200 p-6 rounded-lg bg-blue-50">
+                            <h4 class="text-xl font-bold mb-2">Productividad (Xᵢ)</h4>
+                            <p class="mb-3"><span class="formula">Xᵢ = Cᵢ / T</span></p>
+                            <p class="text-sm text-gray-600">Ritmo al que un recurso completa trabajos.</p>
+                        </div>
+                        <div class="border border-blue-200 p-6 rounded-lg bg-blue-50">
+                            <h4 class="text-xl font-bold mb-2">Razón de visita (Vᵢ)</h4>
+                            <p class="mb-3"><span class="formula">Vᵢ = Cᵢ / C₀</span></p>
+                            <p class="text-sm text-gray-600">Nº de veces que un trabajo visita el recurso <i>i</i>.</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <h3 class="text-2xl font-semibold text-center text-green-700">Métricas de tiempo (duración)</h3>
+                         <div class="border border-green-200 p-6 rounded-lg bg-green-50">
+                            <h4 class="text-xl font-bold mb-2">Tiempo de servicio (Sᵢ)</h4>
+                            <p class="mb-3"><span class="formula">Sᵢ = Bᵢ / Cᵢ</span></p>
+                            <p class="text-sm text-gray-600">Tiempo que el recurso tarda en atender un trabajo.</p>
+                        </div>
+                        <div class="border border-green-200 p-6 rounded-lg bg-green-50">
+                            <h4 class="text-xl font-bold mb-2">Tiempo en cola (Wᵢ)</h4>
+                            <p class="mb-3"><span class="formula">Wᵢ = Rᵢ - Sᵢ</span></p>
+                            <p class="text-sm text-gray-600">Tiempo que un trabajo pasa esperando a ser atendido.</p>
+                        </div>
+                        <div class="border border-green-200 p-6 rounded-lg bg-green-50">
+                            <h4 class="text-xl font-bold mb-2">Tiempo de respuesta (Rᵢ)</h4>
+                            <p class="mb-3"><span class="formula">Rᵢ = Wᵢ + Sᵢ</span></p>
+                            <p class="text-sm text-red-600 font-semibold">¡Es el tiempo total que percibe el usuario!</p>
+                        </div>
+                    </div>
+
+                     <div class="space-y-6">
+                        <h3 class="text-2xl font-semibold text-center text-purple-700">Métricas de carga (ocupación)</h3>
+                        <div class="border border-purple-200 p-6 rounded-lg bg-purple-50">
+                            <h4 class="text-xl font-bold mb-2">Utilización (Uᵢ)</h4>
+                            <p class="mb-3"><span class="formula">Uᵢ = Bᵢ / T</span></p>
+                            <p class="text-sm text-gray-600">Porcentaje de tiempo que el recurso está ocupado.</p>
+                        </div>
+                        <div class="border border-purple-200 p-6 rounded-lg bg-purple-50">
+                            <h4 class="text-xl font-bold mb-2">Demanda de servicio (Dᵢ)</h4>
+                            <p class="mb-3"><span class="formula">Dᵢ = Vᵢ × Sᵢ</span></p>
+                            <p class="text-sm text-gray-600">Tiempo total de servicio que un trabajo exige a un recurso.</p>
+                        </div>
+                         <div class="border border-purple-200 p-6 rounded-lg bg-purple-50">
+                            <h4 class="text-xl font-bold mb-2">Longitud de cola (Qᵢ y Nᵢ)</h4>
+                            <p class="text-sm text-gray-600">Nº medio de trabajos en un recurso. <span class="code-inline">Qᵢ</span> (en cola), <span class="code-inline">Nᵢ</span> (en la estación: cola + servidor).</p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section id="laws" class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center"><span class="text-4xl mr-4">📜</span> Las Leyes de la Física del Sistema</h2>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg mb-8">
+                    <h3 class="text-xl font-bold text-yellow-800 mb-2">Un principio fundamental: la hipótesis del equilibrio de flujo</h3>
+                    <p class="text-yellow-900">Antes de aplicar las leyes, debemos asumir que el sistema está en un <strong class="font-semibold">estado estable</strong>. Esto significa que, a grandes rasgos, el ritmo al que los trabajos llegan a un recurso (<span class="code-inline">λᵢ</span>) es igual al ritmo al que salen (<span class="code-inline">Xᵢ</span>). Sin este equilibrio, el sistema colapsaría o se vaciaría, ¡y nuestros cálculos no servirían!</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                        <h3 class="text-2xl font-bold text-indigo-800 mb-3">1. La ley de utilización</h3>
+                        <p class="italic text-gray-600 mb-4">La ocupación de un recurso es la frecuencia con la que llegan trabajos multiplicada por lo que cuesta hacer cada uno.</p>
+                        <div class="text-center my-4"><span class="formula text-2xl">Uᵢ = Xᵢ × Sᵢ</span></div>
+                        <p class="text-gray-700"><strong>Analogía:</strong> Si a un barista le llegan 2 cafés/minuto (Xᵢ) y tarda 0.4 minutos en hacer cada uno (Sᵢ), estará ocupado el 80% del tiempo (Uᵢ = 0.8).</p>
+                    </div>
+
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
+                        <h3 class="text-2xl font-bold text-indigo-800 mb-3">2. La ley de Little</h3>
+                        <p class="italic text-gray-600 mb-4">El número promedio de clientes en un sistema (N) es igual a la tasa a la que salen (X) multiplicada por el tiempo promedio que pasan dentro (R).</p>
+                        <div class="text-center my-4"><span class="formula text-2xl">N = X × R</span></div>
+                        <p class="text-gray-700"><strong>Analogía:</strong> Si de una tienda salen 10 personas/minuto (X) y cada una pasa 15 minutos dentro (R), habrá una media de 150 personas (N) en la tienda.</p>
+                        <p class="mt-2 text-indigo-700 font-semibold text-center">¡Funciona para el sistema entero o para cada componente!</p>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+        
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

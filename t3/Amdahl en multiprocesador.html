@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amdahl en sistemas multiprocesador - EI1044</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .card-title {
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+        .time-bar-container {
+            width: 100%;
+            background-color: #e5e7eb;
+            border-radius: 0.375rem;
+            overflow: hidden;
+        }
+        .time-bar {
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            transition: width 0.3s ease-in-out;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 0.5rem;
+        }
+        .parallel-bar { background-color: #3b82f6; } /* Azul */
+        .sequential-bar { background-color: #6b7280; } /* Gris */
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            line-height: 1;
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #d1d5db;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+        .slider:hover { opacity: 1; }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Título principal -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Amdahl en sistemas multiprocesador</h1>
+            <p class="text-lg text-gray-600 mt-2">Descubre el límite teórico de la computación paralela.</p>
+        </header>
+
+        <!-- Contenedor principal -->
+        <div class="card p-6 md:p-8">
+            
+            <!-- Controles -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="f-slider" class="font-semibold text-gray-700">Fracción paralelizable (f)</label>
+                        <span id="f-value" class="text-xl font-bold text-blue-600">90%</span>
+                    </div>
+                    <input id="f-slider" type="range" min="0" max="100" value="90" step="1" class="slider">
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label for="p-slider" class="font-semibold text-gray-700">Número de procesadores (p)</label>
+                        <span id="p-value" class="text-xl font-bold text-blue-600">15</span>
+                    </div>
+                    <input id="p-slider" type="range" min="1" max="128" value="15" step="1" class="slider">
+                </div>
+            </div>
+
+            <!-- Visualización -->
+            <div class="space-y-6">
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-1">Ejecución original (1 procesador)</h3>
+                    <p class="text-xs text-gray-500 mb-2">Cada segmento muestra su % sobre el tiempo de ejecución <strong>original</strong>.</p>
+                    <div class="time-bar-container flex">
+                        <div id="orig-parallel-bar" class="time-bar parallel-bar" style="width: 90%;">Paralela</div>
+                        <div id="orig-sequential-bar" class="time-bar sequential-bar" style="width: 10%;">Secuencial</div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-1">Ejecución mejorada (<span id="p-display">15</span> procesadores)</h3>
+                    <p class="text-xs text-gray-500 mb-2">Cada segmento muestra su % sobre el <strong>nuevo</strong> y más corto tiempo de ejecución.</p>
+                    <div class="time-bar-container flex">
+                        <div id="new-parallel-bar" class="time-bar parallel-bar" style="width: 37.5%;">Paralela</div>
+                        <div id="new-sequential-bar" class="time-bar sequential-bar" style="width: 62.5%;">Secuencial</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estadísticas -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 pt-6 border-t">
+                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                    <p class="text-sm font-semibold text-blue-800">Aceleración (Speedup)</p>
+                    <p id="acceleration-value" class="stat-value">6.25x</p>
+                </div>
+                <div class="text-center p-4 bg-red-50 rounded-lg">
+                    <p class="text-sm font-semibold text-red-800">Límite teórico máximo</p>
+                    <p id="limit-value" class="stat-value">10.00x</p>
+                </div>
+            </div>
+
+        </div>
+        <!-- Pie de página -->
+        <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elementos del DOM
+            const fSlider = document.getElementById('f-slider');
+            const pSlider = document.getElementById('p-slider');
+            
+            const fValue = document.getElementById('f-value');
+            const pValue = document.getElementById('p-value');
+            const pDisplay = document.getElementById('p-display');
+
+            const origParallelBar = document.getElementById('orig-parallel-bar');
+            const origSequentialBar = document.getElementById('orig-sequential-bar');
+            const newParallelBar = document.getElementById('new-parallel-bar');
+            const newSequentialBar = document.getElementById('new-sequential-bar');
+
+            const accelerationValue = document.getElementById('acceleration-value');
+            const limitValue = document.getElementById('limit-value');
+
+            function updateSimulation() {
+                // 1. Leer valores de los sliders
+                const f_parallel = parseFloat(fSlider.value) / 100;
+                const p = parseInt(pSlider.value);
+                const f_sequential = 1 - f_parallel;
+
+                // Actualizar etiquetas de los sliders
+                fValue.textContent = `${(f_parallel * 100).toFixed(0)}%`;
+                pValue.textContent = p;
+                pDisplay.textContent = p;
+
+                // 2. Calcular tiempos y aceleración
+                // Asumimos tiempo original T_orig = 1
+                // Tiempo original se descompone en f_parallel y f_sequential
+                
+                // Nuevo tiempo de la parte paralela
+                const t_parallel_new = f_parallel / p;
+                // El tiempo de la parte secuencial no cambia
+                const t_sequential_new = f_sequential;
+                
+                // Nuevo tiempo total
+                const t_total_new = t_parallel_new + t_sequential_new;
+                
+                // Aceleración
+                const acceleration = 1 / t_total_new;
+
+                // Límite teórico (cuando p -> infinito)
+                const limit = f_sequential > 0 ? 1 / f_sequential : Infinity;
+
+                // 3. Actualizar estadísticas
+                accelerationValue.textContent = `${acceleration.toFixed(2)}x`;
+                limitValue.textContent = limit === Infinity ? '∞' : `${limit.toFixed(2)}x`;
+
+                // 4. Actualizar visualizaciones de las barras
+                // Barra original
+                origParallelBar.style.width = `${f_parallel * 100}%`;
+                origSequentialBar.style.width = `${f_sequential * 100}%`;
+                // Ocultar la barra secuencial si es 0%
+                origSequentialBar.style.display = f_sequential > 0 ? 'flex' : 'none';
+                origParallelBar.textContent = f_sequential > 0 ? 'Paralela' : '100% Paralela';
+
+
+                // Barra nueva
+                const newParallelPercentage = (t_parallel_new / t_total_new) * 100;
+                const newSequentialPercentage = (t_sequential_new / t_total_new) * 100;
+                
+                newParallelBar.style.width = `${newParallelPercentage}%`;
+                newSequentialBar.style.width = `${newSequentialPercentage}%`;
+                // Ocultar la barra secuencial si es 0%
+                newSequentialBar.style.display = f_sequential > 0 ? 'flex' : 'none';
+                newParallelBar.textContent = f_sequential > 0 ? 'Paralela' : '100% Paralela';
+            }
+
+            // Añadir event listeners
+            fSlider.addEventListener('input', updateSimulation);
+            pSlider.addEventListener('input', updateSimulation);
+
+            // Inicializar la simulación
+            updateSimulation();
+        });
+    </script>
+</body>
+</html>

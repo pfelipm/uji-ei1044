@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El muro de Amdahl vs. análisis operacional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Color de fondo similar a las infografías */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .card-title {
+            color: #1e3a8a; /* Azul oscuro para los títulos */
+            font-weight: 700;
+        }
+        .time-bar {
+            height: 2rem;
+            border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            transition: width 0.3s ease-in-out;
+        }
+        .cpu-bar { background-color: #3b82f6; } /* Azul */
+        .disk-bar { background-color: #6b7280; } /* Gris */
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e3a8a;
+            line-height: 1;
+        }
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #d1d5db;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .2s;
+        }
+        .slider:hover { opacity: 1; }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+        }
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            cursor: pointer;
+        }
+        .queue-item {
+            width: 20px;
+            height: 20px;
+            background-color: #f59e0b; /* Naranja para las peticiones */
+            border-radius: 0.25rem;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Título principal -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">🧱 El muro de Amdahl</h1>
+            <p class="text-lg text-gray-600 mt-2">Del Mito Secuencial a la Realidad Concurrente</p>
+        </header>
+
+        <!-- Contenedor de las dos partes -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- PARTE 1: EL MUNDO DE AMDAHL -->
+            <div class="card p-6">
+                <h2 class="card-title text-2xl mb-2">🥧 Parte 1: el mundo de Amdahl</h2>
+                <p class="text-gray-600 mb-4"><strong>Concepto Clave:</strong> "Un trabajo es un pastel de tiempo 100% secuencial." Las tareas se ejecutan una detrás de otra.</p>
+
+                <div class="space-y-4">
+                    <!-- Leyenda de colores -->
+                    <div class="flex justify-center space-x-6 mb-4 text-sm text-gray-600 border-b pb-4">
+                        <div class="flex items-center">
+                            <span class="h-4 w-4 rounded mr-2" style="background-color: #3b82f6;"></span> CPU
+                        </div>
+                        <div class="flex items-center">
+                            <span class="h-4 w-4 rounded mr-2" style="background-color: #6b7280;"></span> Disco
+                        </div>
+                    </div>
+
+                    <!-- Visualización del tiempo -->
+                    <div>
+                        <h3 class="font-semibold text-gray-700 mb-2">Ejecución original (1.0s)</h3>
+                        <div class="flex space-x-1">
+                            <div id="amdahl-cpu-bar-orig" class="time-bar cpu-bar" style="width: 70%;">0.7s</div>
+                            <div id="amdahl-disk-bar-orig" class="time-bar disk-bar" style="width: 30%;">0.3s</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-700 mb-2">Ejecución mejorada</h3>
+                        <div class="flex space-x-1">
+                            <div id="amdahl-cpu-bar-new" class="time-bar cpu-bar" style="width: 35%;">0.35s</div>
+                            <div id="amdahl-disk-bar-new" class="time-bar disk-bar" style="width: 30%;">0.3s</div>
+                        </div>
+                    </div>
+
+                    <!-- Controles y estadísticas -->
+                    <div class="pt-4 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <label for="k-slider" class="font-semibold text-gray-700">Factor de Mejora (k) de la CPU</label>
+                                <p class="text-sm text-gray-500">Mueve el slider para ver el "Muro de Amdahl".</p>
+                            </div>
+                            <span id="k-value" class="text-xl font-bold text-blue-600">2.0x</span>
+                        </div>
+                        <input id="k-slider" type="range" min="1" max="100" value="2" step="0.1" class="slider">
+
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <p class="text-sm font-semibold text-blue-800">ACELERACIÓN (A)</p>
+                            <p id="acceleration-value" class="stat-value">1.54x</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARTE 2: ANÁLISIS OPERACIONAL -->
+            <div class="card p-6">
+                <h2 class="card-title text-2xl mb-2">🚦 Parte 2: análisis operacional</h2>
+                <p class="text-gray-600 mb-4"><strong>Concepto Clave:</strong> "Un trabajo <em>demanda</em> servicio de múltiples recursos... ¡a la vez!"</p>
+
+                <!-- Visualización de colas -->
+                <div class="space-y-4">
+                     <div>
+                        <h3 class="font-semibold text-gray-700 mb-2">Visualización de carga del sistema</h3>
+                        <div class="bg-gray-100 p-4 rounded-lg h-48 flex flex-col justify-around">
+                            <!-- Fila CPU -->
+                            <div class="flex items-center">
+                                <span class="font-bold text-gray-600 w-16">CPU</span>
+                                <div id="cpu-queue-container" class="flex flex-wrap items-center"></div>
+                                <div class="w-12 h-12 bg-blue-500 rounded text-white flex items-center justify-center font-bold ml-2">CPU</div>
+                            </div>
+                             <!-- Fila Disco -->
+                            <div class="flex items-center">
+                                <span class="font-bold text-gray-600 w-16">Disco</span>
+                                <div id="disk-queue-container" class="flex flex-wrap items-center"></div>
+                                <div class="w-12 h-12 bg-gray-600 rounded text-white flex items-center justify-center font-bold ml-2">Disco</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controles y estadísticas -->
+                     <div class="pt-4 space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <label for="lambda-slider" class="font-semibold text-gray-700">Tasa de Llegadas (λ₀)</label>
+                                <p class="text-sm text-gray-500">Aumenta la carga para ver el "Caos de las Colas".</p>
+                            </div>
+                            <span id="lambda-value" class="text-xl font-bold text-blue-600">0.5 pet/s</span>
+                        </div>
+                        <input id="lambda-slider" type="range" min="0.1" max="1.4" value="0.5" step="0.01" class="slider">
+
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="p-4 bg-blue-50 rounded-lg">
+                                <p class="text-sm font-semibold text-blue-800">T. RESPUESTA (R)</p>
+                                <p id="response-time-value" class="stat-value">1.25s</p>
+                            </div>
+                            <div class="p-4 bg-blue-50 rounded-lg">
+                                <p class="text-sm font-semibold text-blue-800">UTILIZACIÓN CPU</p>
+                                <p id="utilization-value" class="stat-value">35%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Pie de página -->
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- LÓGICA DE AMDAHL ---
+            const kSlider = document.getElementById('k-slider');
+            const kValue = document.getElementById('k-value');
+            const accelerationValue = document.getElementById('acceleration-value');
+            const amdahlCpuBarNew = document.getElementById('amdahl-cpu-bar-new');
+
+            const t_cpu_orig = 0.7;
+            const t_disk_orig = 0.3;
+            const t_total_orig = t_cpu_orig + t_disk_orig;
+
+            function updateAmdahl() {
+                const k = parseFloat(kSlider.value);
+                kValue.textContent = `${k.toFixed(1)}x`;
+
+                const t_cpu_new = t_cpu_orig / k;
+                const t_total_new = t_cpu_new + t_disk_orig;
+                const acceleration = t_total_orig / t_total_new;
+
+                accelerationValue.textContent = `${acceleration.toFixed(2)}x`;
+                
+                // Actualizar barra visual
+                const totalBarWidth = amdahlCpuBarNew.parentElement.clientWidth;
+                const cpuPercentage = (t_cpu_new / t_total_new) * 100;
+                const diskPercentage = (t_disk_orig / t_total_new) * 100;
+
+                amdahlCpuBarNew.style.width = `${cpuPercentage}%`;
+                amdahlCpuBarNew.textContent = `${t_cpu_new.toFixed(2)}s`;
+                // La barra del disco se ajusta para llenar el resto
+                document.getElementById('amdahl-disk-bar-new').style.width = `${diskPercentage}%`;
+            }
+
+            kSlider.addEventListener('input', updateAmdahl);
+
+            // --- LÓGICA DE ANÁLISIS OPERACIONAL ---
+            const lambdaSlider = document.getElementById('lambda-slider');
+            const lambdaValue = document.getElementById('lambda-value');
+            const responseTimeValue = document.getElementById('response-time-value');
+            const utilizationValue = document.getElementById('utilization-value');
+            const cpuQueueContainer = document.getElementById('cpu-queue-container');
+            const diskQueueContainer = document.getElementById('disk-queue-container');
+
+            const D_cpu = 0.7; // Demanda de Servicio CPU
+            const D_disk = 0.3; // Demanda de Servicio Disco
+
+            function updateOA() {
+                const lambda = parseFloat(lambdaSlider.value);
+                lambdaValue.textContent = `${lambda.toFixed(2)} pet/s`;
+
+                // Calcular Utilizaciones
+                const U_cpu = lambda * D_cpu;
+                const U_disk = lambda * D_disk;
+
+                // Evitar división por cero si la utilización es >= 1
+                if (U_cpu >= 1 || U_disk >= 1) {
+                    responseTimeValue.textContent = '∞';
+                    utilizationValue.textContent = '100%';
+                    // Max out queues for visual effect
+                    updateQueueVisuals(10, 'cpu'); // Max de 10 para visualización
+                    updateQueueVisuals(10, 'disk');
+                    return;
+                }
+                
+                utilizationValue.textContent = `${(U_cpu * 100).toFixed(0)}%`;
+
+                // Calcular Tiempo de Respuesta (usando fórmula M/M/1 para cada estación)
+                // R_i = D_i / (1 - U_i)
+                const R_cpu = D_cpu / (1 - U_cpu);
+                const R_disk = D_disk / (1 - U_disk);
+                const R_total = R_cpu + R_disk;
+
+                responseTimeValue.textContent = `${R_total.toFixed(2)}s`;
+                
+                // Calcular y visualizar longitud de la cola
+                // N_q = U^2 / (1 - U)
+                const Nq_cpu = (U_cpu * U_cpu) / (1 - U_cpu);
+                const Nq_disk = (U_disk * U_disk) / (1 - U_disk);
+                
+                updateQueueVisuals(Nq_cpu, 'cpu');
+                updateQueueVisuals(Nq_disk, 'disk');
+            }
+
+            function updateQueueVisuals(queueLength, type) {
+                const container = type === 'cpu' ? cpuQueueContainer : diskQueueContainer;
+                container.innerHTML = ''; // Limpiar cola
+                const numItems = Math.min(Math.round(queueLength), 10); // Limitar a 10 para no desbordar
+                for (let i = 0; i < numItems; i++) {
+                    const item = document.createElement('div');
+                    item.className = 'queue-item';
+                    container.appendChild(item);
+                }
+            }
+
+            lambdaSlider.addEventListener('input', updateOA);
+
+            // Inicializar ambas vistas
+            updateAmdahl();
+            updateOA();
+        });
+    </script>
+</body>
+</html>

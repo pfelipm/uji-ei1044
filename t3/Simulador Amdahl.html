@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador avanzado de la ley de Amdahl</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+        }
+        .container {
+            max-width: 900px;
+        }
+        .component-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .progress-bar-fill {
+            transition: width 0.3s ease-in-out;
+        }
+        .result-card {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+         /* Ocultar las flechas en los inputs de tipo number */
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="container mx-auto p-6 sm:p-8 bg-white rounded-2xl shadow-lg">
+
+        <!-- Encabezado -->
+        <header class="text-center pb-6 border-b border-gray-200">
+            <h1 class="text-4xl font-black text-blue-900">Simulador avanzado de la ley de Amdahl</h1>
+            <p class="text-lg text-slate-600 mt-2">Experimenta con múltiples mejoras y descubre el límite de tu sistema.</p>
+        </header>
+
+        <main class="mt-8">
+            <!-- Sección para añadir componentes -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                <h2 class="text-xl font-bold text-slate-800">1. Define los componentes de tu sistema</h2>
+                <p class="text-slate-500 mt-1">Añade los elementos que consumen tiempo en tu aplicación (CPU, Disco, Red, etc.).</p>
+                <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                    <input type="text" id="component-name-input" placeholder="Nombre del componente (ej. CPU)" class="flex-grow p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <button id="add-component-btn" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition">
+                        Añadir Componente
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lista de Componentes y Progreso -->
+            <div class="mt-8">
+                <h2 class="text-xl font-bold text-slate-800">2. Configura el sistema y las mejoras</h2>
+                <p class="text-slate-500 mt-1">Define el % de tiempo que consume cada componente y aplica los factores de mejora.</p>
+                
+                <!-- Barra de progreso total -->
+                <div class="mt-4">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-base font-medium text-slate-700">Suma de porciones de tiempo definidas</span>
+                        <span id="total-fraction-text" class="text-base font-bold text-slate-700">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4">
+                        <div id="total-fraction-bar" class="bg-blue-600 h-4 rounded-full progress-bar-fill" style="width: 0%"></div>
+                    </div>
+                    <p id="fraction-warning" class="text-red-600 text-sm mt-1 h-5"></p>
+                </div>
+
+                <!-- Cabecera de la lista de componentes -->
+                <div class="hidden md:flex flex-row items-center gap-4 px-5 mt-6 border-b pb-2">
+                    <div class="w-full md:w-1/4">
+                        <span class="text-sm font-bold text-slate-500">Componente</span>
+                    </div>
+                    <div class="w-full md:w-1/2">
+                        <span class="text-sm font-bold text-slate-500">Tiempo de Uso (%)</span>
+                    </div>
+                    <div class="w-full md:w-1/4 flex items-center justify-center gap-6">
+                         <span class="text-sm font-bold text-slate-500 w-16 text-center">Mejorar</span>
+                         <span class="text-sm font-bold text-slate-500 w-24 text-center">Factor (k)</span>
+                    </div>
+                    <div class="w-12"></div> <!-- Espacio para el botón de eliminar -->
+                </div>
+
+
+                <!-- Contenedor de la lista de componentes -->
+                <div id="component-list" class="mt-2 space-y-4">
+                    <!-- Las tarjetas de componentes se insertarán aquí -->
+                </div>
+            </div>
+
+            <!-- Resultados -->
+            <div id="results-section" class="mt-12 pt-8 border-t border-gray-200 hidden">
+                 <h2 class="text-2xl font-bold text-slate-800 text-center">3. Resultados del análisis</h2>
+                 <div class="grid md:grid-cols-2 gap-8 mt-6">
+                    <div class="result-card text-white p-8 rounded-2xl text-center">
+                        <h3 class="text-2xl font-bold opacity-80">Aceleración (Speedup)</h3>
+                        <p id="speedup-result" class="text-7xl font-black mt-2">1.00x</p>
+                        <p class="mt-2 opacity-70">El sistema es X veces más rápido con las mejoras aplicadas.</p>
+                    </div>
+                    <div class="bg-slate-700 text-white p-8 rounded-2xl text-center">
+                        <h3 class="text-2xl font-bold opacity-80">Límite teórico</h3>
+                        <p id="limit-result" class="text-7xl font-black mt-2">∞</p>
+                        <p class="mt-2 opacity-70">La máxima aceleración posible si la mejora fuera infinita.</p>
+                    </div>
+                 </div>
+                 <div class="mt-6 p-4 bg-blue-50 text-blue-800 rounded-lg text-center">
+                    <p><strong>Fórmula Aplicada:</strong> A = 1 / ((1 - Σf<sub class="font-italic">mejorada</sub>) + Σ(f<sub class="font-italic">mejorada</sub>/kᵢ))</p>
+                 </div>
+            </div>
+        </main>
+        
+        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    let components = [];
+    let nextId = 0;
+
+    const componentNameInput = document.getElementById('component-name-input');
+    const addComponentBtn = document.getElementById('add-component-btn');
+    const componentList = document.getElementById('component-list');
+    const totalFractionText = document.getElementById('total-fraction-text');
+    const totalFractionBar = document.getElementById('total-fraction-bar');
+    const fractionWarning = document.getElementById('fraction-warning');
+    const resultsSection = document.getElementById('results-section');
+    const speedupResult = document.getElementById('speedup-result');
+    const limitResult = document.getElementById('limit-result');
+
+    const render = () => {
+        const focusedElement = document.activeElement;
+        const focusedId = focusedElement ? focusedElement.dataset.id : null;
+        const focusedType = focusedElement ? focusedElement.dataset.type : null;
+
+        componentList.innerHTML = '';
+        if (components.length === 0) {
+            componentList.innerHTML = `<p class="text-center text-slate-500 py-4">Aún no hay componentes. ¡Añade el primero!</p>`;
+        }
+
+        components.forEach(comp => {
+            const componentCard = document.createElement('div');
+            componentCard.className = 'component-card bg-white p-5 rounded-lg border flex flex-col md:flex-row items-center gap-4';
+            componentCard.id = `comp-${comp.id}`;
+            componentCard.innerHTML = `
+                <div class="w-full md:w-1/4 flex items-center">
+                    <span class="font-bold text-slate-700 text-lg">${comp.name}</span>
+                </div>
+                <div class="w-full md:w-1/2 flex items-center gap-4">
+                    <input type="range" min="0" max="100" value="${comp.fraction}" data-id="${comp.id}" data-type="fraction" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                    <input type="number" min="0" max="100" value="${comp.fraction}" data-id="${comp.id}" data-type="fraction-text" class="w-20 p-2 border rounded-md text-center">
+                </div>
+                <div class="w-full md:w-1/4 flex items-center justify-center gap-6">
+                     <div class="w-16 flex justify-center">
+                        <input type="checkbox" ${comp.isImproved ? 'checked' : ''} data-id="${comp.id}" data-type="improve-check" class="w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                     </div>
+                     <input type="number" min="1" step="0.1" value="${comp.improvementFactor}" ${!comp.isImproved ? 'disabled' : ''} data-id="${comp.id}" data-type="k-factor" class="w-24 p-2 border rounded-md text-center disabled:bg-gray-100 disabled:cursor-not-allowed">
+                </div>
+                <div class="w-12 flex items-center justify-center">
+                    <button data-id="${comp.id}" data-type="remove" class="text-red-500 hover:text-red-700 font-medium p-2 rounded-full hover:bg-red-100 transition">
+                        &#x2715;
+                    </button>
+                </div>
+            `;
+            componentList.appendChild(componentCard);
+        });
+        
+        if (focusedId && focusedType) {
+            const elementToFocus = componentList.querySelector(`[data-id='${focusedId}'][data-type='${focusedType}']`);
+            if(elementToFocus) elementToFocus.focus();
+        }
+
+        updateTotalFractionUI();
+        calculate();
+    };
+    
+    const updateTotalFractionUI = () => {
+        const total = components.reduce((sum, c) => sum + c.fraction, 0);
+        totalFractionText.textContent = `${total}%`;
+        totalFractionBar.style.width = `${Math.min(total, 100)}%`;
+        
+        if (total > 100) {
+            totalFractionBar.classList.remove('bg-blue-600');
+            totalFractionBar.classList.add('bg-red-600');
+            fractionWarning.textContent = '¡La suma de porciones no puede superar el 100%!';
+        } else {
+            totalFractionBar.classList.remove('bg-red-600');
+            totalFractionBar.classList.add('bg-blue-600');
+            fractionWarning.textContent = '';
+        }
+    };
+
+    const calculate = () => {
+        const totalFractionSum = components.reduce((sum, c) => sum + c.fraction, 0);
+        if (components.length === 0) {
+             resultsSection.classList.add('hidden');
+             return;
+        }
+
+        resultsSection.classList.remove('hidden');
+
+        if (totalFractionSum > 100) {
+            speedupResult.textContent = `Error`;
+            limitResult.textContent = `Error`;
+            return;
+        }
+
+        let sumFImproved = 0;
+        let sumFOverK = 0;
+
+        components.forEach(comp => {
+            if (comp.isImproved) {
+                const fraction = comp.fraction / 100;
+                sumFImproved += fraction;
+                sumFOverK += fraction / comp.improvementFactor;
+            }
+        });
+
+        const unimprovedFractionTotal = 1 - sumFImproved;
+        const speedup = 1 / (unimprovedFractionTotal + sumFOverK);
+        const limit = 1 / unimprovedFractionTotal;
+        
+        speedupResult.textContent = `${speedup.toFixed(2)}x`;
+        limitResult.textContent = isFinite(limit) ? `${limit.toFixed(2)}x` : `∞`;
+    };
+
+    addComponentBtn.addEventListener('click', () => {
+        const name = componentNameInput.value.trim();
+        if (name) {
+            components.push({ id: nextId++, name, fraction: 0, isImproved: false, improvementFactor: 1.5 });
+            componentNameInput.value = '';
+            render();
+        }
+    });
+
+    componentNameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addComponentBtn.click();
+    });
+
+    // Event listeners
+    componentList.addEventListener('input', (e) => {
+        const { id, type } = e.target.dataset;
+        if (!id || !type) return;
+
+        const component = components.find(c => c.id === parseInt(id));
+        if (!component) return;
+
+        const card = document.getElementById(`comp-${id}`);
+        
+        if (type.includes('fraction')) {
+            const value = parseInt(e.target.value) || 0;
+            component.fraction = value;
+            if (type === 'fraction') {
+                card.querySelector('[data-type="fraction-text"]').value = value;
+            } else {
+                card.querySelector('[data-type="fraction"]').value = value;
+            }
+            updateTotalFractionUI();
+        } else if (type === 'k-factor') {
+            component.improvementFactor = parseFloat(e.target.value) || 1;
+        }
+    });
+
+    componentList.addEventListener('change', (e) => {
+        const { id, type } = e.target.dataset;
+        if (!id || !type) return;
+        
+        const component = components.find(c => c.id === parseInt(id));
+        if (!component) return;
+
+        if (type === 'improve-check') {
+            component.isImproved = e.target.checked;
+            render();
+        } else {
+            // Recalculate for text inputs and when slider is released
+            calculate();
+        }
+    });
+    
+    componentList.addEventListener('click', (e) => {
+         const button = e.target.closest('button');
+         if (button && button.dataset.type === 'remove') {
+            const id = parseInt(button.dataset.id);
+            components = components.filter(c => c.id !== id);
+            render();
+        }
+    });
+
+    render();
+});
+</script>
+
+</body>
+</html>

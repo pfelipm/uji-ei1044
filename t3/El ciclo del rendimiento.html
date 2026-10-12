@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: el ciclo de la gestión del rendimiento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 500px;
+            max-height: 600px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 600px;
+            }
+        }
+        .chart-container-medium {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 420px;
+        }
+        @media (min-width: 768px) {
+            .chart-container-medium {
+                height: 420px;
+            }
+        }
+        .chart-container-small {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 360px;
+        }
+        @media (min-width: 768px) {
+            .chart-container-small {
+                height: 360px;
+            }
+        }
+        .flow-step {
+            border: 2px solid;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flow-arrow {
+            font-size: 2.5rem;
+            line-height: 1;
+            align-self: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#00A0B0] mb-2">El ciclo de la gestión del rendimiento</h1>
+            <p class="text-lg md:text-xl text-[#6A4A3C]">De la queja del usuario a la decisión de inversión: gestionando sistemas con datos.</p>
+        </header>
+
+        <section id="etapa1" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#CC333F] mb-4">Etapa 1: el problema de negocio (la queja) 🤔</h2>
+                <p class="mb-6">Todo comienza con una necesidad. A menudo, es una queja ambigua como "la web va lenta". Nuestro primer trabajo es traducir esa percepción subjetiva en objetivos medibles, definidos en un Acuerdo de Nivel de Servicio (SLA).</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-[#6A4A3C] mb-2">Impacto en la experiencia de usuario (UX)</h3>
+                        <p>Un mal rendimiento no es solo una molestia técnica, tiene consecuencias reales:</p>
+                        <ul class="list-disc list-outside pl-5 mt-4 space-y-2">
+                            <li><strong class="text-[#CC333F]">Pérdida de usuarios:</strong> el 40% de los usuarios abandona una web si tarda más de 3 segundos en cargar.</li>
+                            <li><strong class="text-[#EB6841]">Daño a la reputación:</strong> el 88% de los usuarios son menos propensos a volver a un sitio después de una mala experiencia.</li>
+                            <li><strong class="text-[#00A0B0]">Impacto económico:</strong> un segundo de retraso puede costar millones en ventas a grandes plataformas de comercio electrónico.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div class="chart-container-small">
+                            <canvas id="uxImpactChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="etapa2" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#EB6841] mb-4">Etapa 2: la investigación (monitorización) 🕵️</h2>
+                <p class="mb-6">Con los objetivos claros, empezamos a recolectar datos. Usamos herramientas de monitorización para obtener una "firma de rendimiento" de nuestro sistema, tanto en condiciones normales como bajo estrés. Esto nos da las pistas para entender su comportamiento.</p>
+                
+                <div class="w-full">
+                    <div class="chart-container">
+                        <canvas id="systemHealthChart"></canvas>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-center text-[#6A4A3C] mb-4">Herramientas del administrador</h3>
+                    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                       <li class="p-3 bg-gray-50 rounded-md"><strong>top / htop</strong>: para una visión en tiempo real del consumo de CPU y memoria.</li>
+                       <li class="p-3 bg-gray-50 rounded-md"><strong>vmstat</strong>: informa sobre procesos, memoria, paginación y actividad de CPU.</li>
+                       <li class="p-3 bg-gray-50 rounded-md"><strong>iostat</strong>: esencial para diagnosticar problemas de entrada/salida (discos).</li>
+                       <li class="p-3 bg-gray-50 rounded-md"><strong>sar</strong>: el "historiador" del sistema. Guarda datos de rendimiento a lo largo del tiempo para análisis post-mortem.</li>
+                       <li class="p-3 bg-gray-50 rounded-md sm:col-span-2"><strong>/proc</strong>: el sistema de ficheros virtual que expone los datos internos del kernel que usan estas herramientas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="etapa3" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#EDC951] mb-4">Etapa 3: el diagnóstico (análisis del cuello de botella) 🔎</h2>
+                <p class="mb-6">Con las pistas en la mano, es hora de encontrar al culpable. En cualquier sistema, siempre hay un componente que actúa como un freno para todos los demás. Ese es el cuello de botella, y es donde debemos centrar nuestros esfuerzos de optimización.</p>
+                <h3 class="text-xl text-center font-bold text-[#6A4A3C] mb-6">El proceso para encontrar al culpable</h3>
+                <div class="flex flex-col items-center space-y-4 font-sans">
+                    <div class="flow-step border-[#00A0B0] text-[#00A0B0] w-full max-w-lg">Monitorizar sistema y recolectar métricas (V<sub>i</sub>, S<sub>i</sub>)</div>
+                    <div class="flow-arrow text-gray-400">⬇️</div>
+                    <div class="flow-step border-[#EB6841] text-[#EB6841] w-full max-w-lg">Calcular demanda de servicio (D<sub>i</sub> = V<sub>i</sub> &times; S<sub>i</sub>)</div>
+                    <div class="flow-arrow text-gray-400">⬇️</div>
+                    <div class="flow-step border-[#CC333F] text-[#CC333F] w-full max-w-lg">Identificar componente con D<sub>i</sub> máxima = ¡cuello de botella!</div>
+                </div>
+
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4 text-sm p-4 bg-gray-50 rounded-lg">
+                    <div>
+                        <p><strong class="text-[#00A0B0]">V<sub>i</sub> (razón de visita):</strong></p>
+                        <p>Es el <strong>número de veces</strong> que una transacción necesita usar el recurso <em>i</em>. Se obtiene analizando la aplicación.</p>
+                    </div>
+                    <div>
+                        <p><strong class="text-[#EB6841]">S<sub>i</sub> (tiempo de servicio):</strong></p>
+                        <p>Es el <strong>tiempo medio</strong> que tarda el recurso <em>i</em> en atender una única petición. Se mide con herramientas como <code>sar</code>.</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center p-4 bg-gray-50 rounded-lg">
+                    <p><strong class="text-[#6A4A3C]">El concepto clave:</strong> la demanda de servicio (<code class="bg-gray-200 text-sm p-1 rounded">D<sub>i</sub></code>) representa el tiempo total que una transacción típica necesita de un recurso. El recurso con la mayor demanda es el que primero se saturará y, por tanto, el que limita el rendimiento global del sistema.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="etapa4" class="mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#00A0B0] mb-4">Etapa 4: la predicción (simulación y justificación) 🔮</h2>
+                <p class="mb-6">Antes de gastar dinero o tiempo en una solución, usamos modelos predictivos para simular el impacto de nuestros cambios. Esto nos permite responder a la pregunta clave: ¿merece la pena la inversión?</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-xl font-bold text-[#6A4A3C] mb-2">Ley de Amdahl: un baño de realidad</h3>
+                        <p class="mb-4">Esta ley nos enseña que la mejora global de un sistema está limitada por la proporción de tiempo que se usa el componente mejorado. Como muestra el gráfico, aunque mejoremos un componente infinitamente, si solo se usa el 50% del tiempo (<code class="bg-gray-200 text-sm p-1 rounded">f=0.5</code>), la aceleración total nunca será mayor de 2x. Sin embargo, si se usa el 90% del tiempo (<code class="bg-gray-200 text-sm p-1 rounded">f=0.9</code>), el potencial de mejora es mucho mayor.</p>
+                        <div class="chart-container-medium">
+                            <canvas id="amdahlLawChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-[#6A4A3C] mb-2">Límites optimistas: ¿hasta dónde podemos llegar?</h3>
+                        <p class="mb-4">Una vez identificado el cuello de botella (con demanda de servicio <code class="bg-gray-200 text-sm p-1 rounded">D<sub>b</sub></code>), podemos calcular la máxima productividad teórica que nuestro sistema puede alcanzar: <code class="bg-gray-200 text-sm p-1 rounded">X<sub>opt</sub> = 1 / D<sub>b</sub></code>. El gráfico de barras ilustra cómo, al mejorar el cuello de botella (reduciendo su <code class="bg-gray-200 text-sm p-1 rounded">D<sub>b</sub></code>), el techo de la productividad del sistema se eleva significativamente.</p>
+                         <div class="chart-container-medium">
+                            <canvas id="optimisticLimitsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="etapa5">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#6A4A3C] mb-4">Etapa 5: la acción (decisión de gestión) ✅</h2>
+                <p class="mb-6">Armados con datos, un diagnóstico claro y una predicción del impacto, es el momento de tomar una decisión informada. Esta es la fase final donde justificamos una inversión, una optimización o, a veces, la decisión de no hacer nada si el coste supera el beneficio.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-[#6A4A3C] mb-2">Caso práctico: ¿CPU o disco?</h3>
+                        <p class="mb-4">Imaginemos que nuestro cuello de botella es el disco. Tenemos dos propuestas de inversión: una nueva CPU más rápida o un nuevo sistema de discos. El gráfico compara ambas opciones. Aunque la mejora de la CPU parece potente, su impacto real en el rendimiento es mínimo porque no ataca el problema raíz. La inversión en el disco, aunque sea más barata, ofrece una mejora de rendimiento mucho mayor. Esta es una decisión basada en datos.</p>
+                        <p class="font-bold text-[#CC333F]">La recomendación es clara: invertir en el nuevo sistema de discos.</p>
+                    </div>
+                    <div>
+                        <div class="chart-container-medium">
+                            <canvas id="decisionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+        <div>
+            <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                <span>👁️🗨️</span>
+                <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+            </a>
+        </div>
+        <div class="space-y-1 text-slate-400">
+            <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p>
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+            </p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const tooltipTitleCallback = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                          return label.join(' ');
+                        } else {
+                          return label;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    function wrapLabels(label, maxLength) {
+        if (typeof label !== 'string' || label.length <= maxLength) {
+            return label;
+        }
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > maxLength && currentLine.length > 0) {
+                lines.push(currentLine.trim());
+                currentLine = '';
+            }
+            currentLine += word + ' ';
+        });
+        lines.push(currentLine.trim());
+        return lines;
+    }
+
+    if (document.getElementById('uxImpactChart')) {
+        const ctx = document.getElementById('uxImpactChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Abandonan si tarda > 3s', 'Se quedan', 'No regresan si la UX es mala'],
+                datasets: [{
+                    label: 'Impacto en UX',
+                    data: [40, 48, 12],
+                    backgroundColor: ['#CC333F', '#00A0B0', '#EB6841'],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Tasa de Abandono por Tiempos de Carga Lentos',
+                        font: { size: 16 }
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    }
+
+    if (document.getElementById('systemHealthChart')) {
+        const ctx = document.getElementById('systemHealthChart').getContext('2d');
+        const originalLabels = ['Tiempo de Respuesta (R)', 'Productividad (X)', 'Utilización CPU (U)'];
+        const wrappedLabels = originalLabels.map(l => wrapLabels(l, 16));
+        new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: wrappedLabels,
+                datasets: [
+                    {
+                        label: 'Sistema Sano',
+                        data: [20, 85, 30],
+                        backgroundColor: 'rgba(0, 160, 176, 0.2)',
+                        borderColor: '#00A0B0',
+                        pointBackgroundColor: '#00A0B0',
+                        borderWidth: 2
+                    },
+                    {
+                        label: 'Sistema Estresado',
+                        data: [80, 50, 95],
+                        backgroundColor: 'rgba(204, 51, 63, 0.2)',
+                        borderColor: '#CC333F',
+                        pointBackgroundColor: '#CC333F',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        pointLabels: {
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                     title: {
+                        display: true,
+                        text: 'Firma de Rendimiento del Sistema',
+                        font: { size: 16 }
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    }
+    
+    if (document.getElementById('amdahlLawChart')) {
+        const ctx = document.getElementById('amdahlLawChart').getContext('2d');
+        const k_values = Array.from({ length: 20 }, (_, i) => i + 1);
+        const amdahl = (f, k) => 1 / ((1 - f) + (f / k));
+        
+        const data_f90 = k_values.map(k => amdahl(0.9, k));
+        const data_f50 = k_values.map(k => amdahl(0.5, k));
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: k_values,
+                datasets: [
+                    {
+                        label: 'f = 0.9 (Componente muy usado)',
+                        data: data_f90,
+                        borderColor: '#00A0B0',
+                        backgroundColor: 'rgba(0, 160, 176, 0.1)',
+                        fill: true,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'f = 0.5 (Componente poco usado)',
+                        data: data_f50,
+                        borderColor: '#EB6841',
+                        backgroundColor: 'rgba(235, 104, 65, 0.1)',
+                        fill: true,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Factor de Mejora del Componente (k)' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Aceleración Global del Sistema (A)' },
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                     title: {
+                        display: true,
+                        text: 'Impacto de la Mejora según la Utilización',
+                        font: { size: 16 }
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    }
+
+    if (document.getElementById('optimisticLimitsChart')) {
+        const ctx = document.getElementById('optimisticLimitsChart').getContext('2d');
+        const originalLabels = ['Sistema Original', 'Sistema con Mejora en Cuello de Botella'];
+        const wrappedLabels = originalLabels.map(l => wrapLabels(l, 16));
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: wrappedLabels,
+                datasets: [{
+                    label: 'Productividad Máxima (transacciones/s)',
+                    data: [120, 250],
+                    backgroundColor: ['#EB6841', '#00A0B0'],
+                    borderColor: ['#CC333F', '#6A4A3C'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                 scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                     title: {
+                        display: true,
+                        text: 'Aumento de Capacidad Teórica',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    }
+    
+    if (document.getElementById('decisionChart')) {
+        const ctx = document.getElementById('decisionChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Coste (€)', 'Mejora de Rendimiento (%)'],
+                datasets: [
+                    {
+                        label: 'Opción A: Mejorar CPU (No es cuello de botella)',
+                        data: [1500, 5],
+                        backgroundColor: '#EB6841',
+                    },
+                    {
+                        label: 'Opción B: Mejorar Disco (Sí es cuello de botella)',
+                        data: [800, 40],
+                        backgroundColor: '#00A0B0',
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                 plugins: {
+                     title: {
+                        display: true,
+                        text: 'Análisis Coste/Beneficio de Actualización',
+                        font: { size: 16 }
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    }
+});
+</script>
+
+</body>
+</html>

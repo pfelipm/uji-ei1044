@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: conceptos clave de la explotación de sistemas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .big-number {
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+        .station-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+        }
+        .station-queue {
+            border: 2px dashed #9ca3af;
+            padding: 0.5rem 1rem;
+            margin-right: -2px;
+            border-right: none;
+        }
+        .station-server {
+            width: 5rem;
+            height: 5rem;
+            border: 3px solid;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#00A0B0] mb-2">Conceptos clave de la explotación de sistemas</h1>
+            <p class="text-lg md:text-xl text-[#6A4A3C]">El vocabulario y las herramientas para entender y mejorar el rendimiento.</p>
+        </header>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#CC333F] mb-4">1. ¿Por qué medimos?</h2>
+                <p class="mb-4">Medir el rendimiento no es un ejercicio técnico, es una necesidad de negocio. Un sistema lento tiene un impacto directo en la satisfacción del usuario y, en consecuencia, en los resultados de la organización. Los <strong>Acuerdos de Nivel de Servicio (SLA)</strong> formalizan los objetivos de rendimiento (ej. "el 99% de las peticiones deben responder en menos de 500ms"), convirtiendo la calidad en un requisito contractual.</p>
+                <div class="text-center bg-[#CC333F] text-white rounded-lg p-6">
+                    <div class="big-number">40%</div>
+                    <p class="text-xl font-bold mt-2">de los usuarios abandonan una web que tarda más de 3 segundos en cargar.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#EB6841] mb-4">2. ¿Qué y cómo medimos?</h2>
+                <p class="mb-4">Para diagnosticar un sistema, necesitamos las métricas y herramientas adecuadas. Cada métrica nos cuenta una parte diferente de la historia, centrándose en un aspecto clave del rendimiento:</p>
+                <div class="chart-container h-64 md:h-auto">
+                     <canvas id="metricsChart"></canvas>
+                </div>
+                <ul class="mt-6 space-y-3 text-center">
+                    <li class="p-2 bg-gray-50 rounded-md">El <strong>Tiempo de Respuesta</strong> se centra en la experiencia del <strong>Usuario</strong>.</li>
+                    <li class="p-2 bg-gray-50 rounded-md">La <strong>Productividad</strong> mide la <strong>Capacidad</strong> real del sistema.</li>
+                    <li class="p-2 bg-gray-50 rounded-md">La <strong>Utilización</strong> es la clave para el <strong>Diagnóstico</strong> de problemas.</li>
+                </ul>
+                <h3 class="font-bold text-lg mt-8 mb-2 text-[#6A4A3C]">Herramientas del administrador (Linux/UNIX)</h3>
+                <ul class="space-y-2">
+                    <li class="p-3 bg-gray-50 rounded-md"><strong>top / htop:</strong> Muestra los procesos y el consumo de recursos en tiempo real. Ideal para ver qué está pasando <em>ahora</em>.</li>
+                    <li class="p-3 bg-gray-50 rounded-md"><strong>sar:</strong> El "reportero" de actividad del sistema. Recolecta datos históricos de CPU, memoria, E/S, etc. Fundamental para análisis post-mortem.</li>
+                     <li class="p-3 bg-gray-50 rounded-md"><strong>/proc:</strong> Un sistema de archivos virtual que contiene información detallada del kernel y los procesos. Es la fuente de datos primaria para muchas herramientas.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+             <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                <h2 class="text-3xl font-bold text-[#EDC951] mb-4">3. ¿Cómo predecimos y mejoramos?</h2>
+                <p class="mb-4">Una vez que medimos, usamos modelos analíticos para predecir el comportamiento futuro y justificar mejoras. Son nuestras "leyes de la física" para sistemas informáticos.</p>
+                
+                <h3 class="font-bold text-lg text-[#6A4A3C] mb-2">Ley de Amdahl</h3>
+                <p class="mb-4">Nos advierte que la mejora global está limitada por las partes del sistema que no mejoramos. Una mejora infinita en un componente usado el 80% del tiempo (<code class="bg-gray-200 text-sm p-1 rounded">f=0.8</code>) no puede acelerar el sistema más de 5 veces.</p>
+                <div class="chart-container h-64 md:h-80">
+                    <canvas id="amdahlLawChart2"></canvas>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                 <h2 class="text-3xl font-bold text-[#00A0B0] mb-4">4. El concepto más importante</h2>
+                 <p class="mb-4">Si solo puedes recordar una cosa, que sea esta: todo sistema tiene un <strong>cuello de botella</strong> (bottleneck). Es el componente que limita el rendimiento de todo lo demás. Identificarlo es el primer y más crucial paso para cualquier optimización.</p>
+                
+                <h3 class="font-bold text-lg text-[#6A4A3C] mb-2">Identificando el cuello de botella</h3>
+                <p class="mb-4">Lo encontramos calculando la <strong>Demanda de Servicio (D<sub>i</sub>)</strong> de cada componente. El que tenga la demanda más alta es el cuello de botella. En el ejemplo, el <strong>Disco A</strong> es el claro limitante.</p>
+                <div class="chart-container h-64 md:h-80">
+                    <canvas id="bottleneckChart"></canvas>
+                </div>
+                 <div class="mt-4 text-center p-4 bg-gray-50 rounded-lg">
+                    <p class="font-mono text-lg font-bold text-[#00A0B0]">D<sub>i</sub> = V<sub>i</sub> &times; S<sub>i</sub></p>
+                    <p>(Demanda = Visitas por transacción × Tiempo por visita)</p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const tooltipTitleCallback = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                          return label.join(' ');
+                        } else {
+                          return label;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    function wrapLabels(label, maxLength) {
+        if (typeof label !== 'string' || label.length <= maxLength) {
+            return label;
+        }
+        const words = label.split(' ');
+        const lines = [];
+        let currentLine = '';
+        words.forEach(word => {
+            if ((currentLine + word).length > maxLength && currentLine.length > 0) {
+                lines.push(currentLine.trim());
+                currentLine = '';
+            }
+            currentLine += word + ' ';
+        });
+        lines.push(currentLine.trim());
+        return lines;
+    }
+
+    if (document.getElementById('metricsChart')) {
+        const ctx = document.getElementById('metricsChart').getContext('2d');
+        const originalLabels = ['Tiempo de Respuesta (R)', 'Productividad (X)', 'Utilización (U)'];
+        const focusLabels = ['Foco: Experiencia de Usuario', 'Foco: Capacidad del Sistema', 'Foco: Diagnóstico de Problemas'];
+        const wrappedLabels = originalLabels.map(l => wrapLabels(l, 16));
+        
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: wrappedLabels,
+                datasets: [{
+                    data: [100, 100, 100], 
+                    backgroundColor: ['#CC333F', '#00A0B0', '#EB6841'],
+                    customData: focusLabels 
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        display: false, 
+                        beginAtZero: true
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                     title: {
+                        display: true,
+                        text: 'Las 3 Métricas Fundamentales del Rendimiento',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback.plugins.tooltip.callbacks.title,
+                            label: function(context) {
+                                return context.dataset.customData[context.dataIndex] || '';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    if (document.getElementById('amdahlLawChart2')) {
+        const ctx = document.getElementById('amdahlLawChart2').getContext('2d');
+        const k_values = Array.from({ length: 10 }, (_, i) => i + 1);
+        const amdahl = (f, k) => 1 / ((1 - f) + (f / k));
+        const data_f80 = k_values.map(k => amdahl(0.8, k));
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: k_values.map(k => `${k}x`),
+                datasets: [{
+                    label: 'Aceleración Global (A)',
+                    data: data_f80,
+                    borderColor: '#EDC951',
+                    backgroundColor: 'rgba(237, 201, 81, 0.2)',
+                    fill: true,
+                    tension: 0.1,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: 'Mejora del Componente (k)' } },
+                    y: { title: { display: true, text: 'Aceleración Global' }, beginAtZero: true, suggestedMax: 5.5 }
+                },
+                plugins: {
+                    title: { display: true, text: 'Aceleración con f=0.8', font: { size: 16 } },
+                    legend: { display: false },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    }
+
+    if (document.getElementById('bottleneckChart')) {
+        const ctx = document.getElementById('bottleneckChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['CPU', 'Disco A', 'Disco B', 'Red'],
+                datasets: [{
+                    label: 'Demanda de Servicio (ms por transacción)',
+                    data: [120, 250, 180, 80],
+                    backgroundColor: [
+                        '#EB6841',
+                        '#CC333F', 
+                        '#EB6841',
+                        '#EB6841'
+                    ],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Milisegundos (ms)' }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Demanda de Servicio por Componente',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    ...tooltipTitleCallback.plugins
+                }
+            }
+        });
+    }
+
+});
+</script>
+
+</body>
+</html>

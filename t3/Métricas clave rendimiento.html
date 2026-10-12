@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: métricas clave de rendimiento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .metric-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .metric-card h3 {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00A0B0;
+        }
+        .metric-card .emoji {
+            font-size: 2rem;
+            margin-right: 0.75rem;
+        }
+        .metric-card .focus {
+            font-weight: bold;
+            color: #6A4A3C;
+        }
+        .chart-container {
+             position: relative;
+             margin: 1rem auto;
+             width: 100%;
+             max-width: 400px;
+             height: 200px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#00A0B0] mb-4">Las métricas clave del rendimiento</h1>
+            <blockquote class="text-lg md:text-xl text-[#6A4A3C] italic bg-gray-50 p-4 rounded-lg border-l-4 border-[#EB6841]">
+                "Se define evaluación del rendimiento de un sistema informático como la medida de cómo un software determinado está utilizando el hardware con una determinada carga del sistema."
+            </blockquote>
+        </header>
+
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-center text-[#CC333F] mb-8">Métricas de rendimiento puro: ¿velocidad y capacidad?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="metric-card">
+                    <h3><span class="emoji">⏱️</span>Tiempo de Respuesta</h3>
+                    <p class="mt-2">Es el tiempo total desde que se inicia una petición hasta que se completa. La métrica más importante desde la perspectiva del usuario final.</p>
+                    <p class="mt-4"><span class="focus">Foco Principal:</span> Experiencia de Usuario (UX).</p>
+                    <div class="chart-container mt-auto">
+                        <canvas id="responseTimeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3><span class="emoji">🏭</span>Productividad (Throughput)</h3>
+                    <p class="mt-2">Cantidad de trabajo útil que el sistema realiza por unidad de tiempo. Mide la capacidad global del sistema para procesar carga.</p>
+                    <p class="mt-4"><span class="focus">Foco Principal:</span> Capacidad del Sistema.</p>
+                    <div class="chart-container mt-auto">
+                        <canvas id="throughputChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3><span class="emoji">📊</span>Factor de Utilización</h3>
+                    <p class="mt-2">Porcentaje de tiempo que un recurso específico (CPU, disco, red) está ocupado realizando trabajo. Es clave para encontrar cuellos de botella.</p>
+                    <p class="mt-4"><span class="focus">Foco Principal:</span> Diagnóstico de Problemas.</p>
+                    <div class="chart-container mt-auto">
+                         <canvas id="utilizationChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-3xl font-bold text-center text-[#EB6841] mb-8">Métricas de salud y estabilidad: ¿fiabilidad y eficiencia?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="metric-card">
+                    <h3><span class="emoji">🛡️</span>Fiabilidad</h3>
+                    <p class="mt-2">Es la probabilidad de que un sistema funcione correctamente y sin fallos durante un intervalo de tiempo. Se mide a menudo con el "Tiempo Medio Entre Fallos" (MTBF).</p>
+                    <p class="mt-4"><span class="focus">Foco Principal:</span> Resistencia a Fallos.</p>
+                    <div class="text-center mt-auto">
+                        <p class="text-lg text-gray-600">MTBF del Sistema A</p>
+                        <p class="text-5xl font-extrabold text-[#00A0B0]">1.200 <span class="text-2xl">horas</span></p>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3><span class="emoji">✅</span>Disponibilidad</h3>
+                    <p class="mt-2">Probabilidad de que el sistema esté operativo y disponible para su uso en un instante de tiempo concreto. Es la métrica clave de los SLAs.</p>
+                    <p class="mt-4"><span class="focus">Foco Principal:</span> Continuidad del Servicio.</p>
+                    <div class="text-center mt-auto">
+                        <p class="text-lg text-gray-600">Uptime Anual</p>
+                        <p class="text-5xl font-extrabold text-[#00A0B0]">99.999%</p>
+                        <p class="text-sm text-gray-500">(~5.26 minutos de caída al año)</p>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3><span class="emoji">💸</span>Sobrecarga (Overhead)</h3>
+                    <p class="mt-2">Recursos del sistema (CPU, memoria) consumidos por las tareas de gestión del propio sistema operativo, no directamente por el trabajo del usuario.</p>
+                    <p class="mt-4"><span class="focus">Foco Principal:</span> Eficiencia Interna.</p>
+                    <div class="chart-container mt-auto">
+                        <canvas id="overheadChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+            <div>
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                    <span>👁️🗨️</span>
+                    <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
+                </a>
+            </div>
+            <div class="space-y-1 text-slate-400">
+                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+                <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
+                <p>
+                    Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
+                </p>
+            </div>
+        </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const tooltipTitleCallback = {
+        plugins: { tooltip: { callbacks: { title: function(tooltipItems) {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) { return label.join(' '); } else { return label; }
+        }}}}
+    };
+
+    if (document.getElementById('responseTimeChart')) {
+        const ctx = document.getElementById('responseTimeChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['10%', '30%', '50%', '70%', '90%', '95%'],
+                datasets: [{
+                    label: 'Tiempo de Respuesta (ms)',
+                    data: [50, 80, 150, 300, 800, 1200],
+                    backgroundColor: 'rgba(204, 51, 63, 0.2)',
+                    borderColor: '#CC333F',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { x: { title: { display: true, text: 'Carga del Sistema' }}, y: { beginAtZero: true } },
+                plugins: { legend: { display: false }, title: { display: true, text: 'El tiempo de respuesta se dispara con la carga' }, ...tooltipTitleCallback.plugins }
+            }
+        });
+    }
+
+    if (document.getElementById('throughputChart')) {
+        const ctx = document.getElementById('throughputChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Sistema A', 'Sistema B'],
+                datasets: [{
+                    label: 'Transacciones por Segundo',
+                    data: [850, 1150],
+                    backgroundColor: ['#EB6841', '#00A0B0'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true } },
+                plugins: { legend: { display: false }, title: { display: true, text: 'Comparativa de Capacidad' }, ...tooltipTitleCallback.plugins }
+            }
+        });
+    }
+
+    if (document.getElementById('utilizationChart')) {
+        const ctx = document.getElementById('utilizationChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['CPU Ocupada', 'CPU Libre'],
+                datasets: [{
+                    data: [85, 15],
+                    backgroundColor: ['#EDC951', '#f0f0f0'],
+                    borderColor: '#ffffff',
+                    borderWidth: 4,
+                    circumference: 180,
+                    rotation: 270
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { title: { display: true, text: 'Recurso al 85% de su capacidad' }, legend: { display: false }, ...tooltipTitleCallback.plugins },
+                cutout: '70%'
+            }
+        });
+    }
+
+    if (document.getElementById('overheadChart')) {
+        const ctx = document.getElementById('overheadChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Uso Total de CPU'],
+                datasets: [
+                    {
+                        label: 'Trabajo de Usuario',
+                        data: [70],
+                        backgroundColor: '#00A0B0',
+                    },
+                    {
+                        label: 'Overhead del Sistema',
+                        data: [15],
+                        backgroundColor: '#EDC951',
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true, maintainAspectRatio: false,
+                scales: { x: { stacked: true, max: 100 }, y: { stacked: true, display: false } },
+                plugins: { title: { display: true, text: 'Desglose del Uso de CPU' }, legend: { position: 'bottom' }, ...tooltipTitleCallback.plugins }
+            }
+        });
+    }
+});
+</script>
+</body>
+</html>
