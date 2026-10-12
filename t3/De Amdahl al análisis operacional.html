@@ -88,6 +88,36 @@
             <p class="text-lg text-gray-600 mt-2">Del mito secuencial a la realidad concurrente</p>
         </header>
 
+        <!-- Bloque pedagógico introductorio: La vaca esférica y los modelos -->
+        <section id="aproximaciones-modelo" class="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-200/80 mb-8 border-l-4 border-l-indigo-500">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 items-center">
+                <div class="md:col-span-4 flex justify-center">
+                    <button type="button" onclick="openLightbox()" class="group relative rounded-xl overflow-hidden shadow-md border border-slate-200 max-w-xs bg-slate-50 text-left focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all hover:shadow-xl hover:-translate-y-0.5 cursor-zoom-in" aria-label="Ampliar imagen de la vaca esférica">
+                        <img src="aproximaciones.jpg" alt="Aproximaciones: la vaca esférica en ingeniería y modelado" class="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.02]">
+                        <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors flex items-center justify-center">
+                            <span class="opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900/75 text-white text-xs font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm shadow flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3-0H7"/></svg>
+                                Ampliar viñeta
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-center text-slate-500 py-1.5 px-2 bg-slate-100 border-t border-slate-200/60">«Supongamos una vaca esférica en el vacío...»</p>
+                    </button>
+                </div>
+                <div class="md:col-span-8 space-y-3">
+                    <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold tracking-wide uppercase bg-indigo-50 text-indigo-700 border border-indigo-100">
+                        <span>🎯 El arte de la aproximación</span>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-800">¿Por qué necesitamos modelar en lugar de simular cada bit?</h2>
+                    <p class="text-slate-600 leading-relaxed text-sm md:text-base">
+                        Cuenta el clásico chiste científico que, ante el reto de calcular el volumen de una vaca lechera, el físico plantea complejas ecuaciones de fluidos, el matemático busca una demostración abstracta y el ingeniero concluye: <em>«supongamos primero que la vaca es una esfera homogénea y aplicamos <i>V</i> = (4/3)&pi;<i>r</i><sup>3</sup>»</em>.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed text-sm md:text-base">
+                        En administración de sistemas informáticos ocurre exactamente lo mismo. Un servidor real ejecuta millones de instrucciones, interrupciones hardware y fluctuaciones de red imposibles de modelar al milímetro. La <strong>ley de Amdahl</strong> asume una tarea aislada en un vacío irreal; el <strong>análisis operacional</strong> da el salto a la realidad construyendo <strong>un modelo simplificado y manejable</strong> basado en demandas medias y colas concurrentes, con la precisión justa para predecir saturaciones y dimensionar hardware sin ahogarnos en el ruido.
+                    </p>
+                </div>
+            </div>
+        </section>
+
         <!-- Contenedor de las dos partes -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
@@ -211,6 +241,25 @@
         </footer>
     </div>
 
+    <!-- Lightbox Modal -->
+    <div id="image-lightbox" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4 md:p-8" onclick="closeLightbox(event)" role="dialog" aria-modal="true" aria-label="Visualizador de imagen">
+        <div class="relative max-w-4xl w-full max-h-[92vh] flex flex-col items-center justify-center" onclick="event.stopPropagation()">
+            <!-- Botón de cerrar -->
+            <button type="button" onclick="closeLightbox()" class="absolute -top-12 right-0 md:-top-4 md:-right-12 text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-700/80 p-2.5 rounded-full backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-white shadow-lg cursor-pointer" aria-label="Cerrar ventana emergente">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+            
+            <!-- Imagen ampliada con borde y sombra -->
+            <div class="overflow-hidden rounded-2xl border border-slate-700/60 shadow-2xl bg-slate-900 flex flex-col items-center">
+                <img src="aproximaciones.jpg" alt="Aproximaciones: la vaca esférica en ingeniería y modelado" class="max-h-[75vh] w-auto object-contain select-none">
+                <div class="w-full bg-slate-900/95 border-t border-slate-800 px-5 py-3 text-center">
+                    <p class="text-sm font-semibold text-slate-200">Aproximaciones y modelos en ingeniería</p>
+                    <p class="text-xs text-slate-400 mt-0.5">«Supongamos primero que la vaca es una esfera homogénea y aplicamos <i>V</i> = (4/3)&pi;<i>r</i><sup>3</sup>»</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- LÓGICA DE AMDAHL ---
@@ -310,6 +359,30 @@
             // Inicializar ambas vistas
             updateAmdahl();
             updateOA();
+        });
+
+        // Funciones de control del Lightbox de la vaca esférica
+        function openLightbox() {
+            const lb = document.getElementById('image-lightbox');
+            lb.classList.remove('opacity-0', 'pointer-events-none');
+            lb.classList.add('opacity-100', 'pointer-events-auto');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeLightbox(e) {
+            const lb = document.getElementById('image-lightbox');
+            lb.classList.remove('opacity-100', 'pointer-events-auto');
+            lb.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const lb = document.getElementById('image-lightbox');
+                if (lb && lb.classList.contains('opacity-100')) {
+                    closeLightbox();
+                }
+            }
         });
     </script>
 </body>
