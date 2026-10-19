@@ -51,41 +51,110 @@
 
     <main class="container mx-auto p-4 md:p-8">
 
-        <header class="text-center mb-12">
+        <header class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-extrabold text-[#00A0B0] mb-4">Las métricas clave del rendimiento</h1>
             <blockquote class="text-lg md:text-xl text-[#6A4A3C] italic bg-gray-50 p-4 rounded-lg border-l-4 border-[#EB6841]">
                 "Se define evaluación del rendimiento de un sistema informático como la medida de cómo un software determinado está utilizando el hardware con una determinada carga del sistema."
             </blockquote>
         </header>
 
+        <!-- Barra de control de revelado progresivo -->
+        <div class="bg-white rounded-xl shadow-md border border-slate-200 p-4 mb-10 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-bold uppercase tracking-wider text-slate-500">Revelado progresivo:</span>
+                <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="toggleCard(1)" id="pill-1" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">1</button>
+                    <button type="button" onclick="toggleCard(2)" id="pill-2" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">2</button>
+                    <button type="button" onclick="toggleCard(3)" id="pill-3" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">3</button>
+                    <button type="button" onclick="toggleCard(4)" id="pill-4" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">4</button>
+                    <button type="button" onclick="toggleCard(5)" id="pill-5" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">5</button>
+                    <button type="button" onclick="toggleCard(6)" id="pill-6" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">6</button>
+                </div>
+                <span id="revealCounter" class="text-sm font-semibold text-slate-600 ml-1">(0 de 6 visibles)</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" id="btnNextCard" onclick="revealNext()" class="px-4 py-2 rounded-lg bg-[#00A0B0] hover:bg-[#008896] text-white font-bold text-sm shadow-sm transition-colors cursor-pointer">
+                    ▶️ Revelar siguiente
+                </button>
+                <button type="button" onclick="setAllCards(true)" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm border border-slate-300 transition-colors cursor-pointer">
+                    👁️ Mostrar todas
+                </button>
+                <button type="button" onclick="setAllCards(false)" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-sm border border-slate-300 transition-colors cursor-pointer">
+                    🔄 Ocultar todas
+                </button>
+            </div>
+        </div>
+
         <div class="mb-12">
             <h2 class="text-3xl font-bold text-center text-[#CC333F] mb-8">Métricas de rendimiento puro: ¿velocidad y capacidad?</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
+                <!-- Métrica 1 -->
                 <div class="metric-card">
-                    <h3><span class="emoji">⏱️</span>Tiempo de respuesta</h3>
-                    <p class="mt-2">Es el tiempo total desde que se inicia una petición hasta que se completa. La métrica más importante desde la perspectiva del usuario final.</p>
-                    <p class="mt-4"><span class="focus">Foco principal:</span> experiencia de usuario (UX).</p>
-                    <div class="chart-container mt-auto">
-                        <canvas id="responseTimeChart"></canvas>
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <h3><span class="emoji">⏱️</span>Tiempo de respuesta</h3>
+                        <button type="button" onclick="toggleCard(1)" id="btn-card-1" class="px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
+                    </div>
+                    <div id="cover-1" onclick="toggleCard(1)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#CC333F]/30 bg-[#CC333F]/5 hover:bg-[#CC333F]/10 transition-colors flex flex-col items-center justify-center p-5 text-center cursor-pointer group mt-2">
+                        <span class="text-3xl mb-2 transform group-hover:scale-110 transition-transform">⏱️</span>
+                        <p class="text-base font-bold text-[#CC333F] mb-1">¿Cuánto tarda una petición?</p>
+                        <p class="text-sm text-slate-600 mb-4">¿Qué mide exactamente, cuál es su foco principal y cómo reacciona ante la carga?</p>
+                        <span class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#CC333F] text-white text-xs font-bold shadow-sm">
+                            👁️ Haz clic para descubrir
+                        </span>
+                    </div>
+                    <div id="content-1" class="hidden flex-1 flex flex-col">
+                        <p class="mt-2">Es el tiempo total desde que se inicia una petición hasta que se completa. La métrica más importante desde la perspectiva del usuario final.</p>
+                        <p class="mt-4"><span class="focus">Foco principal:</span> experiencia de usuario (UX).</p>
+                        <div class="chart-container mt-auto">
+                            <canvas id="responseTimeChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Métrica 2 -->
                 <div class="metric-card">
-                    <h3><span class="emoji">🏭</span>Productividad (throughput)</h3>
-                    <p class="mt-2">Cantidad de trabajo útil que el sistema realiza por unidad de tiempo. Mide la capacidad global del sistema para procesar carga.</p>
-                    <p class="mt-4"><span class="focus">Foco principal:</span> capacidad del sistema.</p>
-                    <div class="chart-container mt-auto">
-                        <canvas id="throughputChart"></canvas>
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <h3><span class="emoji">🏭</span>Productividad (throughput)</h3>
+                        <button type="button" onclick="toggleCard(2)" id="btn-card-2" class="px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
+                    </div>
+                    <div id="cover-2" onclick="toggleCard(2)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#00A0B0]/30 bg-[#00A0B0]/5 hover:bg-[#00A0B0]/10 transition-colors flex flex-col items-center justify-center p-5 text-center cursor-pointer group mt-2">
+                        <span class="text-3xl mb-2 transform group-hover:scale-110 transition-transform">🏭</span>
+                        <p class="text-base font-bold text-[#00A0B0] mb-1">¿Cuánto trabajo sale adelante?</p>
+                        <p class="text-sm text-slate-600 mb-4">¿Cómo cuantificamos el caudal o ritmo de procesamiento global del sistema?</p>
+                        <span class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#00A0B0] text-white text-xs font-bold shadow-sm">
+                            👁️ Haz clic para descubrir
+                        </span>
+                    </div>
+                    <div id="content-2" class="hidden flex-1 flex flex-col">
+                        <p class="mt-2">Cantidad de trabajo útil que el sistema realiza por unidad de tiempo. Mide la capacidad global del sistema para procesar carga.</p>
+                        <p class="mt-4"><span class="focus">Foco principal:</span> capacidad del sistema.</p>
+                        <div class="chart-container mt-auto">
+                            <canvas id="throughputChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Métrica 3 -->
                 <div class="metric-card">
-                    <h3><span class="emoji">📊</span>Factor de utilización</h3>
-                    <p class="mt-2">Porcentaje de tiempo que un recurso específico (CPU, disco, red) está ocupado realizando trabajo. Es clave para encontrar cuellos de botella.</p>
-                    <p class="mt-4"><span class="focus">Foco principal:</span> diagnóstico de problemas.</p>
-                    <div class="chart-container mt-auto">
-                         <canvas id="utilizationChart"></canvas>
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <h3><span class="emoji">📊</span>Factor de utilización</h3>
+                        <button type="button" onclick="toggleCard(3)" id="btn-card-3" class="px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
+                    </div>
+                    <div id="cover-3" onclick="toggleCard(3)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#EDC951]/50 bg-[#EDC951]/10 hover:bg-[#EDC951]/20 transition-colors flex flex-col items-center justify-center p-5 text-center cursor-pointer group mt-2">
+                        <span class="text-3xl mb-2 transform group-hover:scale-110 transition-transform">📊</span>
+                        <p class="text-base font-bold text-[#9a7b1c] mb-1">¿Qué tan ocupado está cada recurso?</p>
+                        <p class="text-sm text-slate-600 mb-4">¿Por qué es el indicador principal para localizar cuellos de botella?</p>
+                        <span class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#d4a928] text-white text-xs font-bold shadow-sm">
+                            👁️ Haz clic para descubrir
+                        </span>
+                    </div>
+                    <div id="content-3" class="hidden flex-1 flex flex-col">
+                        <p class="mt-2">Porcentaje de tiempo que un recurso específico (CPU, disco, red) está ocupado realizando trabajo. Es clave para encontrar cuellos de botella.</p>
+                        <p class="mt-4"><span class="focus">Foco principal:</span> diagnóstico de problemas.</p>
+                        <div class="chart-container mt-auto">
+                             <canvas id="utilizationChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -96,33 +165,75 @@
             <h2 class="text-3xl font-bold text-center text-[#EB6841] mb-8">Métricas de salud y estabilidad: ¿fiabilidad y eficiencia?</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
+                <!-- Métrica 4 -->
                 <div class="metric-card">
-                    <h3><span class="emoji">🛡️</span>Fiabilidad</h3>
-                    <p class="mt-2">Es la probabilidad de que un sistema funcione correctamente y sin fallos durante un intervalo de tiempo. Se mide a menudo con el "tiempo medio entre fallos" (MTBF).</p>
-                    <p class="mt-4"><span class="focus">Foco principal:</span> resistencia a fallos.</p>
-                    <div class="text-center mt-auto">
-                        <p class="text-lg text-gray-600">MTBF del sistema A</p>
-                        <p class="text-5xl font-extrabold text-[#00A0B0]">1.200 <span class="text-2xl">horas</span></p>
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <h3><span class="emoji">🛡️</span>Fiabilidad</h3>
+                        <button type="button" onclick="toggleCard(4)" id="btn-card-4" class="px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
+                    </div>
+                    <div id="cover-4" onclick="toggleCard(4)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#EB6841]/30 bg-[#EB6841]/5 hover:bg-[#EB6841]/10 transition-colors flex flex-col items-center justify-center p-5 text-center cursor-pointer group mt-2">
+                        <span class="text-3xl mb-2 transform group-hover:scale-110 transition-transform">🛡️</span>
+                        <p class="text-base font-bold text-[#EB6841] mb-1">¿Cuánto aguanta sin fallar?</p>
+                        <p class="text-sm text-slate-600 mb-4">¿Cómo se mide la continuidad libre de errores mediante el indicador MTBF?</p>
+                        <span class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#EB6841] text-white text-xs font-bold shadow-sm">
+                            👁️ Haz clic para descubrir
+                        </span>
+                    </div>
+                    <div id="content-4" class="hidden flex-1 flex flex-col">
+                        <p class="mt-2">Es la probabilidad de que un sistema funcione correctamente y sin fallos durante un intervalo de tiempo. Se mide a menudo con el "tiempo medio entre fallos" (MTBF).</p>
+                        <p class="mt-4"><span class="focus">Foco principal:</span> resistencia a fallos.</p>
+                        <div class="text-center mt-auto py-4">
+                            <p class="text-lg text-gray-600">MTBF del sistema A</p>
+                            <p class="text-5xl font-extrabold text-[#00A0B0]">1.200 <span class="text-2xl">horas</span></p>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Métrica 5 -->
                 <div class="metric-card">
-                    <h3><span class="emoji">✅</span>Disponibilidad</h3>
-                    <p class="mt-2">Probabilidad de que el sistema esté operativo y disponible para su uso en un instante de tiempo concreto. Es la métrica clave de los SLA.</p>
-                    <p class="mt-4"><span class="focus">Foco principal:</span> continuidad del servicio.</p>
-                    <div class="text-center mt-auto">
-                        <p class="text-lg text-gray-600">Disponibilidad anual (uptime)</p>
-                        <p class="text-5xl font-extrabold text-[#00A0B0]">99.999%</p>
-                        <p class="text-sm text-gray-500">(~5.26 minutos de caída al año)</p>
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <h3><span class="emoji">✅</span>Disponibilidad</h3>
+                        <button type="button" onclick="toggleCard(5)" id="btn-card-5" class="px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
+                    </div>
+                    <div id="cover-5" onclick="toggleCard(5)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#00A0B0]/30 bg-[#00A0B0]/5 hover:bg-[#00A0B0]/10 transition-colors flex flex-col items-center justify-center p-5 text-center cursor-pointer group mt-2">
+                        <span class="text-3xl mb-2 transform group-hover:scale-110 transition-transform">✅</span>
+                        <p class="text-base font-bold text-[#00A0B0] mb-1">¿Está listo cuando lo necesito?</p>
+                        <p class="text-sm text-slate-600 mb-4">¿Qué significa el famoso «cinco nueves» (99,999 %) en los contratos SLA?</p>
+                        <span class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#00A0B0] text-white text-xs font-bold shadow-sm">
+                            👁️ Haz clic para descubrir
+                        </span>
+                    </div>
+                    <div id="content-5" class="hidden flex-1 flex flex-col">
+                        <p class="mt-2">Probabilidad de que el sistema esté operativo y disponible para su uso en un instante de tiempo concreto. Es la métrica clave de los SLA.</p>
+                        <p class="mt-4"><span class="focus">Foco principal:</span> continuidad del servicio.</p>
+                        <div class="text-center mt-auto py-4">
+                            <p class="text-lg text-gray-600">Disponibilidad anual (uptime)</p>
+                            <p class="text-5xl font-extrabold text-[#00A0B0]">99.999%</p>
+                            <p class="text-sm text-gray-500">(~5.26 minutos de caída al año)</p>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Métrica 6 -->
                 <div class="metric-card">
-                    <h3><span class="emoji">💸</span>Sobrecarga (overhead)</h3>
-                    <p class="mt-2">Recursos del sistema (CPU, memoria) consumidos por las tareas de gestión del propio sistema operativo, no directamente por el trabajo del usuario.</p>
-                    <p class="mt-4"><span class="focus">Foco principal:</span> eficiencia interna.</p>
-                    <div class="chart-container mt-auto">
-                        <canvas id="overheadChart"></canvas>
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <h3><span class="emoji">💸</span>Sobrecarga (overhead)</h3>
+                        <button type="button" onclick="toggleCard(6)" id="btn-card-6" class="px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
+                    </div>
+                    <div id="cover-6" onclick="toggleCard(6)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#EDC951]/50 bg-[#EDC951]/10 hover:bg-[#EDC951]/20 transition-colors flex flex-col items-center justify-center p-5 text-center cursor-pointer group mt-2">
+                        <span class="text-3xl mb-2 transform group-hover:scale-110 transition-transform">💸</span>
+                        <p class="text-base font-bold text-[#9a7b1c] mb-1">¿Cuánto consume la propia gestión?</p>
+                        <p class="text-sm text-slate-600 mb-4">¿Qué parte de la CPU y memoria se va en administración interna en vez de trabajo útil?</p>
+                        <span class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-[#d4a928] text-white text-xs font-bold shadow-sm">
+                            👁️ Haz clic para descubrir
+                        </span>
+                    </div>
+                    <div id="content-6" class="hidden flex-1 flex flex-col">
+                        <p class="mt-2">Recursos del sistema (CPU, memoria) consumidos por las tareas de gestión del propio sistema operativo, no directamente por el trabajo del usuario.</p>
+                        <p class="mt-4"><span class="focus">Foco principal:</span> eficiencia interna.</p>
+                        <div class="chart-container mt-auto">
+                            <canvas id="overheadChart"></canvas>
+                        </div>
                     </div>
                 </div>
 
@@ -147,6 +258,72 @@
         </footer>
 
 <script>
+const cardState = { 1: false, 2: false, 3: false, 4: false, 5: false, 6: false };
+const chartInstances = {};
+
+function updateRevealUI() {
+    let visibleCount = 0;
+    for (let i = 1; i <= 6; i++) {
+        const isVisible = cardState[i];
+        if (isVisible) visibleCount++;
+
+        const cover = document.getElementById(`cover-${i}`);
+        const content = document.getElementById(`content-${i}`);
+        const btn = document.getElementById(`btn-card-${i}`);
+        const pill = document.getElementById(`pill-${i}`);
+
+        if (isVisible) {
+            cover.classList.add('hidden');
+            content.classList.remove('hidden');
+            btn.textContent = '🙈 Ocultar';
+            btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-600 border-slate-300';
+            pill.className = 'w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer bg-[#00A0B0] text-white border-[#00A0B0] shadow-sm';
+        } else {
+            cover.classList.remove('hidden');
+            content.classList.add('hidden');
+            btn.textContent = '👁️ Revelar';
+            btn.className = 'px-2.5 py-1 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer bg-[#00A0B0]/10 hover:bg-[#00A0B0]/20 text-[#00A0B0] border-[#00A0B0]/30';
+            pill.className = 'w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer bg-slate-100 text-slate-500 border-slate-300 hover:bg-slate-200';
+        }
+    }
+
+    document.getElementById('revealCounter').textContent = `(${visibleCount} de 6 visibles)`;
+    const btnNext = document.getElementById('btnNextCard');
+    if (visibleCount >= 6) {
+        btnNext.disabled = true;
+        btnNext.className = 'px-4 py-2 rounded-lg bg-slate-200 text-slate-400 font-bold text-sm cursor-not-allowed';
+    } else {
+        btnNext.disabled = false;
+        btnNext.className = 'px-4 py-2 rounded-lg bg-[#00A0B0] hover:bg-[#008896] text-white font-bold text-sm shadow-sm transition-colors cursor-pointer';
+    }
+
+    Object.values(chartInstances).forEach(ch => {
+        if (ch) ch.resize();
+    });
+}
+
+function toggleCard(id) {
+    cardState[id] = !cardState[id];
+    updateRevealUI();
+}
+
+function revealNext() {
+    for (let i = 1; i <= 6; i++) {
+        if (!cardState[i]) {
+            cardState[i] = true;
+            updateRevealUI();
+            break;
+        }
+    }
+}
+
+function setAllCards(state) {
+    for (let i = 1; i <= 6; i++) {
+        cardState[i] = state;
+    }
+    updateRevealUI();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const tooltipTitleCallback = {
@@ -159,12 +336,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('responseTimeChart')) {
         const ctx = document.getElementById('responseTimeChart').getContext('2d');
-        new Chart(ctx, {
+        chartInstances.responseTime = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: ['10%', '30%', '50%', '70%', '90%', '95%'],
                 datasets: [{
-                    label: 'Tiempo de Respuesta (ms)',
+                    label: 'Tiempo de respuesta (ms)',
                     data: [50, 80, 150, 300, 800, 1200],
                     backgroundColor: 'rgba(204, 51, 63, 0.2)',
                     borderColor: '#CC333F',
@@ -174,7 +351,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             options: {
                 responsive: true, maintainAspectRatio: false,
-                scales: { x: { title: { display: true, text: 'Carga del Sistema' }}, y: { beginAtZero: true } },
+                scales: { x: { title: { display: true, text: 'Carga del sistema' }}, y: { beginAtZero: true } },
                 plugins: { legend: { display: false }, title: { display: true, text: 'El tiempo de respuesta se dispara con la carga' }, ...tooltipTitleCallback.plugins }
             }
         });
@@ -182,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('throughputChart')) {
         const ctx = document.getElementById('throughputChart').getContext('2d');
-        new Chart(ctx, {
+        chartInstances.throughput = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Sistema A', 'Sistema B'],
@@ -203,7 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('utilizationChart')) {
         const ctx = document.getElementById('utilizationChart').getContext('2d');
-        new Chart(ctx, {
+        chartInstances.utilization = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['CPU ocupada', 'CPU libre'],
@@ -226,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('overheadChart')) {
         const ctx = document.getElementById('overheadChart').getContext('2d');
-        new Chart(ctx, {
+        chartInstances.overhead = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['Uso total de CPU'],
@@ -251,6 +428,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    updateRevealUI();
 });
 </script>
 </body>

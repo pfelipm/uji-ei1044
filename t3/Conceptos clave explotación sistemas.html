@@ -63,63 +63,146 @@
 
     <main class="container mx-auto p-4 md:p-8">
 
-        <header class="text-center mb-12">
+        <header class="text-center mb-8">
             <h1 class="text-4xl md:text-5xl font-extrabold text-[#00A0B0] mb-2">Conceptos clave de la explotación de sistemas</h1>
             <p class="text-lg md:text-xl text-[#6A4A3C]">El vocabulario y las herramientas para entender y mejorar el rendimiento.</p>
         </header>
 
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-[#CC333F] mb-4">1. ¿Por qué medimos?</h2>
-                <p class="mb-4">Medir el rendimiento no es un ejercicio técnico, es una necesidad de negocio. Un sistema lento tiene un impacto directo en la satisfacción del usuario y, en consecuencia, en los resultados de la organización. Los <strong>acuerdos de nivel de servicio (SLA)</strong> formalizan los objetivos de rendimiento (ej. "el 99% de las peticiones deben responder en menos de 500ms"), convirtiendo la calidad en un requisito contractual.</p>
-                <div class="text-center bg-[#CC333F] text-white rounded-lg p-6">
-                    <div class="big-number">40%</div>
-                    <p class="text-xl font-bold mt-2">de los usuarios abandonan una web que tarda más de 3 segundos en cargar.</p>
+        <!-- Barra de control de revelado progresivo -->
+        <div class="bg-white rounded-xl shadow-md border border-slate-200 p-4 mb-10 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <span class="text-sm font-bold uppercase tracking-wider text-slate-500">Revelado progresivo:</span>
+                <div class="flex items-center gap-1.5">
+                    <button type="button" onclick="toggleCard(1)" id="pill-1" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">1</button>
+                    <button type="button" onclick="toggleCard(2)" id="pill-2" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">2</button>
+                    <button type="button" onclick="toggleCard(3)" id="pill-3" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">3</button>
+                    <button type="button" onclick="toggleCard(4)" id="pill-4" class="w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer">4</button>
+                </div>
+                <span id="revealCounter" class="text-sm font-semibold text-slate-600 ml-1">(0 de 4 visibles)</span>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <button type="button" id="btnNextCard" onclick="revealNext()" class="px-4 py-2 rounded-lg bg-[#00A0B0] hover:bg-[#008896] text-white font-bold text-sm shadow-sm transition-colors cursor-pointer">
+                    ▶️ Revelar siguiente
+                </button>
+                <button type="button" onclick="setAllCards(true)" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm border border-slate-300 transition-colors cursor-pointer">
+                    👁️ Mostrar todas
+                </button>
+                <button type="button" onclick="setAllCards(false)" class="px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-sm border border-slate-300 transition-colors cursor-pointer">
+                    🔄 Ocultar todas
+                </button>
+            </div>
+        </div>
+
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Tarjeta 1 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 flex flex-col">
+                <div class="flex items-start justify-between gap-4 mb-4">
+                    <h2 class="text-3xl font-bold text-[#CC333F]">1. ¿Por qué medimos?</h2>
+                    <button type="button" onclick="toggleCard(1)" id="btn-card-1" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
+                </div>
+                <div id="cover-1" onclick="toggleCard(1)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#CC333F]/30 bg-[#CC333F]/5 hover:bg-[#CC333F]/10 transition-colors flex flex-col items-center justify-center p-6 text-center cursor-pointer group">
+                    <span class="text-4xl mb-3 transform group-hover:scale-110 transition-transform">🎯</span>
+                    <p class="text-lg font-bold text-[#CC333F] mb-1">Impacto en el negocio y compromisos de calidad</p>
+                    <p class="text-base text-slate-600 max-w-md mb-4">¿Por qué medir el rendimiento va mucho más allá de lo técnico y cómo se formaliza contractualmente con los usuarios?</p>
+                    <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#CC333F] text-white text-sm font-bold shadow-sm">
+                        👁️ Haz clic para descubrir
+                    </span>
+                </div>
+                <div id="content-1" class="hidden">
+                    <p class="mb-4">Medir el rendimiento no es un ejercicio técnico, es una necesidad de negocio. Un sistema lento tiene un impacto directo en la satisfacción del usuario y, en consecuencia, en los resultados de la organización. Los <strong>acuerdos de nivel de servicio (SLA)</strong> formalizan los objetivos de rendimiento (ej. "el 99% de las peticiones deben responder en menos de 500ms"), convirtiendo la calidad en un requisito contractual.</p>
+                    <div class="text-center bg-[#CC333F] text-white rounded-lg p-6">
+                        <div class="big-number">40%</div>
+                        <p class="text-xl font-bold mt-2">de los usuarios abandonan una web que tarda más de 3 segundos en cargar.</p>
+                    </div>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-[#EB6841] mb-4">2. ¿Qué y cómo medimos?</h2>
-                <p class="mb-4">Para diagnosticar un sistema, necesitamos las métricas y herramientas adecuadas. Cada métrica nos cuenta una parte diferente de la historia, centrándose en un aspecto clave del rendimiento:</p>
-                <div class="chart-container h-64 md:h-auto">
-                     <canvas id="metricsChart"></canvas>
+
+            <!-- Tarjeta 2 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 flex flex-col">
+                <div class="flex items-start justify-between gap-4 mb-4">
+                    <h2 class="text-3xl font-bold text-[#EB6841]">2. ¿Qué y cómo medimos?</h2>
+                    <button type="button" onclick="toggleCard(2)" id="btn-card-2" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
                 </div>
-                <ul class="mt-6 space-y-3 text-center">
-                    <li class="p-2 bg-gray-50 rounded-md">El <strong>tiempo de respuesta</strong> se centra en la experiencia del <strong>usuario</strong>.</li>
-                    <li class="p-2 bg-gray-50 rounded-md">La <strong>productividad</strong> mide la <strong>capacidad</strong> real del sistema.</li>
-                    <li class="p-2 bg-gray-50 rounded-md">La <strong>utilización</strong> es la clave para el <strong>diagnóstico</strong> de problemas.</li>
-                </ul>
-                <h3 class="font-bold text-lg mt-8 mb-2 text-[#6A4A3C]">Herramientas del administrador (Linux/UNIX)</h3>
-                <ul class="space-y-2">
-                    <li class="p-3 bg-gray-50 rounded-md"><strong>top / htop:</strong> Muestra los procesos y el consumo de recursos en tiempo real. Ideal para ver qué está pasando <em>ahora</em>.</li>
-                    <li class="p-3 bg-gray-50 rounded-md"><strong>sar:</strong> El "reportero" de actividad del sistema. Recolecta datos históricos de CPU, memoria, E/S, etc. Fundamental para análisis post-mortem.</li>
-                     <li class="p-3 bg-gray-50 rounded-md"><strong>/proc:</strong> Un sistema de archivos virtual que contiene información detallada del kernel y los procesos. Es la fuente de datos primaria para muchas herramientas.</li>
-                </ul>
+                <div id="cover-2" onclick="toggleCard(2)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#EB6841]/30 bg-[#EB6841]/5 hover:bg-[#EB6841]/10 transition-colors flex flex-col items-center justify-center p-6 text-center cursor-pointer group">
+                    <span class="text-4xl mb-3 transform group-hover:scale-110 transition-transform">📊</span>
+                    <p class="text-lg font-bold text-[#EB6841] mb-1">Las 3 métricas esenciales y las herramientas del administrador</p>
+                    <p class="text-base text-slate-600 max-w-md mb-4">¿Qué tres magnitudes resumen la historia de un sistema y con qué utilidades de Linux/UNIX las observamos?</p>
+                    <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#EB6841] text-white text-sm font-bold shadow-sm">
+                        👁️ Haz clic para descubrir
+                    </span>
+                </div>
+                <div id="content-2" class="hidden">
+                    <p class="mb-4">Para diagnosticar un sistema, necesitamos las métricas y herramientas adecuadas. Cada métrica nos cuenta una parte diferente de la historia, centrándose en un aspecto clave del rendimiento:</p>
+                    <div class="chart-container h-64 md:h-auto">
+                         <canvas id="metricsChart"></canvas>
+                    </div>
+                    <ul class="mt-6 space-y-3 text-center">
+                        <li class="p-2 bg-gray-50 rounded-md">El <strong>tiempo de respuesta</strong> se centra en la experiencia del <strong>usuario</strong>.</li>
+                        <li class="p-2 bg-gray-50 rounded-md">La <strong>productividad</strong> mide la <strong>capacidad</strong> real del sistema.</li>
+                        <li class="p-2 bg-gray-50 rounded-md">La <strong>utilización</strong> es la clave para el <strong>diagnóstico</strong> de problemas.</li>
+                    </ul>
+                    <h3 class="font-bold text-lg mt-8 mb-2 text-[#6A4A3C]">Herramientas del administrador (Linux/UNIX)</h3>
+                    <ul class="space-y-2">
+                        <li class="p-3 bg-gray-50 rounded-md"><strong>top / htop:</strong> muestra los procesos y el consumo de recursos en tiempo real. Ideal para ver qué está pasando <em>ahora</em>.</li>
+                        <li class="p-3 bg-gray-50 rounded-md"><strong>sar:</strong> el «reportero» de actividad del sistema. Recolecta datos históricos de CPU, memoria, E/S, etc. Fundamental para análisis post-mortem.</li>
+                        <li class="p-3 bg-gray-50 rounded-md"><strong>/proc:</strong> un sistema de archivos virtual que contiene información detallada del kernel y los procesos. Es la fuente de datos primaria para muchas herramientas.</li>
+                    </ul>
+                </div>
             </div>
         </section>
 
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-             <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-                <h2 class="text-3xl font-bold text-[#EDC951] mb-4">3. ¿Cómo predecimos y mejoramos?</h2>
-                <p class="mb-4">Una vez que medimos, usamos modelos analíticos para predecir el comportamiento futuro y justificar mejoras. Son nuestras "leyes de la física" para sistemas informáticos.</p>
-                
-                <h3 class="font-bold text-lg text-[#6A4A3C] mb-2">Ley de Amdahl</h3>
-                <p class="mb-4">Nos advierte que la mejora global está limitada por las partes del sistema que no mejoramos. Una mejora infinita en un componente usado el 80% del tiempo (<code class="bg-gray-200 text-sm p-1 rounded">f=0.8</code>) no puede acelerar el sistema más de 5 veces.</p>
-                <div class="chart-container h-64 md:h-80">
-                    <canvas id="amdahlLawChart2"></canvas>
+            <!-- Tarjeta 3 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 flex flex-col">
+                <div class="flex items-start justify-between gap-4 mb-4">
+                    <h2 class="text-3xl font-bold text-[#EDC951]">3. ¿Cómo predecimos y mejoramos?</h2>
+                    <button type="button" onclick="toggleCard(3)" id="btn-card-3" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
+                </div>
+                <div id="cover-3" onclick="toggleCard(3)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#EDC951]/50 bg-[#EDC951]/10 hover:bg-[#EDC951]/20 transition-colors flex flex-col items-center justify-center p-6 text-center cursor-pointer group">
+                    <span class="text-4xl mb-3 transform group-hover:scale-110 transition-transform">📐</span>
+                    <p class="text-lg font-bold text-[#9a7b1c] mb-1">Modelos analíticos y el límite de las mejoras parciales</p>
+                    <p class="text-base text-slate-600 max-w-md mb-4">¿Por qué mejorar un componente infinitamente no acelera el sistema de forma ilimitada?</p>
+                    <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#d4a928] text-white text-sm font-bold shadow-sm">
+                        👁️ Haz clic para descubrir
+                    </span>
+                </div>
+                <div id="content-3" class="hidden">
+                    <p class="mb-4">Una vez que medimos, usamos modelos analíticos para predecir el comportamiento futuro y justificar mejoras. Son nuestras "leyes de la física" para sistemas informáticos.</p>
+                    
+                    <h3 class="font-bold text-lg text-[#6A4A3C] mb-2">Ley de Amdahl</h3>
+                    <p class="mb-4">Nos advierte que la mejora global está limitada por las partes del sistema que no mejoramos. Una mejora infinita en un componente usado el 80% del tiempo (<code class="bg-gray-200 text-sm p-1 rounded">f=0.8</code>) no puede acelerar el sistema más de 5 veces.</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="amdahlLawChart2"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-                 <h2 class="text-3xl font-bold text-[#00A0B0] mb-4">4. El concepto más importante</h2>
-                 <p class="mb-4">Si solo puedes recordar una cosa, que sea esta: todo sistema tiene un <strong>cuello de botella</strong> (bottleneck). Es el componente que limita el rendimiento de todo lo demás. Identificarlo es el primer y más crucial paso para cualquier optimización.</p>
-                
-                <h3 class="font-bold text-lg text-[#6A4A3C] mb-2">Identificando el cuello de botella</h3>
-                <p class="mb-4">Lo encontramos calculando la <strong>demanda de servicio (D<sub>i</sub>)</strong> de cada componente. El que tenga la demanda más alta es el cuello de botella. En el ejemplo, el <strong>Disco A</strong> es el claro limitante.</p>
-                <div class="chart-container h-64 md:h-80">
-                    <canvas id="bottleneckChart"></canvas>
+
+            <!-- Tarjeta 4 -->
+            <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 flex flex-col">
+                <div class="flex items-start justify-between gap-4 mb-4">
+                    <h2 class="text-3xl font-bold text-[#00A0B0]">4. El concepto más importante</h2>
+                    <button type="button" onclick="toggleCard(4)" id="btn-card-4" class="px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer"></button>
                 </div>
-                 <div class="mt-4 text-center p-4 bg-gray-50 rounded-lg">
-                    <p class="font-mono text-lg font-bold text-[#00A0B0]">D<sub>i</sub> = V<sub>i</sub> &times; S<sub>i</sub></p>
-                    <p>(Demanda = visitas por transacción × tiempo por visita)</p>
+                <div id="cover-4" onclick="toggleCard(4)" class="flex-1 min-h-[260px] rounded-xl border-2 border-dashed border-[#00A0B0]/30 bg-[#00A0B0]/5 hover:bg-[#00A0B0]/10 transition-colors flex flex-col items-center justify-center p-6 text-center cursor-pointer group">
+                    <span class="text-4xl mb-3 transform group-hover:scale-110 transition-transform">🍾</span>
+                    <p class="text-lg font-bold text-[#00A0B0] mb-1">El eslabón que dicta la capacidad máxima</p>
+                    <p class="text-base text-slate-600 max-w-md mb-4">¿Qué componente frena a todos los demás y cómo lo identificamos matemáticamente?</p>
+                    <span class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#00A0B0] text-white text-sm font-bold shadow-sm">
+                        👁️ Haz clic para descubrir
+                    </span>
+                </div>
+                <div id="content-4" class="hidden">
+                    <p class="mb-4">Si solo puedes recordar una cosa, que sea esta: todo sistema tiene un <strong>cuello de botella</strong> (bottleneck). Es el componente que limita el rendimiento de todo lo demás. Identificarlo es el primer y más crucial paso para cualquier optimización.</p>
+                    
+                    <h3 class="font-bold text-lg text-[#6A4A3C] mb-2">Identificando el cuello de botella</h3>
+                    <p class="mb-4">Lo encontramos calculando la <strong>demanda de servicio (D<sub>i</sub>)</strong> de cada componente. El que tenga la demanda más alta es el cuello de botella. En el ejemplo, el <strong>Disco A</strong> es el claro limitante.</p>
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="bottleneckChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-center p-4 bg-gray-50 rounded-lg">
+                        <p class="font-mono text-lg font-bold text-[#00A0B0]">D<sub>i</sub> = V<sub>i</sub> &times; S<sub>i</sub></p>
+                        <p>(Demanda = visitas por transacción × tiempo por visita)</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -143,6 +226,73 @@
         </footer>
 
 <script>
+const cardState = { 1: false, 2: false, 3: false, 4: false };
+const chartInstances = {};
+
+function updateRevealUI() {
+    let visibleCount = 0;
+    for (let i = 1; i <= 4; i++) {
+        const isVisible = cardState[i];
+        if (isVisible) visibleCount++;
+
+        const cover = document.getElementById(`cover-${i}`);
+        const content = document.getElementById(`content-${i}`);
+        const btn = document.getElementById(`btn-card-${i}`);
+        const pill = document.getElementById(`pill-${i}`);
+
+        if (isVisible) {
+            cover.classList.add('hidden');
+            content.classList.remove('hidden');
+            btn.textContent = '🙈 Ocultar';
+            btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer bg-slate-100 hover:bg-slate-200 text-slate-600 border-slate-300';
+            pill.className = 'w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer bg-[#00A0B0] text-white border-[#00A0B0] shadow-sm';
+        } else {
+            cover.classList.remove('hidden');
+            content.classList.add('hidden');
+            btn.textContent = '👁️ Revelar';
+            btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold border transition-colors shrink-0 cursor-pointer bg-[#00A0B0]/10 hover:bg-[#00A0B0]/20 text-[#00A0B0] border-[#00A0B0]/30';
+            pill.className = 'w-8 h-8 rounded-lg font-bold text-sm border transition-all cursor-pointer bg-slate-100 text-slate-500 border-slate-300 hover:bg-slate-200';
+        }
+    }
+
+    document.getElementById('revealCounter').textContent = `(${visibleCount} de 4 visibles)`;
+    const btnNext = document.getElementById('btnNextCard');
+    if (visibleCount >= 4) {
+        btnNext.disabled = true;
+        btnNext.className = 'px-4 py-2 rounded-lg bg-slate-200 text-slate-400 font-bold text-sm cursor-not-allowed';
+    } else {
+        btnNext.disabled = false;
+        btnNext.className = 'px-4 py-2 rounded-lg bg-[#00A0B0] hover:bg-[#008896] text-white font-bold text-sm shadow-sm transition-colors cursor-pointer';
+    }
+
+    // Redimensionar gráficas activas
+    Object.values(chartInstances).forEach(ch => {
+        if (ch) ch.resize();
+    });
+}
+
+function toggleCard(id) {
+    cardState[id] = !cardState[id];
+    updateRevealUI();
+}
+
+function revealNext() {
+    for (let i = 1; i <= 4; i++) {
+        if (!cardState[i]) {
+            cardState[i] = true;
+            updateRevealUI();
+            break;
+        }
+    }
+}
+
+function setAllCards(state) {
+    for (let i = 1; i <= 4; i++) {
+        cardState[i] = state;
+    }
+    updateRevealUI();
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
     const tooltipTitleCallback = {
@@ -187,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const focusLabels = ['Foco: experiencia de usuario', 'Foco: capacidad del sistema', 'Foco: diagnóstico de problemas'];
         const wrappedLabels = originalLabels.map(l => wrapLabels(l, 16));
         
-        new Chart(ctx, {
+        chartInstances.metrics = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: wrappedLabels,
@@ -241,12 +391,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const amdahl = (f, k) => 1 / ((1 - f) + (f / k));
         const data_f80 = k_values.map(k => amdahl(0.8, k));
 
-        new Chart(ctx, {
+        chartInstances.amdahl = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: k_values.map(k => `${k}x`),
                 datasets: [{
-                    label: 'Aceleración Global (A)',
+                    label: 'Aceleración global (A)',
                     data: data_f80,
                     borderColor: '#EDC951',
                     backgroundColor: 'rgba(237, 201, 81, 0.2)',
@@ -259,8 +409,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    x: { title: { display: true, text: 'Mejora del Componente (k)' } },
-                    y: { title: { display: true, text: 'Aceleración Global' }, beginAtZero: true, suggestedMax: 5.5 }
+                    x: { title: { display: true, text: 'Mejora del componente (k)' } },
+                    y: { title: { display: true, text: 'Aceleración global' }, beginAtZero: true, suggestedMax: 5.5 }
                 },
                 plugins: {
                     title: { display: true, text: 'Aceleración con f=0.8', font: { size: 16 } },
@@ -273,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('bottleneckChart')) {
         const ctx = document.getElementById('bottleneckChart').getContext('2d');
-        new Chart(ctx, {
+        chartInstances.bottleneck = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: ['CPU', 'Disco A', 'Disco B', 'Red'],
@@ -312,6 +462,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    updateRevealUI();
 });
 </script>
 
