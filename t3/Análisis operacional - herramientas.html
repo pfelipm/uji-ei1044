@@ -83,8 +83,14 @@
                         </div>
 
                         <div>
-                            <h4 class="font-bold text-lg text-purple-900">El atajo del administrador (límites)</h4>
-                            <p class="text-gray-600 mb-2">En lugar del algoritmo MVA completo, calculamos el punto de colapso del sistema.</p>
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <h4 class="font-bold text-lg text-purple-900">El atajo del administrador (límites)</h4>
+                                <button type="button" onclick="openMvaModal()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-purple-200/80 hover:bg-purple-300/80 text-purple-900 border border-purple-400/50 text-xs font-bold transition-colors cursor-pointer shadow-sm">
+                                    <span>🔍</span>
+                                    <span>¿Qué es el algoritmo MVA?</span>
+                                </button>
+                            </div>
+                            <p class="text-gray-600 mb-3">En lugar de iterar con el <button type="button" onclick="openMvaModal()" class="text-purple-700 font-semibold underline hover:text-purple-900 cursor-pointer">algoritmo MVA completo</button>, calculamos directamente el punto de colapso del sistema.</p>
                             <div class="bg-gray-50 p-4 rounded-lg">
                                 <h5 class="font-semibold text-center text-purple-800">Concepto clave: el punto de saturación (N*)</h5>
                                 <p class="text-sm text-center text-gray-600 mb-2">Es el "número mágico" de usuarios. Por encima de él, el sistema colapsa.</p>
@@ -115,6 +121,52 @@
             <p class="mt-6 text-center text-lg text-gray-700 font-semibold">Usamos estos modelos para justificar con <span class="bg-yellow-200 px-2 py-1 rounded">NÚMEROS</span> por qué una mejora es (o no es) una buena idea.</p>
         </section>
 
+        <!-- Modal explicativo del algoritmo MVA -->
+        <div id="mvaModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/80 backdrop-blur-sm p-4 md:p-6" onclick="if(event.target === this) closeMvaModal()">
+            <div class="bg-white rounded-2xl shadow-2xl border border-purple-200 max-w-3xl w-full p-6 md:p-8 max-h-[92vh] overflow-y-auto">
+                <div class="flex items-start justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-purple-600 block">Redes cerradas · Resolución exacta</span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mt-0.5">¿Qué es el algoritmo MVA?</h3>
+                    </div>
+                    <button type="button" onclick="closeMvaModal()" class="px-3.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition-colors cursor-pointer shrink-0" title="Cerrar (Esc)">
+                        ✕ Cerrar
+                    </button>
+                </div>
+
+                <div class="mt-5 space-y-5 text-base text-gray-700">
+                    <p>
+                        <strong>MVA (<em>Mean Value Analysis</em> o análisis del valor medio)</strong> es el algoritmo clásico (Reiser y Lavenberg, 1980) para calcular con exactitud el tiempo de respuesta (<span class="formula text-sm">R</span>), la productividad (<span class="formula text-sm">X₀</span>) y las colas en una <strong>red cerrada con <span class="formula text-sm">N</span> usuarios</strong>.
+                    </p>
+
+                    <div class="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                        <p class="font-bold text-amber-900 mb-1">🤔 ¿Por qué no podemos usar la receta directa de redes abiertas?</p>
+                        <p class="text-amber-900 text-sm md:text-base">
+                            En una red abierta conocemos de entrada el caudal <span class="font-mono font-bold">λ₀</span>. Pero en una red cerrada existe un <strong>círculo vicioso</strong>: la productividad <span class="font-mono font-bold">X₀</span> depende de cuánto tarden las peticiones (<span class="font-mono font-bold">R</span>), que a su vez depende de cuánta cola haya en cada recurso (<span class="font-mono font-bold">Nᵢ</span>), ¡que a su vez depende de <span class="font-mono font-bold">X₀</span>!
+                        </p>
+                    </div>
+
+                    <div class="bg-purple-50 border border-purple-200 rounded-xl p-5">
+                        <h4 class="font-bold text-purple-900 text-lg mb-2">⚙️ ¿Cómo rompe MVA ese círculo? (Iteración de 1 a N)</h4>
+                        <p class="mb-3 text-sm md:text-base">
+                            Se apoya en una propiedad demostrada matemáticamente (<em>teorema de llegada</em>): <strong>cuando un trabajo llega a un recurso en un sistema con <span class="font-mono">n</span> usuarios, la cola que se encuentra delante es exactamente la cola media que había cuando el sistema tenía <span class="font-mono">n - 1</span> usuarios</strong>. Partiendo del sistema vacío (<span class="font-mono">Nᵢ(0) = 0</span>), repite este bucle desde <span class="font-mono">n = 1</span> hasta <span class="font-mono">N</span>:
+                        </p>
+                        <ol class="list-decimal list-outside pl-5 space-y-2.5 text-sm md:text-base">
+                            <li><strong>Tiempo de respuesta por visita en cada recurso:</strong> <span class="formula text-sm">Rᵢ(n) = Sᵢ × [1 + Nᵢ(n - 1)]</span></li>
+                            <li><strong>Tiempo total y productividad del sistema (ley de Little):</strong> <span class="formula text-sm">R(n) = Σ [Vᵢ × Rᵢ(n)]</span> y <span class="formula text-sm">X₀(n) = n / [R(n) + Z]</span></li>
+                            <li><strong>Nueva cola media en cada recurso (para la siguiente vuelta):</strong> <span class="formula text-sm">Nᵢ(n) = X₀(n) × Vᵢ × Rᵢ(n)</span></li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 text-sm md:text-base text-indigo-950">
+                        <p>
+                            <strong>🎯 ¿Por qué usamos el atajo de N* en pizarra?</strong> Si hay <span class="font-mono font-bold">N = 50</span> usuarios, MVA obliga a dar 50 vueltas al bucle (algo ideal para que lo calcule al instante el <strong>simulador de la SPA 18</strong>, pero tedioso a mano). Con la fórmula de límites asintóticos (<span class="font-mono font-bold">N*</span>) averiguamos en una sola operación a partir de cuántos usuarios colapsará el sistema.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
             <div>
                 <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
@@ -131,5 +183,23 @@
             </div>
         </footer>
     </div>
+
+    <script>
+        function openMvaModal() {
+            const modal = document.getElementById('mvaModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeMvaModal() {
+            const modal = document.getElementById('mvaModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeMvaModal();
+        });
+    </script>
 </body>
 </html>
