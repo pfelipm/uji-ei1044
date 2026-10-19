@@ -5,188 +5,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simulador de redes de colas - EI1044</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bgGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22primaryGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2338bdf8%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232563eb%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22screenGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23090d16%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3C/linearGradient%3E%20%3Cfilter%20id%3D%22glow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%20%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%20/%3E%20%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%20/%3E%20%3C/filter%3E%20%3C/defs%3E%20%3C%21--%20Base%20redonda%20con%20borde%20sutil%20--%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bgGrad%29%22%20/%3E%20%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3C%21--%20Chasis%20del%20servidor%20/%20terminal%20--%3E%20%3Crect%20x%3D%228%22%20y%3D%229%22%20width%3D%2248%22%20height%3D%2238%22%20rx%3D%227%22%20fill%3D%22url%28%23screenGrad%29%22%20stroke%3D%22url%28%23primaryGrad%29%22%20stroke-width%3D%222%22%20/%3E%20%3C%21--%20Barra%20de%20control%20/%20cabecera%20de%20ventana%20--%3E%20%3Cline%20x1%3D%228%22%20y1%3D%2218%22%20x2%3D%2256%22%20y2%3D%2218%22%20stroke%3D%22%231e293b%22%20stroke-width%3D%221.5%22%20/%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23ef4444%22%20/%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23eab308%22%20/%3E%20%3Ccircle%20cx%3D%2226%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%2322c55e%22%20/%3E%20%3C%21--%20Prompt%20CLI%20de%20sistemas%3A%20%3E_%20con%20brillo%20cian%20--%3E%20%3Cpath%20d%3D%22M%2016%2025%20L%2023%2030.5%20L%2016%2036%22%20fill%3D%22none%22%20stroke%3D%22%2338bdf8%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cline%20x1%3D%2227%22%20y1%3D%2236%22%20x2%3D%2235%22%20y2%3D%2236%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3C%21--%20Luces%20LED%20de%20servidor%20/%20rack%20en%20la%20esquina%20del%20terminal%20--%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2227%22%20r%3D%221.5%22%20fill%3D%22%2338bdf8%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2233%22%20r%3D%221.5%22%20fill%3D%22%2310b981%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3C%21--%20Base%20/%20soporte%20del%20monitor/servidor%20--%3E%20%3Cpath%20d%3D%22M%2026%2047%20L%2024%2053%20L%2040%2053%20L%2038%2047%20Z%22%20fill%3D%22%231e293b%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221%22%20/%3E%20%3Crect%20x%3D%2220%22%20y%3D%2253%22%20width%3D%2224%22%20height%3D%222.5%22%20rx%3D%221.2%22%20fill%3D%22%23334155%22%20/%3E%20%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bgGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22primaryGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2338bdf8%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232563eb%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22screenGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23090d16%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3C/linearGradient%3E%20%3Cfilter%20id%3D%22glow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%20%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%20/%3E%20%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%20/%3E%20%3C/filter%3E%20%3C/defs%3E%20%3C%21--%20Base%20redonda%20con%20borde%20sutil%20--%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bgGrad%29%22%20/%3E%20%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3C%21--%20Chasis%20del%20servidor%20/%20terminal%20--%3E%20%3Crect%20x%3D%228%22%20y%3D%229%22%20width%3D%2248%22%20height%3D%2238%22%20rx%3D%227%22%20fill%3D%22url%28%23screenGrad%29%22%20stroke%3D%22url%28%23primaryGrad%29%20stroke-width%3D%222%22%20/%3E%20%3C%21--%20Barra%20de%20control%20/%20cabecera%20de%20ventana%20--%3E%20%3Cline%20x1%3D%228%22%20y1%3D%2218%22%20x2%3D%2256%22%20y2%3D%2218%22%20stroke%3D%22%231e293b%22%20stroke-width%3D%221.5%22%20/%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23ef4444%22%20/%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23eab308%22%20/%3E%20%3Ccircle%20cx%3D%2226%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%2322c55e%22%20/%3E%20%3C%21--%20Prompt%20CLI%20de%20sistemas%3A%20%3E_%20con%20brillo%20cian%20--%3E%20%3Cpath%20d%3D%22M%2016%2025%20L%2023%2030.5%20L%2016%2036%22%20fill%3D%22none%22%20stroke%3D%22%2338bdf8%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cline%20x1%3D%2227%22%20y1%3D%2236%22%20x2%3D%2235%22%20y2%3D%2236%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3C%21--%20Luces%20LED%20de%20servidor%20/%20rack%20en%20la%20esquina%20del%20terminal%20--%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2227%22%20r%3D%221.5%22%20fill%3D%22%2338bdf8%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2233%22%20r%3D%221.5%22%20fill%3D%22%2310b981%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3C%21--%20Base%20/%20soporte%20del%20monitor/servidor%20--%3E%20%3Cpath%20d%3D%22M%2026%2047%20L%2024%2053%20L%2040%2053%20L%2038%2047%20Z%22%20fill%3D%22%231e293b%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221%22%20/%3E%20%3Crect%20x%3D%2220%22%20y%3D%2253%22%20width%3D%2224%22%20height%3D%222.5%22%20rx%3D%221.2%22%20fill%3D%22%23334155%22%20/%3E%20%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
         .tab-active {
-            border-bottom-color: #3b82f6;
-            color: #3b82f6;
-            font-weight: 600;
+            background-color: #2563eb;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
         }
-        .tab {
-            border-bottom: 2px solid transparent;
-        }
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 220px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -110px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
+        input[type="range"] {
+            accent-color: #2563eb;
         }
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-slate-100 text-slate-800 min-h-screen">
 
-    <div class="container mx-auto p-4 md:p-8">
-        <header class="text-center mb-8">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">Simulador de redes de colas</h1>
-            <p class="text-md text-gray-600 mt-2">Modela y predice el rendimiento de sistemas mediante el análisis operacional.</p>
+    <div class="container mx-auto px-4 py-6 max-w-7xl">
+        <!-- Cabecera compacta -->
+        <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-5">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Simulador de redes de colas</h1>
+                <p class="text-sm text-slate-600">Laboratorio interactivo de análisis operacional: cuellos de botella, algoritmo MVA y límites asintóticos en tiempo real.</p>
+            </div>
+            <!-- Escenarios rápidos para el aula -->
+            <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1">Escenarios:</span>
+                <button type="button" onclick="applyPreset('default')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-400 hover:text-blue-700 transition shadow-sm">
+                    💿 Cuello en disco
+                </button>
+                <button type="button" onclick="applyPreset('balanced')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-700 transition shadow-sm">
+                    ⚖️ Sistema equilibrado
+                </button>
+                <button type="button" onclick="applyPreset('ssd')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-indigo-50 hover:border-indigo-400 hover:text-indigo-700 transition shadow-sm">
+                    ⚡ Mejora a SSD (S÷2)
+                </button>
+                <button type="button" onclick="applyPreset('overload')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-rose-50 hover:border-rose-400 hover:text-rose-700 transition shadow-sm">
+                    🚨 Alta carga / Saturación
+                </button>
+            </div>
         </header>
 
-        <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-5xl mx-auto">
+        <div class="bg-white p-5 md:p-6 rounded-2xl shadow-md border border-slate-200/80 w-full">
 
-            <!-- Pestañas para seleccionar el tipo de red -->
-            <div class="border-b border-gray-200 mb-6">
-                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
-                    <button id="tab-open" class="py-3 px-1 border-b-2 text-sm font-medium tab tab-active">
-                        Red abierta (transaccional)
+            <!-- Barra superior: Selector de tipo de red + Resumen de ecuaciones activas -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-6 border-b border-slate-200">
+                <div class="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 self-start">
+                    <button id="tab-open" type="button" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all tab-active">
+                        🌐 Red abierta (transaccional)
                     </button>
-                    <button id="tab-closed" class="py-3 px-1 border-b-2 text-sm font-medium tab text-gray-500 hover:text-gray-700 hover:border-gray-300">
-                        Red cerrada (interactiva)
+                    <button id="tab-closed" type="button" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all">
+                        🔄 Red cerrada (interactiva · MVA)
                     </button>
-                </nav>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Columna de Configuración -->
-                <div id="config-panel">
-                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Configuración del sistema</h2>
-
-                    <!-- Configuración Específica de Red -->
-                    <div id="network-config" class="mb-6 space-y-4">
-                        <!-- Red Abierta -->
-                        <div id="open-network-params">
-                            <label for="lambda" class="block text-sm font-medium text-gray-700">Tasa de Llegada de Trabajos (λ)</label>
-                            <input type="number" id="lambda" value="2" min="0.1" step="0.1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
-                        </div>
-                        <!-- Red Cerrada -->
-                        <div id="closed-network-params" class="hidden">
-                            <div>
-                                <label for="users" class="block text-sm font-medium text-gray-700">Número de Usuarios (N)</label>
-                                <input type="number" id="users" value="10" min="1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
-                            </div>
-                            <div>
-                                <label for="think-time" class="block text-sm font-medium text-gray-700">Tiempo de Reflexión (Z) <span class="text-xs text-gray-500 font-normal">(en segundos)</span></label>
-                                <input type="number" id="think-time" value="5" min="0" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <hr class="my-6">
-
-                    <!-- Dispositivos -->
-                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Dispositivos del sistema</h3>
-                    <div id="devices-container" class="space-y-4">
-                        <!-- Dispositivo de ejemplo 1 -->
-                        <div class="device-item bg-gray-50 p-4 rounded-lg border">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="font-semibold text-gray-700">Dispositivo 1 (CPU)</span>
-                                <button class="remove-device text-red-500 hover:text-red-700 text-sm font-medium" style="display: none;">Eliminar</button>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-600">Razón de Visita (V)</label>
-                                    <input type="number" value="10" min="1" class="device-visits mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-600">Tiempo de Servicio (S)</label>
-                                    <input type="number" value="0.02" min="0.001" step="0.001" class="device-service-time mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
-                                </div>
-                            </div>
-                        </div>
-                         <!-- Dispositivo de ejemplo 2 -->
-                        <div class="device-item bg-gray-50 p-4 rounded-lg border">
-                             <div class="flex justify-between items-center mb-2">
-                                <span class="font-semibold text-gray-700">Dispositivo 2 (Disco)</span>
-                                <button class="remove-device text-red-500 hover:text-red-700 text-sm font-medium">Eliminar</button>
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-600">Razón de Visita (V)</label>
-                                    <input type="number" value="8" min="1" class="device-visits mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-medium text-gray-600">Tiempo de Servicio (S)</label>
-                                    <input type="number" value="0.04" min="0.001" step="0.001" class="device-service-time mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button id="add-device" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Añadir dispositivo</button>
-
                 </div>
 
-                <!-- Columna de Resultados y Gráficas -->
-                <div id="results-panel">
-                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Análisis de rendimiento</h2>
-                    
-                    <!-- Resultados clave -->
-                    <div id="key-metrics" class="grid grid-cols-2 gap-4 mb-6">
-                        <div class="bg-blue-100 p-4 rounded-lg text-center">
-                            <h4 class="text-sm font-semibold text-blue-800">Tiempo de respuesta (R)</h4>
-                            <p id="response-time" class="text-2xl font-bold text-blue-900">-</p>
+                <div id="model-formula-hint" class="text-xs text-slate-600 bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200 font-mono">
+                    Modelo M/M/1: R<sub>i</sub> = S<sub>i</sub> / (1 − U<sub>i</sub>) · R = ∑ V<sub>i</sub>·R<sub>i</sub> · X<sub>máx</sub> = 1 / D<sub>b</sub>
+                </div>
+            </div>
+
+            <!-- Grid principal panorámico (5 columnas controles + 7 columnas resultados/gráfica) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+                <!-- COLUMNA IZQUIERDA (5/12): Parámetros de carga + Dispositivos con métricas en vivo -->
+                <div id="config-panel" class="lg:col-span-5 space-y-5">
+
+                    <!-- Bloque 1: Parámetros globales de la carga -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h2 class="text-base font-bold text-slate-800 mb-3 flex items-center justify-between">
+                            <span>1. Carga de trabajo del sistema</span>
+                            <span id="load-badge" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">Flujo externo</span>
+                        </h2>
+
+                        <!-- Parámetros Red Abierta -->
+                        <div id="open-network-params" class="space-y-2">
+                            <div class="flex justify-between items-baseline">
+                                <label for="lambda" class="text-sm font-medium text-slate-700">Tasa de llegada de trabajos (λ)</label>
+                                <span class="text-xs text-slate-500">trab/s</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <input type="range" id="lambda-slider" min="0.1" max="4.0" step="0.05" value="2" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+                                <input type="number" id="lambda" value="2" min="0.05" step="0.05" class="w-24 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                            </div>
+                            <div class="flex justify-between text-[11px] text-slate-500 pt-0.5">
+                                <span>0.1 trab/s</span>
+                                <span id="lambda-limit-hint" class="font-medium text-amber-700">Límite X<sub>máx</sub>: 3.125 trab/s</span>
+                            </div>
                         </div>
-                        <div class="bg-green-100 p-4 rounded-lg text-center">
-                            <h4 class="text-sm font-semibold text-green-800">Productividad (X)</h4>
-                            <p id="throughput" class="text-2xl font-bold text-green-900">-</p>
-                        </div>
-                        <div class="bg-yellow-100 p-4 rounded-lg text-center col-span-2">
-                             <h4 class="text-sm font-semibold text-yellow-800">Cuello de botella</h4>
-                             <p id="bottleneck" class="text-lg font-bold text-yellow-900">-</p>
+
+                        <!-- Parámetros Red Cerrada -->
+                        <div id="closed-network-params" class="hidden space-y-4">
+                            <div>
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <label for="users" class="text-sm font-medium text-slate-700">Número de usuarios activos (N)</label>
+                                    <span id="nstar-hint" class="text-xs font-medium text-purple-700">Rodilla N*: —</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <input type="range" id="users-slider" min="1" max="50" step="1" value="10" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+                                    <input type="number" id="users" value="10" min="1" max="200" step="1" class="w-24 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-baseline mb-1">
+                                    <label for="think-time" class="text-sm font-medium text-slate-700">Tiempo de reflexión (Z)</label>
+                                    <span class="text-xs text-slate-500">segundos</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <input type="range" id="think-time-slider" min="0" max="25" step="0.5" value="5" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+                                    <input type="number" id="think-time" value="5" min="0" step="0.5" class="w-24 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Detalles por dispositivo -->
-                    <h3 class="text-lg font-semibold mb-3 text-gray-800">Métricas por dispositivo</h3>
-                    <div id="device-details" class="space-y-2 text-sm">
-                        <!-- Los detalles se generan dinámicamente -->
-                    </div>
-                    
-                    <hr class="my-6">
+                    <!-- Bloque 2: Dispositivos y métricas por estación integradas -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="flex justify-between items-center mb-3">
+                            <div>
+                                <h3 class="text-base font-bold text-slate-800">2. Dispositivos y métricas por estación</h3>
+                                <p class="text-xs text-slate-500">Demanda D<sub>i</sub> = V<sub>i</sub> · S<sub>i</sub>, utilización U<sub>i</sub> y residencia</p>
+                            </div>
+                            <button id="add-device" type="button" class="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition shadow-sm">
+                                <span>＋</span>
+                                <span>Añadir dispositivo</span>
+                            </button>
+                        </div>
 
-                    <!-- Gráficas -->
-                     <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-lg font-semibold text-gray-800">Límites asintóticos</h3>
-                        <button id="expand-chart-btn" title="Expandir gráfico" class="text-gray-500 hover:text-blue-600 p-1 rounded-full transition-colors duration-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M7 17v4h4M17 7V3h-4M17 17h4v-4M7 7H3v4"></path></svg>
-                        </button>
-                     </div>
-                    <div class="bg-gray-50 p-4 rounded-lg relative min-h-[300px]">
-                        <canvas id="performance-chart"></canvas>
+                        <div id="devices-container" class="space-y-3">
+                            <!-- Dispositivo 1 -->
+                            <div class="device-item bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-colors">
+                                <div class="flex justify-between items-center gap-2 mb-2.5">
+                                    <div class="flex items-center gap-2 flex-1">
+                                        <input type="text" value="Dispositivo 1 (CPU)" class="device-name font-bold text-sm text-slate-800 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full max-w-[210px]">
+                                        <span class="bottleneck-badge hidden text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+                                    </div>
+                                    <button type="button" class="remove-device text-rose-500 hover:text-rose-700 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-50 transition" style="display: none;">Eliminar</button>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 mb-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-600">Razón de visita (V<sub>i</sub>)</label>
+                                        <input type="number" value="10" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-600">Tiempo de servicio (S<sub>i</sub>, s)</label>
+                                        <input type="number" value="0.02" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                                    </div>
+                                </div>
+                                <!-- Barra y métricas en vivo de la estación -->
+                                <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-200/80 space-y-1.5">
+                                    <div class="flex justify-between items-center text-xs">
+                                        <span class="text-slate-600">Demanda <strong>D<sub>i</sub> = <span class="metric-d">0.200</span> s</strong></span>
+                                        <span class="text-slate-700 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-bold">40.0%</span></span>
+                                    </div>
+                                    <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                                        <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 40%;"></div>
+                                    </div>
+                                    <div class="flex justify-between items-center text-[11px] text-slate-500 pt-0.5">
+                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-700">0.333 s</strong></span>
+                                        <span>Trabajos medios N<sub>i</sub>: <strong class="metric-n text-slate-700">0.67</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dispositivo 2 -->
+                            <div class="device-item bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-colors">
+                                <div class="flex justify-between items-center gap-2 mb-2.5">
+                                    <div class="flex items-center gap-2 flex-1">
+                                        <input type="text" value="Dispositivo 2 (Disco)" class="device-name font-bold text-sm text-slate-800 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full max-w-[210px]">
+                                        <span class="bottleneck-badge hidden text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+                                    </div>
+                                    <button type="button" class="remove-device text-rose-500 hover:text-rose-700 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-50 transition">Eliminar</button>
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 mb-3">
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-600">Razón de visita (V<sub>i</sub>)</label>
+                                        <input type="number" value="8" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-medium text-slate-600">Tiempo de servicio (S<sub>i</sub>, s)</label>
+                                        <input type="number" value="0.04" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                                    </div>
+                                </div>
+                                <!-- Barra y métricas en vivo de la estación -->
+                                <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-200/80 space-y-1.5">
+                                    <div class="flex justify-between items-center text-xs">
+                                        <span class="text-slate-600">Demanda <strong>D<sub>i</sub> = <span class="metric-d">0.320</span> s</strong></span>
+                                        <span class="text-slate-700 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-bold">64.0%</span></span>
+                                    </div>
+                                    <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                                        <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 64%;"></div>
+                                    </div>
+                                    <div class="flex justify-between items-center text-[11px] text-slate-500 pt-0.5">
+                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-700">0.889 s</strong></span>
+                                        <span>Trabajos medios N<sub>i</sub>: <strong class="metric-n text-slate-700">1.78</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMNA DERECHA (7/12): KPIs globales + Alerta de saturación + Gráfica sin salto -->
+                <div id="results-panel" class="lg:col-span-7 space-y-5">
+
+                    <!-- Tarjetas KPI en 4 columnas compactas -->
+                    <div id="key-metrics" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="bg-blue-50/90 border border-blue-200 p-3.5 rounded-xl">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-blue-700">Tiempo respuesta (R)</h4>
+                            <p id="response-time" class="text-2xl font-extrabold text-blue-950 mt-1">-</p>
+                            <p id="min-r-label" class="text-[11px] text-blue-700/80 mt-0.5">Mínimo D: -</p>
+                        </div>
+                        <div class="bg-emerald-50/90 border border-emerald-200 p-3.5 rounded-xl">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-700">Productividad (X<sub>0</sub>)</h4>
+                            <p id="throughput" class="text-2xl font-extrabold text-emerald-950 mt-1">-</p>
+                            <p id="max-x-label" class="text-[11px] text-emerald-700/80 mt-0.5">Límite X<sub>máx</sub>: -</p>
+                        </div>
+                        <div class="bg-amber-50/90 border border-amber-200 p-3.5 rounded-xl">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-amber-800">Cuello de botella</h4>
+                            <p id="bottleneck" class="text-base font-extrabold text-amber-950 mt-1 truncate">-</p>
+                            <p id="bottleneck-detail" class="text-[11px] text-amber-800/90 mt-0.5">D<sub>b</sub> = -</p>
+                        </div>
+                        <div class="bg-purple-50/90 border border-purple-200 p-3.5 rounded-xl">
+                            <h4 id="fourth-kpi-title" class="text-xs font-bold uppercase tracking-wider text-purple-800">Trabajos en sistema</h4>
+                            <p id="fourth-kpi-value" class="text-2xl font-extrabold text-purple-950 mt-1">-</p>
+                            <p id="fourth-kpi-sub" class="text-[11px] text-purple-800/80 mt-0.5">-</p>
+                        </div>
+                    </div>
+
+                    <!-- Aviso de saturación en red abierta (cuando λ >= Xmax) -->
+                    <div id="saturation-alert" class="hidden bg-rose-50 border border-rose-300 text-rose-900 px-4 py-3 rounded-xl text-sm flex items-start gap-3">
+                        <span class="text-xl leading-none mt-0.5">🚨</span>
+                        <div>
+                            <p class="font-bold">Sistema inestable por saturación (λ ≥ X<sub>máx</sub>)</p>
+                            <p id="saturation-alert-text" class="text-xs text-rose-800 mt-0.5">La tasa de llegada supera la capacidad máxima del cuello de botella (U<sub>b</sub> ≥ 100 %). En régimen permanente la cola crece indefinidamente (R → ∞).</p>
+                        </div>
+                    </div>
+
+                    <!-- Contenedor de la gráfica principal -->
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+                            <div>
+                                <h3 class="text-base font-bold text-slate-800">Curvas de rendimiento y límites asintóticos</h3>
+                                <p id="chart-subtitle" class="text-xs text-slate-500">El marcador circular indica el punto de operación actual del sistema sobre las curvas de R y X<sub>0</sub>.</p>
+                            </div>
+                            <button id="expand-chart-btn" type="button" title="Ampliar gráfico para proyección" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:text-blue-600 hover:border-blue-400 transition shadow-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17v4h4M17 7V3h-4M17 17h4v-4M7 7H3v4"></path></svg>
+                                <span>Ampliar gráfico</span>
+                            </button>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200/80 relative h-[410px]">
+                            <canvas id="performance-chart"></canvas>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+        <footer class="mt-10 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
             <div>
-                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
+                <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
                     <span>👁️🗨️</span>
                     <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
                 </a>
@@ -201,12 +286,15 @@
         </footer>
     </div>
 
-    <!-- Modal para el gráfico -->
-    <div id="chart-modal" class="fixed inset-0 bg-black bg-opacity-60 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-5xl h-full max-h-[85vh] relative flex flex-col">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">Gráfico de rendimiento</h3>
-                <button id="close-modal" title="Cerrar" class="text-gray-500 hover:text-gray-900 transition-colors duration-200">
+    <!-- Modal para proyectar el gráfico a pantalla completa -->
+    <div id="chart-modal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-6xl h-full max-h-[88vh] relative flex flex-col">
+            <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-200">
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900">Curvas de rendimiento y límites asintóticos</h3>
+                    <p id="modal-chart-subtitle" class="text-sm text-slate-600 mt-0.5"></p>
+                </div>
+                <button id="close-modal" type="button" title="Cerrar (Esc)" class="text-slate-500 hover:text-slate-900 p-1.5 rounded-lg hover:bg-slate-100 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
@@ -218,7 +306,6 @@
         </div>
     </div>
 
-
 <script>
     // --- ELEMENTOS DEL DOM ---
     const tabOpen = document.getElementById('tab-open');
@@ -227,145 +314,276 @@
     const closedNetworkParams = document.getElementById('closed-network-params');
     const devicesContainer = document.getElementById('devices-container');
     const addDeviceBtn = document.getElementById('add-device');
+
     const lambdaInput = document.getElementById('lambda');
+    const lambdaSlider = document.getElementById('lambda-slider');
+    const lambdaLimitHint = document.getElementById('lambda-limit-hint');
+
     const usersInput = document.getElementById('users');
+    const usersSlider = document.getElementById('users-slider');
     const thinkTimeInput = document.getElementById('think-time');
+    const thinkTimeSlider = document.getElementById('think-time-slider');
+    const nstarHint = document.getElementById('nstar-hint');
+
+    const loadBadge = document.getElementById('load-badge');
+    const modelFormulaHint = document.getElementById('model-formula-hint');
 
     const responseTimeEl = document.getElementById('response-time');
+    const minRLabel = document.getElementById('min-r-label');
     const throughputEl = document.getElementById('throughput');
+    const maxXLabel = document.getElementById('max-x-label');
     const bottleneckEl = document.getElementById('bottleneck');
-    const deviceDetailsEl = document.getElementById('device-details');
-    
+    const bottleneckDetailEl = document.getElementById('bottleneck-detail');
+    const fourthKpiTitle = document.getElementById('fourth-kpi-title');
+    const fourthKpiValue = document.getElementById('fourth-kpi-value');
+    const fourthKpiSub = document.getElementById('fourth-kpi-sub');
+
+    const saturationAlert = document.getElementById('saturation-alert');
+    const saturationAlertText = document.getElementById('saturation-alert-text');
+    const chartSubtitle = document.getElementById('chart-subtitle');
+    const modalChartSubtitle = document.getElementById('modal-chart-subtitle');
+
     const chartModal = document.getElementById('chart-modal');
     const closeModalBtn = document.getElementById('close-modal');
     const expandChartBtn = document.getElementById('expand-chart-btn');
 
-    let chart;
-    let modalChart;
-    let lastAsymptotesData = null;
+    let chart = null;
+    let modalChart = null;
+    let lastChartSpec = null;
     let currentNetworkType = 'open';
 
-    // --- LÓGICA DE LA APLICACIÓN ---
+    // --- SINCRONIZACIÓN DE SLIDERS Y CAMPOS NUMÉRICOS ---
+    function syncPair(slider, numberInput) {
+        slider.addEventListener('input', () => {
+            numberInput.value = slider.value;
+            updateCalculations();
+        });
+        numberInput.addEventListener('input', () => {
+            if (numberInput.value !== '') {
+                slider.value = numberInput.value;
+                updateCalculations();
+            }
+        });
+    }
 
-    // Cambiar entre pestañas
+    syncPair(lambdaSlider, lambdaInput);
+    syncPair(usersSlider, usersInput);
+    syncPair(thinkTimeSlider, thinkTimeInput);
+
+    // --- PESTAÑAS ---
     function switchTab(type) {
         currentNetworkType = type;
         if (type === 'open') {
             tabOpen.classList.add('tab-active');
+            tabOpen.classList.remove('text-slate-600');
             tabClosed.classList.remove('tab-active');
+            tabClosed.classList.add('text-slate-600');
             openNetworkParams.classList.remove('hidden');
             closedNetworkParams.classList.add('hidden');
+            loadBadge.textContent = 'Flujo externo (λ)';
+            loadBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800';
+            modelFormulaHint.innerHTML = 'Modelo M/M/1: R<sub>i</sub> = S<sub>i</sub> / (1 − U<sub>i</sub>) · R = ∑ V<sub>i</sub>·R<sub>i</sub> · X<sub>máx</sub> = 1 / D<sub>b</sub>';
         } else {
-            tabOpen.classList.remove('tab-active');
             tabClosed.classList.add('tab-active');
+            tabClosed.classList.remove('text-slate-600');
+            tabOpen.classList.remove('tab-active');
+            tabOpen.classList.add('text-slate-600');
             openNetworkParams.classList.add('hidden');
             closedNetworkParams.classList.remove('hidden');
+            loadBadge.textContent = 'Población fija (N, Z)';
+            loadBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800';
+            modelFormulaHint.innerHTML = 'Algoritmo MVA: R<sub>i</sub>(n) = S<sub>i</sub>·[1 + N<sub>i</sub>(n−1)] · X(n) = n / (Z + R) · N* = (D + Z) / D<sub>b</sub>';
         }
         updateCalculations();
     }
 
-    // Añadir y eliminar dispositivos
-    function addDevice() {
-        const deviceCount = devicesContainer.children.length + 1;
-        const newDevice = document.createElement('div');
-        newDevice.className = 'device-item bg-gray-50 p-4 rounded-lg border';
-        newDevice.innerHTML = `
-            <div class="flex justify-between items-center mb-2">
-                <span class="font-semibold text-gray-700">Dispositivo ${deviceCount}</span>
-                <button class="remove-device text-red-500 hover:text-red-700 text-sm font-medium">Eliminar</button>
+    // --- CREACIÓN Y GESTIÓN DE DISPOSITIVOS ---
+    function createDeviceElement(name, visits, serviceTime) {
+        const div = document.createElement('div');
+        div.className = 'device-item bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-colors';
+        div.innerHTML = `
+            <div class="flex justify-between items-center gap-2 mb-2.5">
+                <div class="flex items-center gap-2 flex-1">
+                    <input type="text" value="${name}" class="device-name font-bold text-sm text-slate-800 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full max-w-[210px]">
+                    <span class="bottleneck-badge hidden text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+                </div>
+                <button type="button" class="remove-device text-rose-500 hover:text-rose-700 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-50 transition">Eliminar</button>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-2 gap-3 mb-3">
                 <div>
-                    <label class="block text-xs font-medium text-gray-600">Razón de Visita (V)</label>
-                    <input type="number" value="1" min="1" class="device-visits mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                    <label class="block text-xs font-medium text-slate-600">Razón de visita (V<sub>i</sub>)</label>
+                    <input type="number" value="${visits}" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-gray-600">Tiempo de Servicio (S)</label>
-                    <input type="number" value="0.01" min="0.001" step="0.001" class="device-service-time mt-1 block w-full rounded-md border-gray-300 shadow-sm p-2">
+                    <label class="block text-xs font-medium text-slate-600">Tiempo de servicio (S<sub>i</sub>, s)</label>
+                    <input type="number" value="${serviceTime}" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                </div>
+            </div>
+            <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-200/80 space-y-1.5">
+                <div class="flex justify-between items-center text-xs">
+                    <span class="text-slate-600">Demanda <strong>D<sub>i</sub> = <span class="metric-d">0.000</span> s</strong></span>
+                    <span class="text-slate-700 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-bold">0.0%</span></span>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 0%;"></div>
+                </div>
+                <div class="flex justify-between items-center text-[11px] text-slate-500 pt-0.5">
+                    <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-700">0.000 s</strong></span>
+                    <span>Trabajos medios N<sub>i</sub>: <strong class="metric-n text-slate-700">0.00</strong></span>
                 </div>
             </div>`;
+        return div;
+    }
+
+    function addDevice() {
+        const deviceCount = devicesContainer.children.length + 1;
+        const defaultNames = ['CPU', 'Disco', 'Red', ' NPU / GPU', 'Caché'];
+        const suffix = defaultNames[(deviceCount - 1) % defaultNames.length];
+        const newDevice = createDeviceElement(`Dispositivo ${deviceCount} (${suffix})`, 4, 0.025);
         devicesContainer.appendChild(newDevice);
         updateEventListeners();
         updateCalculations();
     }
 
     function removeDevice(event) {
-        // Solo eliminar si hay más de un dispositivo
         if (devicesContainer.children.length > 1) {
             event.target.closest('.device-item').remove();
-            // Renumerar dispositivos
-            Array.from(devicesContainer.children).forEach((device, index) => {
-                device.querySelector('span').textContent = `Dispositivo ${index + 1}`;
-            });
+            updateRemoveButtonsVisibility();
             updateCalculations();
-        } else {
-            // Opcional: mostrar un mensaje de que no se puede eliminar el último
         }
     }
 
-    // Actualizar los event listeners para los botones de eliminar
-    function updateEventListeners() {
-        document.querySelectorAll('.remove-device').forEach(btn => {
-            btn.removeEventListener('click', removeDevice); // Evitar duplicados
-            btn.addEventListener('click', removeDevice);
-        });
-        document.querySelectorAll('#config-panel input').forEach(input => {
-            input.removeEventListener('change', updateCalculations);
-            input.addEventListener('change', updateCalculations);
+    function updateRemoveButtonsVisibility() {
+        const items = devicesContainer.querySelectorAll('.device-item');
+        items.forEach((item) => {
+            const btn = item.querySelector('.remove-device');
+            if (btn) {
+                btn.style.display = items.length > 1 ? 'inline-block' : 'none';
+            }
         });
     }
 
+    function updateEventListeners() {
+        document.querySelectorAll('.remove-device').forEach(btn => {
+            btn.removeEventListener('click', removeDevice);
+            btn.addEventListener('click', removeDevice);
+        });
+        document.querySelectorAll('#devices-container input').forEach(input => {
+            input.removeEventListener('input', updateCalculations);
+            input.addEventListener('input', updateCalculations);
+        });
+        updateRemoveButtonsVisibility();
+    }
+
+    // --- ESCENARIOS PREDEFINIDOS PARA EL AULA ---
+    function applyPreset(presetName) {
+        devicesContainer.innerHTML = '';
+        if (presetName === 'default') {
+            devicesContainer.appendChild(createDeviceElement('Dispositivo 1 (CPU)', 10, 0.02));
+            devicesContainer.appendChild(createDeviceElement('Dispositivo 2 (Disco)', 8, 0.04));
+            lambdaInput.value = 2.0;
+            lambdaSlider.value = 2.0;
+            usersInput.value = 10;
+            usersSlider.value = 10;
+            thinkTimeInput.value = 5;
+            thinkTimeSlider.value = 5;
+        } else if (presetName === 'balanced') {
+            devicesContainer.appendChild(createDeviceElement('Dispositivo 1 (CPU)', 10, 0.025));
+            devicesContainer.appendChild(createDeviceElement('Dispositivo 2 (Disco)', 5, 0.05));
+            lambdaInput.value = 2.2;
+            lambdaSlider.value = 2.2;
+            usersInput.value = 12;
+            usersSlider.value = 12;
+            thinkTimeInput.value = 5;
+            thinkTimeSlider.value = 5;
+        } else if (presetName === 'ssd') {
+            devicesContainer.appendChild(createDeviceElement('Dispositivo 1 (CPU)', 10, 0.02));
+            devicesContainer.appendChild(createDeviceElement('Dispositivo 2 (SSD NVMe)', 8, 0.02));
+            lambdaInput.value = 2.0;
+            lambdaSlider.value = 2.0;
+            usersInput.value = 10;
+            usersSlider.value = 10;
+            thinkTimeInput.value = 5;
+            thinkTimeSlider.value = 5;
+        } else if (presetName === 'overload') {
+            devicesContainer.appendChild(createDeviceElement('Dispositivo 1 (CPU)', 10, 0.02));
+            devicesContainer.appendChild(createDeviceElement('Dispositivo 2 (Disco)', 8, 0.04));
+            lambdaInput.value = 2.95;
+            lambdaSlider.value = 2.95;
+            usersInput.value = 32;
+            usersSlider.value = 32;
+            thinkTimeInput.value = 5;
+            thinkTimeSlider.value = 5;
+        }
+        updateEventListeners();
+        updateCalculations();
+    }
 
     // --- CÁLCULOS DE ANÁLISIS OPERACIONAL ---
-    
     function getSystemData() {
-        const devices = Array.from(document.querySelectorAll('.device-item')).map((el, i) => ({
-            id: i + 1,
-            visits: parseFloat(el.querySelector('.device-visits').value) || 0,
-            serviceTime: parseFloat(el.querySelector('.device-service-time').value) || 0,
-        }));
-
-        devices.forEach(d => {
-            d.demand = d.visits * d.serviceTime;
+        const elements = Array.from(document.querySelectorAll('.device-item'));
+        const devices = elements.map((el, i) => {
+            const nameInput = el.querySelector('.device-name');
+            const visits = Math.max(0.001, parseFloat(el.querySelector('.device-visits').value) || 0);
+            const serviceTime = Math.max(0.0001, parseFloat(el.querySelector('.device-service-time').value) || 0);
+            const demand = visits * serviceTime;
+            return {
+                id: i + 1,
+                name: (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : `Dispositivo ${i + 1}`,
+                element: el,
+                visits,
+                serviceTime,
+                demand
+            };
         });
 
         const totalDemand = devices.reduce((sum, d) => sum + d.demand, 0);
-        const bottleneckDevice = devices.reduce((bottleneck, current) => 
-            (current.demand > bottleneck.demand) ? current : bottleneck, devices[0]
-        );
+        const maxDemand = Math.max(...devices.map(d => d.demand));
+        const bottleneckDevice = devices.find(d => Math.abs(d.demand - maxDemand) < 1e-9) || devices[0];
 
-        return { devices, totalDemand, bottleneckDevice };
+        return { devices, totalDemand, maxDemand, bottleneckDevice };
     }
 
     function calculateOpenNetwork(systemData) {
         const { devices, totalDemand, bottleneckDevice } = systemData;
-        const lambda = parseFloat(lambdaInput.value) || 0;
-
-        if (!bottleneckDevice || lambda <= 0) return {};
-        
-        // Capacidad máxima del sistema
+        const lambda = Math.max(0.01, parseFloat(lambdaInput.value) || 0);
         const maxThroughput = 1 / bottleneckDevice.demand;
+        const saturated = lambda >= maxThroughput;
 
-        if (lambda >= maxThroughput) {
-             return { error: `Sistema saturado. Tasa de llegada (λ=${lambda.toFixed(2)}) excede la capacidad máxima (Xmax=${maxThroughput.toFixed(2)}).` };
+        // Ajustar el máximo del slider de lambda de forma suave según Xmax
+        const desiredSliderMax = Math.max(1.0, parseFloat((maxThroughput * 1.15).toFixed(2)));
+        if (Math.abs(parseFloat(lambdaSlider.max) - desiredSliderMax) > 0.05) {
+            lambdaSlider.max = desiredSliderMax;
         }
+        lambdaLimitHint.innerHTML = `Límite X<sub>máx</sub>: <strong>${maxThroughput.toFixed(3)} trab/s</strong>`;
 
         devices.forEach(d => {
             d.utilization = lambda * d.demand;
-            // Ecuación del tiempo de respuesta por estación
-            d.responseTime = d.serviceTime / (1 - d.utilization);
+            if (!saturated && d.utilization < 1) {
+                d.responseTime = d.serviceTime / (1 - d.utilization);
+                d.residenceTime = d.visits * d.responseTime;
+                d.queueLength = d.utilization / (1 - d.utilization);
+            } else {
+                d.responseTime = Infinity;
+                d.residenceTime = Infinity;
+                d.queueLength = Infinity;
+            }
         });
 
-        // Ley General del Tiempo de Respuesta
-        const systemResponseTime = devices.reduce((sum, d) => sum + (d.visits * d.responseTime), 0);
-        
-        // En red abierta, la productividad es igual a la tasa de llegada (si no está saturada)
-        const systemThroughput = lambda;
+        const systemResponseTime = saturated
+            ? Infinity
+            : devices.reduce((sum, d) => sum + d.residenceTime, 0);
+
+        const systemThroughput = saturated ? maxThroughput : lambda;
+        const totalJobs = saturated ? Infinity : systemThroughput * systemResponseTime;
 
         return {
+            saturated,
+            lambda,
             responseTime: systemResponseTime,
             throughput: systemThroughput,
-            devices: devices,
+            totalJobs,
+            devices,
             bottleneck: bottleneckDevice,
             asymptotes: {
                 minR: totalDemand,
@@ -373,207 +591,420 @@
             }
         };
     }
-    
+
     function calculateClosedNetwork(systemData) {
         const { devices, totalDemand, bottleneckDevice } = systemData;
-        const N = parseInt(usersInput.value) || 0;
-        const Z = parseFloat(thinkTimeInput.value) || 0;
+        const N = Math.max(1, parseInt(usersInput.value) || 1);
+        const Z = Math.max(0, parseFloat(thinkTimeInput.value) || 0);
 
-        if (!bottleneckDevice || N <= 0) return {};
-        
-        // Aplicamos el Algoritmo de Valor Medio (MVA)
-        let Ni = new Array(devices.length).fill(0); // Trabajos por dispositivo
+        // Algoritmo exacto de Valor Medio (MVA)
+        let Ni = new Array(devices.length).fill(0);
         let R = 0, X = 0;
 
         for (let n = 1; n <= N; n++) {
-            let Ri = devices.map((d, i) => (Ni[i] + 1) * d.serviceTime);
+            const Ri = devices.map((d, i) => (Ni[i] + 1) * d.serviceTime);
             R = devices.reduce((sum, d, i) => sum + d.visits * Ri[i], 0);
             X = n / (Z + R);
             Ni = devices.map((d, i) => X * d.visits * Ri[i]);
         }
-        
+
         devices.forEach((d, i) => {
             d.utilization = X * d.demand;
-            d.responseTime = (Ni[i] / X) / d.visits; // R_i = N_i / X_i
+            d.residenceTime = Ni[i] / X;
+            d.responseTime = d.residenceTime / d.visits;
+            d.queueLength = Ni[i];
         });
-        
-        // Punto teórico de saturación
-        const N_star = Math.ceil((totalDemand + Z) / bottleneckDevice.demand);
+
+        const N_starExact = (totalDemand + Z) / bottleneckDevice.demand;
+        const N_star = Math.ceil(N_starExact);
+        nstarHint.innerHTML = `Saturación N* = <strong>${N_starExact.toFixed(1)}</strong> (≈ ${N_star} usu.)`;
 
         return {
+            saturated: false,
+            N,
+            Z,
             responseTime: R,
             throughput: X,
-            devices: devices,
+            devices,
             bottleneck: bottleneckDevice,
             asymptotes: {
                 minR: totalDemand,
                 maxX: 1 / bottleneckDevice.demand,
-                N_star: N_star
+                N_star,
+                N_starExact
             }
         };
     }
-    
+
+    // --- ACTUALIZACIÓN DE LA INTERFAZ ---
     function updateCalculations() {
         const systemData = getSystemData();
-        let results;
+        const results = (currentNetworkType === 'open')
+            ? calculateOpenNetwork(systemData)
+            : calculateClosedNetwork(systemData);
+
+        updateUI(results, systemData);
+    }
+
+    function updateUI(results, systemData) {
+        const { devices, totalDemand, maxDemand, bottleneckDevice } = systemData;
+        const { asymptotes } = results;
+
+        // 1. Actualizar tarjetas de dispositivos in-place
+        devices.forEach(d => {
+            const isBottleneck = Math.abs(d.demand - maxDemand) < 1e-9;
+            const badge = d.element.querySelector('.bottleneck-badge');
+            if (isBottleneck) {
+                badge.classList.remove('hidden');
+                d.element.classList.add('border-amber-400', 'ring-1', 'ring-amber-300/60');
+                d.element.classList.remove('border-slate-200');
+            } else {
+                badge.classList.add('hidden');
+                d.element.classList.remove('border-amber-400', 'ring-1', 'ring-amber-300/60');
+                d.element.classList.add('border-slate-200');
+            }
+
+            d.element.querySelector('.metric-d').textContent = d.demand.toFixed(3);
+
+            const utilPct = d.utilization * 100;
+            const uTextEl = d.element.querySelector('.metric-u');
+            const uBarEl = d.element.querySelector('.metric-u-bar');
+
+            uTextEl.textContent = `${Math.min(999, utilPct).toFixed(1)}%`;
+            uBarEl.style.width = `${Math.min(100, Math.max(0, utilPct))}%`;
+
+            if (utilPct >= 95) {
+                uBarEl.className = 'metric-u-bar h-full bg-rose-600 transition-all duration-150';
+                uTextEl.className = 'metric-u font-bold text-rose-600';
+            } else if (utilPct >= 75) {
+                uBarEl.className = 'metric-u-bar h-full bg-amber-500 transition-all duration-150';
+                uTextEl.className = 'metric-u font-bold text-amber-600';
+            } else {
+                uBarEl.className = 'metric-u-bar h-full bg-emerald-500 transition-all duration-150';
+                uTextEl.className = 'metric-u font-bold text-emerald-700';
+            }
+
+            d.element.querySelector('.metric-vr').textContent = Number.isFinite(d.residenceTime)
+                ? `${d.residenceTime.toFixed(3)} s`
+                : '∞ (colapso)';
+            d.element.querySelector('.metric-n').textContent = Number.isFinite(d.queueLength)
+                ? d.queueLength.toFixed(2)
+                : '∞';
+        });
+
+        // 2. Actualizar KPIs superiores
+        minRLabel.textContent = `Mínimo D = ${totalDemand.toFixed(3)} s`;
+        maxXLabel.innerHTML = `Límite X<sub>máx</sub> = ${asymptotes.maxX.toFixed(3)} trab/s`;
+        bottleneckEl.textContent = bottleneckDevice.name;
+        bottleneckDetailEl.innerHTML = `D<sub>b</sub> = ${bottleneckDevice.demand.toFixed(3)} s · U<sub>b</sub> = ${Math.min(999, bottleneckDevice.utilization * 100).toFixed(1)}%`;
 
         if (currentNetworkType === 'open') {
-            results = calculateOpenNetwork(systemData);
+            fourthKpiTitle.textContent = 'Trabajos en sistema';
+            if (results.saturated) {
+                responseTimeEl.textContent = '∞ (saturado)';
+                throughputEl.textContent = `${asymptotes.maxX.toFixed(3)} trab/s`;
+                fourthKpiValue.textContent = '∞';
+                fourthKpiSub.textContent = 'Cola ilimitada (λ ≥ Xmáx)';
+                saturationAlert.classList.remove('hidden');
+                saturationAlertText.innerHTML = `La tasa de llegada (<strong>λ = ${results.lambda.toFixed(2)} trab/s</strong>) iguala o supera la capacidad máxima del sistema (<strong>X<sub>máx</sub> = ${asymptotes.maxX.toFixed(3)} trab/s</strong>) impuesta por <strong>${bottleneckDevice.name}</strong>.`;
+            } else {
+                responseTimeEl.textContent = `${results.responseTime.toFixed(3)} s`;
+                throughputEl.textContent = `${results.throughput.toFixed(3)} trab/s`;
+                fourthKpiValue.textContent = `${results.totalJobs.toFixed(2)} trab`;
+                const marginPct = ((1 - results.lambda / asymptotes.maxX) * 100).toFixed(0);
+                fourthKpiSub.innerHTML = `Ley de Little: X<sub>0</sub>·R (margen ${marginPct}%)`;
+                saturationAlert.classList.add('hidden');
+            }
+            chartSubtitle.innerHTML = `Red abierta: curva de R(λ) y X<sub>0</sub>(λ). Punto actual: <strong>λ = ${results.lambda.toFixed(2)} trab/s</strong> · Asíntota vertical en <strong>X<sub>máx</sub> = ${asymptotes.maxX.toFixed(3)} trab/s</strong>.`;
         } else {
-            results = calculateClosedNetwork(systemData);
+            saturationAlert.classList.add('hidden');
+            responseTimeEl.textContent = `${results.responseTime.toFixed(3)} s`;
+            throughputEl.textContent = `${results.throughput.toFixed(3)} trab/s`;
+            fourthKpiTitle.textContent = 'Rodilla saturación (N*)';
+            fourthKpiValue.textContent = `${asymptotes.N_starExact.toFixed(1)} usu.`;
+            fourthKpiSub.textContent = results.N >= asymptotes.N_starExact
+                ? `Zona saturada (N = ${results.N} ≥ N*)`
+                : `Zona ligera (N = ${results.N} < N*)`;
+            chartSubtitle.innerHTML = `Red cerrada (MVA): punto actual en <strong>N = ${results.N} usuarios</strong> · Rodilla teórica en <strong>N* = ${asymptotes.N_starExact.toFixed(1)} usuarios</strong> (Z = ${results.Z} s).`;
         }
-        
-        lastAsymptotesData = results && !results.error ? results.asymptotes : null;
-        updateUI(results);
-    }
-    
-    // --- ACTUALIZACIÓN DE LA UI ---
-    
-    function updateUI(results) {
-        if (!results || results.error) {
-            responseTimeEl.textContent = 'N/A';
-            throughputEl.textContent = 'N/A';
-            bottleneckEl.textContent = results ? results.error : 'Datos inválidos.';
-            deviceDetailsEl.innerHTML = '';
-            if (chart) chart.destroy();
-            return;
+        modalChartSubtitle.innerHTML = chartSubtitle.innerHTML;
+
+        // 3. Actualizar gráfica de forma fluida (sin animación de salto)
+        lastChartSpec = buildChartSpec(results, systemData);
+        syncChartInstance('performance-chart', lastChartSpec, false);
+        if (!chartModal.classList.contains('hidden')) {
+            syncChartInstance('modal-chart', lastChartSpec, true);
         }
-
-        responseTimeEl.textContent = `${results.responseTime.toFixed(3)} s`;
-        throughputEl.textContent = `${results.throughput.toFixed(3)} trab/s`;
-        bottleneckEl.textContent = `Dispositivo ${results.bottleneck.id} (D=${results.bottleneck.demand.toFixed(3)}s)`;
-
-        deviceDetailsEl.innerHTML = results.devices.map(d => `
-            <div class="flex justify-between items-center bg-gray-100 p-2 rounded-md">
-                <span>Dispositivo ${d.id}</span>
-                <div class="flex space-x-4">
-                    <span>D: <strong>${d.demand.toFixed(3)}s</strong></span>
-                    <span>U: <strong>${(d.utilization * 100).toFixed(2)}%</strong></span>
-                </div>
-            </div>
-        `).join('');
-        
-        updateChart(results ? results.asymptotes : null);
     }
 
-    function renderChart(canvasId, asymptotes) {
-        const ctx = document.getElementById(canvasId).getContext('2d');
-        if (!asymptotes) {
-            return null;
-        }
-
-        let datasets, labels, xlabel;
+    // --- CONSTRUCCIÓN DE DATOS DE LA GRÁFICA ---
+    function buildChartSpec(results, systemData) {
+        const { devices } = systemData;
+        const { asymptotes } = results;
 
         if (currentNetworkType === 'open') {
-            xlabel = 'Tasa de Llegada (λ)';
-            const maxX = asymptotes.maxX * 1.2;
-            const step = maxX / 20;
-            labels = Array.from({length: 21}, (_, i) => i * step);
+            const xlabel = 'Tasa de llegada de trabajos λ (trab/s)';
+            const maxXAxis = asymptotes.maxX * 1.15;
+            const numPoints = 46;
+            const step = maxXAxis / numPoints;
+            const xValues = Array.from({ length: numPoints + 1 }, (_, i) => i * step);
 
-            datasets = [{
-                label: 'Tiempo de respuesta (R)',
-                data: labels.map(l => {
-                    if (l >= asymptotes.maxX) return null;
-                    const systemData = getSystemData();
-                    let tempR = 0;
-                    systemData.devices.forEach(d => {
-                        const util = l * d.demand;
-                        if (util < 1) {
-                           tempR += d.visits * (d.serviceTime / (1 - util));
-                        }
-                    });
-                    return tempR;
-                }),
-                borderColor: '#3b82f6',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                yAxisID: 'yR',
-                tension: 0.1,
-                fill: true
-            }, {
-                label: 'Productividad (X)',
-                data: labels.map(l => (l < asymptotes.maxX) ? l : asymptotes.maxX),
-                borderColor: '#16a34a',
-                yAxisID: 'yX',
-            }, {
-                 label: 'Capacidad Máxima (Xmax)',
-                 data: labels.map(() => asymptotes.maxX),
-                 borderColor: '#f97316',
-                 borderDash: [5, 5],
-                 pointRadius: 0,
-                 yAxisID: 'yX'
-            }];
+            // Asegurar que el valor actual de lambda (si está dentro del eje) esté en los puntos o se marque
+            const currentLambda = Math.min(results.lambda, maxXAxis);
 
-        } else { // Closed network
-            xlabel = 'Número de Usuarios (N)';
-            const maxN = Math.max(30, (asymptotes.N_star || 10) * 2);
-            labels = Array.from({length: maxN + 1}, (_, i) => i);
+            // Tope visual razonable para el eje Y de tiempo de respuesta (para que la asíntota se aprecie limpia)
+            const yRMaxCap = Math.max(asymptotes.minR * 10, 4);
+
+            const rData = xValues.map(l => {
+                if (l >= asymptotes.maxX * 0.995) return null;
+                let tempR = 0;
+                for (const d of devices) {
+                    const u = l * d.demand;
+                    if (u >= 0.995) return null;
+                    tempR += d.visits * (d.serviceTime / (1 - u));
+                }
+                return Math.min(tempR, yRMaxCap);
+            });
+
+            const xData = xValues.map(l => (l < asymptotes.maxX) ? l : asymptotes.maxX);
+            const maxXLine = xValues.map(() => asymptotes.maxX);
+
+            // Encontrar el índice más cercano al lambda actual para colocar el marcador de operación
+            let closestIdx = 0;
+            let minDiff = Infinity;
+            xValues.forEach((val, idx) => {
+                const diff = Math.abs(val - currentLambda);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    closestIdx = idx;
+                }
+            });
+
+            const opPointR = new Array(xValues.length).fill(null);
+            const opPointX = new Array(xValues.length).fill(null);
+            if (!results.saturated && Number.isFinite(results.responseTime)) {
+                opPointR[closestIdx] = Math.min(results.responseTime, yRMaxCap);
+            }
+            opPointX[closestIdx] = results.saturated ? asymptotes.maxX : results.throughput;
+
+            return {
+                labels: xValues.map(v => v.toFixed(2)),
+                xlabel,
+                yRMax: yRMaxCap,
+                yXMax: Number((asymptotes.maxX * 1.2).toFixed(2)),
+                datasets: [
+                    {
+                        label: 'Tiempo de respuesta R (s)',
+                        data: rData,
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                        yAxisID: 'yR',
+                        tension: 0.2,
+                        pointRadius: 0,
+                        borderWidth: 2.5,
+                        fill: true
+                    },
+                    {
+                        label: 'Productividad X₀ (trab/s)',
+                        data: xData,
+                        borderColor: '#16a34a',
+                        yAxisID: 'yX',
+                        tension: 0.1,
+                        pointRadius: 0,
+                        borderWidth: 2.5,
+                        fill: false
+                    },
+                    {
+                        label: 'Capacidad máxima (Xmáx)',
+                        data: maxXLine,
+                        borderColor: '#f97316',
+                        borderDash: [6, 4],
+                        pointRadius: 0,
+                        borderWidth: 2,
+                        yAxisID: 'yX',
+                        fill: false
+                    },
+                    {
+                        label: 'Punto actual (R)',
+                        data: opPointR,
+                        borderColor: '#1d4ed8',
+                        backgroundColor: '#2563eb',
+                        yAxisID: 'yR',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        showLine: false
+                    },
+                    {
+                        label: 'Punto actual (X₀)',
+                        data: opPointX,
+                        borderColor: '#15803d',
+                        backgroundColor: '#16a34a',
+                        yAxisID: 'yX',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        showLine: false
+                    }
+                ]
+            };
+        } else {
+            // Red cerrada (MVA)
+            const xlabel = 'Número de usuarios activos (N)';
+            const maxN = Math.max(30, Math.ceil((asymptotes.N_star || 10) * 2.2), results.N + 5);
+            const labels = Array.from({ length: maxN + 1 }, (_, i) => i);
+            const Z = results.Z;
 
             const mvaR = [0];
             const mvaX = [0];
-            
-            let Ni_mva = new Array(getSystemData().devices.length).fill(0);
+            let Ni_mva = new Array(devices.length).fill(0);
+
             for (let n = 1; n <= maxN; n++) {
-                const systemData = getSystemData();
-                let Ri_mva = systemData.devices.map((d, i) => (Ni_mva[i] + 1) * d.serviceTime);
-                let R_mva = systemData.devices.reduce((sum, d, i) => sum + d.visits * Ri_mva[i], 0);
-                let X_mva = n / ((parseFloat(thinkTimeInput.value) || 0) + R_mva);
-                Ni_mva = systemData.devices.map((d, i) => X_mva * d.visits * Ri_mva[i]);
+                const Ri_mva = devices.map((d, i) => (Ni_mva[i] + 1) * d.serviceTime);
+                const R_mva = devices.reduce((sum, d, i) => sum + d.visits * Ri_mva[i], 0);
+                const X_mva = n / (Z + R_mva);
+                Ni_mva = devices.map((d, i) => X_mva * d.visits * Ri_mva[i]);
                 mvaR.push(R_mva);
                 mvaX.push(X_mva);
             }
 
-            datasets = [{
-                label: 'Tiempo de Respuesta (MVA)',
-                data: mvaR,
-                borderColor: '#3b82f6',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                yAxisID: 'yR',
-                tension: 0.1,
-                fill: true
-            }, {
-                label: 'Productividad (MVA)',
-                data: mvaX,
-                borderColor: '#16a34a',
-                yAxisID: 'yX',
-                tension: 0.1
-            }, {
-                label: 'Asíntota R',
-                data: labels.map(n => Math.max(asymptotes.minR, n * (1/asymptotes.maxX) - (parseFloat(thinkTimeInput.value) || 0))),
-                borderColor: '#a855f7',
-                borderDash: [5, 5],
-                yAxisID: 'yR',
-                pointRadius: 0,
-                fill: false
-            }, {
-                label: 'Asíntota X',
-                data: labels.map(n => Math.min(asymptotes.maxX, n / (asymptotes.minR + (parseFloat(thinkTimeInput.value) || 0)))),
-                borderColor: '#f97316',
-                borderDash: [5, 5],
-                yAxisID: 'yX',
-                pointRadius: 0,
-                fill: false
-            }];
+            const asympR = labels.map(n => Math.max(asymptotes.minR, n * (1 / asymptotes.maxX) - Z));
+            const asympX = labels.map(n => Math.min(asymptotes.maxX, n / (asymptotes.minR + Z)));
+
+            const opPointR = new Array(labels.length).fill(null);
+            const opPointX = new Array(labels.length).fill(null);
+            if (results.N <= maxN) {
+                opPointR[results.N] = mvaR[results.N];
+                opPointX[results.N] = mvaX[results.N];
+            }
+
+            return {
+                labels: labels.map(n => `${n}`),
+                xlabel,
+                yRMax: null,
+                yXMax: Number((asymptotes.maxX * 1.18).toFixed(2)),
+                datasets: [
+                    {
+                        label: 'Tiempo de respuesta R (MVA)',
+                        data: mvaR,
+                        borderColor: '#2563eb',
+                        backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                        yAxisID: 'yR',
+                        tension: 0.2,
+                        pointRadius: 0,
+                        borderWidth: 2.5,
+                        fill: true
+                    },
+                    {
+                        label: 'Productividad X₀ (MVA)',
+                        data: mvaX,
+                        borderColor: '#16a34a',
+                        yAxisID: 'yX',
+                        tension: 0.2,
+                        pointRadius: 0,
+                        borderWidth: 2.5,
+                        fill: false
+                    },
+                    {
+                        label: 'Asíntota de R',
+                        data: asympR,
+                        borderColor: '#a855f7',
+                        borderDash: [5, 5],
+                        yAxisID: 'yR',
+                        pointRadius: 0,
+                        borderWidth: 1.8,
+                        fill: false
+                    },
+                    {
+                        label: 'Asíntota de X₀',
+                        data: asympX,
+                        borderColor: '#f97316',
+                        borderDash: [5, 5],
+                        yAxisID: 'yX',
+                        pointRadius: 0,
+                        borderWidth: 1.8,
+                        fill: false
+                    },
+                    {
+                        label: 'Punto actual (R)',
+                        data: opPointR,
+                        borderColor: '#1d4ed8',
+                        backgroundColor: '#2563eb',
+                        yAxisID: 'yR',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        showLine: false
+                    },
+                    {
+                        label: 'Punto actual (X₀)',
+                        data: opPointX,
+                        borderColor: '#15803d',
+                        backgroundColor: '#16a34a',
+                        yAxisID: 'yX',
+                        pointRadius: 6,
+                        pointHoverRadius: 8,
+                        showLine: false
+                    }
+                ]
+            };
+        }
+    }
+
+    // --- RENDERIZADO Y ACTUALIZACIÓN IN-PLACE SIN ANIMACIÓN DE CRECIMIENTO ---
+    function syncChartInstance(canvasId, spec, isModal) {
+        const instance = isModal ? modalChart : chart;
+        const fontSize = isModal ? 13 : 11;
+
+        if (instance) {
+            instance.data.labels = spec.labels;
+            instance.data.datasets = spec.datasets;
+            instance.options.scales.x.title.text = spec.xlabel;
+            if (spec.yRMax) {
+                instance.options.scales.yR.max = spec.yRMax;
+            } else {
+                delete instance.options.scales.yR.max;
+            }
+            if (spec.yXMax) {
+                instance.options.scales.yX.max = spec.yXMax;
+            } else {
+                delete instance.options.scales.yX.max;
+            }
+            // Actualizar sin animación ('none') para que el cambio sea instantáneo y suave
+            instance.update('none');
+            return;
         }
 
-
-        return new Chart(ctx, {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        const newInstance = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: labels.map(l => l.toFixed(1)),
-                datasets: datasets,
+                labels: spec.labels,
+                datasets: spec.datasets
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
+                animation: false,
+                transitions: {
+                    active: {
+                        animation: {
+                            duration: 0
+                        }
+                    }
+                },
                 interaction: {
                     mode: 'index',
-                    intersect: false,
+                    intersect: false
                 },
                 scales: {
                     x: {
                         title: {
                             display: true,
-                            text: xlabel
+                            text: spec.xlabel,
+                            font: { size: fontSize + 1, weight: 'bold' },
+                            color: '#334155'
+                        },
+                        ticks: {
+                            font: { size: fontSize },
+                            maxTicksLimit: 12
                         }
                     },
                     yR: {
@@ -581,9 +1012,16 @@
                         display: true,
                         position: 'left',
                         beginAtZero: true,
+                        max: spec.yRMax || undefined,
                         title: {
                             display: true,
-                            text: 'Tiempo de respuesta (R)'
+                            text: 'Tiempo de respuesta R (s)',
+                            font: { size: fontSize + 1, weight: 'bold' },
+                            color: '#1d4ed8'
+                        },
+                        ticks: {
+                            font: { size: fontSize },
+                            color: '#1d4ed8'
                         }
                     },
                     yX: {
@@ -591,76 +1029,80 @@
                         display: true,
                         position: 'right',
                         beginAtZero: true,
+                        max: spec.yXMax || undefined,
                         title: {
                             display: true,
-                            text: 'Productividad (X)'
+                            text: 'Productividad X₀ (trab/s)',
+                            font: { size: fontSize + 1, weight: 'bold' },
+                            color: '#15803d'
+                        },
+                        ticks: {
+                            font: { size: fontSize },
+                            color: '#15803d'
                         },
                         grid: {
-                            drawOnChartArea: false, // only want the grid lines for one axis to show up
-                        },
+                            drawOnChartArea: false
+                        }
                     }
                 },
                 plugins: {
                     legend: {
                         position: 'top',
+                        labels: {
+                            usePointStyle: true,
+                            boxWidth: 8,
+                            font: { size: fontSize, weight: '600' }
+                        }
                     },
                     tooltip: {
                         bodySpacing: 4,
-                        titleSpacing: 6,
+                        titleSpacing: 6
                     }
                 }
             }
         });
+
+        if (isModal) {
+            modalChart = newInstance;
+        } else {
+            chart = newInstance;
+        }
     }
 
-    function updateChart(asymptotes) {
-        if (chart) {
-            chart.destroy();
-        }
-        chart = renderChart('performance-chart', asymptotes);
-    }
-    
-    // --- INICIALIZACIÓN ---
+    // --- EVENTOS DE NAVEGACIÓN Y MODAL ---
     tabOpen.addEventListener('click', () => switchTab('open'));
     tabClosed.addEventListener('click', () => switchTab('closed'));
     addDeviceBtn.addEventListener('click', addDevice);
-    
+
     expandChartBtn.addEventListener('click', () => {
-        if (lastAsymptotesData) {
+        if (lastChartSpec) {
             chartModal.classList.remove('hidden');
-            chartModal.classList.add('flex'); // Usar flex para centrar
-            if (modalChart) {
-                modalChart.destroy();
-            }
-            // Retraso para permitir que el DOM del modal se renderice antes de dibujar
+            chartModal.classList.add('flex');
             setTimeout(() => {
-                modalChart = renderChart('modal-chart', lastAsymptotesData);
-            }, 50); 
+                syncChartInstance('modal-chart', lastChartSpec, true);
+            }, 30);
         }
     });
 
     const closeModal = () => {
         chartModal.classList.add('hidden');
         chartModal.classList.remove('flex');
-        if (modalChart) {
-            modalChart.destroy();
-            modalChart = null;
-        }
     };
 
     closeModalBtn.addEventListener('click', closeModal);
     chartModal.addEventListener('click', (event) => {
-        if (event.target === chartModal) { // Si se hace clic en el fondo
+        if (event.target === chartModal) closeModal();
+    });
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !chartModal.classList.contains('hidden')) {
             closeModal();
         }
     });
 
-    // Inicializar listeners y cálculos al cargar
     document.addEventListener('DOMContentLoaded', () => {
         updateEventListeners();
         updateCalculations();
     });
-
 </script>
 
 </body>
