@@ -50,20 +50,20 @@
                     <div class="concept-card" style="border-color: #00A0B0;">
                         <h3 style="color: #00A0B0;"><span class="emoji">💻</span>Software</h3>
                         <p class="mt-2">Programas que se ejecutan en el propio sistema para recolectar datos. Son los más comunes y flexibles.</p>
-                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> Fácil de usar y muy versátil.</p>
-                        <p><strong class="text-red-600">Desventaja:</strong> Genera sobrecarga (overhead) al consumir recursos del sistema que mide.</p>
+                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> fácil de usar y muy versátil.</p>
+                        <p><strong class="text-red-600">Desventaja:</strong> genera sobrecarga (overhead) al consumir recursos del sistema que mide.</p>
                     </div>
                     <div class="concept-card" style="border-color: #EB6841;">
                         <h3 style="color: #EB6841;"><span class="emoji">🔧</span>Hardware</h3>
                         <p class="mt-2">Dispositivos externos conectados al sistema mediante sondas. Miden señales eléctricas directamente.</p>
-                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> No intrusivo, no genera overhead y es extremadamente rápido.</p>
-                        <p><strong class="text-red-600">Desventaja:</strong> Caro, complejo de instalar y no puede medir eventos de software.</p>
+                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> no intrusivo, no genera overhead y es extremadamente rápido.</p>
+                        <p><strong class="text-red-600">Desventaja:</strong> caro, complejo de instalar y no puede medir eventos de software.</p>
                     </div>
                     <div class="concept-card" style="border-color: #EDC951;">
                         <h3 style="color: #EDC951;"><span class="emoji">🧬</span>Híbrido</h3>
                         <p class="mt-2">Combinan una parte software (sonda) y una parte hardware (procesador externo) para analizar los datos.</p>
-                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> Lo mejor de ambos mundos, potente y con bajo overhead.</p>
-                        <p><strong class="text-red-600">Desventaja:</strong> Muy específico y poco común en entornos estándar.</p>
+                        <p class="mt-4"><strong class="text-green-600">Ventaja:</strong> lo mejor de ambos mundos, potente y con bajo overhead.</p>
+                        <p><strong class="text-red-600">Desventaja:</strong> muy específico y poco común en entornos estándar.</p>
                     </div>
                 </div>
             </div>
@@ -87,19 +87,70 @@
 
             <!-- Diagramas de Kiviat -->
             <div class="bg-white rounded-lg shadow-lg p-6">
-                <h2 class="text-3xl font-bold text-center text-[#6A4A3C] mb-8">3. La firma de rendimiento: diagramas de Kiviat</h2>
-                <p class="text-center">Estos gráficos radiales son una forma potente de visualizar la "salud" de un sistema de un solo vistazo, comparando su estado actual con un ideal equilibrado.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
-                    <div class="w-full h-80">
-                        <canvas id="kiviatSano"></canvas>
+                <h2 class="text-3xl font-bold text-center text-[#6A4A3C] mb-4">3. La firma de rendimiento: diagramas de Kiviat</h2>
+                <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto">Estos gráficos radiales son una forma potente de visualizar la «salud» de un sistema de un solo vistazo, comparando su estado actual con un ideal equilibrado.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                    <!-- Tarjeta Kiviat 1: Sistema sano -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between shadow-sm">
+                        <div class="flex items-center justify-between gap-3 mb-3 pb-3 border-b border-slate-200">
+                            <h3 class="text-lg md:text-xl font-bold text-[#00A0B0]">Sistema equilibrado y estable</h3>
+                            <button type="button" onclick="openKiviatModal('sano')" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#00A0B0]/10 hover:bg-[#00A0B0]/20 text-[#00A0B0] border border-[#00A0B0]/30 text-sm font-semibold transition-colors cursor-pointer shrink-0" title="Ampliar gráfico para proyección">
+                                <span>🔍</span>
+                                <span>Ampliar gráfico</span>
+                            </button>
+                        </div>
+                        <div class="w-full h-80 cursor-pointer" onclick="openKiviatModal('sano')" title="Haz clic para ampliar">
+                            <canvas id="kiviatSano"></canvas>
+                        </div>
                     </div>
-                    <div class="w-full h-80">
-                        <canvas id="kiviatCuelloBotella"></canvas>
+
+                    <!-- Tarjeta Kiviat 2: Cuello de botella -->
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between shadow-sm">
+                        <div class="flex items-center justify-between gap-3 mb-3 pb-3 border-b border-slate-200">
+                            <h3 class="text-lg md:text-xl font-bold text-[#EB6841]">Sistema con cuello de botella en disco</h3>
+                            <button type="button" onclick="openKiviatModal('cuello')" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#EB6841]/10 hover:bg-[#EB6841]/20 text-[#EB6841] border border-[#EB6841]/30 text-sm font-semibold transition-colors cursor-pointer shrink-0" title="Ampliar gráfico para proyección">
+                                <span>🔍</span>
+                                <span>Ampliar gráfico</span>
+                            </button>
+                        </div>
+                        <div class="w-full h-80 cursor-pointer" onclick="openKiviatModal('cuello')" title="Haz clic para ampliar">
+                            <canvas id="kiviatCuelloBotella"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+
+    <!-- Modal de proyección a gran tamaño para diagramas de Kiviat -->
+    <div id="kiviatModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/80 backdrop-blur-sm p-4 md:p-8" onclick="if(event.target === this) closeKiviatModal()">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-5xl w-full p-6 md:p-8 flex flex-col max-h-[95vh]">
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-200">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block">Diagrama de Kiviat · Vista de proyección</span>
+                    <h3 id="kiviatModalTitle" class="text-2xl md:text-3xl font-extrabold text-slate-800 mt-0.5">Sistema equilibrado y estable</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button" id="btnSwitchSano" onclick="openKiviatModal('sano')" class="px-3.5 py-2 rounded-lg text-sm font-bold border transition-colors cursor-pointer">
+                        ✅ Sistema equilibrado
+                    </button>
+                    <button type="button" id="btnSwitchCuello" onclick="openKiviatModal('cuello')" class="px-3.5 py-2 rounded-lg text-sm font-bold border transition-colors cursor-pointer">
+                        ⚠️ Cuello de botella en disco
+                    </button>
+                    <button type="button" onclick="closeKiviatModal()" class="ml-2 px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm transition-colors cursor-pointer" title="Cerrar (Esc)">
+                        ✕ Cerrar
+                    </button>
+                </div>
+            </div>
+
+            <div class="w-full h-[58vh] min-h-[380px] max-h-[620px] my-4">
+                <canvas id="kiviatModalCanvas"></canvas>
+            </div>
+
+            <div id="kiviatModalCaption" class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-base text-slate-700 text-center">
+            </div>
+        </div>
+    </div>
 
     <footer class="mt-12 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
             <div>
@@ -118,6 +169,112 @@
         </footer>
 
 <script>
+const kiviatConfigs = {
+    sano: {
+        title: 'Sistema equilibrado y estable',
+        color: '#00A0B0',
+        bgColor: 'rgba(0, 160, 176, 0.22)',
+        data: [10, 20, 80, 90, 80, 20],
+        caption: '<strong>Lectura de la firma:</strong> alta productividad (90 %) y baja lentitud (10 %), con amplios márgenes de capacidad libre tanto en CPU (80 % ociosa) como en disco (80 % ocioso).'
+    },
+    cuello: {
+        title: 'Sistema con cuello de botella en disco',
+        color: '#EB6841',
+        bgColor: 'rgba(235, 104, 65, 0.25)',
+        data: [85, 30, 70, 40, 5, 95],
+        caption: '<strong>Lectura de la firma:</strong> el polígono se deforma drásticamente hacia la <strong>utilización de disco (95 %)</strong> y la <strong>lentitud (85 %)</strong>, hundiendo la productividad (40 %) mientras la CPU permanece mayoritariamente ociosa (70 %).'
+    }
+};
+
+let modalChartInstance = null;
+
+function openKiviatModal(type) {
+    const cfg = kiviatConfigs[type];
+    if (!cfg) return;
+
+    const modal = document.getElementById('kiviatModal');
+    const titleEl = document.getElementById('kiviatModalTitle');
+    const captionEl = document.getElementById('kiviatModalCaption');
+    const btnSano = document.getElementById('btnSwitchSano');
+    const btnCuello = document.getElementById('btnSwitchCuello');
+
+    titleEl.textContent = cfg.title;
+    titleEl.style.color = cfg.color;
+    captionEl.innerHTML = cfg.caption;
+
+    if (type === 'sano') {
+        btnSano.className = 'px-3.5 py-2 rounded-lg text-sm font-bold border transition-colors cursor-pointer bg-[#00A0B0] text-white border-[#00A0B0] shadow-sm';
+        btnCuello.className = 'px-3.5 py-2 rounded-lg text-sm font-bold border transition-colors cursor-pointer bg-white text-slate-600 border-slate-300 hover:bg-slate-50';
+    } else {
+        btnCuello.className = 'px-3.5 py-2 rounded-lg text-sm font-bold border transition-colors cursor-pointer bg-[#EB6841] text-white border-[#EB6841] shadow-sm';
+        btnSano.className = 'px-3.5 py-2 rounded-lg text-sm font-bold border transition-colors cursor-pointer bg-white text-slate-600 border-slate-300 hover:bg-slate-50';
+    }
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+
+    const ctxModal = document.getElementById('kiviatModalCanvas').getContext('2d');
+    if (modalChartInstance) {
+        modalChartInstance.destroy();
+    }
+
+    modalChartInstance = new Chart(ctxModal, {
+        type: 'radar',
+        data: {
+            labels: ['Lentitud', 'Uti. CPU', 'CPU ociosa', 'Productividad', 'Disco ocioso', 'Uti. disco'],
+            datasets: [{
+                label: 'Firma actual (%)',
+                data: cfg.data,
+                backgroundColor: cfg.bgColor,
+                borderColor: cfg.color,
+                borderWidth: 4,
+                pointBackgroundColor: cfg.color,
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 9
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { display: true, color: '#cbd5e1', lineWidth: 1.5 },
+                    grid: { color: '#e2e8f0', lineWidth: 1.5 },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    ticks: {
+                        stepSize: 20,
+                        font: { size: 14, weight: 'bold' },
+                        color: '#475569',
+                        backdropColor: 'rgba(255, 255, 255, 0.85)'
+                    },
+                    pointLabels: {
+                        font: { size: 18, weight: 'bold' },
+                        color: '#0f172a',
+                        padding: 16
+                    }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                title: { display: false }
+            }
+        }
+    });
+}
+
+function closeKiviatModal() {
+    const modal = document.getElementById('kiviatModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeKiviatModal();
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     const kiviatOptions = {
         responsive: true,
@@ -127,12 +284,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 angleLines: { display: true },
                 suggestedMin: 0,
                 suggestedMax: 100,
-                pointLabels: { font: { size: 12 } }
+                pointLabels: { font: { size: 13, weight: 'bold' }, color: '#334155' }
             }
         },
         plugins: {
             legend: { display: false },
-            title: { display: true, font: { size: 16 } }
+            title: { display: false }
         }
     };
 
@@ -164,8 +321,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Gráfico Kiviat Sano
     if (document.getElementById('kiviatSano')) {
         const ctxSano = document.getElementById('kiviatSano').getContext('2d');
-        const optionsSano = JSON.parse(JSON.stringify(kiviatOptions));
-        optionsSano.plugins.title.text = 'Sistema equilibrado y estable';
         new Chart(ctxSano, {
             type: 'radar',
             data: {
@@ -175,18 +330,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     data: [10, 20, 80, 90, 80, 20],
                     backgroundColor: 'rgba(0, 160, 176, 0.2)',
                     borderColor: '#00A0B0',
-                    borderWidth: 2
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#00A0B0',
+                    pointRadius: 4
                 }]
             },
-            options: optionsSano
+            options: kiviatOptions
         });
     }
 
     // Gráfico Kiviat Cuello de Botella
     if (document.getElementById('kiviatCuelloBotella')) {
         const ctxCuello = document.getElementById('kiviatCuelloBotella').getContext('2d');
-        const optionsCuello = JSON.parse(JSON.stringify(kiviatOptions));
-        optionsCuello.plugins.title.text = 'Sistema con cuello de botella en disco';
         new Chart(ctxCuello, {
             type: 'radar',
             data: {
@@ -196,10 +351,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     data: [85, 30, 70, 40, 5, 95],
                     backgroundColor: 'rgba(235, 104, 65, 0.2)',
                     borderColor: '#EB6841',
-                    borderWidth: 2
+                    borderWidth: 2.5,
+                    pointBackgroundColor: '#EB6841',
+                    pointRadius: 4
                 }]
             },
-            options: optionsCuello
+            options: kiviatOptions
         });
     }
 });
