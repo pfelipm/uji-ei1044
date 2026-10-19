@@ -15,9 +15,10 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        .tab-active {
+        .tab-active,
+        .tab-active:hover {
             background-color: #2563eb;
-            color: #ffffff;
+            color: #ffffff !important;
             box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
         }
         .preset-active {
@@ -389,9 +390,9 @@
         currentNetworkType = type;
         if (type === 'open') {
             tabOpen.classList.add('tab-active');
-            tabOpen.classList.remove('text-slate-600');
+            tabOpen.classList.remove('text-slate-600', 'hover:text-slate-900');
             tabClosed.classList.remove('tab-active');
-            tabClosed.classList.add('text-slate-600');
+            tabClosed.classList.add('text-slate-600', 'hover:text-slate-900');
             openNetworkParams.classList.remove('hidden');
             closedNetworkParams.classList.add('hidden');
             loadBadge.textContent = 'Flujo externo (λ)';
@@ -399,9 +400,9 @@
             modelFormulaHint.innerHTML = 'Modelo M/M/1: R<sub>i</sub> = S<sub>i</sub> / (1 − U<sub>i</sub>) · R = ∑ V<sub>i</sub>·R<sub>i</sub> · X<sub>máx</sub> = 1 / D<sub>b</sub>';
         } else {
             tabClosed.classList.add('tab-active');
-            tabClosed.classList.remove('text-slate-600');
+            tabClosed.classList.remove('text-slate-600', 'hover:text-slate-900');
             tabOpen.classList.remove('tab-active');
-            tabOpen.classList.add('text-slate-600');
+            tabOpen.classList.add('text-slate-600', 'hover:text-slate-900');
             openNetworkParams.classList.add('hidden');
             closedNetworkParams.classList.remove('hidden');
             loadBadge.textContent = 'Población fija (N, Z)';
