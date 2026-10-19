@@ -135,8 +135,8 @@
                                 <input type="number" id="lambda" value="2" min="0.05" step="0.05" class="w-24 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-base font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
                             </div>
                             <div class="flex justify-between text-sm text-slate-600 pt-0.5">
-                                <span>Mín: 0.1 trab/s</span>
-                                <span id="lambda-limit-hint" class="font-semibold text-amber-800">Límite X<sub>máx</sub>: 3.125 trab/s</span>
+                                <span>Mín: 0,1 trab/s</span>
+                                <span id="lambda-limit-hint" class="font-semibold text-amber-800">Límite X<sub>máx</sub>: 3,125 trab/s</span>
                             </div>
                         </div>
 
@@ -203,15 +203,15 @@
                                 <!-- Barra y métricas en vivo de la estación -->
                                 <div class="bg-slate-50 rounded-lg p-3 border border-slate-200/90 space-y-2">
                                     <div class="flex justify-between items-center text-sm">
-                                        <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0.200</span> s</strong></span>
-                                        <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">40.0%</span></span>
+                                        <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0,200</span> s</strong></span>
+                                        <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">40,0%</span></span>
                                     </div>
                                     <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                                         <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 40%;"></div>
                                     </div>
                                     <div class="flex justify-between items-center text-sm text-slate-600 pt-0.5">
-                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0.333 s</strong></span>
-                                        <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">0.67</strong></span>
+                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0,333 s</strong></span>
+                                        <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">0,67</strong></span>
                                     </div>
                                 </div>
                             </div>
@@ -240,15 +240,15 @@
                                 <!-- Barra y métricas en vivo de la estación -->
                                 <div class="bg-slate-50 rounded-lg p-3 border border-slate-200/90 space-y-2">
                                     <div class="flex justify-between items-center text-sm">
-                                        <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0.320</span> s</strong></span>
-                                        <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">64.0%</span></span>
+                                        <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0,320</span> s</strong></span>
+                                        <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">64,0%</span></span>
                                     </div>
                                     <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                                         <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 64%;"></div>
                                     </div>
                                     <div class="flex justify-between items-center text-sm text-slate-600 pt-0.5">
-                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0.889 s</strong></span>
-                                        <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">1.78</strong></span>
+                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0,889 s</strong></span>
+                                        <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">1,78</strong></span>
                                     </div>
                                 </div>
                             </div>
@@ -361,6 +361,11 @@
     let lastChartSpec = null;
     let currentNetworkType = 'open';
 
+    // Formateador decimal con coma española (,)
+    function fmt(val, decimals = 3) {
+        return Number(val).toFixed(decimals).replace('.', ',');
+    }
+
     // --- SINCRONIZACIÓN DE SLIDERS Y CAMPOS NUMÉRICOS ---
     function syncPair(slider, numberInput) {
         slider.addEventListener('input', () => {
@@ -432,15 +437,15 @@
             </div>
             <div class="bg-slate-50 rounded-lg p-3 border border-slate-200/90 space-y-2">
                 <div class="flex justify-between items-center text-sm">
-                    <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0.000</span> s</strong></span>
-                    <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">0.0%</span></span>
+                    <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0,000</span> s</strong></span>
+                    <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">0,0%</span></span>
                 </div>
                 <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                     <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 0%;"></div>
                 </div>
                 <div class="flex justify-between items-center text-sm text-slate-600 pt-0.5">
-                    <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0.000 s</strong></span>
-                    <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">0.00</strong></span>
+                    <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0,000 s</strong></span>
+                    <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">0,00</strong></span>
                 </div>
             </div>`;
         return div;
@@ -569,7 +574,7 @@
         if (Math.abs(parseFloat(lambdaSlider.max) - desiredSliderMax) > 0.05) {
             lambdaSlider.max = desiredSliderMax;
         }
-        lambdaLimitHint.innerHTML = `Límite X<sub>máx</sub>: <strong>${maxThroughput.toFixed(3)} trab/s</strong>`;
+        lambdaLimitHint.innerHTML = `Límite X<sub>máx</sub>: <strong>${fmt(maxThroughput, 3)} trab/s</strong>`;
 
         devices.forEach(d => {
             d.utilization = lambda * d.demand;
@@ -630,7 +635,7 @@
 
         const N_starExact = (totalDemand + Z) / bottleneckDevice.demand;
         const N_star = Math.ceil(N_starExact);
-        nstarHint.innerHTML = `Saturación N* = <strong>${N_starExact.toFixed(1)}</strong> (≈ ${N_star} usu.)`;
+        nstarHint.innerHTML = `Saturación N* = <strong>${fmt(N_starExact, 1)}</strong> (≈ ${N_star} usu.)`;
 
         return {
             saturated: false,
@@ -677,13 +682,13 @@
                 d.element.classList.add('border-slate-200');
             }
 
-            d.element.querySelector('.metric-d').textContent = d.demand.toFixed(3);
+            d.element.querySelector('.metric-d').textContent = fmt(d.demand, 3);
 
             const utilPct = d.utilization * 100;
             const uTextEl = d.element.querySelector('.metric-u');
             const uBarEl = d.element.querySelector('.metric-u-bar');
 
-            uTextEl.textContent = `${Math.min(999, utilPct).toFixed(1)}%`;
+            uTextEl.textContent = `${fmt(Math.min(999, utilPct), 1)}%`;
             uBarEl.style.width = `${Math.min(100, Math.max(0, utilPct))}%`;
 
             if (utilPct >= 95) {
@@ -698,47 +703,48 @@
             }
 
             d.element.querySelector('.metric-vr').textContent = Number.isFinite(d.residenceTime)
-                ? `${d.residenceTime.toFixed(3)} s`
+                ? `${fmt(d.residenceTime, 3)} s`
                 : '∞ (colapso)';
             d.element.querySelector('.metric-n').textContent = Number.isFinite(d.queueLength)
-                ? d.queueLength.toFixed(2)
+                ? fmt(d.queueLength, 2)
                 : '∞';
         });
 
         // 2. Actualizar KPIs superiores
-        minRLabel.textContent = `Mínimo D = ${totalDemand.toFixed(3)} s`;
-        maxXLabel.innerHTML = `Límite X<sub>máx</sub> = ${asymptotes.maxX.toFixed(3)} trab/s`;
+        minRLabel.textContent = `Mínimo D = ${fmt(totalDemand, 3)} s`;
+        maxXLabel.innerHTML = `Límite X<sub>máx</sub> = ${fmt(asymptotes.maxX, 3)} trab/s`;
         bottleneckEl.textContent = bottleneckDevice.name;
-        bottleneckDetailEl.innerHTML = `D<sub>b</sub> = ${bottleneckDevice.demand.toFixed(3)} s · U<sub>b</sub> = ${Math.min(999, bottleneckDevice.utilization * 100).toFixed(1)}%`;
+        bottleneckDetailEl.innerHTML = `D<sub>b</sub> = ${fmt(bottleneckDevice.demand, 3)} s · U<sub>b</sub> = ${fmt(Math.min(999, bottleneckDevice.utilization * 100), 1)}%`;
 
         if (currentNetworkType === 'open') {
             fourthKpiTitle.textContent = 'Trabajos en el sistema';
             if (results.saturated) {
                 responseTimeEl.textContent = '∞ (saturado)';
-                throughputEl.textContent = `${asymptotes.maxX.toFixed(3)} trab/s`;
+                throughputEl.textContent = `${fmt(asymptotes.maxX, 3)} trab/s`;
                 fourthKpiValue.textContent = '∞';
                 fourthKpiSub.textContent = 'Cola ilimitada (λ ≥ Xmáx)';
                 saturationAlert.classList.remove('hidden');
-                saturationAlertText.innerHTML = `La tasa de llegada (<strong>λ = ${results.lambda.toFixed(2)} trab/s</strong>) iguala o supera la capacidad máxima del sistema (<strong>X<sub>máx</sub> = ${asymptotes.maxX.toFixed(3)} trab/s</strong>) impuesta por <strong>${bottleneckDevice.name}</strong>.`;
+                saturationAlertText.innerHTML = `La tasa de llegada (<strong>λ = ${fmt(results.lambda, 2)} trab/s</strong>) iguala o supera la capacidad máxima del sistema (<strong>X<sub>máx</sub> = ${fmt(asymptotes.maxX, 3)} trab/s</strong>) impuesta por <strong>${bottleneckDevice.name}</strong>.`;
             } else {
-                responseTimeEl.textContent = `${results.responseTime.toFixed(3)} s`;
-                throughputEl.textContent = `${results.throughput.toFixed(3)} trab/s`;
-                fourthKpiValue.textContent = `${results.totalJobs.toFixed(2)} trab`;
+                responseTimeEl.textContent = `${fmt(results.responseTime, 3)} s`;
+                throughputEl.textContent = `${fmt(results.throughput, 3)} trab/s`;
+                fourthKpiValue.textContent = `${fmt(results.totalJobs, 2)} trab`;
                 const marginPct = ((1 - results.lambda / asymptotes.maxX) * 100).toFixed(0);
                 fourthKpiSub.innerHTML = `Ley de Little: X<sub>0</sub>·R (margen ${marginPct}%)`;
                 saturationAlert.classList.add('hidden');
             }
-            chartSubtitle.innerHTML = `Red abierta: curva de R(λ) y X<sub>0</sub>(λ). Punto actual: <strong>λ = ${results.lambda.toFixed(2)} trab/s</strong> · Asíntota vertical en <strong>X<sub>máx</sub> = ${asymptotes.maxX.toFixed(3)} trab/s</strong>.`;
+            chartSubtitle.innerHTML = `Red abierta: curva de R(λ) y X<sub>0</sub>(λ). Punto actual: <strong>λ = ${fmt(results.lambda, 2)} trab/s</strong> · Asíntota vertical en <strong>X<sub>máx</sub> = ${fmt(asymptotes.maxX, 3)} trab/s</strong>.`;
         } else {
             saturationAlert.classList.add('hidden');
-            responseTimeEl.textContent = `${results.responseTime.toFixed(3)} s`;
-            throughputEl.textContent = `${results.throughput.toFixed(3)} trab/s`;
+            responseTimeEl.textContent = `${fmt(results.responseTime, 3)} s`;
+            throughputEl.textContent = `${fmt(results.throughput, 3)} trab/s`;
             fourthKpiTitle.textContent = 'Rodilla de saturación (N*)';
-            fourthKpiValue.textContent = `${asymptotes.N_starExact.toFixed(1)} usuarios`;
+            fourthKpiValue.textContent = `${fmt(asymptotes.N_starExact, 1)} usuarios`;
             fourthKpiSub.textContent = results.N >= asymptotes.N_starExact
                 ? `Zona saturada (N = ${results.N} ≥ N*)`
                 : `Zona ligera (N = ${results.N} < N*)`;
-            chartSubtitle.innerHTML = `Red cerrada (MVA): punto actual en <strong>N = ${results.N} usuarios</strong> · Rodilla teórica en <strong>N* = ${asymptotes.N_starExact.toFixed(1)} usuarios</strong> (Z = ${results.Z} s).`;
+            const zFormatted = Number.isInteger(results.Z) ? results.Z : fmt(results.Z, 1);
+            chartSubtitle.innerHTML = `Red cerrada (MVA): punto actual en <strong>N = ${results.N} usuarios</strong> · Rodilla teórica en <strong>N* = ${fmt(asymptotes.N_starExact, 1)} usuarios</strong> (Z = ${zFormatted} s).`;
         }
         modalChartSubtitle.innerHTML = chartSubtitle.innerHTML;
 
@@ -797,7 +803,7 @@
             opPointX[closestIdx] = results.saturated ? asymptotes.maxX : results.throughput;
 
             return {
-                labels: xValues.map(v => v.toFixed(2)),
+                labels: xValues.map(v => fmt(v, 2)),
                 xlabel,
                 yRMax: yRMaxCap,
                 yXMax: Number((asymptotes.maxX * 1.2).toFixed(2)),
@@ -987,6 +993,7 @@
                 datasets: spec.datasets
             },
             options: {
+                locale: 'es-ES',
                 responsive: true,
                 maintainAspectRatio: false,
                 animation: false,
@@ -1028,7 +1035,8 @@
                         },
                         ticks: {
                             font: { size: fontSize },
-                            color: '#1d4ed8'
+                            color: '#1d4ed8',
+                            callback: (val) => Number(val).toLocaleString('es-ES', { maximumFractionDigits: 2 })
                         }
                     },
                     yX: {
@@ -1045,7 +1053,8 @@
                         },
                         ticks: {
                             font: { size: fontSize },
-                            color: '#15803d'
+                            color: '#15803d',
+                            callback: (val) => Number(val).toLocaleString('es-ES', { maximumFractionDigits: 2 })
                         },
                         grid: {
                             drawOnChartArea: false
@@ -1066,7 +1075,15 @@
                         titleFont: { size: fontSize },
                         bodyFont: { size: fontSize },
                         bodySpacing: 4,
-                        titleSpacing: 6
+                        titleSpacing: 6,
+                        callbacks: {
+                            label: (context) => {
+                                const label = context.dataset.label || '';
+                                const val = context.parsed.y;
+                                if (val === null || val === undefined) return label;
+                                return `${label}: ${fmt(val, 3)}`;
+                            }
+                        }
                     }
                 }
             }
