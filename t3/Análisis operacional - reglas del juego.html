@@ -46,75 +46,91 @@
                 <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center"><span class="text-4xl mr-4">📊</span> ¿Qué medimos en el mapa? (Las variables operacionales)</h2>
                 <p class="text-lg mb-8">Para entender el flujo de trabajo, observamos el sistema durante un periodo de tiempo (T) y medimos cuatro cantidades fundamentales. A partir de ellas, derivamos todo lo demás, agrupándolas en tres categorías: <strong class="font-semibold text-indigo-700">flujo, tiempo y carga</strong>.</p>
 
-                <div class="mb-8 p-4 bg-gray-50 rounded-lg">
+                <div class="mb-8 p-5 bg-gray-50 rounded-lg">
                     <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Las 4 mediciones base</h3>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center text-base md:text-lg">
                         <div class="bg-indigo-50 p-4 rounded-lg"><strong>T:</strong> intervalo de observación</div>
                         <div class="bg-indigo-50 p-4 rounded-lg"><strong>Aᵢ:</strong> llegadas al recurso <i>i</i></div>
                         <div class="bg-indigo-50 p-4 rounded-lg"><strong>Cᵢ:</strong> completados por <i>i</i></div>
                         <div class="bg-indigo-50 p-4 rounded-lg"><strong>Bᵢ:</strong> tiempo ocupado de <i>i</i></div>
                     </div>
-                    <p class="text-xs text-gray-500 mt-3 text-center">
+                    <p class="text-sm md:text-base text-gray-600 mt-4 text-center">
                         💡 <strong>Notación de subíndices:</strong> el subíndice <strong><i>i</i></strong> se refiere a un recurso concreto (p. ej., CPU o disco), mientras que el subíndice <strong>0</strong> se refiere al <strong>sistema completo</strong> visto desde fuera (p. ej., <span class="code-inline">C₀</span> = trabajos totales completados por el sistema).
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-[auto_1fr_1fr_1fr] lg:grid-flow-col gap-6">
                     
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-semibold text-center text-blue-700">Métricas de flujo (ritmo)</h3>
-                        <div class="border border-blue-200 p-6 rounded-lg bg-blue-50">
+                    <!-- Columna 1: Métricas de flujo -->
+                    <h3 class="text-2xl font-semibold text-center text-blue-700 pb-1">Métricas de flujo (ritmo)</h3>
+                    <div class="border border-blue-200 p-6 rounded-lg bg-blue-50 flex flex-col justify-between h-full">
+                        <div>
                             <h4 class="text-xl font-bold mb-2">Tasa de llegada (λᵢ)</h4>
                             <p class="mb-3"><span class="formula">λᵢ = Aᵢ / T</span></p>
-                            <p class="text-sm text-gray-600">Ritmo al que los trabajos llegan a un recurso.</p>
                         </div>
-                        <div class="border border-blue-200 p-6 rounded-lg bg-blue-50">
+                        <p class="text-base text-gray-700">Ritmo al que los trabajos llegan a un recurso.</p>
+                    </div>
+                    <div class="border border-blue-200 p-6 rounded-lg bg-blue-50 flex flex-col justify-between h-full">
+                        <div>
                             <h4 class="text-xl font-bold mb-2">Productividad (Xᵢ)</h4>
                             <p class="mb-3"><span class="formula">Xᵢ = Cᵢ / T</span></p>
-                            <p class="text-sm text-gray-600">Ritmo al que un recurso completa trabajos.</p>
                         </div>
-                        <div class="border border-blue-200 p-6 rounded-lg bg-blue-50">
+                        <p class="text-base text-gray-700">Ritmo al que un recurso completa trabajos.</p>
+                    </div>
+                    <div class="border border-blue-200 p-6 rounded-lg bg-blue-50 flex flex-col justify-between h-full">
+                        <div>
                             <h4 class="text-xl font-bold mb-2">Razón de visita (Vᵢ)</h4>
                             <p class="mb-3"><span class="formula">Vᵢ = Cᵢ / C₀</span></p>
-                            <p class="text-sm text-gray-600">Nº medio de veces que cada trabajo del sistema (<span class="code-inline">C₀</span>) pasa por el recurso <i>i</i> (<span class="code-inline">Cᵢ</span>).</p>
                         </div>
+                        <p class="text-base text-gray-700">Nº medio de veces que cada trabajo del sistema (<span class="code-inline">C₀</span>) pasa por el recurso <i>i</i> (<span class="code-inline">Cᵢ</span>).</p>
                     </div>
 
-                    <div class="space-y-6">
-                        <h3 class="text-2xl font-semibold text-center text-green-700">Métricas de tiempo (duración)</h3>
-                         <div class="border border-green-200 p-6 rounded-lg bg-green-50">
+                    <!-- Columna 2: Métricas de tiempo -->
+                    <h3 class="text-2xl font-semibold text-center text-green-700 mt-6 lg:mt-0 pb-1">Métricas de tiempo (duración)</h3>
+                    <div class="border border-green-200 p-6 rounded-lg bg-green-50 flex flex-col justify-between h-full">
+                        <div>
                             <h4 class="text-xl font-bold mb-2">Tiempo de servicio (Sᵢ)</h4>
                             <p class="mb-3"><span class="formula">Sᵢ = Bᵢ / Cᵢ</span></p>
-                            <p class="text-sm text-gray-600">Tiempo que el recurso tarda en atender un trabajo.</p>
                         </div>
-                        <div class="border border-green-200 p-6 rounded-lg bg-green-50">
+                        <p class="text-base text-gray-700">Tiempo que el recurso tarda en atender una visita.</p>
+                    </div>
+                    <div class="border border-green-200 p-6 rounded-lg bg-green-50 flex flex-col justify-between h-full">
+                        <div>
                             <h4 class="text-xl font-bold mb-2">Tiempo en cola (Wᵢ)</h4>
                             <p class="mb-3"><span class="formula">Wᵢ = Rᵢ - Sᵢ</span></p>
-                            <p class="text-sm text-gray-600">Tiempo que un trabajo pasa esperando a ser atendido.</p>
                         </div>
-                        <div class="border border-green-200 p-6 rounded-lg bg-green-50">
+                        <p class="text-base text-gray-700">Tiempo que un trabajo pasa esperando a ser atendido.</p>
+                    </div>
+                    <div class="border border-green-200 p-6 rounded-lg bg-green-50 flex flex-col justify-between h-full">
+                        <div>
                             <h4 class="text-xl font-bold mb-2">Tiempo de respuesta (Rᵢ)</h4>
                             <p class="mb-3"><span class="formula">Rᵢ = Wᵢ + Sᵢ</span></p>
-                            <p class="text-sm text-red-600 font-semibold">¡Es el tiempo total que percibe el usuario!</p>
                         </div>
+                        <p class="text-base text-red-600 font-semibold">¡Es el tiempo total en el recurso (espera + servicio)!</p>
                     </div>
 
-                     <div class="space-y-6">
-                        <h3 class="text-2xl font-semibold text-center text-purple-700">Métricas de carga (ocupación)</h3>
-                        <div class="border border-purple-200 p-6 rounded-lg bg-purple-50">
+                    <!-- Columna 3: Métricas de carga -->
+                    <h3 class="text-2xl font-semibold text-center text-purple-700 mt-6 lg:mt-0 pb-1">Métricas de carga (ocupación)</h3>
+                    <div class="border border-purple-200 p-6 rounded-lg bg-purple-50 flex flex-col justify-between h-full">
+                        <div>
                             <h4 class="text-xl font-bold mb-2">Utilización (Uᵢ)</h4>
                             <p class="mb-3"><span class="formula">Uᵢ = Bᵢ / T</span></p>
-                            <p class="text-sm text-gray-600">Porcentaje de tiempo que el recurso está ocupado.</p>
                         </div>
-                        <div class="border border-purple-200 p-6 rounded-lg bg-purple-50">
+                        <p class="text-base text-gray-700">Fracción o porcentaje de tiempo que el recurso está ocupado.</p>
+                    </div>
+                    <div class="border border-purple-200 p-6 rounded-lg bg-purple-50 flex flex-col justify-between h-full">
+                        <div>
                             <h4 class="text-xl font-bold mb-2">Demanda de servicio (Dᵢ)</h4>
                             <p class="mb-3"><span class="formula">Dᵢ = Vᵢ × Sᵢ</span></p>
-                            <p class="text-sm text-gray-600">Tiempo total de servicio que un trabajo exige a un recurso.</p>
                         </div>
-                         <div class="border border-purple-200 p-6 rounded-lg bg-purple-50">
-                            <h4 class="text-xl font-bold mb-2">Longitud de cola (Qᵢ y Nᵢ)</h4>
-                            <p class="text-sm text-gray-600">Nº medio de trabajos en un recurso. <span class="code-inline">Qᵢ</span> (en cola), <span class="code-inline">Nᵢ</span> (en la estación: cola + servidor).</p>
+                        <p class="text-base text-gray-700">Tiempo total de servicio que un trabajo exige al recurso <i>i</i> en todas sus visitas.</p>
+                    </div>
+                    <div class="border border-purple-200 p-6 rounded-lg bg-purple-50 flex flex-col justify-between h-full">
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Trabajos en el recurso (Qᵢ y Nᵢ)</h4>
+                            <p class="mb-3"><span class="formula">Nᵢ = Qᵢ + Uᵢ</span></p>
                         </div>
+                        <p class="text-base text-gray-700">Nº medio de trabajos: <span class="code-inline">Qᵢ</span> esperando en cola y <span class="code-inline">Nᵢ</span> en total (cola + servidor).</p>
                     </div>
 
                 </div>
@@ -125,24 +141,41 @@
                 
                 <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg mb-8">
                     <h3 class="text-xl font-bold text-yellow-800 mb-2">Un principio fundamental: la hipótesis del equilibrio de flujo</h3>
-                    <p class="text-yellow-900">Antes de aplicar las leyes, debemos asumir que el sistema está en un <strong class="font-semibold">estado estable</strong>. Esto significa que, a grandes rasgos, el ritmo al que los trabajos llegan a un recurso (<span class="code-inline">λᵢ</span>) es igual al ritmo al que salen (<span class="code-inline">Xᵢ</span>). Sin este equilibrio, el sistema colapsaría o se vaciaría, ¡y nuestros cálculos no servirían!</p>
+                    <p class="text-base md:text-lg text-yellow-900">Antes de aplicar las leyes para predecir el rendimiento, asumimos que el sistema está en un <strong class="font-semibold">estado estable</strong>: el ritmo al que los trabajos entran (<span class="code-inline">λᵢ</span>) es igual al ritmo al que salen completados (<span class="code-inline">Xᵢ</span>). Gracias a esto podemos intercambiar <span class="code-inline">λ</span> y <span class="code-inline">X</span> en nuestras ecuaciones.</p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
                     
-                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
-                        <h3 class="text-2xl font-bold text-indigo-800 mb-3">1. La ley de utilización</h3>
-                        <p class="italic text-gray-600 mb-4">La ocupación de un recurso es la frecuencia con la que llegan trabajos multiplicada por lo que cuesta hacer cada uno.</p>
-                        <div class="text-center my-4"><span class="formula text-2xl">Uᵢ = Xᵢ × Sᵢ</span></div>
-                        <p class="text-gray-700"><strong>Analogía:</strong> si a un barista le llegan 2 cafés/minuto (Xᵢ) y tarda 0.4 minutos en hacer cada uno (Sᵢ), estará ocupado el 80% del tiempo (Uᵢ = 0.8).</p>
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-indigo-800 mb-3">1. La ley de utilización</h3>
+                            <p class="italic text-base text-gray-600 mb-4">La ocupación de un recurso es el flujo de trabajos que atiende multiplicado por el tiempo de servicio de cada visita.</p>
+                            <div class="text-center my-4 flex flex-wrap items-center justify-center gap-3">
+                                <span class="formula text-2xl font-bold">Uᵢ = Xᵢ × Sᵢ</span>
+                                <span class="text-indigo-400 font-bold text-xl">o</span>
+                                <span class="formula text-2xl font-bold">Uᵢ = X₀ × Dᵢ</span>
+                            </div>
+                            <p class="text-base text-gray-700"><strong>Analogía:</strong> si un barista prepara 2 cafés/minuto (<span class="code-inline">Xᵢ</span>) y tarda 0,4 minutos en hacer cada uno (<span class="code-inline">Sᵢ</span>), estará ocupado el 80 % del tiempo (<span class="code-inline">Uᵢ = 0,8</span>).</p>
+                        </div>
+                        <div class="mt-5 bg-white/80 border border-indigo-200 p-4 rounded-lg text-base text-indigo-950">
+                            <p class="font-bold text-indigo-800 mb-1">🔗 Conexión con el sistema global (flujo forzado):</p>
+                            <p>Como cada trabajo visita el recurso <span class="code-inline">Vᵢ</span> veces (<span class="code-inline">Xᵢ = X₀ × Vᵢ</span>) y <span class="code-inline">Dᵢ = Vᵢ × Sᵢ</span>, la utilización de cualquier componente es directamente proporcional a su demanda: <strong>el recurso con mayor <span class="code-inline">Dᵢ</span> tendrá siempre la mayor <span class="code-inline">Uᵢ</span></strong>.</p>
+                        </div>
                     </div>
 
-                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg">
-                        <h3 class="text-2xl font-bold text-indigo-800 mb-3">2. La ley de Little</h3>
-                        <p class="italic text-gray-600 mb-4">El número promedio de clientes en un sistema (N) es igual a la tasa a la que salen (X) multiplicada por el tiempo promedio que pasan dentro (R).</p>
-                        <div class="text-center my-4"><span class="formula text-2xl">N = X × R</span></div>
-                        <p class="text-gray-700"><strong>Analogía:</strong> si de una tienda salen 10 personas/minuto (X) y cada una pasa 15 minutos dentro (R), habrá una media de 150 personas (N) en la tienda.</p>
-                        <p class="mt-2 text-indigo-700 font-semibold text-center">¡Funciona para el sistema entero o para cada componente!</p>
+                    <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-indigo-800 mb-3">2. La ley de Little</h3>
+                            <p class="italic text-base text-gray-600 mb-4">El número medio de trabajos dentro de un sistema (N) es igual al ritmo al que lo atraviesan (X) multiplicado por el tiempo medio que pasan dentro (R).</p>
+                            <div class="text-center my-4">
+                                <span class="formula text-2xl font-bold">N = X × R</span>
+                            </div>
+                            <p class="text-base text-gray-700"><strong>Analogía:</strong> si de una tienda salen 10 personas/minuto (<span class="code-inline">X</span>) y cada una pasa 15 minutos dentro (<span class="code-inline">R</span>), en cualquier momento habrá una media de 150 personas (<span class="code-inline">N</span>) dentro del local.</p>
+                        </div>
+                        <div class="mt-5 bg-white/80 border border-indigo-200 p-4 rounded-lg text-base text-indigo-950">
+                            <p class="font-bold text-indigo-800 mb-1">🔍 Efecto «zoom» y universalidad:</p>
+                            <p>Se cumple para cualquier disciplina de cola y en cualquier nivel: en el <strong>sistema entero</strong> (<span class="code-inline">N = X₀ × R</span>), en un <strong>recurso completo</strong> (<span class="code-inline">Nᵢ = Xᵢ × Rᵢ</span>) o <strong>solo en su cola de espera</strong> (<span class="code-inline">Qᵢ = Xᵢ × Wᵢ</span>).</p>
+                        </div>
                     </div>
 
                 </div>
