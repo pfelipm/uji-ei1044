@@ -48,38 +48,38 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 
                 <div class="border-2 border-blue-500 rounded-lg p-6 bg-blue-50 flex flex-col">
-                    <h3 class="text-2xl font-bold text-blue-800 mb-4 text-center flex items-center justify-center"><span class="text-4xl mr-3">🌐</span> Modelo de Red Abierta</h3>
+                    <h3 class="text-2xl font-bold text-blue-800 mb-4 text-center flex items-center justify-center"><span class="text-4xl mr-3">🌐</span> Modelo de red abierta</h3>
                     
                     <div class="flex-grow space-y-4">
                         <div>
                             <h4 class="font-bold text-lg text-blue-900">¿Cuándo se usa?</h4>
                             <p class="text-gray-700">Para sistemas con una fuente <i>infinita</i> de clientes. Llegan, se les sirve y se van.</p>
-                            <p class="text-sm text-gray-500 mt-1"><strong>Ejemplos:</strong> Servidores web, APIs públicas, sistemas de streaming.</p>
+                            <p class="text-sm text-gray-500 mt-1"><strong>Ejemplos:</strong> servidores web, APIs públicas, sistemas de streaming.</p>
                         </div>
 
                         <div>
                             <h4 class="font-bold text-lg text-blue-900">La receta (el algoritmo de resolución)</h4>
                             <ol class="space-y-4 mt-2">
-                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3">1</div><div><strong>Calcular utilizaciones (Uᵢ):</strong><br><span class="formula mt-1">Uᵢ = λ₀ × Dᵢ</span></div></li>
-                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3">2</div><div><strong>Calcular tiempos de respuesta por recurso (Rᵢ):</strong><br><span class="formula mt-1">Rᵢ = Sᵢ / (1 - Uᵢ)</span><p class="text-xs text-red-600 mt-1">¡Rᵢ se dispara cuando Uᵢ se acerca al 100%!</p></div></li>
-                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3">3</div><div><strong>Calcular tiempo de respuesta total (R):</strong><br><span class="formula mt-1">R = Σ (Vᵢ × Rᵢ)</span></div></li>
+                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3 shrink-0">1</div><div><strong>Calcular utilizaciones (Uᵢ):</strong><br><span class="formula mt-1">Uᵢ = λ₀ × Dᵢ</span></div></li>
+                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3 shrink-0">2</div><div><strong>Calcular tiempos de respuesta por recurso (Rᵢ):</strong><br><span class="formula mt-1">Rᵢ = Sᵢ / (1 - Uᵢ)</span><p class="text-xs text-red-600 mt-1">¡Rᵢ se dispara cuando Uᵢ se acerca al 100%!</p></div></li>
+                                <li class="flex items-start"><div class="step-circle bg-blue-500 mr-3 shrink-0">3</div><div><strong>Calcular tiempo de respuesta total (R):</strong><br><span class="formula mt-1">R = Σ (Vᵢ × Rᵢ)</span></div></li>
                             </ol>
                         </div>
                     </div>
 
-                    <div class="mt-6 bg-blue-100 p-3 rounded-md text-center text-blue-800 font-semibold">
-                        <p>Esta es la herramienta para el <strong>caso práctico 1: «El dilema de la actualización»</strong>.</p>
+                    <div class="mt-6 bg-blue-100 p-4 rounded-md text-sm text-blue-900">
+                        <p><strong>💡 Ejemplo rápido:</strong> si llegan <code>λ₀ = 2 trab/s</code> a un disco con <code>Dᵢ = 0,4 s</code> (1 visita), su ocupación es <code>Uᵢ = 0,8</code> (80 %) y su tiempo se multiplica por 5: <code>Rᵢ = 0,4 / (1 - 0,8) = 2 s</code>.</p>
                     </div>
                 </div>
 
                 <div class="border-2 border-purple-500 rounded-lg p-6 bg-purple-50 flex flex-col">
-                    <h3 class="text-2xl font-bold text-purple-800 mb-4 text-center flex items-center justify-center"><span class="text-4xl mr-3">🔄</span> Modelo de Red Cerrada</h3>
+                    <h3 class="text-2xl font-bold text-purple-800 mb-4 text-center flex items-center justify-center"><span class="text-4xl mr-3">🔄</span> Modelo de red cerrada</h3>
                     
                     <div class="flex-grow space-y-4">
                         <div>
                             <h4 class="font-bold text-lg text-purple-900">¿Cuándo se usa?</h4>
                             <p class="text-gray-700">Para sistemas con una población finita y constante de clientes (N) que circulan sin salir.</p>
-                            <p class="text-sm text-gray-500 mt-1"><strong>Ejemplos:</strong> Sistemas de terminales, procesos batch con hilos fijos.</p>
+                            <p class="text-sm text-gray-500 mt-1"><strong>Ejemplos:</strong> sistemas de terminales, procesos batch con hilos fijos.</p>
                         </div>
 
                         <div>
@@ -94,8 +94,8 @@
                         </div>
                     </div>
 
-                    <div class="mt-6 bg-purple-100 p-3 rounded-md text-center text-purple-800 font-semibold">
-                        <p>Esta es la herramienta para el <strong>caso práctico 2: «La saturación»</strong>.</p>
+                    <div class="mt-6 bg-purple-100 p-4 rounded-md text-sm text-purple-900">
+                        <p><strong>💡 Ejemplo rápido:</strong> si la suma de demandas es <code>ΣDᵢ = 1 s</code>, el cuello de botella exige <code>Dₑ = 0,5 s</code> y los usuarios piensan <code>Z = 9 s</code>, el sistema saturará a partir de <code>N* = (1 + 9) / 0,5 = 20 usuarios</code>.</p>
                     </div>
                 </div>
             </div>
