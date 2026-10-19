@@ -54,6 +54,9 @@
                         <div class="bg-indigo-50 p-4 rounded-lg"><strong>Cᵢ:</strong> completados por <i>i</i></div>
                         <div class="bg-indigo-50 p-4 rounded-lg"><strong>Bᵢ:</strong> tiempo ocupado de <i>i</i></div>
                     </div>
+                    <p class="text-xs text-gray-500 mt-3 text-center">
+                        💡 <strong>Notación de subíndices:</strong> el subíndice <strong><i>i</i></strong> se refiere a un recurso concreto (p. ej., CPU o disco), mientras que el subíndice <strong>0</strong> se refiere al <strong>sistema completo</strong> visto desde fuera (p. ej., <span class="code-inline">C₀</span> = trabajos totales completados por el sistema).
+                    </p>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -73,7 +76,7 @@
                         <div class="border border-blue-200 p-6 rounded-lg bg-blue-50">
                             <h4 class="text-xl font-bold mb-2">Razón de visita (Vᵢ)</h4>
                             <p class="mb-3"><span class="formula">Vᵢ = Cᵢ / C₀</span></p>
-                            <p class="text-sm text-gray-600">Nº de veces que un trabajo visita el recurso <i>i</i>.</p>
+                            <p class="text-sm text-gray-600">Nº medio de veces que cada trabajo del sistema (<span class="code-inline">C₀</span>) pasa por el recurso <i>i</i> (<span class="code-inline">Cᵢ</span>).</p>
                         </div>
                     </div>
 
