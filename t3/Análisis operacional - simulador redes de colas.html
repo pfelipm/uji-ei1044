@@ -20,6 +20,11 @@
             color: #ffffff;
             box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
         }
+        .preset-active {
+            background-color: #eff6ff;
+            border-color: #3b82f6;
+            color: #1d4ed8;
+        }
         input[type="range"] {
             accent-color: #2563eb;
         }
@@ -29,182 +34,221 @@
 <body class="bg-slate-100 text-slate-800 min-h-screen">
 
     <div class="container mx-auto px-4 py-6 max-w-7xl">
-        <!-- Cabecera compacta -->
-        <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-5">
-            <div>
-                <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Simulador de redes de colas</h1>
-                <p class="text-sm text-slate-600">Laboratorio interactivo de análisis operacional: cuellos de botella, algoritmo MVA y límites asintóticos en tiempo real.</p>
-            </div>
-            <!-- Escenarios rápidos para el aula -->
-            <div class="flex flex-wrap items-center gap-1.5">
-                <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 mr-1">Escenarios:</span>
-                <button type="button" onclick="applyPreset('default')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-blue-50 hover:border-blue-400 hover:text-blue-700 transition shadow-sm">
-                    💿 Cuello en disco
-                </button>
-                <button type="button" onclick="applyPreset('balanced')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-emerald-50 hover:border-emerald-400 hover:text-emerald-700 transition shadow-sm">
-                    ⚖️ Sistema equilibrado
-                </button>
-                <button type="button" onclick="applyPreset('ssd')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-indigo-50 hover:border-indigo-400 hover:text-indigo-700 transition shadow-sm">
-                    ⚡ Mejora a SSD (S÷2)
-                </button>
-                <button type="button" onclick="applyPreset('overload')" class="px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-white border border-slate-300 text-slate-700 hover:bg-rose-50 hover:border-rose-400 hover:text-rose-700 transition shadow-sm">
-                    🚨 Alta carga / Saturación
-                </button>
+        <!-- Cabecera limpia y barra de escenarios alineada -->
+        <header class="mb-5 space-y-3">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Simulador de redes de colas</h1>
+                    <p class="text-base text-slate-600 mt-0.5">Laboratorio interactivo de análisis operacional: cuellos de botella, algoritmo MVA y límites asintóticos.</p>
+                </div>
+                <!-- Botonera de escenarios en una sola fila alineada -->
+                <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 bg-white p-1.5 rounded-xl border border-slate-200 shadow-sm self-start lg:self-auto">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500 px-2 shrink-0">Escenarios:</span>
+                    <button type="button" id="preset-default" onclick="applyPreset('default')" class="preset-btn preset-active px-3 py-1.5 rounded-lg text-sm font-semibold border border-transparent text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition whitespace-nowrap">
+                        💿 Cuello en disco
+                    </button>
+                    <button type="button" id="preset-balanced" onclick="applyPreset('balanced')" class="preset-btn px-3 py-1.5 rounded-lg text-sm font-semibold border border-transparent text-slate-700 hover:bg-emerald-50 hover:text-emerald-700 transition whitespace-nowrap">
+                        ⚖️ Equilibrado
+                    </button>
+                    <button type="button" id="preset-ssd" onclick="applyPreset('ssd')" class="preset-btn px-3 py-1.5 rounded-lg text-sm font-semibold border border-transparent text-slate-700 hover:bg-indigo-50 hover:text-indigo-700 transition whitespace-nowrap">
+                        ⚡ Mejora a SSD (S÷2)
+                    </button>
+                    <button type="button" id="preset-overload" onclick="applyPreset('overload')" class="preset-btn px-3 py-1.5 rounded-lg text-sm font-semibold border border-transparent text-slate-700 hover:bg-rose-50 hover:text-rose-700 transition whitespace-nowrap">
+                        🚨 Alta carga
+                    </button>
+                </div>
             </div>
         </header>
 
-        <div class="bg-white p-5 md:p-6 rounded-2xl shadow-md border border-slate-200/80 w-full">
+        <div class="bg-white p-5 md:p-6 rounded-2xl shadow-md border border-slate-200/80 w-full space-y-6">
 
-            <!-- Barra superior: Selector de tipo de red + Resumen de ecuaciones activas -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 mb-6 border-b border-slate-200">
-                <div class="inline-flex p-1 rounded-xl bg-slate-100 border border-slate-200 self-start">
-                    <button id="tab-open" type="button" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all tab-active">
+            <!-- Barra superior: Selector de tipo de red + Ecuaciones con tipografía legible en proyector -->
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-5 border-b border-slate-200">
+                <div class="inline-flex p-1.5 rounded-xl bg-slate-100 border border-slate-200 self-start shrink-0">
+                    <button id="tab-open" type="button" class="px-4 py-2 rounded-lg text-base font-bold transition-all tab-active">
                         🌐 Red abierta (transaccional)
                     </button>
-                    <button id="tab-closed" type="button" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 transition-all">
+                    <button id="tab-closed" type="button" class="px-4 py-2 rounded-lg text-base font-bold text-slate-600 hover:text-slate-900 transition-all">
                         🔄 Red cerrada (interactiva · MVA)
                     </button>
                 </div>
 
-                <div id="model-formula-hint" class="text-xs text-slate-600 bg-slate-50 px-3.5 py-2 rounded-xl border border-slate-200 font-mono">
+                <div id="model-formula-hint" class="text-sm md:text-base text-slate-700 bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200 font-mono font-medium">
                     Modelo M/M/1: R<sub>i</sub> = S<sub>i</sub> / (1 − U<sub>i</sub>) · R = ∑ V<sub>i</sub>·R<sub>i</sub> · X<sub>máx</sub> = 1 / D<sub>b</sub>
                 </div>
             </div>
 
-            <!-- Grid principal panorámico (5 columnas controles + 7 columnas resultados/gráfica) -->
+            <!-- Fila de 4 tarjetas KPI a ancho completo (12/12) para evitar cualquier corte o salto de línea -->
+            <div id="key-metrics" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-blue-50/90 border border-blue-200 p-4 rounded-xl flex flex-col justify-between">
+                    <h4 class="text-sm font-bold text-blue-800">Tiempo de respuesta (R)</h4>
+                    <p id="response-time" class="text-2xl xl:text-3xl font-extrabold text-blue-950 my-1 whitespace-nowrap">-</p>
+                    <p id="min-r-label" class="text-sm font-medium text-blue-800/90">Mínimo D = -</p>
+                </div>
+                <div class="bg-emerald-50/90 border border-emerald-200 p-4 rounded-xl flex flex-col justify-between">
+                    <h4 class="text-sm font-bold text-emerald-800">Productividad (X<sub>0</sub>)</h4>
+                    <p id="throughput" class="text-2xl xl:text-3xl font-extrabold text-emerald-950 my-1 whitespace-nowrap">-</p>
+                    <p id="max-x-label" class="text-sm font-medium text-emerald-800/90">Límite X<sub>máx</sub> = -</p>
+                </div>
+                <div class="bg-amber-50/90 border border-amber-200 p-4 rounded-xl flex flex-col justify-between">
+                    <h4 class="text-sm font-bold text-amber-900">Cuello de botella</h4>
+                    <p id="bottleneck" class="text-xl xl:text-2xl font-extrabold text-amber-950 my-1 break-words leading-tight">-</p>
+                    <p id="bottleneck-detail" class="text-sm font-medium text-amber-900/90">D<sub>b</sub> = -</p>
+                </div>
+                <div class="bg-purple-50/90 border border-purple-200 p-4 rounded-xl flex flex-col justify-between">
+                    <h4 id="fourth-kpi-title" class="text-sm font-bold text-purple-900">Trabajos en el sistema</h4>
+                    <p id="fourth-kpi-value" class="text-2xl xl:text-3xl font-extrabold text-purple-950 my-1 whitespace-nowrap">-</p>
+                    <p id="fourth-kpi-sub" class="text-sm font-medium text-purple-900/90">-</p>
+                </div>
+            </div>
+
+            <!-- Aviso de saturación en red abierta (cuando λ >= Xmax) -->
+            <div id="saturation-alert" class="hidden bg-rose-50 border border-rose-300 text-rose-900 px-5 py-3.5 rounded-xl text-base flex items-start gap-3">
+                <span class="text-2xl leading-none mt-0.5">🚨</span>
+                <div>
+                    <p class="font-bold">Sistema inestable por saturación (λ ≥ X<sub>máx</sub>)</p>
+                    <p id="saturation-alert-text" class="text-sm text-rose-800 mt-0.5">La tasa de llegada supera la capacidad máxima del cuello de botella (U<sub>b</sub> ≥ 100 %). En régimen permanente la cola crece indefinidamente (R → ∞).</p>
+                </div>
+            </div>
+
+            <!-- Grid principal panorámico (5 columnas controles + 7 columnas gráfica) -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
                 <!-- COLUMNA IZQUIERDA (5/12): Parámetros de carga + Dispositivos con métricas en vivo -->
                 <div id="config-panel" class="lg:col-span-5 space-y-5">
 
                     <!-- Bloque 1: Parámetros globales de la carga -->
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <h2 class="text-base font-bold text-slate-800 mb-3 flex items-center justify-between">
+                    <div class="bg-slate-50 p-4 md:p-5 rounded-xl border border-slate-200">
+                        <h2 class="text-lg font-bold text-slate-800 mb-3 flex items-center justify-between">
                             <span>1. Carga de trabajo del sistema</span>
-                            <span id="load-badge" class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">Flujo externo</span>
+                            <span id="load-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800">Flujo externo (λ)</span>
                         </h2>
 
                         <!-- Parámetros Red Abierta -->
-                        <div id="open-network-params" class="space-y-2">
+                        <div id="open-network-params" class="space-y-2.5">
                             <div class="flex justify-between items-baseline">
-                                <label for="lambda" class="text-sm font-medium text-slate-700">Tasa de llegada de trabajos (λ)</label>
-                                <span class="text-xs text-slate-500">trab/s</span>
+                                <label for="lambda" class="text-base font-semibold text-slate-700">Tasa de llegada de trabajos (λ)</label>
+                                <span class="text-sm font-medium text-slate-500">trab/s</span>
                             </div>
                             <div class="flex items-center gap-3">
-                                <input type="range" id="lambda-slider" min="0.1" max="4.0" step="0.05" value="2" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
-                                <input type="number" id="lambda" value="2" min="0.05" step="0.05" class="w-24 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                                <input type="range" id="lambda-slider" min="0.1" max="4.0" step="0.05" value="2" class="w-full h-2.5 bg-slate-200 rounded-lg cursor-pointer">
+                                <input type="number" id="lambda" value="2" min="0.05" step="0.05" class="w-24 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-base font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
                             </div>
-                            <div class="flex justify-between text-[11px] text-slate-500 pt-0.5">
-                                <span>0.1 trab/s</span>
-                                <span id="lambda-limit-hint" class="font-medium text-amber-700">Límite X<sub>máx</sub>: 3.125 trab/s</span>
+                            <div class="flex justify-between text-sm text-slate-600 pt-0.5">
+                                <span>Mín: 0.1 trab/s</span>
+                                <span id="lambda-limit-hint" class="font-semibold text-amber-800">Límite X<sub>máx</sub>: 3.125 trab/s</span>
                             </div>
                         </div>
 
                         <!-- Parámetros Red Cerrada -->
                         <div id="closed-network-params" class="hidden space-y-4">
                             <div>
-                                <div class="flex justify-between items-baseline mb-1">
-                                    <label for="users" class="text-sm font-medium text-slate-700">Número de usuarios activos (N)</label>
-                                    <span id="nstar-hint" class="text-xs font-medium text-purple-700">Rodilla N*: —</span>
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <label for="users" class="text-base font-semibold text-slate-700">Número de usuarios activos (N)</label>
+                                    <span id="nstar-hint" class="text-sm font-semibold text-purple-800">Saturación N*: —</span>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <input type="range" id="users-slider" min="1" max="50" step="1" value="10" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
-                                    <input type="number" id="users" value="10" min="1" max="200" step="1" class="w-24 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                                    <input type="range" id="users-slider" min="1" max="50" step="1" value="10" class="w-full h-2.5 bg-slate-200 rounded-lg cursor-pointer">
+                                    <input type="number" id="users" value="10" min="1" max="200" step="1" class="w-24 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-base font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
                                 </div>
                             </div>
                             <div>
-                                <div class="flex justify-between items-baseline mb-1">
-                                    <label for="think-time" class="text-sm font-medium text-slate-700">Tiempo de reflexión (Z)</label>
-                                    <span class="text-xs text-slate-500">segundos</span>
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <label for="think-time" class="text-base font-semibold text-slate-700">Tiempo de reflexión (Z)</label>
+                                    <span class="text-sm font-medium text-slate-500">segundos</span>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <input type="range" id="think-time-slider" min="0" max="25" step="0.5" value="5" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
-                                    <input type="number" id="think-time" value="5" min="0" step="0.5" class="w-24 rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
+                                    <input type="range" id="think-time-slider" min="0" max="25" step="0.5" value="5" class="w-full h-2.5 bg-slate-200 rounded-lg cursor-pointer">
+                                    <input type="number" id="think-time" value="5" min="0" step="0.5" class="w-24 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-base font-bold text-slate-900 text-right shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20">
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Bloque 2: Dispositivos y métricas por estación integradas -->
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <div class="flex justify-between items-center mb-3">
+                    <div class="bg-slate-50 p-4 md:p-5 rounded-xl border border-slate-200">
+                        <div class="flex justify-between items-center gap-2 mb-3.5">
                             <div>
-                                <h3 class="text-base font-bold text-slate-800">2. Dispositivos y métricas por estación</h3>
-                                <p class="text-xs text-slate-500">Demanda D<sub>i</sub> = V<sub>i</sub> · S<sub>i</sub>, utilización U<sub>i</sub> y residencia</p>
+                                <h3 class="text-lg font-bold text-slate-800">2. Dispositivos del sistema</h3>
+                                <p class="text-sm text-slate-600">Demanda D<sub>i</sub> = V<sub>i</sub> · S<sub>i</sub>, utilización U<sub>i</sub> y residencia</p>
                             </div>
-                            <button id="add-device" type="button" class="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition shadow-sm">
+                            <button id="add-device" type="button" class="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 px-3.5 rounded-lg transition shadow-sm shrink-0">
                                 <span>＋</span>
-                                <span>Añadir dispositivo</span>
+                                <span>Añadir</span>
                             </button>
                         </div>
 
-                        <div id="devices-container" class="space-y-3">
+                        <div id="devices-container" class="space-y-3.5">
                             <!-- Dispositivo 1 -->
-                            <div class="device-item bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-colors">
-                                <div class="flex justify-between items-center gap-2 mb-2.5">
-                                    <div class="flex items-center gap-2 flex-1">
-                                        <input type="text" value="Dispositivo 1 (CPU)" class="device-name font-bold text-sm text-slate-800 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full max-w-[210px]">
-                                        <span class="bottleneck-badge hidden text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+                            <div class="device-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm transition-colors">
+                                <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+                                    <div class="flex items-center gap-2 flex-1 min-w-[180px]">
+                                        <input type="text" value="Dispositivo 1 (CPU)" class="device-name font-bold text-base text-slate-900 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full">
                                     </div>
-                                    <button type="button" class="remove-device text-rose-500 hover:text-rose-700 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-50 transition" style="display: none;">Eliminar</button>
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <span class="bottleneck-badge hidden text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+                                        <button type="button" class="remove-device text-rose-600 hover:text-rose-800 text-sm font-semibold px-2 py-1 rounded hover:bg-rose-50 transition" style="display: none;">Eliminar</button>
+                                    </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-3 mb-3">
                                     <div>
-                                        <label class="block text-xs font-medium text-slate-600">Razón de visita (V<sub>i</sub>)</label>
-                                        <input type="number" value="10" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                                        <label class="block text-sm font-medium text-slate-700">Razón de visita (V<sub>i</sub>)</label>
+                                        <input type="number" value="10" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-3 py-1.5 text-base font-bold text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none">
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-medium text-slate-600">Tiempo de servicio (S<sub>i</sub>, s)</label>
-                                        <input type="number" value="0.02" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                                        <label class="block text-sm font-medium text-slate-700">Tiempo de servicio (S<sub>i</sub>, s)</label>
+                                        <input type="number" value="0.02" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-3 py-1.5 text-base font-bold text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none">
                                     </div>
                                 </div>
                                 <!-- Barra y métricas en vivo de la estación -->
-                                <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-200/80 space-y-1.5">
-                                    <div class="flex justify-between items-center text-xs">
-                                        <span class="text-slate-600">Demanda <strong>D<sub>i</sub> = <span class="metric-d">0.200</span> s</strong></span>
-                                        <span class="text-slate-700 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-bold">40.0%</span></span>
+                                <div class="bg-slate-50 rounded-lg p-3 border border-slate-200/90 space-y-2">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0.200</span> s</strong></span>
+                                        <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">40.0%</span></span>
                                     </div>
-                                    <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                                         <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 40%;"></div>
                                     </div>
-                                    <div class="flex justify-between items-center text-[11px] text-slate-500 pt-0.5">
-                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-700">0.333 s</strong></span>
-                                        <span>Trabajos medios N<sub>i</sub>: <strong class="metric-n text-slate-700">0.67</strong></span>
+                                    <div class="flex justify-between items-center text-sm text-slate-600 pt-0.5">
+                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0.333 s</strong></span>
+                                        <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">0.67</strong></span>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Dispositivo 2 -->
-                            <div class="device-item bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-colors">
-                                <div class="flex justify-between items-center gap-2 mb-2.5">
-                                    <div class="flex items-center gap-2 flex-1">
-                                        <input type="text" value="Dispositivo 2 (Disco)" class="device-name font-bold text-sm text-slate-800 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full max-w-[210px]">
-                                        <span class="bottleneck-badge hidden text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+                            <div class="device-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm transition-colors">
+                                <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+                                    <div class="flex items-center gap-2 flex-1 min-w-[180px]">
+                                        <input type="text" value="Dispositivo 2 (Disco)" class="device-name font-bold text-base text-slate-900 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full">
                                     </div>
-                                    <button type="button" class="remove-device text-rose-500 hover:text-rose-700 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-50 transition">Eliminar</button>
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <span class="bottleneck-badge hidden text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+                                        <button type="button" class="remove-device text-rose-600 hover:text-rose-800 text-sm font-semibold px-2 py-1 rounded hover:bg-rose-50 transition">Eliminar</button>
+                                    </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-3 mb-3">
                                     <div>
-                                        <label class="block text-xs font-medium text-slate-600">Razón de visita (V<sub>i</sub>)</label>
-                                        <input type="number" value="8" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                                        <label class="block text-sm font-medium text-slate-700">Razón de visita (V<sub>i</sub>)</label>
+                                        <input type="number" value="8" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-3 py-1.5 text-base font-bold text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none">
                                     </div>
                                     <div>
-                                        <label class="block text-xs font-medium text-slate-600">Tiempo de servicio (S<sub>i</sub>, s)</label>
-                                        <input type="number" value="0.04" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                                        <label class="block text-sm font-medium text-slate-700">Tiempo de servicio (S<sub>i</sub>, s)</label>
+                                        <input type="number" value="0.04" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-3 py-1.5 text-base font-bold text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none">
                                     </div>
                                 </div>
                                 <!-- Barra y métricas en vivo de la estación -->
-                                <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-200/80 space-y-1.5">
-                                    <div class="flex justify-between items-center text-xs">
-                                        <span class="text-slate-600">Demanda <strong>D<sub>i</sub> = <span class="metric-d">0.320</span> s</strong></span>
-                                        <span class="text-slate-700 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-bold">64.0%</span></span>
+                                <div class="bg-slate-50 rounded-lg p-3 border border-slate-200/90 space-y-2">
+                                    <div class="flex justify-between items-center text-sm">
+                                        <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0.320</span> s</strong></span>
+                                        <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">64.0%</span></span>
                                     </div>
-                                    <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                                    <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                                         <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 64%;"></div>
                                     </div>
-                                    <div class="flex justify-between items-center text-[11px] text-slate-500 pt-0.5">
-                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-700">0.889 s</strong></span>
-                                        <span>Trabajos medios N<sub>i</sub>: <strong class="metric-n text-slate-700">1.78</strong></span>
+                                    <div class="flex justify-between items-center text-sm text-slate-600 pt-0.5">
+                                        <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0.889 s</strong></span>
+                                        <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">1.78</strong></span>
                                     </div>
                                 </div>
                             </div>
@@ -212,72 +256,37 @@
                     </div>
                 </div>
 
-                <!-- COLUMNA DERECHA (7/12): KPIs globales + Alerta de saturación + Gráfica sin salto -->
-                <div id="results-panel" class="lg:col-span-7 space-y-5">
-
-                    <!-- Tarjetas KPI en 4 columnas compactas -->
-                    <div id="key-metrics" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div class="bg-blue-50/90 border border-blue-200 p-3.5 rounded-xl">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-blue-700">Tiempo respuesta (R)</h4>
-                            <p id="response-time" class="text-2xl font-extrabold text-blue-950 mt-1">-</p>
-                            <p id="min-r-label" class="text-[11px] text-blue-700/80 mt-0.5">Mínimo D: -</p>
-                        </div>
-                        <div class="bg-emerald-50/90 border border-emerald-200 p-3.5 rounded-xl">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-emerald-700">Productividad (X<sub>0</sub>)</h4>
-                            <p id="throughput" class="text-2xl font-extrabold text-emerald-950 mt-1">-</p>
-                            <p id="max-x-label" class="text-[11px] text-emerald-700/80 mt-0.5">Límite X<sub>máx</sub>: -</p>
-                        </div>
-                        <div class="bg-amber-50/90 border border-amber-200 p-3.5 rounded-xl">
-                            <h4 class="text-xs font-bold uppercase tracking-wider text-amber-800">Cuello de botella</h4>
-                            <p id="bottleneck" class="text-base font-extrabold text-amber-950 mt-1 truncate">-</p>
-                            <p id="bottleneck-detail" class="text-[11px] text-amber-800/90 mt-0.5">D<sub>b</sub> = -</p>
-                        </div>
-                        <div class="bg-purple-50/90 border border-purple-200 p-3.5 rounded-xl">
-                            <h4 id="fourth-kpi-title" class="text-xs font-bold uppercase tracking-wider text-purple-800">Trabajos en sistema</h4>
-                            <p id="fourth-kpi-value" class="text-2xl font-extrabold text-purple-950 mt-1">-</p>
-                            <p id="fourth-kpi-sub" class="text-[11px] text-purple-800/80 mt-0.5">-</p>
-                        </div>
-                    </div>
-
-                    <!-- Aviso de saturación en red abierta (cuando λ >= Xmax) -->
-                    <div id="saturation-alert" class="hidden bg-rose-50 border border-rose-300 text-rose-900 px-4 py-3 rounded-xl text-sm flex items-start gap-3">
-                        <span class="text-xl leading-none mt-0.5">🚨</span>
-                        <div>
-                            <p class="font-bold">Sistema inestable por saturación (λ ≥ X<sub>máx</sub>)</p>
-                            <p id="saturation-alert-text" class="text-xs text-rose-800 mt-0.5">La tasa de llegada supera la capacidad máxima del cuello de botella (U<sub>b</sub> ≥ 100 %). En régimen permanente la cola crece indefinidamente (R → ∞).</p>
-                        </div>
-                    </div>
-
-                    <!-- Contenedor de la gráfica principal -->
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
-                        <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+                <!-- COLUMNA DERECHA (7/12): Gráfica principal a gran tamaño -->
+                <div id="results-panel" class="lg:col-span-7">
+                    <div class="bg-slate-50 p-4 md:p-5 rounded-xl border border-slate-200">
+                        <div class="flex flex-wrap justify-between items-start gap-3 mb-3.5">
                             <div>
-                                <h3 class="text-base font-bold text-slate-800">Curvas de rendimiento y límites asintóticos</h3>
-                                <p id="chart-subtitle" class="text-xs text-slate-500">El marcador circular indica el punto de operación actual del sistema sobre las curvas de R y X<sub>0</sub>.</p>
+                                <h3 class="text-lg font-bold text-slate-800">Curvas de rendimiento y límites asintóticos</h3>
+                                <p id="chart-subtitle" class="text-sm text-slate-600 mt-0.5">El marcador circular indica el punto de operación actual del sistema sobre las curvas de R y X<sub>0</sub>.</p>
                             </div>
-                            <button id="expand-chart-btn" type="button" title="Ampliar gráfico para proyección" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white border border-slate-300 text-slate-700 hover:text-blue-600 hover:border-blue-400 transition shadow-sm">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17v4h4M17 7V3h-4M17 17h4v-4M7 7H3v4"></path></svg>
+                            <button id="expand-chart-btn" type="button" title="Ampliar gráfico para proyección" class="inline-flex items-center gap-1.5 text-sm font-bold px-3.5 py-2 rounded-lg bg-white border border-slate-300 text-slate-700 hover:text-blue-600 hover:border-blue-400 transition shadow-sm shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17v4h4M17 7V3h-4M17 17h4v-4M7 7H3v4"></path></svg>
                                 <span>Ampliar gráfico</span>
                             </button>
                         </div>
-                        <div class="bg-white p-3 rounded-xl border border-slate-200/80 relative h-[410px]">
+                        <div class="bg-white p-3 md:p-4 rounded-xl border border-slate-200/80 relative h-[480px]">
                             <canvas id="performance-chart"></canvas>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
 
-        <footer class="mt-10 pt-6 border-t border-slate-200 text-center text-slate-500 text-xs pb-6 space-y-3">
+        <footer class="mt-10 pt-6 border-t border-slate-200 text-center text-slate-500 text-sm pb-6 space-y-3">
             <div>
                 <a href="https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-slate-50 border border-slate-300 text-slate-700 hover:text-slate-900 transition-all shadow-sm text-sm font-medium">
                     <span>👁️🗨️</span>
                     <span>Resolver dudas o analizar modelos con la Gema <strong>El Oráculo de Little</strong> ↗</span>
                 </a>
             </div>
-            <div class="space-y-1 text-slate-400">
-                <p class="font-medium text-slate-600">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <div class="space-y-1 text-slate-500 text-xs">
+                <p class="font-medium text-slate-600 text-sm">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
                 <p>Universitat Jaume I (UJI) · Curso 2026/2027</p>
                 <p>
                     Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-500 hover:underline">DLSI</a> · Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">CC BY-NC-SA 4.0</a> · <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">GitHub ↗</a>
@@ -292,7 +301,7 @@
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-200">
                 <div>
                     <h3 class="text-xl font-bold text-slate-900">Curvas de rendimiento y límites asintóticos</h3>
-                    <p id="modal-chart-subtitle" class="text-sm text-slate-600 mt-0.5"></p>
+                    <p id="modal-chart-subtitle" class="text-base text-slate-600 mt-0.5"></p>
                 </div>
                 <button id="close-modal" type="button" title="Cerrar (Esc)" class="text-slate-500 hover:text-slate-900 p-1.5 rounded-lg hover:bg-slate-100 transition">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -381,7 +390,7 @@
             openNetworkParams.classList.remove('hidden');
             closedNetworkParams.classList.add('hidden');
             loadBadge.textContent = 'Flujo externo (λ)';
-            loadBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800';
+            loadBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800';
             modelFormulaHint.innerHTML = 'Modelo M/M/1: R<sub>i</sub> = S<sub>i</sub> / (1 − U<sub>i</sub>) · R = ∑ V<sub>i</sub>·R<sub>i</sub> · X<sub>máx</sub> = 1 / D<sub>b</sub>';
         } else {
             tabClosed.classList.add('tab-active');
@@ -391,7 +400,7 @@
             openNetworkParams.classList.add('hidden');
             closedNetworkParams.classList.remove('hidden');
             loadBadge.textContent = 'Población fija (N, Z)';
-            loadBadge.className = 'text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800';
+            loadBadge.className = 'text-xs font-bold px-2.5 py-1 rounded-full bg-purple-100 text-purple-800';
             modelFormulaHint.innerHTML = 'Algoritmo MVA: R<sub>i</sub>(n) = S<sub>i</sub>·[1 + N<sub>i</sub>(n−1)] · X(n) = n / (Z + R) · N* = (D + Z) / D<sub>b</sub>';
         }
         updateCalculations();
@@ -400,36 +409,38 @@
     // --- CREACIÓN Y GESTIÓN DE DISPOSITIVOS ---
     function createDeviceElement(name, visits, serviceTime) {
         const div = document.createElement('div');
-        div.className = 'device-item bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm transition-colors';
+        div.className = 'device-item bg-white p-4 rounded-xl border border-slate-200 shadow-sm transition-colors';
         div.innerHTML = `
-            <div class="flex justify-between items-center gap-2 mb-2.5">
-                <div class="flex items-center gap-2 flex-1">
-                    <input type="text" value="${name}" class="device-name font-bold text-sm text-slate-800 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full max-w-[210px]">
-                    <span class="bottleneck-badge hidden text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-3">
+                <div class="flex items-center gap-2 flex-1 min-w-[180px]">
+                    <input type="text" value="${name}" class="device-name font-bold text-base text-slate-900 bg-transparent border-b border-transparent hover:border-slate-300 focus:border-blue-500 focus:outline-none px-1 py-0.5 rounded w-full">
                 </div>
-                <button type="button" class="remove-device text-rose-500 hover:text-rose-700 text-xs font-semibold px-2 py-1 rounded hover:bg-rose-50 transition">Eliminar</button>
+                <div class="flex items-center gap-2 shrink-0">
+                    <span class="bottleneck-badge hidden text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 whitespace-nowrap">🔥 Cuello de botella</span>
+                    <button type="button" class="remove-device text-rose-600 hover:text-rose-800 text-sm font-semibold px-2 py-1 rounded hover:bg-rose-50 transition">Eliminar</button>
+                </div>
             </div>
             <div class="grid grid-cols-2 gap-3 mb-3">
                 <div>
-                    <label class="block text-xs font-medium text-slate-600">Razón de visita (V<sub>i</sub>)</label>
-                    <input type="number" value="${visits}" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                    <label class="block text-sm font-medium text-slate-700">Razón de visita (V<sub>i</sub>)</label>
+                    <input type="number" value="${visits}" min="0.1" step="1" class="device-visits mt-1 block w-full rounded-lg border border-slate-300 px-3 py-1.5 text-base font-bold text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none">
                 </div>
                 <div>
-                    <label class="block text-xs font-medium text-slate-600">Tiempo de servicio (S<sub>i</sub>, s)</label>
-                    <input type="number" value="${serviceTime}" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-2.5 py-1.5 text-sm font-semibold text-slate-800 shadow-sm focus:border-blue-500 focus:outline-none">
+                    <label class="block text-sm font-medium text-slate-700">Tiempo de servicio (S<sub>i</sub>, s)</label>
+                    <input type="number" value="${serviceTime}" min="0.001" step="0.005" class="device-service-time mt-1 block w-full rounded-lg border border-slate-300 px-3 py-1.5 text-base font-bold text-slate-900 shadow-sm focus:border-blue-500 focus:outline-none">
                 </div>
             </div>
-            <div class="bg-slate-50 rounded-lg p-2.5 border border-slate-200/80 space-y-1.5">
-                <div class="flex justify-between items-center text-xs">
-                    <span class="text-slate-600">Demanda <strong>D<sub>i</sub> = <span class="metric-d">0.000</span> s</strong></span>
-                    <span class="text-slate-700 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-bold">0.0%</span></span>
+            <div class="bg-slate-50 rounded-lg p-3 border border-slate-200/90 space-y-2">
+                <div class="flex justify-between items-center text-sm">
+                    <span class="text-slate-700">Demanda: <strong>D<sub>i</sub> = <span class="metric-d">0.000</span> s</strong></span>
+                    <span class="text-slate-800 font-semibold">Utilización U<sub>i</sub>: <span class="metric-u font-extrabold">0.0%</span></span>
                 </div>
-                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
                     <div class="metric-u-bar h-full bg-emerald-500 transition-all duration-150" style="width: 0%;"></div>
                 </div>
-                <div class="flex justify-between items-center text-[11px] text-slate-500 pt-0.5">
-                    <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-700">0.000 s</strong></span>
-                    <span>Trabajos medios N<sub>i</sub>: <strong class="metric-n text-slate-700">0.00</strong></span>
+                <div class="flex justify-between items-center text-sm text-slate-600 pt-0.5">
+                    <span>Residencia V<sub>i</sub>·R<sub>i</sub>: <strong class="metric-vr text-slate-900">0.000 s</strong></span>
+                    <span>Trabajos N<sub>i</sub>: <strong class="metric-n text-slate-900">0.00</strong></span>
                 </div>
             </div>`;
         return div;
@@ -437,7 +448,7 @@
 
     function addDevice() {
         const deviceCount = devicesContainer.children.length + 1;
-        const defaultNames = ['CPU', 'Disco', 'Red', ' NPU / GPU', 'Caché'];
+        const defaultNames = ['CPU', 'Disco', 'Red', 'GPU / NPU', 'Caché'];
         const suffix = defaultNames[(deviceCount - 1) % defaultNames.length];
         const newDevice = createDeviceElement(`Dispositivo ${deviceCount} (${suffix})`, 4, 0.025);
         devicesContainer.appendChild(newDevice);
@@ -477,6 +488,10 @@
 
     // --- ESCENARIOS PREDEFINIDOS PARA EL AULA ---
     function applyPreset(presetName) {
+        document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('preset-active'));
+        const activeBtn = document.getElementById(`preset-${presetName}`);
+        if (activeBtn) activeBtn.classList.add('preset-active');
+
         devicesContainer.innerHTML = '';
         if (presetName === 'default') {
             devicesContainer.appendChild(createDeviceElement('Dispositivo 1 (CPU)', 10, 0.02));
@@ -550,7 +565,6 @@
         const maxThroughput = 1 / bottleneckDevice.demand;
         const saturated = lambda >= maxThroughput;
 
-        // Ajustar el máximo del slider de lambda de forma suave según Xmax
         const desiredSliderMax = Math.max(1.0, parseFloat((maxThroughput * 1.15).toFixed(2)));
         if (Math.abs(parseFloat(lambdaSlider.max) - desiredSliderMax) > 0.05) {
             lambdaSlider.max = desiredSliderMax;
@@ -597,7 +611,6 @@
         const N = Math.max(1, parseInt(usersInput.value) || 1);
         const Z = Math.max(0, parseFloat(thinkTimeInput.value) || 0);
 
-        // Algoritmo exacto de Valor Medio (MVA)
         let Ni = new Array(devices.length).fill(0);
         let R = 0, X = 0;
 
@@ -675,13 +688,13 @@
 
             if (utilPct >= 95) {
                 uBarEl.className = 'metric-u-bar h-full bg-rose-600 transition-all duration-150';
-                uTextEl.className = 'metric-u font-bold text-rose-600';
+                uTextEl.className = 'metric-u font-extrabold text-rose-600';
             } else if (utilPct >= 75) {
                 uBarEl.className = 'metric-u-bar h-full bg-amber-500 transition-all duration-150';
-                uTextEl.className = 'metric-u font-bold text-amber-600';
+                uTextEl.className = 'metric-u font-extrabold text-amber-600';
             } else {
                 uBarEl.className = 'metric-u-bar h-full bg-emerald-500 transition-all duration-150';
-                uTextEl.className = 'metric-u font-bold text-emerald-700';
+                uTextEl.className = 'metric-u font-extrabold text-emerald-700';
             }
 
             d.element.querySelector('.metric-vr').textContent = Number.isFinite(d.residenceTime)
@@ -699,7 +712,7 @@
         bottleneckDetailEl.innerHTML = `D<sub>b</sub> = ${bottleneckDevice.demand.toFixed(3)} s · U<sub>b</sub> = ${Math.min(999, bottleneckDevice.utilization * 100).toFixed(1)}%`;
 
         if (currentNetworkType === 'open') {
-            fourthKpiTitle.textContent = 'Trabajos en sistema';
+            fourthKpiTitle.textContent = 'Trabajos en el sistema';
             if (results.saturated) {
                 responseTimeEl.textContent = '∞ (saturado)';
                 throughputEl.textContent = `${asymptotes.maxX.toFixed(3)} trab/s`;
@@ -720,8 +733,8 @@
             saturationAlert.classList.add('hidden');
             responseTimeEl.textContent = `${results.responseTime.toFixed(3)} s`;
             throughputEl.textContent = `${results.throughput.toFixed(3)} trab/s`;
-            fourthKpiTitle.textContent = 'Rodilla saturación (N*)';
-            fourthKpiValue.textContent = `${asymptotes.N_starExact.toFixed(1)} usu.`;
+            fourthKpiTitle.textContent = 'Rodilla de saturación (N*)';
+            fourthKpiValue.textContent = `${asymptotes.N_starExact.toFixed(1)} usuarios`;
             fourthKpiSub.textContent = results.N >= asymptotes.N_starExact
                 ? `Zona saturada (N = ${results.N} ≥ N*)`
                 : `Zona ligera (N = ${results.N} < N*)`;
@@ -749,10 +762,7 @@
             const step = maxXAxis / numPoints;
             const xValues = Array.from({ length: numPoints + 1 }, (_, i) => i * step);
 
-            // Asegurar que el valor actual de lambda (si está dentro del eje) esté en los puntos o se marque
             const currentLambda = Math.min(results.lambda, maxXAxis);
-
-            // Tope visual razonable para el eje Y de tiempo de respuesta (para que la asíntota se aprecie limpia)
             const yRMaxCap = Math.max(asymptotes.minR * 10, 4);
 
             const rData = xValues.map(l => {
@@ -769,7 +779,6 @@
             const xData = xValues.map(l => (l < asymptotes.maxX) ? l : asymptotes.maxX);
             const maxXLine = xValues.map(() => asymptotes.maxX);
 
-            // Encontrar el índice más cercano al lambda actual para colocar el marcador de operación
             let closestIdx = 0;
             let minDiff = Infinity;
             xValues.forEach((val, idx) => {
@@ -847,7 +856,6 @@
                 ]
             };
         } else {
-            // Red cerrada (MVA)
             const xlabel = 'Número de usuarios activos (N)';
             const maxN = Math.max(30, Math.ceil((asymptotes.N_star || 10) * 2.2), results.N + 5);
             const labels = Array.from({ length: maxN + 1 }, (_, i) => i);
@@ -910,7 +918,7 @@
                         borderDash: [5, 5],
                         yAxisID: 'yR',
                         pointRadius: 0,
-                        borderWidth: 1.8,
+                        borderWidth: 2,
                         fill: false
                     },
                     {
@@ -920,7 +928,7 @@
                         borderDash: [5, 5],
                         yAxisID: 'yX',
                         pointRadius: 0,
-                        borderWidth: 1.8,
+                        borderWidth: 2,
                         fill: false
                     },
                     {
@@ -951,7 +959,7 @@
     // --- RENDERIZADO Y ACTUALIZACIÓN IN-PLACE SIN ANIMACIÓN DE CRECIMIENTO ---
     function syncChartInstance(canvasId, spec, isModal) {
         const instance = isModal ? modalChart : chart;
-        const fontSize = isModal ? 13 : 11;
+        const fontSize = isModal ? 15 : 13;
 
         if (instance) {
             instance.data.labels = spec.labels;
@@ -967,7 +975,6 @@
             } else {
                 delete instance.options.scales.yX.max;
             }
-            // Actualizar sin animación ('none') para que el cambio sea instantáneo y suave
             instance.update('none');
             return;
         }
@@ -1000,7 +1007,7 @@
                             display: true,
                             text: spec.xlabel,
                             font: { size: fontSize + 1, weight: 'bold' },
-                            color: '#334155'
+                            color: '#1e293b'
                         },
                         ticks: {
                             font: { size: fontSize },
@@ -1050,11 +1057,14 @@
                         position: 'top',
                         labels: {
                             usePointStyle: true,
-                            boxWidth: 8,
+                            boxWidth: 9,
+                            padding: 14,
                             font: { size: fontSize, weight: '600' }
                         }
                     },
                     tooltip: {
+                        titleFont: { size: fontSize },
+                        bodyFont: { size: fontSize },
                         bodySpacing: 4,
                         titleSpacing: 6
                     }
