@@ -78,8 +78,8 @@
                     <div class="flex-grow space-y-4">
                         <div>
                             <h4 class="font-bold text-lg text-purple-900">¿Cuándo se usa?</h4>
-                            <p class="text-gray-700">Para sistemas con una población finita y constante de clientes (N) que circulan sin salir.</p>
-                            <p class="text-sm text-gray-500 mt-1"><strong>Ejemplos:</strong> sistemas de terminales, procesos batch con hilos fijos.</p>
+                            <p class="text-gray-700">Para sistemas con una población finita y constante de clientes (<strong>N</strong>) que alternan entre esperar la respuesta del servidor y un <strong>tiempo de reflexión (Z)</strong> antes de enviar su siguiente trabajo.</p>
+                            <p class="text-sm text-gray-500 mt-1"><strong>Ejemplos:</strong> sistemas de terminales interactivos, procesos batch con hilos fijos (donde <code>Z = 0</code>).</p>
                         </div>
 
                         <div>
@@ -91,11 +91,15 @@
                                 </button>
                             </div>
                             <p class="text-gray-600 mb-3">En lugar de iterar con el <button type="button" onclick="openMvaModal()" class="text-purple-700 font-semibold underline hover:text-purple-900 cursor-pointer">algoritmo MVA completo</button>, calculamos directamente el punto de colapso del sistema.</p>
-                            <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="bg-gray-50 p-4 rounded-lg border border-purple-200/60">
                                 <h5 class="font-semibold text-center text-purple-800">Concepto clave: el punto de saturación (N*)</h5>
-                                <p class="text-sm text-center text-gray-600 mb-2">Es el "número mágico" de usuarios. Por encima de él, el sistema colapsa.</p>
-                                <div class="text-center"><span class="formula text-lg">N* = (ΣDᵢ + Z) / Dₑ</span></div>
-                                <p class="text-xs text-center text-gray-500 mt-1">Donde Dₑ es la demanda del cuello de botella.</p>
+                                <p class="text-sm text-center text-gray-600 mb-2">Es el «número mágico» de usuarios concurrentes. Por encima de él, se forman colas permanentemente.</p>
+                                <div class="text-center my-2"><span class="formula text-lg font-bold">N* = (ΣDᵢ + Z) / Dₑ</span></div>
+                                <ul class="list-disc list-outside pl-5 mt-3 space-y-1 text-sm text-gray-700 text-left">
+                                    <li><strong><code>ΣDᵢ</code>:</strong> suma de demandas de todos los recursos (tiempo mínimo de respuesta sin colas).</li>
+                                    <li><strong><code>Z</code> (tiempo de reflexión):</strong> tiempo medio que el usuario «piensa» en su terminal antes de lanzar otra petición.</li>
+                                    <li><strong><code>Dₑ</code>:</strong> demanda del recurso <strong>cuello de botella</strong> (el de mayor <code>Dᵢ</code>).</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
