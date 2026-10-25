@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Mapa Conceptual SGSTI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para términos clave */
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #b91c1c; /* text-red-700 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-7xl bg-white rounded-2xl shadow-2xl p-8">
+        
+        <!-- Título -->
+        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">El Mapa de la Gestión de Servicios</h1>
+        <p class="text-center text-lg text-gray-600 mb-10">Una vista de pájaro de los conceptos clave y sus relaciones.</p>
+
+        <div class="flex flex-col lg:flex-row items-start justify-center gap-8">
+            
+            <!-- Flujo Principal (Vertical) -->
+            <div class="w-full lg:w-3/5">
+                
+                <!-- 1. El Motor (Centro) -->
+                <div class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg text-center mb-6">
+                    <span class="text-4xl mr-3">🚀</span>
+                    <h2 class="text-2xl font-bold text-blue-800 mt-2">El Motor: SGSTI & PDCA</h2>
+                    <p class="text-gray-700 mt-2">Todo el sistema se basa en un <strong>Sistema de Gestión de Servicios de TI</strong> (<code>SGSTI</code>) impulsado por un ciclo de <strong>Mejora Continua</strong> (<code>PDCA</code>).</p>
+                    <!-- Línea eliminada -->
+                </div>
+
+                <!-- 2. Las 4 Agrupaciones Clave -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                    <!-- Agrupación 1: El Contrato -->
+                    <div id="contrato" class="relative z-10 p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('contrato')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">✍️</span>
+                            <h2 class="text-2xl font-bold text-green-800">El Contrato</h2>
+                        </div>
+                        <p class="text-gray-700">Define <strong>qué prometemos</strong> al cliente. Es el "frontend" de nuestro servicio.</p>
+                        <!-- Línea eliminada -->
+                    </div>
+
+                    <!-- Agrupación 2: El Flujo de Resolución -->
+                    <div id="flujo" class="relative z-10 p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('flujo')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">👨‍🚒</span>
+                            <h2 class="text-2xl font-bold text-red-800">El Flujo de Resolución</h2>
+                        </div>
+                        <p class="text-gray-700">Define <strong>cómo operamos y reparamos</strong> el servicio. Es el "backend" operativo.</p>
+                         <!-- Línea eliminada -->
+                    </div>
+
+                    <!-- Agrupación 3: Los Seguros -->
+                    <div id="seguros" class="relative z-10 p-6 bg-yellow-50 border-2 border-yellow-300 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('seguros')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">🛡️</span>
+                            <h2 class="text-2xl font-bold text-yellow-900">Los Seguros</h2>
+                        </div>
+                        <p class="text-gray-700">Define <strong>cómo nos protegemos</strong> de fallos, desastres y amenazas.</p>
+                        <!-- Línea eliminada -->
+                    </div>
+
+                    <!-- Agrupación 4: El Debate -->
+                    <div id="debate" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('debate')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">🤔</span>
+                            <h2 class="text-2xl font-bold text-purple-800">El Debate</h2>
+                        </div>
+                        <p class="text-gray-700">Plantea el "meta-concepto": la filosofía de <strong>por qué</strong> implementamos este control.</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Panel de Información (Lateral) -->
+            <div class="w-full lg:w-2/5 lg:sticky lg:top-8">
+                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-blue-500 shadow-inner min-h-[300px]">
+                    <h3 id="info-title" class="text-2xl font-bold text-blue-900 mb-3">Haz clic en un concepto</h3>
+                    <p id="info-text" class="text-gray-800">Selecciona una agrupación para ver los conceptos clave que contiene.</p>
+                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-2">
+                        <!-- Contenido dinámico aquí -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página de atribución -->
+        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
+            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
+        </p>
+    </div>
+
+    <script>
+        const infoData = {
+            contrato: {
+                title: 'El Contrato (Qué prometemos)',
+                text: 'Este bloque define la relación fundamental entre TI y el Negocio. Es el proceso de pasar de un deseo vago a un compromiso firmado y medible.',
+                points: [
+                    '<strong>Cliente (Interno/Negocio):</strong> El solicitante del servicio (ej. Rectorado, Contabilidad).',
+                    '<code>SLR</code> (Requisito): El "deseo" del cliente.',
+                    '<code>SLA</code> (Acuerdo): El "contrato firmado" y medible.',
+                    '<code>OLA</code> (Acuerdo Interno): El pilar interno (Ej. equipo de Redes).',
+                    '<code>UC</code> (Contrato Externo): El pilar externo (Ej. proveedor de Internet).'
+                ],
+                color: 'green'
+            },
+            flujo: {
+                title: 'El Flujo de Resolución (Cómo reparamos)',
+                text: 'Este es el flujo operativo clave del día a día. Define cómo respondemos a los fallos y cómo implementamos mejoras de forma segura.',
+                points: [
+                    '<code>Incidente</code>: El "fuego". Síntoma que interrumpe el servicio. <strong>Objetivo:</strong> restaurar YA.',
+                    '<code>Problema</code>: La "enfermedad". Causa raíz de incidentes recurrentes. <strong>Objetivo:</strong> encontrarla.',
+                    '<code>Cambio (RFC)</code>: La "cura controlada". Proceso para aplicar la solución sin romper nada.',
+                    '<code>CMDB</code>: El "mapa". La base de datos de componentes y relaciones que consulta el proceso de Cambio.'
+                ],
+                color: 'red'
+            },
+            seguros: {
+                title: 'Los Seguros (Cómo nos protegemos)',
+                text: 'Estos procesos son la "letra pequeña" del <code>SLA</code>. Garantizan que el servicio es robusto frente a distintos tipos de amenazas.',
+                points: [
+                    '<strong>Gestión de Disponibilidad:</strong> Protección contra <em>fallos técnicos</em> del día a día (para cumplir el 99.5%).',
+                    '<strong>Gestión de Continuidad:</strong> Protección contra <em>desastres</em> mayores (incendios, inundaciones). Es el <code>DRP</code>.',
+                    '<strong>Gestión de Seguridad:</strong> Protección contra <em>amenazas</em> (<code>ISO 27001</code>).',
+                ],
+                color: 'yellow'
+            },
+            debate: {
+                title: 'El Debate (Por qué lo hacemos)',
+                text: 'Este es el "meta-concepto" más importante para un futuro gestor de TI. Es la justificación filosófica de todo el sistema.',
+                points: [
+                    '¿Es el proceso de <code>RFC</code> una <strong>"burocracia"</strong> (<code>Overhead</code>) que nos hace lentos?',
+                    '¿O es un <strong>"control"</strong> necesario que garantiza la <strong>estabilidad</strong> del servicio?',
+                    'La respuesta define la madurez de la organización (Ej. <code>Startup</code> vs. <code>Banco</code>).',
+                    '<code>DevOps</code> busca automatizar este mismo <em>control</em>, no eliminarlo.'
+                ],
+                color: 'purple'
+            }
+        };
+
+        const colors = {
+            contrato: 'green',
+            flujo: 'red',
+            seguros: 'yellow',
+            debate: 'purple'
+        };
+
+        const borderClasses = {
+            contrato: 'border-green-500',
+            flujo: 'border-red-500',
+            seguros: 'border-yellow-500',
+            debate: 'border-purple-500'
+        };
+        
+        const textClasses = {
+            contrato: 'text-green-900',
+            flujo: 'text-red-900',
+            seguros: 'text-yellow-900',
+            debate: 'text-purple-900'
+        };
+
+        const allBorderClasses = Object.values(borderClasses);
+        const allTextClasses = Object.values(textClasses);
+
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const infoList = document.getElementById('info-list');
+
+        let currentActive = null;
+
+        function showInfo(phase) {
+            // Si el usuario hace clic en el mismo que ya está activo, no hacemos nada (o podríamos ocultarlo)
+            // if (currentActive === phase) return; 
+            
+            const data = infoData[phase];
+            
+            // Actualizar panel de info
+            infoTitle.innerText = data.title;
+            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
+            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
+
+            // Actualizar estilos del panel
+            infoPanel.classList.remove(...allBorderClasses);
+            infoPanel.classList.add(borderClasses[phase]);
+            
+            infoTitle.classList.remove(...allTextClasses);
+            infoTitle.classList.add(textClasses[phase]);
+
+            // Gestionar resaltado de la tarjeta
+            if (currentActive) {
+                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
+                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
+            }
+            
+            const activeCard = document.getElementById(phase);
+            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
+            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
+            currentActive = phase;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Disponibilidad vs. Continuidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para términos clave */
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #b91c1c; /* text-red-700 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-7xl bg-white rounded-2xl shadow-2xl p-8">
+        
+        <!-- Título -->
+        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">La "Letra Pequeña" del SLA: Disponibilidad vs. Continuidad</h1>
+        <p class="text-center text-lg text-gray-600 mb-10">Entendiendo la diferencia entre un "fallo" y un "desastre"</p>
+
+        <!-- [MODIFICADO] Layout principal a flex-col -->
+        <div class="flex flex-col items-start justify-center gap-8">
+            
+            <!-- [MODIFICADO] Contenedor de 3 Tarjetas -->
+            <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- 1. Disponibilidad -->
+                <div id="disponibilidad" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('disponibilidad')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">📈</span>
+                        <h2 class="text-2xl font-bold text-blue-800">1. Gestión de la Disponibilidad</h2>
+                    </div>
+                    <p class="text-gray-700">Se enfoca en <strong>prevenir y gestionar fallos</strong> para cumplir con el <code>SLA</code> en <em>condiciones normales</em> de operación.</p>
+                </div>
+
+                <!-- 2. Continuidad -->
+                <div id="continuidad" class="relative z-10 p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('continuidad')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🔥</span>
+                        <h2 class="text-2xl font-bold text-red-800">2. Gestión de la Continuidad</h2>
+                    </div>
+                    <p class="text-gray-700">Se enfoca en <strong>recuperar el servicio</strong> después de un <em>desastre mayor</em>. Es el "Plan B" de la organización.</p>
+                </div>
+
+                <!-- [NUEVA] 3. Mini-Taller DRP -->
+                <div id="taller_drp" class="relative z-10 p-6 bg-orange-50 border-2 border-orange-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('taller_drp')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🧠</span>
+                        <h2 class="text-2xl font-bold text-orange-800">3. ¡Mini-Taller DRP!</h2>
+                    </div>
+                    <p class="text-gray-700">Hablemos de "Continuidad". Haz clic aquí para ver las instrucciones de la <strong>actividad de debate</strong> en grupo.</p>
+                </div>
+            </div>
+
+            <!-- [NUEVO] Separador visual -->
+            <hr class="w-full border-t-2 border-gray-200 my-4">
+
+            <!-- [MODIFICADO] Panel de Información (Debajo) -->
+            <div class="w-full">
+                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-gray-300 shadow-inner min-h-[250px] transition-all duration-300">
+                    <h3 id="info-title" class="text-2xl font-bold text-gray-900 mb-3">Haz clic en un concepto</h3>
+                    <p id="info-text" class="text-gray-800">Selecciona un concepto para ver sus objetivos, alcance y métricas clave.</p>
+                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-2">
+                        <!-- Contenido dinámico aquí -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página de atribución -->
+        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
+            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
+        </p>
+    </div>
+
+    <script>
+        const infoData = {
+            disponibilidad: {
+                title: '1. Gestión de la Disponibilidad',
+                text: 'Se enfoca en <strong>prevenir y gestionar fallos</strong> para cumplir con el <code>SLA</code> en <em>condiciones normales</em> de operación.',
+                points: [
+                    '<strong>Objetivo:</strong> Cumplir el <code>SLA</code> (Ej. 99.5% de uptime).',
+                    '<strong>Alcance:</strong> Fallos técnicos (bugs, reinicios, fallos de disco).',
+                    '<strong>Métrica Clave:</strong> Porcentaje de Disponibilidad (%).',
+                    '<strong>Concepto Clave:</strong> Redundancia, balanceo de carga, monitorización de <code>KPIs</code>.',
+                    '<strong>Analogía:</strong> Es el <em>mantenimiento preventivo</em> y las <em>reparaciones menores</em> de un coche.'
+                ],
+                color: 'blue'
+            },
+            continuidad: {
+                title: '2. Gestión de la Continuidad',
+                text: 'Se enfoca en <strong>recuperar el servicio</strong> después de un <em>desastre mayor</em>. Es el "Plan B" de la organización.',
+                points: [
+                    '<strong>Objetivo:</strong> Sobrevivir al desastre y reanudar el negocio.',
+                    '<strong>Alcance:</strong> Desastres (incendios, inundaciones, ciberataques masivos).',
+                    '<strong>Métricas Clave:</strong> <code>RTO</code> (Tiempo para Recuperar) y <code>RPO</code> (Datos que se pueden perder).',
+                    '<strong>Concepto Clave:</strong> Plan de Recuperación ante Desastres (<code>DRP</code>), <em>backups</em> externos, <em>cold/hot sites</em>.',
+                    '<strong>Analogía:</strong> Es el <em>seguro a todo riesgo</em> y el <em>coche de sustitución</em> tras un siniestro total.'
+                ],
+                color: 'red'
+            },
+            taller_drp: {
+                title: '3. ¡Mini-Taller DRP!',
+                text: 'Ahora que sabéis la diferencia, ¡a practicar! En grupos, elegid uno de los siguientes escenarios de desastre. Tenéis 5-10 minutos para debatir las <strong>tres primeras preguntas</strong> que haríais para empezar vuestro <code>DRP</code>.',
+                points: [
+                    '<strong>Escenario 1:</strong> Un incendio destruye el CPD principal de la UJI.',
+                    '<strong>Escenario 2:</strong> Un ataque de <em>Ransomware</em> cifra todos los servidores de producción, BBDD incluidas.',
+                    '<strong>Escenario 3:</strong> Una inundación (Gota Fría) deja el campus sin luz ni fibra óptica durante 48 horas.',
+                    '<strong>Preguntas Guía:</strong> ¿Qué es lo primero que os preocupa? ¿"Cuánto tardamos en volver"? ¿"Cuántos datos hemos perdido"? (Pista: acabáis de definir el <code>RTO</code> y el <code>RPO</code>).'
+                ],
+                color: 'orange'
+            }
+        };
+
+        // --- Lógica JS (Adaptada para los 3 IDs) ---
+
+        const colors = {
+            disponibilidad: 'blue',
+            continuidad: 'red',
+            taller_drp: 'orange'
+        };
+
+        const borderClasses = {
+            disponibilidad: 'border-blue-500',
+            continuidad: 'border-red-500',
+            taller_drp: 'border-orange-500'
+        };
+        
+        const textClasses = {
+            disponibilidad: 'text-blue-900',
+            continuidad: 'text-red-900',
+            taller_drp: 'text-orange-900'
+        };
+
+        const allBorderClasses = Object.values(borderClasses);
+        const allTextClasses = Object.values(textClasses);
+
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const infoList = document.getElementById('info-list');
+
+        let currentActive = null;
+
+        function showInfo(phase) {
+            const data = infoData[phase];
+            
+            // Actualizar panel de info
+            infoTitle.innerText = data.title;
+            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
+            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
+
+            // Actualizar estilos del panel
+            infoPanel.classList.remove(...allBorderClasses);
+            infoPanel.classList.add(borderClasses[phase]);
+            
+            infoTitle.classList.remove(...allTextClasses);
+            infoTitle.classList.add(textClasses[phase]);
+
+            // Gestionar resaltado de la tarjeta
+            if (currentActive) {
+                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
+                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
+            }
+            
+            const activeCard = document.getElementById(phase);
+            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
+            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
+            currentActive = phase;
+        }
+
+        // Estado inicial (selecciona DISPONIBILIDAD por defecto)
+        showInfo('disponibilidad');
+
+    </script>
+</body>
+</html>

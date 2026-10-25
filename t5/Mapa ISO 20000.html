@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Mapa de Procesos ISO 20000</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para términos clave */
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #b91c1c; /* text-red-700 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-6xl bg-white rounded-2xl shadow-2xl p-8">
+        
+        <!-- Título -->
+        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">Mapa de Procesos (ISO/IEC 20000)</h1>
+        <p class="text-center text-lg text-gray-600 mb-10">La agrupación oficial de procesos según la norma.</p>
+
+        <div class="flex flex-col lg:flex-row items-start justify-center gap-8">
+            
+            <!-- Flujo Principal (Vertical) -->
+            <div class="w-full lg:w-3/5 space-y-4">
+                
+                <!-- 1. Procesos de Provisión del Servicio -->
+                <div id="provision" class="relative z-10 p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('provision')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🚀</span>
+                        <h2 class="text-2xl font-bold text-green-800">1. Procesos de Provisión del Servicio</h2>
+                    </div>
+                    <p class="text-gray-700">Definen, configuran y mantienen el servicio. Es el bloque de "planificación y seguros".</p>
+                </div>
+
+                <!-- 2. Procesos de Relaciones -->
+                <div id="relaciones" class="relative z-10 p-6 bg-yellow-50 border-2 border-yellow-300 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('relaciones')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🤝</span>
+                        <h2 class="text-2xl font-bold text-yellow-900">2. Procesos de Relaciones</h2>
+                    </div>
+                    <p class="text-gray-700">Gestionan la comunicación con las partes interesadas: clientes (internos) y proveedores (externos).</p>
+                </div>
+
+                <!-- 3. Procesos de Resolución -->
+                <div id="resolucion" class="relative z-10 p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('resolucion')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">👨‍🚒</span>
+                        <h2 class="text-2xl font-bold text-red-800">3. Procesos de Resolución</h2>
+                    </div>
+                    <p class="text-gray-700">Se activan cuando algo falla. Es el "equipo de respuesta" (Bomberos y Detectives).</p>
+                </div>
+
+                <!-- 4. Procesos de Control -->
+                <div id="control" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('control')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🛡️</span>
+                        <h2 class="text-2xl font-bold text-purple-800">4. Procesos de Control</h2>
+                    </div>
+                    <p class="text-gray-700">Garantizan la estabilidad, evitando el caos. Son el "control de tráfico" y el "mapa" de TI.</p>
+                </div>
+
+                <!-- 5. Proceso de Entrega -->
+                <div id="entrega" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('entrega')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">📦</span>
+                        <h2 class="text-2xl font-bold text-blue-800">5. Proceso de Entrega</h2>
+                    </div>
+                    <p class="text-gray-700">El proceso "ejecutor". Se encarga de poner en producción (desplegar) los cambios aprobados.</p>
+                </div>
+            </div>
+
+            <!-- Panel de Información (Lateral) -->
+            <div class="w-full lg:w-2/5 lg:sticky lg:top-8">
+                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-green-500 shadow-inner min-h-[300px]">
+                    <h3 id="info-title" class="text-2xl font-bold text-green-900 mb-3">Haz clic en una familia</h3>
+                    <p id="info-text" class="text-gray-800">Selecciona una familia de procesos para ver qué procesos específicos de la norma ISO 20000 contiene.</p>
+                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-2">
+                        <!-- Contenido dinámico aquí -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página de atribución -->
+        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
+            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
+        </p>
+    </div>
+
+    <script>
+        const infoData = {
+            provision: {
+                title: '1. Procesos de Provisión',
+                text: 'Procesos estratégicos para definir y mantener el servicio.',
+                points: [
+                    'Gestión de Nivel de Servicio (<code>SLA</code>)',
+                    'Gestión de Informes del Servicio',
+                    'Gestión de la Continuidad y Disponibilidad',
+                    'Gestión de Presupuesto y Contabilidad (Financiera)',
+                    'Gestión de la Capacidad',
+                    'Gestión de la Seguridad de la Información'
+                ],
+                color: 'green'
+            },
+            relaciones: {
+                title: '2. Procesos de Relaciones',
+                text: 'Procesos que gestionan la comunicación con Clientes y Proveedores.',
+                points: [
+                    'Gestión de Relaciones con el Negocio (con el <em>Cliente Interno</em>)',
+                    'Gestión de Suministradores (gestiona los <code>UC</code>)'
+                ],
+                color: 'yellow'
+            },
+            resolucion: {
+                title: '3. Procesos de Resolución',
+                text: 'Procesos reactivos y proactivos para gestionar los fallos.',
+                points: [
+                    'Gestión de Incidentes (el "Bombero")',
+                    'Gestión de Problemas (el "Detective")'
+                ],
+                color: 'red'
+            },
+            control: {
+                title: '4. Procesos de Control',
+                text: 'Procesos que garantizan la estabilidad y el control del entorno.',
+                points: [
+                    'Gestión de la Configuración (la <code>CMDB</code> o "Mapa")',
+                    'Gestión del Cambio (el <code>RFC</code> o "Controlador")'
+                ],
+                color: 'purple'
+            },
+            entrega: {
+                title: '5. Proceso de Entrega',
+                text: 'Proceso que ejecuta el despliegue del software en producción.',
+                points: [
+                    'Gestión de la Entrega y Despliegue (ejecuta el <code>RFC</code> aprobado)'
+                ],
+                color: 'blue'
+            }
+        };
+
+        const colors = {
+            provision: 'green',
+            relaciones: 'yellow',
+            resolucion: 'red',
+            control: 'purple',
+            entrega: 'blue'
+        };
+
+        const borderClasses = {
+            provision: 'border-green-500',
+            relaciones: 'border-yellow-500',
+            resolucion: 'border-red-500',
+            control: 'border-purple-500',
+            entrega: 'border-blue-500'
+        };
+        
+        const textClasses = {
+            provision: 'text-green-900',
+            relaciones: 'text-yellow-900',
+            resolucion: 'text-red-900',
+            control: 'text-purple-900',
+            entrega: 'text-blue-900'
+        };
+
+        const allBorderClasses = Object.values(borderClasses);
+        const allTextClasses = Object.values(textClasses);
+
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const infoList = document.getElementById('info-list');
+
+        let currentActive = null;
+
+        function showInfo(phase) {
+            const data = infoData[phase];
+            
+            // Actualizar panel de info
+            infoTitle.innerText = data.title;
+            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
+            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
+
+            // Actualizar estilos del panel
+            infoPanel.classList.remove(...allBorderClasses);
+            infoPanel.classList.add(borderClasses[phase]);
+            
+            infoTitle.classList.remove(...allTextClasses);
+            infoTitle.classList.add(textClasses[phase]);
+
+            // Gestionar resaltado de la tarjeta
+            if (currentActive) {
+                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
+                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
+            }
+            
+            const activeCard = document.getElementById(phase);
+            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
+            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
+            currentActive = phase;
+        }
+
+        // Estado inicial (selecciona PROVISIÓN por defecto)
+        showInfo('provision');
+
+    </script>
+</body>
+</html>

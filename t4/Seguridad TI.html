@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panorama, principios y amenazas de la seguridad TI - EI1044</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bgGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22primaryGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2338bdf8%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232563eb%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22screenGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23090d16%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3C/linearGradient%3E%20%3Cfilter%20id%3D%22glow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%20%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%20/%3E%20%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%20/%3E%20%3C/filter%3E%20%3C/defs%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bgGrad%29%22%20/%3E%20%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3Crect%20x%3D%228%22%20y%3D%229%22%20width%3D%2248%22%20height%3D%2238%22%20rx%3D%227%22%20fill%3D%22url%28%23screenGrad%29%22%20stroke%3D%22url%28%23primaryGrad%29%22%20stroke-width%3D%222%22%20/%3E%20%3Cline%20x1%3D%228%22%20y1%3D%2218%22%20x2%3D%2256%22%20y2%3D%2218%22%20stroke%3D%22%231e293b%22%20stroke-width%3D%221.5%22%20/%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23ef4444%22%20/%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23eab308%22%20/%3E%20%3Ccircle%20cx%3D%2226%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%2322c55e%22%20/%3E%20%3Cpath%20d%3D%22M%2016%2025%20L%2023%2030.5%20L%2016%2036%22%20fill%3D%22none%22%20stroke%3D%22%2338bdf8%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cline%20x1%3D%2227%22%20y1%3D%2236%22%20x2%3D%2235%22%20y2%3D%2236%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2227%22%20r%3D%221.5%22%20fill%3D%22%2338bdf8%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2233%22%20r%3D%221.5%22%20fill%3D%22%2310b981%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cpath%20d%3D%22M%2026%2047%20L%2024%2053%20L%2040%2053%20L%2038%2047%20Z%22%20fill%3D%22%231e293b%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221%22%20/%3E%20%3Crect%20x%3D%2220%22%20y%3D%2253%22%20width%3D%2224%22%20height%3D%222.5%22%20rx%3D%221.2%22%20fill%3D%22%23334155%22%20/%3E%20%3C/svg%3E">
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .card-hover {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.12);
+        }
+        .tab-btn.active,
+        .tab-btn.active:hover {
+            background-color: #1e293b !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+        }
+        .is-embedded .hide-in-embed {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 sm:p-8">
+
+    <main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+
+        <!-- Cabecera principal -->
+        <header class="text-center border-b border-slate-200 pb-8 mb-8">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider mb-3">
+                <span aria-hidden="true">🛡️</span>
+                <span>Tema 4 · Bloques 4.1, 4.2, 4.5 y 4.6</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Panorama, principios y amenazas de la seguridad TI</h1>
+            <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+                De las tres Ds de la seguridad y la autenticación resistente a phishing a la anatomía de los ciberataques modernos en la era de los agentes de IA.
+            </p>
+
+            <!-- Puente con la SPA de la Tríada CIA (T1) -->
+            <div class="mt-5 flex flex-wrap justify-center items-center gap-3 hide-in-embed">
+                <a href="../t1/La%20tr%C3%ADada%20CIA.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold border border-slate-300 transition-colors">
+                    <span aria-hidden="true">🔗</span>
+                    <span>Repasar infografía base: La tríada CIA y extendida (T1)</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Navegación por pestañas -->
+        <nav aria-label="Secciones de la infografía" class="flex flex-wrap justify-center gap-2 sm:gap-2.5 mb-8 bg-slate-100 p-2 rounded-xl border border-slate-200">
+            <button type="button" id="tab-btn-principios" onclick="switchTab('principios')" class="tab-btn active px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all">
+                1. Las tres Ds y MFA / FIDO2
+            </button>
+            <button type="button" id="tab-btn-amenazas" onclick="switchTab('amenazas')" class="tab-btn px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all">
+                2. Actores y vectores
+            </button>
+            <button type="button" id="tab-btn-killchain" onclick="switchTab('killchain')" class="tab-btn px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all">
+                3. Cyber Kill Chain
+            </button>
+            <button type="button" id="tab-btn-simulador" onclick="switchTab('simulador')" class="tab-btn px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-amber-900 bg-amber-100/80 hover:bg-amber-200 transition-all">
+                4. ⚡ Lab forense (5 casos)
+            </button>
+            <button type="button" id="tab-btn-caza" onclick="switchTab('caza')" class="tab-btn px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-emerald-900 bg-emerald-100/80 hover:bg-emerald-200 transition-all">
+                5. 🌐 Caza de incidentes en vivo
+            </button>
+        </nav>
+
+        <!-- SECCIÓN 1: LAS TRES Ds Y AUTENTICACIÓN -->
+        <section id="tab-principios" class="space-y-8">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Las tres Ds de la estrategia defensiva</h2>
+                <p class="text-sm sm:text-base text-slate-600 mb-6">
+                    Una arquitectura de seguridad madura nunca confía únicamente en impedir la entrada. Combina tres líneas de acción complementarias sobre cualquier activo crítico:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Defensa -->
+                    <div class="card-hover bg-blue-50/70 border border-blue-200 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-3xl" aria-hidden="true">🛡️</span>
+                                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-100 text-blue-800">Antes del ataque</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-blue-950 mb-2">1. Defensa (prevención)</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Medidas técnicas y organizativas diseñadas para <strong>reducir la superficie de exposición</strong> e impedir que una amenaza llegue a explotar una vulnerabilidad.
+                            </p>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700">
+                                <li>Bastionado (<em>hardening</em>) y parcheo continuo de sistemas.</li>
+                                <li>Segmentación de red (VLANs, DMZ, microsegmentación).</li>
+                                <li>Principio de mínimo privilegio (PoLP) y control de acceso.</li>
+                                <li>Cifrado robusto en tránsito (TLS 1.3) y en reposo (AES-256).</li>
+                            </ul>
+                        </div>
+                        <div class="mt-5 pt-3.5 border-t border-blue-200/80 text-sm font-semibold text-blue-900">
+                            Control ISO 27001:2022 clave: <code class="bg-blue-100 px-1.5 py-0.5 rounded">A.8.8</code> (Vulnerabilidades) y <code class="bg-blue-100 px-1.5 py-0.5 rounded">A.8.22</code> (Redes).
+                        </div>
+                    </div>
+
+                    <!-- Detección -->
+                    <div class="card-hover bg-emerald-50/70 border border-emerald-200 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-3xl" aria-hidden="true">📡</span>
+                                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">Durante el ataque</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-emerald-950 mb-2">2. Detección (visibilidad)</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Asume que la prevención puede ser sorteada. Su misión es <strong>descubrir cualquier anomalía o intrusión en minutos</strong> antes de que el atacante alcance su objetivo.
+                            </p>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700">
+                                <li>Monitorización centralizada de eventos (SIEM) y logs inmutables.</li>
+                                <li>Sensores en puestos y servidores (EDR / XDR) e IDS/IPS en red.</li>
+                                <li>Alertas por comportamientos anómalos (p. ej., descarga masiva a las 03:00 h).</li>
+                                <li>Verificación de integridad de ficheros críticos (FIM / hashes).</li>
+                            </ul>
+                        </div>
+                        <div class="mt-5 pt-3.5 border-t border-emerald-200/80 text-sm font-semibold text-emerald-900">
+                            Control ISO 27001:2022 clave: <code class="bg-emerald-100 px-1.5 py-0.5 rounded">A.8.15</code> (Registros/Logs) y <code class="bg-emerald-100 px-1.5 py-0.5 rounded">A.8.16</code> (Monitorización).
+                        </div>
+                    </div>
+
+                    <!-- Disuasión -->
+                    <div class="card-hover bg-purple-50/70 border border-purple-200 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-3xl" aria-hidden="true">⚖️</span>
+                                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-purple-100 text-purple-800">Psicología y coste</span>
+                            </div>
+                            <h3 class="text-xl sm:text-2xl font-bold text-purple-950 mb-2">3. Disuasión (desincentivo)</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Eleva el esfuerzo técnico necesario y el riesgo de atribución legal para que <strong>al atacante o empleado desleal no le resulte rentable</strong> intentar la acción.
+                            </p>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700">
+                                <li>Trazabilidad forense y no repudio (auditoría de cada comando).</li>
+                                <li>Banners legales de acceso, cláusulas disciplinarias y acuerdos NDA.</li>
+                                <li>Cámaras visibles, controles de acceso físico y <em>honeypots</em>.</li>
+                                <li>Política de backups inmutables que inutiliza la extorsión por rescate.</li>
+                            </ul>
+                        </div>
+                        <div class="mt-5 pt-3.5 border-t border-purple-200/80 text-sm font-semibold text-purple-900">
+                            Control ISO 27001:2022 clave: <code class="bg-purple-100 px-1.5 py-0.5 rounded">A.6.4</code> (Proceso disciplinario) y <code class="bg-purple-100 px-1.5 py-0.5 rounded">A.5.28</code> (Evidencias).
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subsección: Factores de autenticación y resistencia a phishing -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">Autenticación multifactor (MFA) y resistencia al phishing</h2>
+                        <p class="text-sm sm:text-base text-slate-600 mt-1">
+                            El 80 % de las intrusiones modernas comienzan con credenciales robadas. Combinar <strong>dos o más categorías distintas</strong> es obligatorio, pero no todos los MFA ofrecen la misma protección:
+                        </p>
+                    </div>
+                    <span class="inline-flex items-center px-3.5 py-1.5 rounded-lg bg-slate-800 text-white text-xs sm:text-sm font-mono font-semibold shrink-0">
+                        Control ISO 27001:2022 · A.8.5 (Autenticación segura)
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6 items-stretch">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2.5 mb-2.5">
+                                <span class="text-2xl" aria-hidden="true">🧠</span>
+                                <h3 class="text-lg font-bold text-slate-900">1. Algo que sabes (conocimiento)</h3>
+                            </div>
+                            <p class="text-sm sm:text-base text-slate-600 mb-4 leading-relaxed">Contraseñas, frases de paso (<em>passphrases</em>), PINs o respuestas secretas.</p>
+                        </div>
+                        <div class="text-sm bg-rose-50 text-rose-900 border border-rose-200 p-3.5 rounded-xl leading-relaxed">
+                            <strong>Debilidad:</strong> Vulnerable a reutilización en brechas, fuerza bruta, <em>keyloggers</em> e ingeniería social.
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2.5 mb-2.5">
+                                <span class="text-2xl" aria-hidden="true">🔑</span>
+                                <h3 class="text-lg font-bold text-slate-900">2. Algo que tienes (posesión)</h3>
+                            </div>
+                            <p class="text-sm sm:text-base text-slate-600 mb-4 leading-relaxed">Llave física criptográfica (YubiKey / FIDO2), tarjeta inteligente, app TOTP o certificado en chip TPM.</p>
+                        </div>
+                        <div class="text-sm bg-amber-50 text-amber-950 border border-amber-200 p-3.5 rounded-xl leading-relaxed">
+                            <strong>Cuidado SysAdmin:</strong> Tanto un código SMS/OTP como una aprobación <em>Push</em> fuera de banda en el móvil sucumben ante un proxy inverso (<em>AiTM</em>), que captura la cookie de sesión resultante.
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2.5 mb-2.5">
+                                <span class="text-2xl" aria-hidden="true">🧬</span>
+                                <h3 class="text-lg font-bold text-slate-900">3. Algo que eres (inherencia)</h3>
+                            </div>
+                            <p class="text-sm sm:text-base text-slate-600 mb-4 leading-relaxed">Huella dactilar, reconocimiento facial 3D (Windows Hello / FaceID) o patrón de iris validado localmente en el dispositivo.</p>
+                        </div>
+                        <div class="text-sm bg-emerald-50 text-emerald-950 border border-emerald-200 p-3.5 rounded-xl leading-relaxed">
+                            <strong>Estándar de oro (FIDO2 / WebAuthn / Passkeys):</strong> La biometría desbloquea una clave privada local vinculada al dominio real; <strong>inmune a dominios clonados de phishing</strong>.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Banner interactivo para abrir el Modal de profundización en Passkeys y FIDO2 -->
+                <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-2xl p-5 sm:p-6 border border-indigo-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md">
+                    <div class="space-y-1">
+                        <span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">🔬 Inmersión técnica · Estándar FIDO2 / WebAuthn</span>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-white">¿Cómo funciona exactamente una Passkey o una YubiKey por dentro y por qué es inmune al phishing?</h3>
+                        <p class="text-sm text-slate-300">Descubre la criptografía asimétrica de reto-respuesta, la vinculación de origen (<em>Origin Binding</em>) y la diferencia entre Passkeys sincronizadas y llaves físicas.</p>
+                    </div>
+                    <button type="button" onclick="openPasskeysModal()" class="shrink-0 px-5 py-3 rounded-xl bg-sky-400 hover:bg-sky-300 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg transition-all cursor-pointer">
+                        🔐 Radiografía de Passkeys y FIDO2
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ACTORES Y VECTORES DE ATAQUE -->
+        <section id="tab-amenazas" class="hidden space-y-8">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">¿Quién nos ataca y qué busca? Taxonomía de actores de amenaza</h2>
+                <p class="text-sm sm:text-base text-slate-600 mb-6">
+                    Atrás quedó el estereotipo del adolescente solitario. Hoy los departamentos de TI se enfrentan a una industria transnacional altamente especializada y asistida por inteligencia artificial:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="bg-rose-50/70 border border-rose-200 rounded-xl p-5">
+                        <div class="text-2xl mb-2" aria-hidden="true">💰</div>
+                        <h3 class="font-bold text-rose-950 text-lg mb-1">Cibercrimen organizado (RaaS)</h3>
+                        <p class="text-xs sm:text-sm font-semibold text-rose-700 uppercase tracking-wider mb-2">Motivación: lucro económico</p>
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                            Operan bajo modelos de franquicia (<em>Ransomware-as-a-Service</em>): unos desarrollan el malware, otros compran accesos iniciales (<em>Initial Access Brokers</em>) y otros ejecutan la extorsión.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900 text-white border border-slate-700 rounded-xl p-5">
+                        <div class="text-2xl mb-2" aria-hidden="true">🕵️</div>
+                        <h3 class="font-bold text-sky-400 text-lg mb-1">APT y grupos estado-nación</h3>
+                        <p class="text-xs sm:text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">Motivación: espionaje y sabotaje</p>
+                        <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                            Amenazas Persistentes Avanzadas con recursos ilimitados y vulnerabilidades <em>Zero-Day</em>. Buscan permanecer ocultos meses en infraestructuras críticas, universidades o industria.
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-5">
+                        <div class="text-2xl mb-2" aria-hidden="true">🏢</div>
+                        <h3 class="font-bold text-amber-950 text-lg mb-1">Amenaza interna (Insider)</h3>
+                        <p class="text-xs sm:text-sm font-semibold text-amber-800 uppercase tracking-wider mb-2">Motivación: negligencia o despecho</p>
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                            Empleados, exadministradores o subcontratas que ya disponen de acceso legítimo dentro de la red. Puede ser accidental (error humano) o intencionado (robo de cartera de clientes o sabotaje).
+                        </p>
+                    </div>
+
+                    <div class="bg-indigo-50/70 border border-indigo-200 rounded-xl p-5">
+                        <div class="text-2xl mb-2" aria-hidden="true">🤖</div>
+                        <h3 class="font-bold text-indigo-950 text-lg mb-1">IA agéntica y modelos de pesos abiertos</h3>
+                        <p class="text-xs sm:text-sm font-semibold text-indigo-700 uppercase tracking-wider mb-2">Multiplicador de velocidad</p>
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                            Enjambres de agentes autónomos ejecutados sobre modelos de pesos abiertos sin restricciones para auditar código, sintetizar <em>exploits</em> en minutos, generar <em>spear-phishing</em> perfecto o clonar voces (<em>deepfakes</em>).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Los 4 vectores críticos actuales -->
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Los 4 vectores de ataque críticos para el administrador de sistemas</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2.5">
+                                <h3 class="font-bold text-slate-900 text-lg">1. Ransomware de doble y triple extorsión</h3>
+                                <span class="text-xs sm:text-sm font-bold px-3 py-0.5 rounded-lg bg-rose-100 text-rose-800 shrink-0">Impacto C + I + D</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Antes de cifrar los servidores y detener la producción (Disponibilidad), los atacantes exfiltran terabytes de documentación sensible (Confidencialidad) e intentan borrar o corromper los repositorios de copias de seguridad en red.
+                            </p>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-800 bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <span class="text-rose-700 font-bold">🛡️ Contramedida crítica:</span> Backups inmutables WORM (regla 3-2-1-1-0), EDR y segmentación de red.
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2.5">
+                                <h3 class="font-bold text-slate-900 text-lg">2. Explotación de servicios expuestos (RCE / SQLi / Zero-Day)</h3>
+                                <span class="text-xs sm:text-sm font-bold px-3 py-0.5 rounded-lg bg-amber-100 text-amber-800 shrink-0">Perímetro web y VPN</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Ejecución remota de código (RCE), inyección SQL (SQLi) o vulnerabilidades críticas en pasarelas VPN y portales web expuestos a internet que permiten comprometer el servidor sin credenciales previas.
+                            </p>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-800 bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <span class="text-amber-700 font-bold">🛡️ Contramedida crítica:</span> Gestión ágil de parches (A.8.8), WAF, aislamiento en DMZ y consultas parametrizadas.
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2.5">
+                                <h3 class="font-bold text-slate-900 text-lg">3. Compromiso de identidad y correo (BEC / AiTM)</h3>
+                                <span class="text-xs sm:text-sm font-bold px-3 py-0.5 rounded-lg bg-purple-100 text-purple-800 shrink-0">Identidad y fraude</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Mediante proxies inversos (<em>Adversary-in-the-Middle</em>), el atacante captura la cookie de sesión ya autenticada en Microsoft 365 o Google Workspace, crea reglas ocultas de reenvío y modifica el IBAN en facturas reales.
+                            </p>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-800 bg-slate-50 border border-slate-200 p-3.5 rounded-xl flex flex-wrap items-center justify-between gap-2">
+                            <div>
+                                <span class="text-purple-700 font-bold">🛡️ Contramedida crítica:</span> MFA FIDO2/Passkeys, políticas de acceso condicional y firma digital.
+                            </div>
+                            <button type="button" onclick="openPasskeysModal()" class="text-xs font-bold px-2.5 py-1 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-900 border border-purple-300 transition-colors cursor-pointer shrink-0">
+                                🔐 Ver cómo funciona Passkeys / FIDO2
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-2.5">
+                                <h3 class="font-bold text-slate-900 text-lg">4. Ataques a la cadena de suministro (Supply Chain)</h3>
+                                <span class="text-xs sm:text-sm font-bold px-3 py-0.5 rounded-lg bg-blue-100 text-blue-800 shrink-0">Proveedores y librerías</span>
+                            </div>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                En lugar de atacar directamente la fortaleza del cliente, se compromete una actualización legítima de un proveedor de software (caso SolarWinds / XZ Utils) o la VPN de la empresa externa de mantenimiento.
+                            </p>
+                        </div>
+                        <div class="text-sm font-semibold text-slate-800 bg-slate-50 border border-slate-200 p-3.5 rounded-xl">
+                            <span class="text-blue-700 font-bold">🛡️ Contramedida crítica:</span> Control de proveedores (A.5.19–A.5.22), verificación de hashes y mínimo privilegio.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: CYBER KILL CHAIN -->
+        <section id="tab-killchain" class="hidden space-y-6">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Anatomía secuencial de un ciberataque (Cyber Kill Chain)</h2>
+                <p class="text-sm sm:text-base text-slate-600 mb-6">
+                    Un ataque grave rara vez ocurre en un único segundo. Comprender sus <strong>6 fases secuenciales</strong> permite al administrador de sistemas colocar sensores y cortafuegos internos para <strong>romper la cadena</strong> antes del impacto final:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs sm:text-sm font-mono font-bold bg-slate-800 text-white px-3 py-1 rounded mb-3">Fase 1 · Reconocimiento (OSINT)</span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Escaneo y recolección</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                El atacante investiga dominios, puertos abiertos (Shodan/Nmap), versiones de servidores web expuestos y correos de empleados filtrados en brechas previas.
+                            </p>
+                        </div>
+                        <p class="text-sm text-blue-900 bg-blue-50 p-3.5 rounded-xl border border-blue-200 leading-relaxed">
+                            <strong>Defensa SysAdmin:</strong> Minimizar servicios expuestos a internet, ocultar cabeceras de versión y vigilar exposición de credenciales.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs sm:text-sm font-mono font-bold bg-slate-800 text-white px-3 py-1 rounded mb-3">Fase 2 · Acceso inicial</span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">La primera brecha</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Intrusión mediante correo de <em>spear-phishing</em>, explotación de una vulnerabilidad pública sin parchear (RCE en servidor web/VPN) o credenciales robadas sin MFA.
+                            </p>
+                        </div>
+                        <p class="text-sm text-blue-900 bg-blue-50 p-3.5 rounded-xl border border-blue-200 leading-relaxed">
+                            <strong>Defensa SysAdmin:</strong> MFA FIDO2, parcheo de emergencia, filtrado de correo (SPF/DKIM/DMARC) y concienciación.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs sm:text-sm font-mono font-bold bg-slate-800 text-white px-3 py-1 rounded mb-3">Fase 3 · Ejecución y persistencia</span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Afianzar el pie en el sistema</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                El atacante instala una puerta trasera (<em>web shell</em>, tarea programada oculta o cuenta local de soporte) para no perder el acceso aunque se reinicie la máquina.
+                            </p>
+                        </div>
+                        <p class="text-sm text-blue-900 bg-blue-50 p-3.5 rounded-xl border border-blue-200 leading-relaxed">
+                            <strong>Defensa SysAdmin:</strong> Agentes EDR, listas blancas de ejecución y monitorización de creación de cuentas o tareas cron.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs sm:text-sm font-mono font-bold bg-slate-800 text-white px-3 py-1 rounded mb-3">Fase 4 · Escalada de privilegios</span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">De usuario básico a Domain Admin</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Explota permisos excesivos o contraseñas en memoria (LSASS / Kerberoasting) para obtener privilegios de superusuario (<code>root</code> o Administrador de Dominio).
+                            </p>
+                        </div>
+                        <p class="text-sm text-blue-900 bg-blue-50 p-3.5 rounded-xl border border-blue-200 leading-relaxed">
+                            <strong>Defensa SysAdmin:</strong> Separación estricta de cuentas de administración (A.8.2) y principio de mínimo privilegio.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs sm:text-sm font-mono font-bold bg-slate-800 text-white px-3 py-1 rounded mb-3">Fase 5 · Movimiento lateral</span>
+                            <h3 class="text-lg font-bold text-slate-900 mb-2">Propagación por la red interna</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Salta desde el equipo inicialmente infectado (p. ej., portátil de administración o servidor web en DMZ) hacia los servidores de base de datos del ERP, controladores industriales o cabinas de backup.
+                            </p>
+                        </div>
+                        <p class="text-sm text-blue-900 bg-blue-50 p-3.5 rounded-xl border border-blue-200 leading-relaxed">
+                            <strong>Defensa SysAdmin:</strong> Segmentación de red interna (Zero Trust), firewalls entre VLANs y bloqueo de SMB/RDP lateral.
+                        </p>
+                    </div>
+
+                    <div class="bg-rose-50 border border-rose-200 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs sm:text-sm font-mono font-bold bg-rose-700 text-white px-3 py-1 rounded mb-3">Fase 6 · Exfiltración e impacto</span>
+                            <h3 class="text-lg font-bold text-rose-950 mb-2">Secuestro, robo o sabotaje</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Extracción silenciosa de datos confidenciales hacia servidores externos y lanzamiento simultáneo del cifrado masivo (ransomware) sobre toda la infraestructura.
+                            </p>
+                        </div>
+                        <p class="text-sm text-rose-950 bg-white p-3.5 rounded-xl border border-rose-200 leading-relaxed">
+                            <strong>Última línea de vida:</strong> Copias de seguridad inmutables (3-2-1-1-0) aisladas de las credenciales del dominio y plan de respuesta (Playbook).
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: SIMULADOR FORENSE INTERACTIVO -->
+        <section id="tab-simulador" class="hidden">
+            <div class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-xl">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-700 pb-5 mb-6">
+                    <div>
+                        <span class="bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">⚡ Laboratorio forense interactivo</span>
+                        <h2 class="text-2xl font-bold text-white mt-2">Analizador forense de incidentes de seguridad</h2>
+                        <p class="text-sm text-slate-300 mt-1">Evalúa cada escenario real, diagnostica qué pilar y qué línea de defensa entran en juego y comprueba el dictamen técnico.</p>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0 bg-slate-800 p-2 rounded-xl border border-slate-700">
+                        <button type="button" onclick="prevCase()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs sm:text-sm font-semibold transition-colors">◀ Anterior</button>
+                        <span id="case-counter" class="text-xs sm:text-sm font-mono font-bold text-amber-400 px-2">Caso 1 / 5</span>
+                        <button type="button" onclick="nextCase()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 rounded-lg text-xs sm:text-sm font-semibold transition-colors">Siguiente ▶</button>
+                    </div>
+                </div>
+
+                <!-- Descripción del caso -->
+                <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5 mb-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <h3 id="case-title" class="text-lg sm:text-xl font-bold text-amber-400">Título del incidente</h3>
+                        <span id="case-badge" class="text-xs font-mono bg-slate-900 text-sky-400 px-3 py-1 rounded-full border border-slate-700">Contexto</span>
+                    </div>
+                    <p id="case-desc" class="text-sm sm:text-base text-slate-200 leading-relaxed bg-slate-950/60 p-4 rounded-xl border border-slate-800"></p>
+                </div>
+
+                <!-- Preguntas interactivas -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-slate-800/50 border border-slate-700/80 rounded-xl p-5">
+                        <p id="q1-label" class="text-sm font-bold text-slate-200 mb-3">1. Diagnóstico principal:</p>
+                        <div id="q1-options" class="space-y-2"></div>
+                    </div>
+                    <div class="bg-slate-800/50 border border-slate-700/80 rounded-xl p-5">
+                        <p id="q2-label" class="text-sm font-bold text-slate-200 mb-3">2. Medida técnica o control clave:</p>
+                        <div id="q2-options" class="space-y-2"></div>
+                    </div>
+                </div>
+
+                <!-- Botón revelar y explicación -->
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <button type="button" onclick="revealCaseSolution()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm shadow-md transition-all cursor-pointer">
+                        🔍 Comprobar diagnóstico y ver dictamen del CISO
+                    </button>
+                    <button type="button" onclick="resetCase()" class="text-xs text-slate-400 hover:text-white underline">
+                        Reiniciar respuestas de este caso
+                    </button>
+                </div>
+
+                <div id="case-solution" class="hidden mt-6 p-5 bg-emerald-950/90 border border-emerald-500/50 rounded-xl text-emerald-100 space-y-2">
+                    <div class="font-bold text-emerald-400 text-sm sm:text-base">💡 Dictamen forense y conexión con ISO 27001:2022:</div>
+                    <p id="case-explanation" class="text-sm text-emerald-100 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: CAZA DE INCIDENTES RECIENTES EN VIVO + CRONÓMETRO Y PIZARRA -->
+        <section id="tab-caza" class="hidden space-y-8">
+            <!-- Cabecera + Cronómetro ajustable -->
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <span class="bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">🌐 Dinámica participativa en tiempo real</span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+                            Caza de ciberataques reales: ¿qué está pasando ahí fuera ahora mismo?
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                            Buscad individualmente o en parejas una noticia sobre un <strong>incidente o brecha de ciberseguridad reciente e impactante</strong> (en empresas españolas, universidades, hospitales, administraciones públicas o grandes tecnológicas) para diseccionarla entre toda la clase.
+                        </p>
+                        <div class="pt-1">
+                            <p class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">Fuentes recomendadas para la búsqueda rápida:</p>
+                            <div class="flex flex-wrap gap-2 text-xs">
+                                <a href="https://www.incibe.es/incibe-cert/alerta-temprana/avisos" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-600 font-semibold transition-colors">🛡️ INCIBE-CERT ↗</a>
+                                <a href="https://www.ccn-cert.cni.es/es/actualidad/actualidad-ccn-cert.html" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-600 font-semibold transition-colors">🇪🇸 CCN-CERT ↗</a>
+                                <a href="https://www.bleepingcomputer.com/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-600 font-semibold transition-colors">💻 BleepingComputer ↗</a>
+                                <a href="https://thehackernews.com/" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-slate-600 font-semibold transition-colors">📰 The Hacker News ↗</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cronómetro hacia atrás ajustable -->
+                    <div class="lg:col-span-5 bg-slate-950/80 border border-slate-700 rounded-2xl p-5 sm:p-6 text-center shadow-inner">
+                        <div class="flex items-center justify-between text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">
+                            <span>⏱️ Tiempo de investigación</span>
+                            <span id="timer-status-badge" class="text-emerald-400 font-bold">Listo (10 min)</span>
+                        </div>
+
+                        <!-- Pantalla digital -->
+                        <div id="timer-display" class="text-5xl sm:text-6xl font-mono font-extrabold text-white tracking-wider my-3 select-none">
+                            10:00
+                        </div>
+
+                        <!-- Barra de progreso del cronómetro -->
+                        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden mb-4 border border-slate-700">
+                            <div id="timer-bar" class="h-full bg-emerald-400 transition-all duration-300" style="width: 100%"></div>
+                        </div>
+
+                        <!-- Ajuste de minutos (-1m / +1m y presets) -->
+                        <div class="flex flex-wrap items-center justify-center gap-1.5 mb-4">
+                            <button type="button" onclick="adjustTimerMinutes(-1)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-600 cursor-pointer">-1 min</button>
+                            <button type="button" onclick="setTimerMinutes(5)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 cursor-pointer">5 min</button>
+                            <button type="button" onclick="setTimerMinutes(10)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 cursor-pointer">10 min</button>
+                            <button type="button" onclick="setTimerMinutes(15)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 cursor-pointer">15 min</button>
+                            <button type="button" onclick="adjustTimerMinutes(1)" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-600 cursor-pointer">+1 min</button>
+                        </div>
+
+                        <!-- Controles Iniciar / Pausar / Reiniciar -->
+                        <div class="flex items-center justify-center gap-2.5">
+                            <button type="button" id="btn-timer-toggle" onclick="toggleTimer()" class="flex-1 py-2.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs sm:text-sm shadow transition-all cursor-pointer">
+                                ▶ Iniciar cuenta atrás
+                            </button>
+                            <button type="button" onclick="resetTimer()" class="py-2.5 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs sm:text-sm border border-slate-600 transition-all cursor-pointer">
+                                ↺ Reiniciar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Las 6 dimensiones guía para el debate + Pizarra interactiva en vivo -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Columna izquierda: Guía de las 6 dimensiones para el debate -->
+                <div class="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-4">
+                    <h3 class="text-xl font-bold text-slate-900">📋 Las 6 preguntas para diseccionar cada caso</h3>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                        Cuando expongáis vuestra noticia, analizaremos en común qué ha ocurrido bajo la lente de un administrador de sistemas y un CISO:
+                    </p>
+                    <ol class="list-decimal list-outside pl-5 space-y-3 text-xs sm:text-sm text-slate-700">
+                        <li>
+                            <strong class="text-slate-900">Víctima y activo crítico golpeado:</strong> ¿Qué organización ha sufrido el ataque y qué servicio o base de datos se ha visto comprometida?
+                        </li>
+                        <li>
+                            <strong class="text-slate-900">Pilares de la tríada CIA + extendida violados:</strong> ¿Hubo robo de información (<em>Confidencialidad</em>), manipulación de datos/cuentas (<em>Integridad</em>), parada del servicio (<em>Disponibilidad</em>), suplantación de identidad (<em>Autenticidad</em>) o borrado de evidencias (<em>Trazabilidad</em>)?
+                        </li>
+                        <li>
+                            <strong class="text-slate-900">Actor de amenaza y motivación:</strong> ¿Fue un grupo de <em>Ransomware-as-a-Service</em>, una APT estatal, un empleado desleal (<em>insider</em>), hacktivismo o agentes de IA autónomos?
+                        </li>
+                        <li>
+                            <strong class="text-slate-900">Eslabón inicial de la <em>Kill Chain</em>:</strong> ¿Por dónde entraron? (Credenciales sin MFA resistente a phishing, vulnerabilidad no parcheada, proveedor externo de la cadena de suministro...).
+                        </li>
+                        <li>
+                            <strong class="text-slate-900">Fallo en las tres Ds y control clave:</strong> ¿Falló la <em>Defensa</em> preventiva o la <em>Detección</em> temprana? ¿Qué control técnico la habría detenido?
+                        </li>
+                        <li>
+                            <strong class="text-slate-900">Impacto legal y de negocio (puente a la Sesión 2):</strong> ¿Se han filtrado datos personales que obliguen a notificar a la <strong>AEPD en menos de 72 horas</strong> (RGPD) o afecta a un organismo sujeto al <strong>ENS</strong>?
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Columna derecha: Pizarra forense interactiva para anotar los casos en clase -->
+                <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
+                    <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-full">Pizarra digital del aula</span>
+                            <h3 class="text-xl font-bold text-slate-900 mt-1">Registro en vivo de incidentes aportados por la clase</h3>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" onclick="openMuralFullscreen()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm shadow-sm transition-all cursor-pointer inline-flex items-center gap-1.5">
+                                <span aria-hidden="true">📺</span>
+                                <span>Proyectar mural a tamaño completo</span>
+                            </button>
+                            <button type="button" onclick="clearLiveIncidents()" class="text-xs text-slate-400 hover:text-rose-600 underline cursor-pointer">
+                                Vaciar pizarra
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Formulario rápido para proyectar mientras habla el alumno -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="sm:col-span-2">
+                            <label for="live-org" class="block text-xs font-bold text-slate-700 mb-1">1. Organización afectada y titular del incidente</label>
+                            <input id="live-org" type="text" placeholder="Ej.: Banco Santander / Iberdrola / Hospital Clínic — Exfiltración en proveedor cloud..." class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm focus:outline-none focus:border-blue-600 bg-white">
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <span class="block text-xs font-bold text-slate-700 mb-1.5">2. Dimensiones de seguridad vulneradas (marca todas las que apliquen)</span>
+                            <div id="live-pillars" class="flex flex-wrap gap-1.5">
+                                <button type="button" onclick="togglePillarChip(this, 'Confidencialidad')" class="pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer transition-all">Confidencialidad</button>
+                                <button type="button" onclick="togglePillarChip(this, 'Integridad')" class="pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer transition-all">Integridad</button>
+                                <button type="button" onclick="togglePillarChip(this, 'Disponibilidad')" class="pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer transition-all">Disponibilidad</button>
+                                <button type="button" onclick="togglePillarChip(this, 'Autenticidad')" class="pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer transition-all">Autenticidad</button>
+                                <button type="button" onclick="togglePillarChip(this, 'No repudio')" class="pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer transition-all">No repudio</button>
+                                <button type="button" onclick="togglePillarChip(this, 'Trazabilidad')" class="pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer transition-all">Trazabilidad</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="live-actor" class="block text-xs font-bold text-slate-700 mb-1">3. Actor y vector principal</label>
+                            <select id="live-actor" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-white focus:outline-none focus:border-blue-600">
+                                <option value="Ransomware / Cibercrimen (RaaS)">Ransomware / Cibercrimen (RaaS)</option>
+                                <option value="Compromiso de identidad / Phishing / BEC">Compromiso de identidad / Phishing / BEC</option>
+                                <option value="Ataque a la cadena de suministro (Proveedor)">Ataque a la cadena de suministro (Proveedor)</option>
+                                <option value="Explotación de vulnerabilidad / 0-day / IA">Explotación de vulnerabilidad / 0-day / IA</option>
+                                <option value="APT estatal / Ciberespionaje">APT estatal / Ciberespionaje</option>
+                                <option value="Insider / Error humano de configuración">Insider / Error humano de configuración</option>
+                                <option value="Ataque DDoS / Hacktivismo">Ataque DDoS / Hacktivismo</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="live-impact" class="block text-xs font-bold text-slate-700 mb-1">4. Derivada legal / operativa</label>
+                            <select id="live-impact" class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm bg-white focus:outline-none focus:border-blue-600">
+                                <option value="Brecha RGPD (Notificación AEPD < 72 h)">Brecha RGPD (Notificación AEPD &lt; 72 h)</option>
+                                <option value="Parada operativa crítica + Brecha RGPD">Parada operativa crítica + Brecha RGPD</option>
+                                <option value="Impacto en servicio público (ENS + CCN-CERT)">Impacto en servicio público (ENS + CCN-CERT)</option>
+                                <option value="Pérdida financiera / Robo de propiedad intelectual">Pérdida financiera / Robo de propiedad intelectual</option>
+                                <option value="Indisponibilidad temporal sin fuga de datos">Indisponibilidad temporal sin fuga de datos</option>
+                            </select>
+                        </div>
+
+                        <div class="sm:col-span-2">
+                            <label for="live-lesson" class="block text-xs font-bold text-slate-700 mb-1">5. Conclusión técnica de la clase (¿qué falló y qué control lo habría evitado?)</label>
+                            <input id="live-lesson" type="text" placeholder="Ej.: Entraron por credenciales de un proveedor sin MFA FIDO2; faltó segmentación y detección SIEM..." class="w-full px-3 py-2 rounded-lg border border-slate-300 text-xs sm:text-sm focus:outline-none focus:border-blue-600 bg-white">
+                        </div>
+
+                        <div class="sm:col-span-2 flex justify-end">
+                            <button type="button" onclick="addLiveIncident()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm shadow transition-all cursor-pointer">
+                                ➕ Añadir caso al mural de la sesión
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mural de casos registrados en la sesión -->
+                    <div id="live-incidents-list" class="space-y-3"></div>
+                </div>
+            </div>
+
+            <!-- Modal de proyección del mural a tamaño completo para el cierre de la actividad -->
+            <div id="mural-fullscreen-modal" role="dialog" aria-modal="true" aria-labelledby="mural-modal-title" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md text-white overflow-y-auto p-6 sm:p-10">
+                <div class="max-w-7xl mx-auto space-y-8">
+                    <!-- Cabecera del mural proyectado -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                        <div>
+                            <span class="bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">🌐 Cierre de la Actividad 1 · Síntesis colectiva</span>
+                            <h2 id="mural-modal-title" class="text-2xl sm:text-4xl font-extrabold text-white mt-2">
+                                Mural forense de la sesión: radiografía de incidentes reales
+                            </h2>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+                            <button type="button" onclick="toggleNativeFullscreen()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm transition-all cursor-pointer">
+                                ⛶ Pantalla completa (F11)
+                            </button>
+                            <button type="button" onclick="closeMuralFullscreen()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs sm:text-sm shadow-lg transition-all cursor-pointer">
+                                ✕ Cerrar proyección (Esc)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Contador estadístico en vivo de pilares vulnerados en los casos de la clase -->
+                    <div id="mural-fullscreen-stats" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3"></div>
+
+                    <!-- Rejilla a gran tamaño de los incidentes analizados -->
+                    <div id="mural-fullscreen-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modal de inmersión técnica: Radiografía de Passkeys y llaves físicas FIDO2 / WebAuthn -->
+        <div id="passkeys-modal" role="dialog" aria-modal="true" aria-labelledby="passkeys-modal-title" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md text-white overflow-y-auto p-6 sm:p-10">
+            <div class="max-w-6xl mx-auto space-y-8">
+                <!-- Cabecera -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                    <div>
+                        <span class="bg-sky-400 text-slate-950 text-xs sm:text-sm font-black uppercase tracking-wider px-3.5 py-1 rounded-full">🔐 Estándar W3C WebAuthn + FIDO2</span>
+                        <h2 id="passkeys-modal-title" class="text-2xl sm:text-4xl font-extrabold text-white mt-3">
+                            Radiografía técnica de las Passkeys y llaves físicas FIDO2
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-300 mt-1">
+                            Por qué una Passkey es <strong>autenticación multifactor (MFA) nativa en un solo gesto</strong> y el único escudo real frente al phishing con proxy inverso (<em>AiTM</em>).
+                        </p>
+                    </div>
+                    <button type="button" onclick="closePasskeysModal()" class="self-start sm:self-center shrink-0 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg transition-all cursor-pointer">
+                        ✕ Cerrar ventana (Esc)
+                    </button>
+                </div>
+
+                <!-- Bloque 1: ¿Por qué una Passkey es MFA real en un solo paso? -->
+                <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6">
+                    <h3 class="text-lg sm:text-xl font-extrabold text-sky-400 mb-3">1. ¿Por qué una Passkey cumple dos factores (MFA) en un único gesto?</h3>
+                    <p class="text-sm sm:text-base text-slate-300 mb-5 leading-relaxed">
+                        A diferencia del MFA tradicional (donde primero escribes una contraseña que viaja por la red y luego introduces un código de 6 dígitos), una <strong>Passkey</strong> combina simultáneamente dos factores independientes sin que ningún secreto salga jamás de tu dispositivo:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="bg-slate-950/90 border border-emerald-500/40 rounded-xl p-5">
+                            <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Factor 1 · Algo que tienes (posesión criptográfica)</span>
+                            <h4 class="text-base sm:text-lg font-bold text-white mt-1 mb-2">Par de claves asimétricas (P-256 / Ed25519)</h4>
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                                Al registrarte, tu dispositivo genera un par de claves único para ese servicio: el servidor solo guarda la <strong>clave pública</strong>, mientras que la <strong>clave privada</strong> queda custodiada dentro del chip seguro del dispositivo (TPM, <em>Secure Enclave</em> o llave YubiKey).
+                            </p>
+                        </div>
+                        <div class="bg-slate-950/90 border border-amber-500/40 rounded-xl p-5">
+                            <span class="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold">Factor 2 · Algo que eres o sabes (verificación local UV)</span>
+                            <h4 class="text-base sm:text-lg font-bold text-white mt-1 mb-2">Desbloqueo biométrico o PIN local</h4>
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                                El chip criptográfico se niega a firmar el desafío de entrada a menos que demuestres localmente quién eres (huella, FaceID, Windows Hello o el PIN de tu llave física). <strong>Tu huella nunca se envía al servidor web</strong>: solo autoriza la firma matemática local.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloque 2: Comparativa frente a un ataque de Phishing AiTM (Evilginx2) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    <div class="bg-rose-950/30 border border-rose-500/40 rounded-2xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs font-mono uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40 px-3 py-1 rounded-lg font-bold mb-3">❌ Por qué cae el MFA clásico (SMS / TOTP 6 dígitos / Push móvil)</span>
+                            <h3 class="text-lg sm:text-xl font-extrabold text-white mb-3">Vulnerable a proxy inverso (AiTM), incluso fuera de banda</h3>
+                            <ol class="list-decimal list-outside pl-5 space-y-2.5 text-sm sm:text-base text-slate-200 leading-relaxed">
+                                <li>El usuario entra en un enlace trampa (<code>login.keraben-support.com</code>) que actúa como proxy inverso en vivo hacia el servidor real de Microsoft 365 o Google.</li>
+                                <li><strong>Si usa código OTP (6 dígitos):</strong> lo escribe en el proxy y el atacante lo retransmite al servidor real.</li>
+                                <li><strong>Si aprueba una notificación <em>Push</em> en su móvil (<em>out-of-band</em>, incluso con <em>Number Matching</em>):</strong> aunque el «Sí, soy yo» va del móvil al servidor legítimo, este cree que la sesión web pendiente es legítima y <strong>envía la cookie de sesión autenticada de vuelta al cliente web que inició la petición (¡el proxy del atacante!)</strong>.</li>
+                            </ol>
+                        </div>
+                        <div class="mt-5 bg-rose-950/80 border border-rose-700/60 rounded-xl p-3.5 text-sm text-rose-200">
+                            <strong>Fallo de diseño:</strong> Ni el código OTP ni la aprobación <em>Push</em> en el móvil verifican criptográficamente qué dominio o canal TLS está abierto en el navegador del PC.
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-950/30 border border-emerald-500/40 rounded-2xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs font-mono uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-3 py-1 rounded-lg font-bold mb-3">✅ Por qué resiste FIDO2 / Passkeys (Origin Binding)</span>
+                            <h3 class="text-lg sm:text-xl font-extrabold text-white mb-3">Vinculación criptográfica al dominio</h3>
+                            <ol class="list-decimal list-outside pl-5 space-y-2.5 text-sm sm:text-base text-slate-200 leading-relaxed">
+                                <li>Aunque el usuario caiga en el engaño y entre en <code>login.keraben-support.com</code>, es el <strong>navegador web</strong> (no el humano) quien lee el dominio real de la barra de direcciones (<code>rpId</code>).</li>
+                                <li>El navegador pide una Passkey registrada para <code>keraben-support.com</code>. Como la Passkey se creó para <code>microsoft.com</code>, <strong>no encuentra ninguna clave coincidente</strong>.</li>
+                                <li>Incluso si el proxy intenta retransmitir el reto criptográfico (<em>challenge</em>), la firma incluye el dominio donde está el navegador; el servidor real detecta la discrepancia y rechaza el acceso de inmediato.</li>
+                            </ol>
+                        </div>
+                        <div class="mt-5 bg-emerald-950/80 border border-emerald-700/60 rounded-xl p-3.5 text-sm text-emerald-200">
+                            <strong>Ventaja extra:</strong> Si roban la base de datos del servidor, solo obtienen claves públicas inútiles (no hay hashes de contraseñas que crackear).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloque 2B: El mito del candado HTTPS y los ataques homográficos (IDN Homograph / Punycode) -->
+                <div class="bg-slate-900 border border-purple-500/40 rounded-2xl p-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <h3 class="text-lg sm:text-xl font-extrabold text-purple-300">2. «¡Pero tenía el candadito HTTPS!»: el mito del certificado TLS y los ataques homográficos (IDN)</h3>
+                        <span class="text-xs font-mono uppercase tracking-wider bg-purple-500/20 text-purple-200 border border-purple-500/40 px-3 py-1 rounded-lg font-bold">Punycode · Let's Encrypt</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+                        <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-base sm:text-lg font-bold text-white mb-2">🔒 ¿Qué protege (y qué NO) un certificado SSL/TLS?</h4>
+                                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                                    Un certificado TLS estándar (<em>Domain Validated</em>, emitido gratis en 30 segundos por autoridades como <em>Let's Encrypt</em>) <strong>no certifica que la web sea honesta ni que pertenezca a la empresa real</strong>. Solo garantiza que el canal entre tu navegador y el servidor del atacante va cifrado y que el atacante es dueño de ese dominio trampa. Hoy <strong>más del 90 % de las páginas de phishing tienen un certificado HTTPS válido</strong> sin ninguna alerta en el navegador.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-base sm:text-lg font-bold text-white mb-2">🎭 Ataque homográfico IDN (<em>IDN Homograph Attack</em>)</h4>
+                                <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                                    El atacante registra <code>kerаben.com</code> sustituyendo la letra <code>a</code> latina (<code>U+0061</code>) por la <code>а</code> cirílica (<code>U+0430</code>), visualmente idéntica píxel por píxel, y le instala su certificado TLS legítimo. El ojo humano y el candado HTTPS son engañados al 100 %, pero <strong>una Passkey (FIDO2) jamás cae</strong>: para el navegador ese dominio en codificación ASCII (<em>Punycode</em>) es <code>xn--kerben-85a.com</code>, distinto de <code>keraben.com</code>, por lo que bloquea la autenticación de raíz.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloque 3: Passkeys sincronizadas vs. Llaves físicas FIDO2 (Criterio SysAdmin) -->
+                <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6">
+                    <h3 class="text-lg sm:text-xl font-extrabold text-amber-400 mb-3">3. Criterio para el administrador de sistemas: ¿Passkey sincronizada o llave física FIDO2?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-5">
+                            <h4 class="text-base sm:text-lg font-bold text-sky-300 mb-2">☁️ Passkeys sincronizadas (Multi-Device)</h4>
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-3">
+                                La clave privada se sincroniza cifrada de extremo a extremo a través del llavero de iCloud, Google Password Manager o gestores como Bitwarden / 1Password. Si pierdes el móvil, recuperas tus Passkeys en el nuevo dispositivo.
+                            </p>
+                            <p class="text-xs sm:text-sm font-semibold text-sky-400">
+                                🎯 Uso recomendado: Cuentas personales, alumnado, clientes B2B y plantilla general.
+                            </p>
+                        </div>
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-5">
+                            <h4 class="text-base sm:text-lg font-bold text-amber-300 mb-2">🔑 Llaves físicas FIDO2 vinculadas a hardware (Device-Bound)</h4>
+                            <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-3">
+                                La clave privada se genera dentro de un token físico (p. ej., <strong>YubiKey 5</strong> o <strong>Google Titan</strong>) o en el chip TPM corporativo y <strong>es físicamente inexportable</strong>. Se registran siempre al menos 2 llaves (principal en el llavero + copia de respaldo en caja fuerte).
+                            </p>
+                            <p class="text-xs sm:text-sm font-semibold text-amber-400">
+                                🎯 Uso recomendado: Administradores de dominio (Active Directory / Entra ID), consolas Cloud (AWS/Azure), hipervisores y cuentas <em>break-glass</em> (ENS Nivel Alto).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie del modal con laboratorios externos en vivo -->
+                <div class="bg-indigo-950/60 border border-indigo-500/40 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold">🧪 Pruébalo en directo desde el navegador</span>
+                        <p class="text-sm sm:text-base text-slate-200 mt-0.5">
+                            Puedes experimentar en vivo el registro y la autenticación sin contraseña con el lector biométrico de tu portátil o móvil en estos dos sandboxes oficiales:
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-3 shrink-0">
+                        <a href="https://www.passkeys.io/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs sm:text-sm shadow transition-all">
+                            🌐 Demo interactiva passkeys.io ↗
+                        </a>
+                        <a href="https://webauthn.io/" target="_blank" rel="noopener noreferrer" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-600 font-bold text-xs sm:text-sm transition-all">
+                            🔬 Inspector técnico webauthn.io ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación secuencial entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos del tema" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-xs sm:text-sm hide-in-embed">
+            <a href="Incidente%20PHP%20e%20IA%20ag%C3%A9ntica.html" class="justify-self-center sm:justify-self-start px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">← 00. Incidente PHP e IA agéntica</a>
+            <a href="../index.html" class="justify-self-center px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">📋 Volver al índice general</a>
+            <a href="Defensa%20y%20pol%C3%ADticas.html" class="justify-self-center sm:justify-self-end px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-sm transition-colors">02. Defensa en profundidad y políticas →</a>
+        </nav>
+
+        <!-- Pie de página académico -->
+        <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-2">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:underline">DLSI</a>
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        const tabsOrder = ['principios', 'amenazas', 'killchain', 'simulador', 'caza'];
+        let currentTabIndex = 0;
+
+        function switchTab(tabId) {
+            currentTabIndex = tabsOrder.indexOf(tabId);
+            if (currentTabIndex === -1) currentTabIndex = 0;
+            tabsOrder.forEach(t => {
+                document.getElementById('tab-' + t).classList.toggle('hidden', t !== tabId);
+                const btn = document.getElementById('tab-btn-' + t);
+                if (btn) btn.classList.toggle('active', t === tabId);
+            });
+        }
+
+        function stepTab(delta) {
+            const next = currentTabIndex + delta;
+            if (next >= 0 && next < tabsOrder.length) {
+                switchTab(tabsOrder[next]);
+            }
+        }
+
+        function openPasskeysModal() {
+            const modal = document.getElementById('passkeys-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closePasskeysModal() {
+            const modal = document.getElementById('passkeys-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const passkeysModal = document.getElementById('passkeys-modal');
+                if (passkeysModal && !passkeysModal.classList.contains('hidden')) {
+                    closePasskeysModal();
+                    return;
+                }
+                const modal = document.getElementById('mural-fullscreen-modal');
+                if (modal && !modal.classList.contains('hidden')) {
+                    closeMuralFullscreen();
+                    return;
+                }
+            }
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+            const passkeysModal = document.getElementById('passkeys-modal');
+            if (passkeysModal && !passkeysModal.classList.contains('hidden')) return;
+            const modal = document.getElementById('mural-fullscreen-modal');
+            if (modal && !modal.classList.contains('hidden')) return;
+            if (e.key === 'ArrowRight') stepTab(1);
+            if (e.key === 'ArrowLeft') stepTab(-1);
+        });
+
+        // --- CRONÓMETRO AJUSTABLE PARA LA PESTAÑA 5 ---
+        let timerTotalSeconds = 600; // 10 min por defecto
+        let timerRemainingSeconds = 600;
+        let timerInterval = null;
+
+        function formatTime(sec) {
+            const m = Math.floor(sec / 60);
+            const s = sec % 60;
+            return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        function updateTimerUI() {
+            const display = document.getElementById('timer-display');
+            const bar = document.getElementById('timer-bar');
+            const badge = document.getElementById('timer-status-badge');
+            const btn = document.getElementById('btn-timer-toggle');
+            if (!display) return;
+
+            display.textContent = formatTime(timerRemainingSeconds);
+            const pct = timerTotalSeconds > 0 ? Math.max(0, (timerRemainingSeconds / timerTotalSeconds) * 100) : 0;
+            bar.style.width = `${pct}%`;
+
+            if (timerRemainingSeconds === 0) {
+                display.className = "text-5xl sm:text-6xl font-mono font-extrabold text-amber-400 tracking-wider my-3 select-none animate-pulse";
+                bar.className = "h-full bg-amber-400 transition-all duration-300";
+                badge.textContent = "🔔 ¡Tiempo completado! Puesta en común";
+                badge.className = "text-amber-400 font-bold";
+                btn.textContent = "▶ Iniciar cuenta atrás";
+            } else if (timerInterval !== null) {
+                display.className = "text-5xl sm:text-6xl font-mono font-extrabold text-emerald-300 tracking-wider my-3 select-none";
+                bar.className = timerRemainingSeconds <= 60
+                    ? "h-full bg-rose-500 transition-all duration-300"
+                    : "h-full bg-emerald-400 transition-all duration-300";
+                badge.textContent = "⏳ Búsqueda en curso...";
+                badge.className = "text-emerald-400 font-bold";
+                btn.textContent = "⏸ Pausar";
+            } else {
+                display.className = "text-5xl sm:text-6xl font-mono font-extrabold text-white tracking-wider my-3 select-none";
+                bar.className = "h-full bg-emerald-400 transition-all duration-300";
+                badge.textContent = `Listo (${Math.round(timerTotalSeconds / 60)} min)`;
+                badge.className = "text-slate-300 font-bold";
+                btn.textContent = timerRemainingSeconds < timerTotalSeconds ? "▶ Reanudar" : "▶ Iniciar cuenta atrás";
+            }
+        }
+
+        function setTimerMinutes(mins) {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            const cleanMins = Math.max(1, Math.min(60, mins));
+            timerTotalSeconds = cleanMins * 60;
+            timerRemainingSeconds = timerTotalSeconds;
+            updateTimerUI();
+        }
+
+        function adjustTimerMinutes(deltaMins) {
+            const currentBaseMins = Math.round(timerTotalSeconds / 60);
+            setTimerMinutes(currentBaseMins + deltaMins);
+        }
+
+        function toggleTimer() {
+            if (timerInterval !== null) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                updateTimerUI();
+            } else {
+                if (timerRemainingSeconds <= 0) {
+                    timerRemainingSeconds = timerTotalSeconds;
+                }
+                timerInterval = setInterval(() => {
+                    if (timerRemainingSeconds > 0) {
+                        timerRemainingSeconds--;
+                        updateTimerUI();
+                    }
+                    if (timerRemainingSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        timerInterval = null;
+                        updateTimerUI();
+                    }
+                }, 1000);
+                updateTimerUI();
+            }
+        }
+
+        function resetTimer() {
+            if (timerInterval !== null) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            timerRemainingSeconds = timerTotalSeconds;
+            updateTimerUI();
+        }
+
+        // --- PIZARRA EN VIVO DE INCIDENTES (PESTAÑA 5) ---
+        let selectedLivePillars = new Set();
+        const STORAGE_KEY_INCIDENTS = 'ei1044_t4_live_incidents_v1';
+
+        function resetPillarChipsUI() {
+            selectedLivePillars.clear();
+            document.querySelectorAll('#live-pillars .pillar-chip').forEach(btn => {
+                btn.className = "pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer transition-all";
+            });
+        }
+
+        function togglePillarChip(btn, pillar) {
+            if (selectedLivePillars.has(pillar)) {
+                selectedLivePillars.delete(pillar);
+                btn.className = "pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 hover:bg-slate-100 cursor-pointer transition-all";
+            } else {
+                selectedLivePillars.add(pillar);
+                btn.className = "pillar-chip px-2.5 py-1 rounded-lg text-xs font-bold border border-blue-600 bg-blue-600 text-white shadow-sm cursor-pointer transition-all";
+            }
+        }
+
+        function loadLiveIncidents() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY_INCIDENTS);
+                if (raw) return JSON.parse(raw);
+            } catch (e) {}
+            return [];
+        }
+
+        function saveLiveIncidents(list) {
+            try {
+                localStorage.setItem(STORAGE_KEY_INCIDENTS, JSON.stringify(list));
+            } catch (e) {}
+        }
+
+        function escapeHtml(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function renderLiveIncidents() {
+            const container = document.getElementById('live-incidents-list');
+            if (!container) return;
+            const list = loadLiveIncidents();
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="p-4 rounded-xl border border-dashed border-slate-300 text-center text-xs sm:text-sm text-slate-500">
+                        Aún no se han anotado incidentes en esta sesión. Usa el formulario superior para registrar en directo los casos que compartan los estudiantes.
+                    </div>
+                `;
+                return;
+            }
+            container.innerHTML = list.map((item, idx) => `
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50/70 space-y-2">
+                    <div class="flex flex-wrap items-start justify-between gap-2">
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">${escapeHtml(item.org)}</h4>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xs font-mono bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-full font-semibold">${escapeHtml(item.actor)}</span>
+                            <button type="button" onclick="removeLiveIncident(${idx})" class="text-slate-400 hover:text-rose-600 text-xs px-1.5 font-bold cursor-pointer" title="Eliminar caso">✕</button>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-1.5">
+                        ${item.pillars.map(p => `<span class="text-xs font-bold bg-blue-100 text-blue-900 px-2 py-0.5 rounded">${escapeHtml(p)}</span>`).join('')}
+                        <span class="text-xs font-semibold bg-rose-100 text-rose-900 px-2 py-0.5 rounded">⚖️ ${escapeHtml(item.impact)}</span>
+                    </div>
+                    ${item.lesson ? `<p class="text-xs sm:text-sm text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200"><strong>Lección técnica:</strong> ${escapeHtml(item.lesson)}</p>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function addLiveIncident() {
+            const orgInput = document.getElementById('live-org');
+            const actorInput = document.getElementById('live-actor');
+            const impactInput = document.getElementById('live-impact');
+            const lessonInput = document.getElementById('live-lesson');
+
+            const org = orgInput.value.trim();
+            if (!org) {
+                orgInput.focus();
+                return;
+            }
+            const pillars = Array.from(selectedLivePillars);
+            if (pillars.length === 0) pillars.push('Por determinar');
+
+            const list = loadLiveIncidents();
+            list.unshift({
+                org,
+                pillars,
+                actor: actorInput.value,
+                impact: impactInput.value,
+                lesson: lessonInput.value.trim()
+            });
+            saveLiveIncidents(list);
+
+            orgInput.value = '';
+            lessonInput.value = '';
+            resetPillarChipsUI();
+            renderLiveIncidents();
+        }
+
+        function removeLiveIncident(idx) {
+            const list = loadLiveIncidents();
+            list.splice(idx, 1);
+            saveLiveIncidents(list);
+            renderLiveIncidents();
+        }
+
+        function clearLiveIncidents() {
+            saveLiveIncidents([]);
+            renderLiveIncidents();
+            renderMuralFullscreenContent();
+        }
+
+        function renderMuralFullscreenContent() {
+            const statsContainer = document.getElementById('mural-fullscreen-stats');
+            const gridContainer = document.getElementById('mural-fullscreen-grid');
+            if (!statsContainer || !gridContainer) return;
+
+            const list = loadLiveIncidents();
+            const allPillars = ['Confidencialidad', 'Integridad', 'Disponibilidad', 'Autenticidad', 'No repudio', 'Trazabilidad'];
+            const counts = {};
+            allPillars.forEach(p => counts[p] = 0);
+            list.forEach(item => {
+                (item.pillars || []).forEach(p => {
+                    if (counts[p] !== undefined) counts[p]++;
+                });
+            });
+
+            statsContainer.innerHTML = `
+                <div class="bg-slate-900 border border-slate-700 rounded-xl p-3.5 text-center">
+                    <span class="block text-2xl sm:text-3xl font-extrabold text-emerald-400">${list.length}</span>
+                    <span class="text-xs font-mono uppercase tracking-wider text-slate-400">Casos analizados</span>
+                </div>
+                ${allPillars.map(p => `
+                    <div class="bg-slate-900/80 border ${counts[p] > 0 ? 'border-sky-500/50' : 'border-slate-800'} rounded-xl p-3.5 text-center">
+                        <span class="block text-2xl sm:text-3xl font-extrabold ${counts[p] > 0 ? 'text-sky-300' : 'text-slate-600'}">${counts[p]}</span>
+                        <span class="text-xs font-bold ${counts[p] > 0 ? 'text-slate-200' : 'text-slate-500'}">${p}</span>
+                    </div>
+                `).join('')}
+            `;
+
+            if (list.length === 0) {
+                gridContainer.innerHTML = `
+                    <div class="md:col-span-2 p-10 rounded-2xl border border-dashed border-slate-700 text-center text-slate-400 text-base sm:text-lg">
+                        Aún no hay casos registrados en la pizarra. Cierra esta vista, añade los incidentes comentados por la clase y vuelve a proyectar el mural para la síntesis final.
+                    </div>
+                `;
+                return;
+            }
+
+            gridContainer.innerHTML = list.map((item, idx) => `
+                <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex flex-wrap items-start justify-between gap-2">
+                            <span class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/80 border border-emerald-700/60 px-2.5 py-1 rounded-lg">Caso #${list.length - idx}</span>
+                            <span class="text-xs font-mono bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1 rounded-full font-bold">${escapeHtml(item.actor)}</span>
+                        </div>
+                        <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-snug">${escapeHtml(item.org)}</h3>
+                        <div class="flex flex-wrap gap-2 pt-1">
+                            ${(item.pillars || []).map(p => `<span class="text-xs sm:text-sm font-bold bg-sky-500/20 text-sky-200 border border-sky-500/40 px-3 py-1 rounded-lg">🔺 ${escapeHtml(p)}</span>`).join('')}
+                            <span class="text-xs sm:text-sm font-bold bg-rose-500/20 text-rose-200 border border-rose-500/40 px-3 py-1 rounded-lg">⚖️ ${escapeHtml(item.impact)}</span>
+                        </div>
+                    </div>
+                    ${item.lesson ? `
+                        <div class="bg-slate-950/90 border-l-4 border-l-emerald-400 border border-slate-800 rounded-xl p-4 text-sm sm:text-base text-slate-200 leading-relaxed">
+                            <strong class="text-emerald-400 block text-xs font-mono uppercase tracking-wider mb-1">💡 Lección técnica / Control clave:</strong>
+                            ${escapeHtml(item.lesson)}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function openMuralFullscreen() {
+            renderMuralFullscreenContent();
+            const modal = document.getElementById('mural-fullscreen-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeMuralFullscreen() {
+            const modal = document.getElementById('mural-fullscreen-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        function toggleNativeFullscreen() {
+            const modal = document.getElementById('mural-fullscreen-modal');
+            if (!document.fullscreenElement && modal && modal.requestFullscreen) {
+                modal.requestFullscreen().catch(() => {});
+            } else if (document.fullscreenElement && document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            }
+        }
+
+        const forensicCases = [
+            {
+                title: "Caso 1 · Exfiltración silenciosa en el portal B2B de distribuidores de Keraben",
+                badge: "Inyección SQL (SQLi) y detección SIEM",
+                desc: "Durante el fin de semana, un competidor desleal descubre que el buscador de stock del portal web B2B de Keraben concatena parámetros sin sanitizar. Sin alterar ninguna página ni tumbar el servidor, lanza miles de consultas automatizadas (Blind SQL Injection) y descarga la tabla completa de tarifas confidenciales y descuentos pactados con los distribuidores europeos. El lunes a las 08:00 h, el sistema SIEM alerta de un patrón anómalo de consultas a la base de datos.",
+                q1: "¿Qué pilar de la tríada CIA se ha visto comprometido principalmente en este ataque silencioso?",
+                q1Opts: [
+                    "La Disponibilidad, porque el portal dejó de funcionar.",
+                    "La Confidencialidad, por acceso y exfiltración no autorizada de información comercial secreta sin alterar ni detener el servicio.",
+                    "Ninguno, porque no borraron ninguna tabla."
+                ],
+                q1Correct: 1,
+                q2: "¿En cuál de las tres Ds encaja la alerta generada por el SIEM y qué medidas de Defensa habrían evitado la intrusión?",
+                q2Opts: [
+                    "Detección (correlación de logs en SIEM, control A.8.16) + Defensa mediante consultas parametrizadas (Prepared Statements), WAF y mínimo privilegio en la cuenta de BBDD.",
+                    "Recuperación mediante restauración de cintas LTO.",
+                    "Reiniciar el router de la oficina."
+                ],
+                q2Correct: 0,
+                explanation: "Un ataque de inyección SQL de lectura no afecta a la disponibilidad ni a la integridad, pero destruye la Confidencialidad. La alerta del SIEM actúa en la línea de Detección (A.8.16), mientras que la Defensa (A.8.26 / A.8.28) exige usar sentencias parametrizadas en código, desplegar un WAF en la DMZ y asegurar que el usuario web de la base de datos nunca tenga permisos de lectura sobre tablas de márgenes financieros."
+            },
+            {
+                title: "Caso 2 · Las facturas de 80.000 € desviadas al distribuidor de Múnich",
+                badge: "Fraude BEC y fatiga de MFA",
+                desc: "El director financiero de Keraben recibe a las 23:15 h cinco notificaciones 'Push' seguidas en su móvil para aprobar un inicio de sesión. Pensando que es un fallo de sincronización de su correo, pulsa 'Aceptar' para que deje de sonar. Al día siguiente, un gran distribuidor alemán en Múnich recibe desde la cuenta real de Microsoft 365 del director financiero tres facturas pendientes de 80.000 € en las que se ha sustituido el IBAN de Keraben por una cuenta bancaria de los atacantes para desviar el cobro.",
+                q1: "¿Qué técnica de ataque permitió superar el doble factor de autenticación?",
+                q1Opts: [
+                    "Fuerza bruta criptográfica contra AES-256.",
+                    "Ingeniería social por fatiga de MFA (MFA Prompt Bombing) combinada con fraude BEC.",
+                    "Inyección SQL en el servidor de impresión."
+                ],
+                q1Correct: 1,
+                q2: "¿Qué evolución técnica del control A.8.5 impide este ataque y qué pilar extendido verifica que el documento PDF no fue alterado?",
+                q2Opts: [
+                    "Cambiar la contraseña cada 15 días y usar texto plano.",
+                    "Autenticación FIDO2/Passkeys (o Number Matching con geolocalización) + Firma digital criptográfica (Autenticidad y No repudio).",
+                    "Desactivar el MFA para no molestar al directivo por la noche."
+                ],
+                q2Correct: 1,
+                explanation: "Las notificaciones Push simples son vulnerables a la fatiga de MFA. La solución técnica pasa por exigir coincidencia numérica (Number Matching) o llaves FIDO2/Passkeys vinculadas al dispositivo, además de políticas de Acceso Condicional (bloquear inicios desde países inusuales) y exigir firma digital en cualquier cambio de cuenta bancaria."
+            },
+            {
+                title: "Caso 3 · Los hornos cerámicos parados a las 06:30 h del lunes",
+                badge: "Ransomware y movimiento lateral",
+                desc: "Un atacante entra el viernes por la tarde a través del portátil de un comercial infectado y, como la red de oficinas y la red industrial de planta están en la misma VLAN plana sin cortafuegos interno, salta hasta el servidor de fórmulas químicas de los hornos y cifra tanto la base de datos como el NAS de copias de seguridad conectado por carpeta compartida SMB.",
+                q1: "¿Qué fase de la Cyber Kill Chain facilitó que un incidente en un portátil de oficina paralizara los hornos industriales?",
+                q1Opts: [
+                    "Fase 5: Movimiento lateral sin restricciones por ausencia de segmentación de red (IT/OT).",
+                    "Fase 1: Reconocimiento pasivo en buscadores.",
+                    "Fallo físico de suministro eléctrico."
+                ],
+                q1Correct: 0,
+                q2: "¿Qué dos controles de ISO 27001:2022 habrían contenido el impacto y permitido recuperar los datos sin pagar rescate?",
+                q2Opts: [
+                    "Poner un cartel de prohibido el paso en la puerta de los hornos.",
+                    "Segmentación de redes (A.8.22, separando red corporativa IT de red industrial OT) y Copias de seguridad inmutables 3-2-1-1-0 (A.8.13).",
+                    "Configurar los discos del servidor en RAID 0."
+                ],
+                q2Correct: 1,
+                explanation: "En una arquitectura de Defensa en Profundidad, la red de planta industrial (OT) jamás debe ser alcanzable directamente desde la WiFi o red de usuarios (control A.8.22). Además, un NAS con permisos de escritura normales desde el dominio será cifrado por el ransomware; se requiere una copia inmutable WORM o aislada (regla 3-2-1-1-0, control A.8.13)."
+            },
+            {
+                title: "Caso 4 · El administrador despechado y los logs borrados",
+                badge: "Amenaza interna (Insider) y trazabilidad",
+                desc: "Un proveedor externo de soporte tenía asignada una cuenta genérica compartida llamada 'admin_soporte' con permisos de superusuario en todos los servidores. Tras finalizar su contrato con polémica, alguien entra con esa cuenta un domingo, exporta el catálogo de diseños exclusivos de la nueva colección y ejecuta 'rm -rf /var/log/*' en el propio servidor.",
+                q1: "¿Qué dos principios de la tríada extendida se han vulnerado al usar una cuenta genérica compartida y permitir borrar los logs locales?",
+                q1Opts: [
+                    "Disponibilidad de red y redundancia eléctrica.",
+                    "Autenticidad/No repudio (imposible atribuir a una persona física concreta) y Trazabilidad (destrucción de evidencias de auditoría).",
+                    "Solo la velocidad de transferencia del disco."
+                ],
+                q1Correct: 1,
+                q2: "¿Cómo se diseña técnicamente la infraestructura para impedir este escenario en una auditoría ISO 27001?",
+                q2Opts: [
+                    "Cuentas nominales individuales con revocación inmediata en bajas + envío en tiempo real de logs a un servidor SIEM centralizado de solo adición (append-only).",
+                    "Pedir verbalmente que no usen la cuenta cuando acabe el contrato.",
+                    "Guardar los logs en la papelera de reciclaje del mismo servidor."
+                ],
+                q2Correct: 0,
+                explanation: "Las cuentas genéricas de administración destruyen el No repudio y la atribución forense. Asimismo, los registros de auditoría (control A.8.15) nunca pueden residir únicamente en la máquina donde el administrador local tiene permisos de borrado: deben reenviarse en tiempo real a un colector SIEM aislado donde ni siquiera el root del servidor origen pueda alterarlos."
+            },
+            {
+                title: "Caso 5 · El falso servidor de inicio de sesión (Adversary-in-the-Middle)",
+                badge: "Phishing avanzado con proxy inverso",
+                desc: "Una empleada de compras recibe un aviso urgente de entrega aduanera y hace clic en un enlace 'login.keraben-portal.com'. La página es idéntica a la real porque actúa como un proxy inverso en tiempo real contra el verdadero proveedor de identidad. Introduce su usuario, contraseña y el código numérico de 6 dígitos de su app móvil. El atacante roba el token de sesión activo.",
+                q1: "¿Por qué el segundo factor basado en código numérico de 6 dígitos (TOTP) no pudo evitar el secuestro de sesión?",
+                q1Opts: [
+                    "Porque el código de 6 dígitos no está vinculado criptográficamente al nombre de dominio del navegador, por lo que el proxy malicioso lo retransmite en vivo.",
+                    "Porque los códigos de 6 dígitos solo tienen números pares.",
+                    "Porque el servidor no tenía antivirus."
+                ],
+                q1Correct: 0,
+                q2: "¿Qué tecnología de autenticación bloquea de raíz un proxy AiTM aunque el usuario haga clic en el enlace trampa?",
+                q2Opts: [
+                    "Enviar el código por SMS en lugar de usar una app.",
+                    "FIDO2 / WebAuthn (Passkeys o llave de seguridad hardware), cuyo desafío criptográfico verifica el dominio exacto (Origin Binding).",
+                    "Poner una contraseña de 20 caracteres."
+                ],
+                q2Correct: 1,
+                explanation: "En FIDO2 / WebAuthn, el navegador incluye el dominio exacto ('keraben-portal.com' falso vs. el dominio legítimo) dentro del reto firmado por la clave privada. Aunque el usuario intente autenticarse engañado, el protocolo detecta que el dominio no coincide con el registrado y nunca entrega una firma válida para el sitio real."
+            }
+        ];
+
+        let currentCaseIdx = 0;
+        let selectedQ1 = null;
+        let selectedQ2 = null;
+        let caseRevealed = false;
+
+        function renderCase() {
+            const c = forensicCases[currentCaseIdx];
+            document.getElementById('case-counter').textContent = `Caso ${currentCaseIdx + 1} / ${forensicCases.length}`;
+            document.getElementById('case-title').textContent = c.title;
+            document.getElementById('case-badge').textContent = c.badge;
+            document.getElementById('case-desc').textContent = c.desc;
+            document.getElementById('q1-label').textContent = "1. " + c.q1;
+            document.getElementById('q2-label').textContent = "2. " + c.q2;
+
+            renderOptions('q1-options', c.q1Opts, selectedQ1, c.q1Correct, (idx) => {
+                if (!caseRevealed) { selectedQ1 = idx; renderCase(); }
+            });
+            renderOptions('q2-options', c.q2Opts, selectedQ2, c.q2Correct, (idx) => {
+                if (!caseRevealed) { selectedQ2 = idx; renderCase(); }
+            });
+
+            const solBox = document.getElementById('case-solution');
+            if (caseRevealed) {
+                solBox.classList.remove('hidden');
+                document.getElementById('case-explanation').textContent = c.explanation;
+            } else {
+                solBox.classList.add('hidden');
+            }
+        }
+
+        function renderOptions(containerId, opts, selectedIdx, correctIdx, onSelect) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            opts.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => onSelect(idx);
+                let cls = "w-full text-left p-3 rounded-lg border text-xs sm:text-sm transition-all flex items-start gap-2.5 ";
+                if (!caseRevealed) {
+                    if (selectedIdx === idx) {
+                        cls += "bg-amber-500 text-slate-950 border-amber-400 font-bold shadow";
+                    } else {
+                        cls += "bg-slate-900/70 text-slate-200 border-slate-700 hover:border-slate-500 cursor-pointer";
+                    }
+                } else {
+                    if (idx === correctIdx) {
+                        cls += "bg-emerald-600 text-white border-emerald-400 font-bold shadow";
+                    } else if (selectedIdx === idx && idx !== correctIdx) {
+                        cls += "bg-rose-950 text-rose-300 border-rose-700 line-through opacity-75";
+                    } else {
+                        cls += "bg-slate-900/40 text-slate-500 border-slate-800 opacity-50";
+                    }
+                }
+                btn.className = cls;
+                btn.innerHTML = `<span class="font-mono font-bold shrink-0">${String.fromCharCode(65 + idx)}.</span><span>${optText}</span>`;
+                container.appendChild(btn);
+            });
+        }
+
+        function revealCaseSolution() {
+            caseRevealed = true;
+            renderCase();
+        }
+
+        function resetCase() {
+            selectedQ1 = null;
+            selectedQ2 = null;
+            caseRevealed = false;
+            renderCase();
+        }
+
+        function prevCase() {
+            currentCaseIdx = (currentCaseIdx - 1 + forensicCases.length) % forensicCases.length;
+            resetCase();
+        }
+
+        function nextCase() {
+            currentCaseIdx = (currentCaseIdx + 1) % forensicCases.length;
+            resetCase();
+        }
+
+        switchTab('principios');
+        renderCase();
+        updateTimerUI();
+        renderLiveIncidents();
+    </script>
+</body>
+</html>

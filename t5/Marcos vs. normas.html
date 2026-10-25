@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Ecosistema de Gestión</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para términos clave */
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #b91c1c; /* text-red-700 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-7xl bg-white rounded-2xl shadow-2xl p-8">
+        
+        <!-- Título -->
+        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">El Ecosistema de Gestión y Gobierno de TI</h1>
+        <p class="text-center text-lg text-gray-600 mb-10">Entendiendo las diferencias entre ITIL (Gestión), COBIT (Gobierno) e ISO (Norma)</p>
+
+        <!-- [MODIFICADO] El flex-col es ahora el contenedor principal -->
+        <div class="flex flex-col items-start justify-center gap-8">
+            
+            <!-- Contenedor de 3 Tarjetas (Clicable) -->
+            <!-- [MODIFICADO] Eliminado 'lg:w-3/5'. Ahora ocupa el ancho completo -->
+            <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- 1. ITIL (Gestión) -->
+                <div id="itil" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('itil')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">👨‍🍳</span>
+                        <h2 class="text-2xl font-bold text-blue-800">1. ITIL (Gestión)</h2>
+                    </div>
+                    <p class="text-gray-700">El "Jefe de Cocina". Es un <strong>Marco</strong> (guía) enfocado en la <strong>Gestión</strong> de Servicios. Responde al <em>cómo</em> lo hacemos.</p>
+                </div>
+
+                <!-- 2. COBIT (Gobierno) -->
+                <div id="cobit" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('cobit')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">👑</span>
+                        <h2 class="text-2xl font-bold text-purple-800">2. COBIT (Gobierno)</h2>
+                    </div>
+                    <p class="text-gray-700">El "Propietario". Es un <strong>Marco</strong> (guía) enfocado en el <strong>Gobierno</strong> de TI. Responde al <em>por qué</em> lo hacemos.</p>
+                </div>
+
+                <!-- 3. ISO 20000 (Norma) -->
+                <div id="iso" class="relative z-10 p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('iso')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🏆</span>
+                        <h2 class="text-2xl font-bold text-green-800">3. ISO 20000 (Norma)</h2>
+                    </div>
+                    <p class="text-gray-700">El "Examen". Es una <strong>Norma</strong> (regla) enfocada en la <strong>Certificación</strong> de la Gestión. Responde al <em>qué</em> debemos cumplir.</p>
+                </div>
+            </div>
+
+            <!-- [NUEVO] Separador visual -->
+            <hr class="w-full border-t-2 border-gray-200 my-4">
+
+            <!-- Panel de Información (Lateral) -->
+            <!-- [MODIFICADO] Eliminado 'lg:w-2/5' y 'lg:sticky'. Ahora ocupa el ancho completo -->
+            <div class="w-full">
+                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-gray-300 shadow-inner min-h-[250px] transition-all duration-300">
+                    <h3 id="info-title" class="text-2xl font-bold text-gray-900 mb-3">Haz clic en un concepto</h3>
+                    <p id="info-text" class="text-gray-800">Selecciona un concepto para ver sus características clave.</p>
+                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-1">
+                        <!-- Contenido dinámico aquí -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página de atribución -->
+        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
+            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
+        </p>
+    </div>
+
+    <script>
+        const infoData = {
+            itil: {
+                title: '1. ITIL (Marco de Gestión)',
+                text: 'La "biblioteca" (Marco). Se enfoca en la <strong>Gestión</strong> del servicio. Responde al <em>cómo</em> lo hacemos.',
+                points: [
+                    '<strong>Analogía:</strong> El <em>Jefe de Cocina</em>.',
+                    '<strong>Pregunta Clave:</strong> ¿Estamos haciendo las cosas <em>bien</em>? (Eficiencia)',
+                    '<strong>Enfoque:</strong> Táctico/Operativo (Procesos: <code>Incidente</code>, <code>Problema</code>...).',
+                    '<strong>Certificación:</strong> <em>Personas</em> (para demostrar conocimiento).',
+                    '<strong>Tipo:</strong> Descriptivo ("Deberías...").'
+                ],
+                color: 'blue'
+            },
+            cobit: {
+                title: '2. COBIT (Marco de Gobierno)',
+                text: 'El "Propietario" (Marco). Se enfoca en el <strong>Gobierno</strong> de TI. Responde al <em>por qué</em> lo hacemos.',
+                points: [
+                    '<strong>Analogía:</strong> El <em>Propietario / Auditor</em>.',
+                    '<strong>Pregunta Clave:</strong> ¿Estamos haciendo las <em>cosas correctas</em>? (Estrategia)',
+                    '<strong>Enfoque:</strong> Estratégico (Valor de Negocio, Gestión de Riesgos).',
+                    '<strong>Complementa a ITIL:</strong> <code>COBIT</code> define el "qué" (el objetivo), <code>ITIL</code> define el "cómo" (el proceso).',
+                    '<strong>Tipo:</strong> Descriptivo ("Deberías...").'
+                ],
+                color: 'purple'
+            },
+            iso: {
+                title: '3. ISO 20000 (Norma de Gestión)',
+                text: 'El "Examen" (Norma). Se enfoca en la <strong>Certificación</strong> de la Gestión. Responde al <em>qué</em> debemos cumplir.',
+                points: [
+                    '<strong>Analogía:</strong> La <em>receta exacta</em> para la estrella Michelin.',
+                    '<strong>Pregunta Clave:</strong> ¿Cumplimos <em>las reglas</em>?',
+                    '<strong>Enfoque:</strong> Prescriptivo (Requisitos auditables).',
+                    '<strong>Certificación:</strong> <em>Organizaciones</em> (para demostrar cumplimiento).',
+                    '<strong>Relación:</strong> Es <code>ITIL</code> destilado y convertido en reglas.'
+                ],
+                color: 'green'
+            }
+        };
+
+        // --- Lógica JS (Adaptada para los 3 IDs) ---
+
+        const colors = {
+            itil: 'blue',
+            cobit: 'purple',
+            iso: 'green'
+        };
+
+        const borderClasses = {
+            itil: 'border-blue-500',
+            cobit: 'border-purple-500',
+            iso: 'border-green-500'
+        };
+        
+        const textClasses = {
+            itil: 'text-blue-900',
+            cobit: 'text-purple-900',
+            iso: 'text-green-900'
+        };
+
+        const allBorderClasses = Object.values(borderClasses);
+        const allTextClasses = Object.values(textClasses);
+
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const infoList = document.getElementById('info-list');
+
+        let currentActive = null;
+
+        function showInfo(phase) {
+            const data = infoData[phase];
+            
+            // Actualizar panel de info
+            infoTitle.innerText = data.title;
+            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
+            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
+
+            // Actualizar estilos del panel
+            infoPanel.classList.remove(...allBorderClasses);
+            infoPanel.classList.add(borderClasses[phase]);
+            
+            infoTitle.classList.remove(...allTextClasses);
+            infoTitle.classList.add(textClasses[phase]);
+
+            // Gestionar resaltado de la tarjeta
+            if (currentActive) {
+                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
+                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
+            }
+            
+            const activeCard = document.getElementById(phase);
+            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
+            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
+            currentActive = phase;
+        }
+    </script>
+</body>
+</html>

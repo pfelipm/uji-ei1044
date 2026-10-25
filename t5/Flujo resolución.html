@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: El Flujo de Resolución</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .flow-arrow {
+            color: #9ca3af; /* text-gray-400 */
+        }
+        /* Estilo para términos clave */
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #b91c1c; /* text-red-700 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .flow-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem; /* text-sm */
+            color: #6b7280; /* text-gray-500 */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-6xl bg-white rounded-2xl shadow-2xl p-8">
+        
+        <!-- Título -->
+        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">El Flujo de Resolución de TI</h1>
+        <p class="text-center text-lg text-gray-600 mb-10">Del Síntoma (Fuego) a la Solución Controlada (Ingeniería)</p>
+
+        <div class="flex flex-col lg:flex-row items-start justify-center gap-8">
+            
+            <!-- Flujo Principal (Vertical) -->
+            <div class="w-full lg:w-3/5 space-y-4">
+                
+                <!-- 0. Inicio -->
+                <div class="relative z-10 p-6 bg-gray-50 border-2 border-gray-200 rounded-xl shadow-lg">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🔔</span>
+                        <h2 class="text-2xl font-bold text-gray-800">Inicio: Alerta de Usuario</h2>
+                    </div>
+                    <p class="text-gray-700">Un usuario llama al <em>Service Desk</em> o un sistema de monitorización reporta un fallo. (Ej. "¡No puedo imprimir!", "¡Moodle va lento!").</p>
+                </div>
+
+                <!-- Flecha -->
+                <div class="flex justify-center">
+                    <svg class="w-8 h-8 flow-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </div>
+
+                <!-- 1. Incidente -->
+                <div id="incidente" class="relative z-10 p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('incidente')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">👨‍🚒</span>
+                        <h2 class="text-2xl font-bold text-red-800">1. Gestión de Incidentes</h2>
+                    </div>
+                    <p class="text-gray-700">El "Bombero". El objetivo es apagar el fuego y <strong>restaurar el servicio</strong> lo más rápido posible. Es <em>reactivo</em>.</p>
+                </div>
+
+                <!-- Flecha y texto de enlace -->
+                <div class="text-center">
+                    <svg class="w-8 h-8 flow-arrow inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    <p class="flow-link">Si los incidentes se repiten...</p>
+                </div>
+
+                <!-- 2. Problema -->
+                <div id="problema" class="relative z-10 p-6 bg-yellow-50 border-2 border-yellow-300 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('problema')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🕵️‍♂️</span>
+                        <h2 class="text-2xl font-bold text-yellow-900">2. Gestión de Problemas</h2>
+                    </div>
+                    <p class="text-gray-700">El "Detective". El objetivo es encontrar la <strong>causa raíz</strong> de los incidentes recurrentes. Es <em>proactivo</em>.</p>
+                </div>
+
+                <!-- Flecha y texto de enlace -->
+                <div class="text-center">
+                    <svg class="w-8 h-8 flow-arrow inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    <p class="flow-link">La solución definitiva requiere un...</p>
+                </div>
+
+                <!-- 3. Cambio -->
+                <div id="cambio" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('cambio')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">👷‍♀️</span>
+                        <h2 class="text-2xl font-bold text-purple-800">3. Gestión del Cambio (RFC)</h2>
+                    </div>
+                    <p class="text-gray-700">El "Ingeniero/Controlador". El objetivo es implementar la solución <strong>sin causar nuevos problemas</strong>, de forma controlada.</p>
+                </div>
+                
+                <!-- Flecha y texto de enlace -->
+                <div class="text-center">
+                    <svg class="w-8 h-8 flow-arrow inline-block -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    <p class="flow-link">...Este proceso consulta el...</p>
+                </div>
+
+                <!-- 4. CMDB -->
+                <div id="cmdb" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('cmdb')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🗺️</span>
+                        <h2 class="text-2xl font-bold text-blue-800">4. Gestión de Configuración (CMDB)</h2>
+                    </div>
+                    <p class="text-gray-700">El "Mapa" o "Cerebro". Es la base de datos que dice <strong>qué componentes existen y cómo se relacionan</strong>.</p>
+                </div>
+
+            </div>
+
+            <!-- Panel de Información (Lateral) -->
+            <div class="w-full lg:w-2/5 lg:sticky lg:top-8">
+                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-gray-300 shadow-inner min-h-[300px]">
+                    <h3 id="info-title" class="text-2xl font-bold text-gray-900 mb-3">Haz clic en un proceso</h3>
+                    <p id="info-text" class="text-gray-800">Selecciona un proceso del flujo para ver su objetivo, foco y analogía.</p>
+                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-1">
+                        <!-- Contenido dinámico aquí -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página de atribución -->
+        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
+            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
+        </p>
+    </div>
+
+    <script>
+        const infoData = {
+            incidente: {
+                title: '1. Gestión de Incidentes',
+                text: 'El "Bombero". Es la respuesta <strong>reactiva</strong> a una interrupción del servicio. El tiempo es el factor crítico.',
+                points: [
+                    '<strong>Objetivo:</strong> Restaurar el servicio <em>LO MÁS RÁPIDO POSIBLE</em>.',
+                    '<strong>Foco:</strong> Velocidad, solución temporal (<code>workaround</code>).',
+                    '<strong>Documento:</strong> <em>Ticket de Incidente</em>.',
+                    'El <em>Usuario</em> reporta el incidente; el <em>Cliente</em> (quien paga) exige que se cumpla el <code>SLA</code>.',
+                    '<strong>Analogía:</strong> Bajar la fiebre (trata el <em>síntoma</em>).'
+                ],
+                color: 'red'
+            },
+            problema: {
+                title: '2. Gestión de Problemas',
+                text: 'El "Detective". Es el análisis <strong>proactivo</strong> para encontrar la causa de fondo de por qué los incidentes ocurren.',
+                points: [
+                    '<strong>Objetivo:</strong> Encontrar la <strong>Causa Raíz</strong> (<code>Root Cause</code>).',
+                    '<strong>Foco:</strong> Investigación, análisis de tendencias.',
+                    '<strong>Documento:</strong> <em>Registro de Problema</em> / Error Conocido.',
+                    '<strong>Analogía:</strong> Encontrar la infección (trata la <em>enfermedad</em>).'
+                ],
+                color: 'yellow'
+            },
+            cambio: {
+                title: '3. Gestión del Cambio (RFC)',
+                text: 'El "Ingeniero" o "Controlador de Tráfico Aéreo". Gestiona la implementación de la solución definitiva (propuesta por Problemas) de forma segura.',
+                points: [
+                    '<strong>Objetivo:</strong> Implementar cambios <strong>sin causar nuevos incidentes</strong>.',
+                    '<strong>Foco:</strong> Evaluación de riesgo, planificación, pruebas.',
+                    '<strong>Documento:</strong> <code>RFC</code> (Request For Change).',
+                    '<strong>Actor Clave:</strong> El <code>CAB</code> (Comité Asesor de Cambios) aprueba el <code>RFC</code>.',
+                    '<strong>Debate:</strong> ¿Es "burocracia" (<code>Overhead</code>) o "control" (<code>Estabilidad</code>)?'
+                ],
+                color: 'purple'
+            },
+            cmdb: {
+                title: '4. Gestión de Configuración (CMDB)',
+                text: 'El "Mapa" o "Cerebro" de TI. No es un paso del flujo, sino la base de datos que <strong>todos los procesos consultan</strong>.',
+                points: [
+                    '<strong>Objetivo:</strong> Mantener un registro de todos los componentes de TI y sus <strong>relaciones</strong>.',
+                    '<strong>Contenido:</strong> <code>CIs</code> (Elementos de Configuración): servidores, <em>software</em>, <code>SLAs</code>, documentación...',
+                    '<strong>Uso Vital:</strong> El <code>CAB</code> consulta la <code>CMDB</code> para evaluar el <strong>impacto</strong> de un <code>RFC</code>.',
+                    '<strong>Analogía:</strong> El "Google Maps" de nuestro departamento de TI.'
+                ],
+                color: 'blue'
+            }
+        };
+
+        // --- Lógica JS (Adaptada para los 4 IDs) ---
+
+        const colors = {
+            incidente: 'red',
+            problema: 'yellow',
+            cambio: 'purple',
+            cmdb: 'blue'
+        };
+
+        const borderClasses = {
+            incidente: 'border-red-500',
+            problema: 'border-yellow-500',
+            cambio: 'border-purple-500',
+            cmdb: 'border-blue-500'
+        };
+        
+        const textClasses = {
+            incidente: 'text-red-900',
+            problema: 'text-yellow-900',
+            cambio: 'text-purple-900',
+            cmdb: 'text-blue-900'
+        };
+
+        const allBorderClasses = Object.values(borderClasses);
+        const allTextClasses = Object.values(textClasses);
+
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const infoList = document.getElementById('info-list');
+
+        let currentActive = null;
+
+        function showInfo(phase) {
+            const data = infoData[phase];
+            
+            // Actualizar panel de info
+            infoTitle.innerText = data.title;
+            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
+            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
+
+            // Actualizar estilos del panel
+            infoPanel.classList.remove(...allBorderClasses);
+            infoPanel.classList.add(borderClasses[phase]);
+            
+            infoTitle.classList.remove(...allTextClasses);
+            infoTitle.classList.add(textClasses[phase]);
+
+            // Gestionar resaltado de la tarjeta
+            if (currentActive) {
+                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
+                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
+            }
+            
+            const activeCard = document.getElementById(phase);
+            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
+            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
+            currentActive = phase;
+        }
+    </script>
+</body>
+</html>

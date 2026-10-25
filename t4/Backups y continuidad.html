@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copias de seguridad y continuidad operativa - EI1044</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bgGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22primaryGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2338bdf8%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232563eb%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22screenGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23090d16%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3C/linearGradient%3E%20%3Cfilter%20id%3D%22glow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%20%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%20/%3E%20%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%20/%3E%20%3C/filter%3E%20%3C/defs%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bgGrad%29%22%20/%3E%20%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3Crect%20x%3D%228%22%20y%3D%229%22%20width%3D%2248%22%20height%3D%2238%22%20rx%3D%227%22%20fill%3D%22url%28%23screenGrad%29%22%20stroke%3D%22url%28%23primaryGrad%29%22%20stroke-width%3D%222%22%20/%3E%20%3Cline%20x1%3D%228%22%20y1%3D%2218%22%20x2%3D%2256%22%20y2%3D%2218%22%20stroke%3D%22%231e293b%22%20stroke-width%3D%221.5%22%20/%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23ef4444%22%20/%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23eab308%22%20/%3E%20%3Ccircle%20cx%3D%2226%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%2322c55e%22%20/%3E%20%3Cpath%20d%3D%22M%2016%2025%20L%2023%2030.5%20L%2016%2036%22%20fill%3D%22none%22%20stroke%3D%22%2338bdf8%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cline%20x1%3D%2227%22%20y1%3D%2236%22%20x2%3D%2235%22%20y2%3D%2236%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2227%22%20r%3D%221.5%22%20fill%3D%22%2338bdf8%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2233%22%20r%3D%221.5%22%20fill%3D%22%2310b981%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cpath%20d%3D%22M%2026%2047%20L%2024%2053%20L%2040%2053%20L%2038%2047%20Z%22%20fill%3D%22%231e293b%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221%22%20/%3E%20%3Crect%20x%3D%2220%22%20y%3D%2253%22%20width%3D%2224%22%20height%3D%222.5%22%20rx%3D%221.2%22%20fill%3D%22%23334155%22%20/%3E%20%3C/svg%3E">
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .tab-btn.active,
+        .tab-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+        }
+        .is-embedded .hide-in-embed {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 sm:p-8">
+
+    <main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+
+        <!-- Cabecera -->
+        <header class="text-center border-b border-slate-200 pb-8 mb-8">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-bold uppercase tracking-wider mb-3">
+                <span aria-hidden="true">💾</span>
+                <span>Tema 4 · Bloque 4.8 y Control A.8.13 (ISO 27001:2022)</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Copias de seguridad, regla 3-2-1-1-0 y métricas RPO / RTO</h1>
+            <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+                Por qué el RAID jamás sustituye a un backup, arquitecturas de respaldo inmutables frente a ransomware y simulador cuantitativo de estrategias Completa, Diferencial e Incremental.
+            </p>
+        </header>
+
+        <!-- Pestañas -->
+        <nav aria-label="Secciones de copias de seguridad" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 bg-slate-100 p-2 rounded-xl border border-slate-200">
+            <button type="button" id="tab-btn-fundamentos" onclick="switchTab('fundamentos')" class="tab-btn active px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all">
+                1. RAID vs. Backup, 3-2-1-1-0 y GFS
+            </button>
+            <button type="button" id="tab-btn-tipos" onclick="switchTab('tipos')" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all">
+                2. Tipos de copia y RPO / RTO
+            </button>
+            <button type="button" id="tab-btn-simulador" onclick="switchTab('simulador')" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-amber-900 bg-amber-100/80 hover:bg-amber-200 transition-all">
+                3. ⚡ Simulador interactivo (Full / Dif / Inc)
+            </button>
+            <button type="button" id="tab-btn-personal" onclick="openPersonalBackupModal()" class="px-4 py-2.5 rounded-lg text-xs sm:text-sm font-extrabold text-white bg-gradient-to-r from-rose-600 to-orange-600 hover:from-rose-500 hover:to-orange-500 shadow-md transition-all cursor-pointer">
+                4. 🔥 ¿Y vuestros datos?
+            </button>
+        </nav>
+
+        <!-- PESTAÑA 1: FUNDAMENTOS, 3-2-1-1-0 Y GFS -->
+        <section id="tab-fundamentos" class="space-y-8">
+            <!-- Alerta: ¡RAID no es un backup! -->
+            <div class="bg-rose-50 border-2 border-rose-200 rounded-2xl p-6 sm:p-7">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+                    <div class="flex items-center gap-3.5">
+                        <span class="text-4xl" aria-hidden="true">🚨</span>
+                        <div>
+                            <h2 class="text-xl sm:text-2xl font-extrabold text-rose-950">Axioma del administrador de sistemas: ¡El RAID no es un backup!</h2>
+                            <p class="text-sm sm:text-base text-rose-800 mt-0.5">Tampoco lo es la sincronización en vivo con OneDrive, Dropbox o la replicación síncrona entre dos cabinas SAN.</p>
+                        </div>
+                    </div>
+                    <span class="text-xs sm:text-sm font-mono font-bold bg-rose-200 text-rose-950 px-3.5 py-1.5 rounded-lg shrink-0">Disponibilidad ≠ Recuperación</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm sm:text-base">
+                    <div class="bg-white p-5 rounded-xl border border-rose-200">
+                        <h3 class="font-bold text-slate-900 text-base sm:text-lg mb-2">⚙️ ¿De qué protege el RAID (1, 5, 6, 10)?</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            Protege exclusivamente frente al <strong>fallo físico de un disco duro</strong> manteniendo el servidor en marcha (<em>Alta disponibilidad</em>). Pero si un administrador ejecuta un <code>DROP TABLE</code> por error, un bug corrompe el sistema de ficheros o un <strong>ransomware cifra los volúmenes</strong>, la controladora RAID replicará esa destrucción en todos los discos espejados en menos de un milisegundo.
+                        </p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-emerald-200">
+                        <h3 class="font-bold text-emerald-950 text-base sm:text-lg mb-2">🕰️ ¿De qué protege una copia de seguridad (Backup)?</h3>
+                        <p class="text-slate-700 leading-relaxed">
+                            Es una <strong>máquina del tiempo histórica e independiente</strong>. Permite volver al estado exacto que tenían los datos ayer, el domingo pasado o hace seis meses, aislando la copia del sistema de producción para sobrevivir a borrados accidentales, sabotajes internos, incendios o secuestro por cifrado.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- La regla moderna 3-2-1-1-0 -->
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">La regla de oro moderna: estrategia 3-2-1-1-0</h2>
+                <p class="text-base text-slate-600 mb-5">
+                    Hoy los grupos de <em>ransomware</em> buscan primero el servidor de backups en la red para destruir las copias antes de cifrar producción. Por ello, la regla clásica <code>3-2-1</code> ha evolucionado al estándar industrial <strong>3-2-1-1-0</strong>:
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="bg-slate-900 text-white rounded-xl p-5 border border-slate-700">
+                        <div class="text-3xl sm:text-4xl font-black text-sky-400 mb-2">3</div>
+                        <h3 class="font-bold text-base mb-1.5">Tres copias de los datos</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">El dato original en producción más al menos dos copias de seguridad independientes.</p>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-xl p-5 border border-slate-700">
+                        <div class="text-3xl sm:text-4xl font-black text-sky-400 mb-2">2</div>
+                        <h3 class="font-bold text-base mb-1.5">Dos soportes distintos</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">Almacenar en al menos dos tecnologías diferentes (p. ej., cabina NAS local + almacenamiento de objetos Cloud S3 o cinta LTO).</p>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-xl p-5 border border-slate-700">
+                        <div class="text-3xl sm:text-4xl font-black text-sky-400 mb-2">1</div>
+                        <h3 class="font-bold text-base mb-1.5">Una copia fuera de sede (Offsite)</h3>
+                        <p class="text-sm text-slate-300 leading-relaxed">En otra ubicación geográfica o región cloud para sobrevivir a incendios, inundaciones o robos en el CPD principal.</p>
+                    </div>
+
+                    <div class="bg-amber-50 border-2 border-amber-400 rounded-xl p-5">
+                        <div class="text-3xl sm:text-4xl font-black text-amber-700 mb-2">1</div>
+                        <h3 class="font-bold text-amber-950 text-base mb-1.5">Una copia inmutable o Air-Gap</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">Bloqueada mediante <strong>WORM</strong> (<em>Write Once, Read Many</em> / S3 Object Lock) o cinta desconectada: ni siquiera un Domain Admin comprometido puede borrarla antes de que expire su retención.</p>
+                    </div>
+
+                    <div class="bg-emerald-50 border-2 border-emerald-400 rounded-xl p-5">
+                        <div class="text-3xl sm:text-4xl font-black text-emerald-700 mb-2">0</div>
+                        <h3 class="font-bold text-emerald-950 text-base mb-1.5">Cero errores en pruebas</h3>
+                        <p class="text-sm text-slate-700 leading-relaxed">Un backup cuya restauración no se ha probado es solo un deseo (<em>Principio de Schrödinger del backup</em>). Verificación automatizada periódica.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Esquema de rotación GFS -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Política de retención jerárquica: esquema GFS (Grandfather-Father-Son)</h2>
+                <p class="text-sm sm:text-base text-slate-600 mb-4">
+                    Para equilibrar coste de almacenamiento y cumplimiento legal sin acumular copias infinitas, se combinan tres ciclos de rotación:
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm sm:text-base">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200">
+                        <span class="font-mono font-bold text-blue-700 uppercase">Hijo (Son) · Ciclo diario</span>
+                        <p class="text-slate-700 mt-1.5 leading-relaxed">Copias incrementales o diferenciales de lunes a jueves/sábado con retención corta (p. ej., 7 a 14 días) para recuperaciones operativas rápidas.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200">
+                        <span class="font-mono font-bold text-indigo-700 uppercase">Padre (Father) · Ciclo semanal</span>
+                        <p class="text-slate-700 mt-1.5 leading-relaxed">Copias completas (<em>Full</em>) ejecutadas cada fin de semana (p. ej., domingo por la noche) conservadas durante 4 a 8 semanas.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200">
+                        <span class="font-mono font-bold text-purple-700 uppercase">Abuelo (Grandfather) · Mensual / Anual</span>
+                        <p class="text-slate-700 mt-1.5 leading-relaxed">Copia completa de cierre de mes o año, enviada fuera de sede e inmutable durante meses o años por exigencia de negocio o auditoría.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 2: TIPOS DE COPIA Y RPO/RTO -->
+        <section id="tab-tipos" class="hidden space-y-8">
+            <!-- Línea temporal RPO y RTO -->
+            <div class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-700">
+                <h2 class="text-2xl sm:text-3xl font-bold mb-2">Las dos métricas que definen la supervivencia: RPO vs. RTO</h2>
+                <p class="text-base text-slate-300 mb-6">
+                    Todo diseño de copias de seguridad parte de dos preguntas de negocio que el administrador de sistemas traduce en arquitectura técnica:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-800 border border-sky-500/40 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs sm:text-sm font-mono uppercase tracking-wider bg-sky-500/20 text-sky-300 px-3 py-1 rounded-lg font-semibold">Mirando hacia el pasado (Datos)</span>
+                                <span class="text-2xl font-black text-sky-400">RPO</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Recovery Point Objective (Punto objetivo de recuperación)</h3>
+                            <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-4">
+                                <strong>«¿Cuánta información (medida en tiempo) podemos permitirnos perder como máximo?»</strong> Determina la <strong>frecuencia</strong> con la que debemos hacer backups o réplicas.
+                            </p>
+                        </div>
+                        <p class="text-sm text-sky-200 bg-slate-900/90 p-4 rounded-xl border border-slate-700 leading-relaxed">
+                            <strong>Ejemplo:</strong> Si hacemos backup todas las noches a las 00:00 h y el servidor explota a las 16:00 h, perdemos 16 horas de pedidos. Nuestro RPO es de 24 h. Si Dirección exige un RPO &le; 15 min, necesitamos snapshots continuos o replicación de logs de transacciones.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-800 border border-amber-500/40 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs sm:text-sm font-mono uppercase tracking-wider bg-amber-500/20 text-amber-300 px-3 py-1 rounded-lg font-semibold">Mirando hacia el futuro (Tiempo caído)</span>
+                                <span class="text-2xl font-black text-amber-400">RTO</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Recovery Time Objective (Tiempo objetivo de recuperación)</h3>
+                            <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-4">
+                                <strong>«¿Cuánto tiempo podemos tardar en volver a tener el sistema operativo tras el incidente?»</strong> Determina la <strong>velocidad del medio y el tipo de copia</strong> (cuántos fragmentos hay que recomponer).
+                            </p>
+                        </div>
+                        <p class="text-sm text-amber-200 bg-slate-900/90 p-4 rounded-xl border border-slate-700 leading-relaxed">
+                            <strong>Ejemplo:</strong> Si tenemos 10 TB en una nube fría o en cintas incrementales de 6 días, descargar y recomponer todo puede llevar 18 horas. Si la fábrica pierde 20.000 €/hora y exige un RTO &le; 2 h, necesitamos cabinas locales de restauración instantánea (<em>Instant VM Recovery</em>).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparativa técnica Full vs Diferencial vs Incremental -->
+            <div>
+                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-5">Comparativa técnica: Completa (Full), Diferencial e Incremental</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Completa -->
+                    <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs sm:text-sm font-bold uppercase tracking-wider bg-blue-200 text-blue-900 px-3 py-1 rounded-full">1. Copia completa (Full)</span>
+                            <h3 class="text-xl sm:text-2xl font-bold text-blue-950 mt-3 mb-2">Todo el conjunto de datos</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Copia absolutamente todos los archivos seleccionados cada vez que se ejecuta, hayan cambiado o no, y limpia el bit de modificado (<em>archive bit</em>).
+                            </p>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700">
+                                <li><strong>Ventana de copia:</strong> Muy lenta (máximo tráfico de red).</li>
+                                <li><strong>Espacio consumido:</strong> Máximo (multiplica el tamaño base cada día).</li>
+                                <li><strong>Restauración (RTO):</strong> <strong>Óptima y rapidísima</strong> (basta con leer 1 único conjunto de copia).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Diferencial -->
+                    <div class="bg-amber-50/70 border border-amber-200 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs sm:text-sm font-bold uppercase tracking-wider bg-amber-200 text-amber-900 px-3 py-1 rounded-full">2. Copia diferencial</span>
+                            <h3 class="text-xl sm:text-2xl font-bold text-amber-950 mt-3 mb-2">Cambios acumulados desde la última Full</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Copia todos los bloques modificados <strong>desde la última copia Completa</strong> (del domingo). No limpia el bit de archivo, por lo que crece día a día como una bola de nieve hasta el siguiente domingo.
+                            </p>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700">
+                                <li><strong>Ventana de copia:</strong> Moderada (crece de lunes a sábado).</li>
+                                <li><strong>Espacio consumido:</strong> Intermedio.</li>
+                                <li><strong>Restauración (RTO):</strong> <strong>Rápida y segura</strong> (solo requiere <strong>2 conjuntos</strong>: la última <em>Full</em> + la <em>última Diferencial</em>).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Incremental -->
+                    <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs sm:text-sm font-bold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-3 py-1 rounded-full">3. Copia incremental</span>
+                            <h3 class="text-xl sm:text-2xl font-bold text-emerald-950 mt-3 mb-2">Solo los cambios desde ayer</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                                Copia únicamente los datos que han cambiado <strong>desde la última copia de cualquier tipo</strong> (Full o Incremental anterior) y desmarca el bit de archivo.
+                            </p>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700">
+                                <li><strong>Ventana de copia:</strong> <strong>Mínima y ultrarrápida</strong>.</li>
+                                <li><strong>Espacio consumido:</strong> <strong>Mínimo absoluto</strong>.</li>
+                                <li><strong>Restauración (RTO):</strong> <strong>Más lenta y frágil</strong> (requiere la última <em>Full</em> + <strong>todas</strong> las incrementales intermedias en orden; si falla un eslabón de la cadena, se pierde lo posterior).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 3: SIMULADOR INTERACTIVO DE BACKUPS -->
+        <section id="tab-simulador" class="hidden space-y-6">
+            <div class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-xl">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700 pb-5 mb-6">
+                    <div>
+                        <span class="bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">⚡ Laboratorio cuantitativo en vivo</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2">Simulador de estrategias de backup y cálculo de RTO / RPO</h2>
+                        <p class="text-sm sm:text-base text-slate-300 mt-1">
+                            Configura el volumen de datos del ERP de Keraben (copia nocturna a las 00:00 h) y simula el impacto de un ataque de ransomware para comparar almacenamiento, tiempo de copia y tiempo de restauración.
+                        </p>
+                    </div>
+                    <button type="button" onclick="resetKerabenPreset()" class="shrink-0 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-600 text-xs sm:text-sm font-bold transition-colors cursor-pointer">
+                        ↺ Escenario Keraben (4 TB + 250 GB/día)
+                    </button>
+                </div>
+
+                <!-- Controles del simulador alineados horizontalmente -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch bg-slate-800/80 p-5 rounded-xl border border-slate-700 mb-6">
+                    <div class="flex flex-col justify-between">
+                        <label for="sim-base-gb" class="flex items-baseline justify-between gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200 mb-2">
+                            <span>Volumen inicial (Dom):</span>
+                            <span id="lbl-base-gb" class="text-amber-400 font-mono text-sm sm:text-base shrink-0">4000 GB</span>
+                        </label>
+                        <input type="range" id="sim-base-gb" min="200" max="4000" step="100" value="4000" oninput="updateBackupSim()" class="w-full h-2 accent-amber-500 cursor-pointer my-1.5">
+                        <div class="flex justify-between text-xs text-slate-300 font-mono mt-1.5"><span>200 GB</span><span>4 TB (4000 GB)</span></div>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                        <label for="sim-daily-gb" class="flex items-baseline justify-between gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200 mb-2">
+                            <span>Cambio diario (Lun–Sáb):</span>
+                            <span id="lbl-daily-gb" class="text-amber-400 font-mono text-sm sm:text-base shrink-0">250 GB</span>
+                        </label>
+                        <input type="range" id="sim-daily-gb" min="20" max="500" step="10" value="250" oninput="updateBackupSim()" class="w-full h-2 accent-amber-500 cursor-pointer my-1.5">
+                        <div class="flex justify-between text-xs text-slate-300 font-mono mt-1.5"><span>20 GB/día</span><span>500 GB/día</span></div>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                        <label for="sim-crash-day" class="flex items-baseline justify-between gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200 mb-2">
+                            <span>Día del ataque (16:00 h):</span>
+                        </label>
+                        <select id="sim-crash-day" onchange="updateBackupSim()" class="w-full bg-slate-900 border border-slate-600 text-white text-sm sm:text-base rounded-lg px-3 py-1.5 font-semibold">
+                            <option value="1">Lunes a las 16:00 h</option>
+                            <option value="2">Martes a las 16:00 h</option>
+                            <option value="3">Miércoles a las 16:00 h</option>
+                            <option value="4" selected>Jueves a las 16:00 h</option>
+                            <option value="5">Viernes a las 16:00 h</option>
+                            <option value="6">Sábado a las 16:00 h</option>
+                        </select>
+                        <div class="flex justify-between text-xs text-slate-300 font-mono mt-1.5"><span>Copia: 00:00 h</span><span>RPO: 16 h</span></div>
+                    </div>
+
+                    <div class="flex flex-col justify-between">
+                        <label for="sim-speed" class="flex items-baseline justify-between gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200 mb-2">
+                            <span>Velocidad restauración:</span>
+                            <span id="lbl-speed" class="text-sky-400 font-mono text-sm sm:text-base shrink-0">20 GB/min</span>
+                        </label>
+                        <input type="range" id="sim-speed" min="5" max="60" step="5" value="20" oninput="updateBackupSim()" class="w-full h-2 accent-sky-400 cursor-pointer my-1.5">
+                        <div class="flex justify-between text-xs text-slate-300 font-mono mt-1.5"><span>5 GB/min (WAN)</span><span>60 GB/min (NVMe)</span></div>
+                    </div>
+                </div>
+
+                <!-- Resultados comparativos de las 3 estrategias -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                    <!-- Estrategia A: Full Diaria -->
+                    <div class="bg-slate-800 border border-blue-500/40 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 px-3 py-1 rounded">Estrategia A</span>
+                                <span class="text-xs sm:text-sm font-mono text-slate-300">Dom–Sáb: Full</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-4">Copia completa (Full) diaria</h3>
+
+                            <div class="space-y-3 text-sm sm:text-base">
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                                    <span class="text-slate-200">Almacenamiento acumulado:</span>
+                                    <span id="res-full-storage" class="font-mono font-bold text-rose-400 text-base sm:text-lg">0 GB</span>
+                                </div>
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                                    <span class="text-slate-200">Última copia nocturna:</span>
+                                    <span id="res-full-last" class="font-mono font-bold text-white text-sm sm:text-base">0 GB</span>
+                                </div>
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700">
+                                    <span class="text-slate-300 block text-xs sm:text-sm mb-1">Conjuntos necesarios para restaurar:</span>
+                                    <span id="res-full-sets" class="font-mono font-semibold text-blue-300 text-sm sm:text-base">1 conjunto</span>
+                                </div>
+                                <div class="bg-blue-950/60 p-3.5 rounded-lg border border-blue-500/40 flex justify-between items-center">
+                                    <span class="text-blue-200 font-semibold">Volumen a leer y RTO:</span>
+                                    <span id="res-full-rto" class="font-mono font-bold text-emerald-400 text-sm sm:text-base">0 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estrategia B: Full Dom + Diferencial Diaria -->
+                    <div class="bg-slate-800 border border-amber-500/40 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 px-3 py-1 rounded">Estrategia B</span>
+                                <span class="text-xs sm:text-sm font-mono text-slate-300">Dom Full + Lun–Sáb Dif</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-4">Full domingo + Diferencial diaria</h3>
+
+                            <div class="space-y-3 text-sm sm:text-base">
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                                    <span class="text-slate-200">Almacenamiento acumulado:</span>
+                                    <span id="res-diff-storage" class="font-mono font-bold text-amber-400 text-base sm:text-lg">0 GB</span>
+                                </div>
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                                    <span class="text-slate-200">Última copia nocturna:</span>
+                                    <span id="res-diff-last" class="font-mono font-bold text-white text-sm sm:text-base">0 GB</span>
+                                </div>
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700">
+                                    <span class="text-slate-300 block text-xs sm:text-sm mb-1">Conjuntos necesarios para restaurar:</span>
+                                    <span id="res-diff-sets" class="font-mono font-semibold text-amber-300 text-sm sm:text-base">2 conjuntos</span>
+                                </div>
+                                <div class="bg-amber-950/60 p-3.5 rounded-lg border border-amber-500/40 flex justify-between items-center">
+                                    <span class="text-amber-200 font-semibold">Volumen a leer y RTO:</span>
+                                    <span id="res-diff-rto" class="font-mono font-bold text-amber-300 text-sm sm:text-base">0 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Estrategia C: Full Dom + Incremental Diaria -->
+                    <div class="bg-slate-800 border border-emerald-500/40 rounded-xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded">Estrategia C</span>
+                                <span class="text-xs sm:text-sm font-mono text-slate-300">Dom Full + Lun–Sáb Inc</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-4">Full domingo + Incremental diaria</h3>
+
+                            <div class="space-y-3 text-sm sm:text-base">
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                                    <span class="text-slate-200">Almacenamiento acumulado:</span>
+                                    <span id="res-inc-storage" class="font-mono font-bold text-emerald-400 text-base sm:text-lg">0 GB</span>
+                                </div>
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700 flex justify-between items-center">
+                                    <span class="text-slate-200">Última copia nocturna:</span>
+                                    <span id="res-inc-last" class="font-mono font-bold text-white text-sm sm:text-base">0 GB</span>
+                                </div>
+                                <div class="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700">
+                                    <span class="text-slate-300 block text-xs sm:text-sm mb-1">Conjuntos necesarios para restaurar:</span>
+                                    <span id="res-inc-sets" class="font-mono font-semibold text-emerald-300 text-sm sm:text-base">N conjuntos</span>
+                                </div>
+                                <div class="bg-emerald-950/60 p-3.5 rounded-lg border border-emerald-500/40 flex justify-between items-center">
+                                    <span class="text-emerald-200 font-semibold">Volumen a leer y RTO:</span>
+                                    <span id="res-inc-rto" class="font-mono font-bold text-sky-300 text-sm sm:text-base">0 min</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen RPO común -->
+                <div class="mt-6 bg-slate-800/90 border border-slate-700 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm sm:text-base">
+                    <div>
+                        <strong class="text-sky-400">📌 Análisis de pérdida de datos (RPO):</strong>
+                        Como las copias se ejecutan a las <code>00:00 h</code> y el incidente golpea a las <code>16:00 h</code>, en las tres estrategias se pierden las <strong>16 horas de transacciones</strong> generadas durante el día en curso (para reducir ese RPO se requieren copias de logs de transacciones cada 15 min o snapshots horarios).
+                    </div>
+                </div>
+
+                <!-- Reto de debate en el aula (sin spoilers) -->
+                <div class="mt-6 pt-6 border-t border-slate-700">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <span class="bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs sm:text-sm font-bold uppercase tracking-wider px-3 py-1 rounded-full">💬 Pregunta de cierre para el aula</span>
+                        <span class="text-xs sm:text-sm font-mono text-slate-300">Fragilidad de la cadena de restauración</span>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-snug mb-3">
+                        «El ransomware golpea el jueves a las 16:00 h. Al iniciar la recuperación descubrimos que el archivo de copia de la noche del martes tiene sectores corruptos y es ilegible. ¿Qué podemos recuperar si nuestra estrategia era Incremental frente a si era Diferencial?»
+                    </h3>
+                    <button type="button" id="btn-backup-debate" onclick="toggleBackupDebate()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-sm sm:text-base shadow transition-all cursor-pointer">
+                        💡 Mostrar claves y conclusión técnica
+                    </button>
+                    <div id="backup-debate-solution" class="hidden mt-4 p-5 bg-emerald-950/90 border border-emerald-500/50 rounded-xl text-emerald-100 space-y-2.5 text-sm sm:text-base">
+                        <p class="font-bold text-emerald-300 text-base sm:text-lg">✅ Por qué la regla 3-2-1-1-0 exige «0 errores en verificación»:</p>
+                        <ul class="list-disc list-outside pl-5 space-y-2 leading-relaxed">
+                            <li><strong>En la estrategia Incremental (cadena rota):</strong> Para reconstruir el estado del jueves a las 00:00 h necesitamos aplicar en estricto orden secuencial <code>Full Dom + Inc Lun + Inc Mar + Inc Mié + Inc Jue</code>. Al estar corrupto el eslabón del <strong>martes</strong>, las copias del miércoles y jueves quedan huérfanas (dependen de bloques del martes): <strong>solo podremos restaurar hasta el lunes a las 00:00 h</strong>, perdiendo tres días enteros de facturación y pedidos.</li>
+                            <li><strong>En la estrategia Diferencial (inmune a fallos intermedios):</strong> Cada copia diferencial contiene <em>todos</em> los cambios acumulados desde el domingo. El archivo corrupto del martes <strong>ni siquiera se lee</strong>: nos basta con unir <code>Full Dom + Dif Jueves</code> para recuperar el sistema al 100 % hasta el jueves a las 00:00 h.</li>
+                            <li><strong>Solución moderna en cabinas empresariales:</strong> Utilizar <em>Synthetic Full Backups</em> (la cabina consolida internamente las incrementales verificando hashes bloque a bloque) y pruebas automatizadas de montaje diario (el <strong>0</strong> de la regla <code>3-2-1-1-0</code>).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODAL DESAFIANTE DE CIERRE (FASE 4): ¿Y VUESTROS DATOS? -->
+        <div id="personal-backup-modal" role="dialog" aria-modal="true" aria-labelledby="personal-modal-title" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md text-white overflow-y-auto p-6 sm:p-10">
+            <div class="max-w-5xl mx-auto my-auto space-y-8 py-4">
+                <!-- Barra superior del modal -->
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                    <span class="bg-gradient-to-r from-rose-500 to-orange-500 text-white text-xs sm:text-sm font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow">
+                        🔥 Fase 4 · Reto personal de cierre de la Sesión 1
+                    </span>
+                    <button type="button" onclick="closePersonalBackupModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm transition-all cursor-pointer">
+                        ✕ Cerrar reto (Esc)
+                    </button>
+                </div>
+
+                <!-- Pregunta principal desafiante a gran tamaño -->
+                <div class="bg-gradient-to-br from-rose-950/90 via-slate-900 to-slate-900 border-2 border-rose-500/60 rounded-3xl p-7 sm:p-10 shadow-2xl space-y-5">
+                    <h2 id="personal-modal-title" class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                        Y vosotros… <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-400 to-rose-400">¿qué datos protegéis y cómo?</span>
+                    </h2>
+                    <p class="text-lg sm:text-2xl text-slate-200 font-medium leading-relaxed">
+                        «Si hoy al salir de clase os roban la mochila con el portátil y el móvil —o ejecutáis un script envenenado que cifra vuestro disco duro—, <strong class="text-amber-300">¿qué perderíais para siempre y cuántas horas tardaríais en volver a trabajar (vuestro RTO)?</strong>»
+                    </p>
+                </div>
+
+                <!-- 3 cajetines con revelado progresivo e individual (solo pista corta en grande) -->
+                <div class="space-y-3">
+                    <div class="flex justify-end">
+                        <button type="button" onclick="resetPersonalTraps()" class="text-xs text-slate-400 hover:text-white underline cursor-pointer">
+                            ↺ Ocultar cajetines
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+                        <!-- Cajetín 1 -->
+                        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between transition-all">
+                            <div id="trap-hint-1" class="flex flex-col items-center justify-between text-center h-full py-4 space-y-6">
+                                <div class="space-y-3">
+                                    <span class="text-4xl sm:text-5xl block" aria-hidden="true">☁️</span>
+                                    <span class="inline-block text-xs font-mono uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3 py-1 rounded-full font-bold">
+                                        Pista 1
+                                    </span>
+                                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                                        Nube personal
+                                    </h3>
+                                </div>
+                                <button type="button" onclick="togglePersonalTrap(1)" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-rose-950/80 text-rose-300 border border-rose-500/40 font-bold text-sm sm:text-base transition-all cursor-pointer">
+                                    🔍 Destapar
+                                </button>
+                            </div>
+
+                            <div id="trap-content-1" class="hidden space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono uppercase tracking-wider text-rose-400 font-bold">1. El falso amigo de la nube</span>
+                                    <button type="button" onclick="togglePersonalTrap(1)" class="text-xs text-slate-400 hover:text-white underline cursor-pointer">Ocultar</button>
+                                </div>
+                                <h3 class="text-lg sm:text-xl font-bold text-white">«Lo tengo todo en Google Drive / OneDrive / iCloud»</h3>
+                                <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                                    ¿Eso es un backup o es <strong>sincronización en vivo</strong>? Si un <em>ransomware</em> cifra la carpeta de Drive en tu portátil, ¿cuántos segundos tarda el cliente de escritorio en subir los archivos cifrados a la nube machacando los buenos?
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Cajetín 2 -->
+                        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between transition-all">
+                            <div id="trap-hint-2" class="flex flex-col items-center justify-between text-center h-full py-4 space-y-6">
+                                <div class="space-y-3">
+                                    <span class="text-4xl sm:text-5xl block" aria-hidden="true">🐙</span>
+                                    <span class="inline-block text-xs font-mono uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full font-bold">
+                                        Pista 2
+                                    </span>
+                                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                                        Repositorios de código
+                                    </h3>
+                                </div>
+                                <button type="button" onclick="togglePersonalTrap(2)" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-amber-950/80 text-amber-300 border border-amber-500/40 font-bold text-sm sm:text-base transition-all cursor-pointer">
+                                    🔍 Destapar
+                                </button>
+                            </div>
+
+                            <div id="trap-content-2" class="hidden space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold">2. El espejismo de GitHub</span>
+                                    <button type="button" onclick="togglePersonalTrap(2)" class="text-xs text-slate-400 hover:text-white underline cursor-pointer">Ocultar</button>
+                                </div>
+                                <h3 class="text-lg sm:text-xl font-bold text-white">«Mi código del TFG y prácticas está en Git»</h3>
+                                <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                                    Hacer <code>git push</code> salva el código versionado, pero ¿dónde están tus ficheros <code>.env</code> (en <code>.gitignore</code>), bases de datos locales, máquinas virtuales, certificados digitales y tus claves privadas <code>~/.ssh</code>?
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Cajetín 3 -->
+                        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 flex flex-col justify-between transition-all">
+                            <div id="trap-hint-3" class="flex flex-col items-center justify-between text-center h-full py-4 space-y-6">
+                                <div class="space-y-3">
+                                    <span class="text-4xl sm:text-5xl block" aria-hidden="true">📱</span>
+                                    <span class="inline-block text-xs font-mono uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/30 px-3 py-1 rounded-full font-bold">
+                                        Pista 3
+                                    </span>
+                                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                                        El móvil y el 2FA
+                                    </h3>
+                                </div>
+                                <button type="button" onclick="togglePersonalTrap(3)" class="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-sky-950/80 text-sky-300 border border-sky-500/40 font-bold text-sm sm:text-base transition-all cursor-pointer">
+                                    🔍 Destapar
+                                </button>
+                            </div>
+
+                            <div id="trap-content-3" class="hidden space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">3. El bloqueo circular del MFA</span>
+                                    <button type="button" onclick="togglePersonalTrap(3)" class="text-xs text-slate-400 hover:text-white underline cursor-pointer">Ocultar</button>
+                                </div>
+                                <h3 class="text-lg sm:text-xl font-bold text-white">«Restauro desde la nube en otro PC…»</h3>
+                                <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                                    Para entrar a tu nube desde un ordenador nuevo necesitas el segundo factor (MFA) de tu móvil… que estaba en la misma mochila robada. ¿Tienes guardados fuera del móvil los <strong>códigos de recuperación de emergencia</strong>?
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón discreto sin spoilers para revelar la arquitectura personal recomendada -->
+                <div class="pt-2">
+                    <button type="button" id="btn-personal-recipe" onclick="togglePersonalRecipe()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-6 py-3.5 rounded-2xl text-sm sm:text-base shadow-lg transition-all cursor-pointer">
+                        💡 Mostrar arquitectura 3-2-1-1-0 realista para un estudiante de Ingeniería Informática
+                    </button>
+
+                    <div id="personal-recipe-box" class="hidden mt-5 bg-emerald-950/90 border border-emerald-500/50 rounded-2xl p-6 sm:p-8 text-emerald-100 space-y-4">
+                        <h3 class="text-lg sm:text-xl font-extrabold text-emerald-300">
+                            ✅ Cómo aplicar lo aprendido hoy a tu propia vida digital (sin gastarte una fortuna):
+                        </h3>
+                        <ul class="list-disc list-outside pl-5 space-y-2.5 text-sm sm:text-base leading-relaxed">
+                            <li>
+                                <strong>Cifrado completo de disco en portátil y móvil (Anillo 1 y 3):</strong> Activa hoy mismo <strong>BitLocker</strong> (Windows), <strong>LUKS</strong> (Linux) o <strong>FileVault</strong> (macOS). Si te roban la mochila, perderás el hardware (disponibilidad), pero nadie podrá leer tus sesiones, tokens ni documentos (confidencialidad intacta).
+                            </li>
+                            <li>
+                                <strong>Copia local desconectada = tu <em>Air-Gap</em> (el «1» inmutable):</strong> Usa un disco SSD/NVMe externo que <strong>solo conectas al hacer la copia y desconectas inmediatamente después</strong>, utilizando herramientas de backup versionado y deduplicado como <strong>Restic</strong>, <strong>BorgBackup</strong>, <strong>Kopia</strong>, <strong>Veeam Agent Free</strong> o <strong>Time Machine</strong>.
+                            </li>
+                            <li>
+                                <strong>Copia fuera de sede (Offsite) cifrada extremo a extremo:</strong> No confíes solo en la sincronización plana; programa envíos periódicos de instantáneas cifradas (con <code>rclone crypt</code>, <em>Cryptomator</em> o repositorios Restic/Borg sobre S3/Backblaze/Drive) con historial de versiones activo.
+                            </li>
+                            <li>
+                                <strong>Kit de supervivencia de identidad (anti-bloqueo MFA):</strong> Usa un gestor de contraseñas (<em>Bitwarden / KeePassXC</em>) y guarda una copia impresa en casa (o en una llave <strong>YubiKey / FIDO2</strong> de respaldo) con tus códigos de recuperación de emergencia de Google, Microsoft, GitHub y la UJI.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navegación secuencial entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos del tema" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-xs sm:text-sm hide-in-embed">
+            <a href="Defensa%20y%20pol%C3%ADticas.html" class="justify-self-center sm:justify-self-start px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">← 02. Defensa en profundidad y políticas</a>
+            <a href="../index.html" class="justify-self-center px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">📋 Volver al índice general</a>
+            <a href="An%C3%A1lisis%20de%20riesgos.html" class="justify-self-center sm:justify-self-end px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-sm transition-colors">04. Análisis y gestión de riesgos TI →</a>
+        </nav>
+
+        <!-- Pie de página académico -->
+        <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-2">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:underline">DLSI</a>
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        const tabsOrder = ['fundamentos', 'tipos', 'simulador'];
+        let currentTabIndex = 0;
+
+        function switchTab(tabId) {
+            currentTabIndex = tabsOrder.indexOf(tabId);
+            if (currentTabIndex === -1) currentTabIndex = 0;
+            tabsOrder.forEach(t => {
+                document.getElementById('tab-' + t).classList.toggle('hidden', t !== tabId);
+                const btn = document.getElementById('tab-btn-' + t);
+                if (btn) btn.classList.toggle('active', t === tabId);
+            });
+        }
+
+        function stepTab(delta) {
+            const modal = document.getElementById('personal-backup-modal');
+            const isModalOpen = modal && !modal.classList.contains('hidden');
+            if (isModalOpen) {
+                if (delta < 0) closePersonalBackupModal();
+                return;
+            }
+            const next = currentTabIndex + delta;
+            if (next >= 0 && next < tabsOrder.length) {
+                switchTab(tabsOrder[next]);
+            } else if (delta > 0 && currentTabIndex === tabsOrder.length - 1) {
+                openPersonalBackupModal();
+            }
+        }
+
+        function openPersonalBackupModal() {
+            const modal = document.getElementById('personal-backup-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closePersonalBackupModal() {
+            const modal = document.getElementById('personal-backup-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function togglePersonalRecipe() {
+            const box = document.getElementById('personal-recipe-box');
+            const btn = document.getElementById('btn-personal-recipe');
+            const isHidden = box.classList.toggle('hidden');
+            btn.textContent = isHidden
+                ? '💡 Mostrar arquitectura 3-2-1-1-0 realista para un estudiante de Ingeniería Informática'
+                : '🙈 Ocultar arquitectura personal recomendada';
+        }
+
+        function togglePersonalTrap(idx) {
+            const hint = document.getElementById('trap-hint-' + idx);
+            const content = document.getElementById('trap-content-' + idx);
+            if (!hint || !content) return;
+            const isContentHidden = content.classList.contains('hidden');
+            hint.classList.toggle('hidden', isContentHidden);
+            content.classList.toggle('hidden', !isContentHidden);
+        }
+
+        function resetPersonalTraps() {
+            [1, 2, 3].forEach(idx => {
+                const hint = document.getElementById('trap-hint-' + idx);
+                const content = document.getElementById('trap-content-' + idx);
+                if (hint) hint.classList.remove('hidden');
+                if (content) content.classList.add('hidden');
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePersonalBackupModal();
+                return;
+            }
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+            if (e.key === 'ArrowRight') stepTab(1);
+            if (e.key === 'ArrowLeft') stepTab(-1);
+        });
+
+        function resetKerabenPreset() {
+            document.getElementById('sim-base-gb').value = 4000;
+            document.getElementById('sim-daily-gb').value = 250;
+            document.getElementById('sim-crash-day').value = 4;
+            document.getElementById('sim-speed').value = 20;
+            updateBackupSim();
+        }
+
+        function toggleBackupDebate() {
+            const box = document.getElementById('backup-debate-solution');
+            const btn = document.getElementById('btn-backup-debate');
+            const isHidden = box.classList.toggle('hidden');
+            btn.textContent = isHidden
+                ? '💡 Mostrar claves y conclusión técnica'
+                : '🙈 Ocultar claves y conclusión técnica';
+        }
+
+        const dayNames = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        const dayShort = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+        function updateBackupSim() {
+            const baseGB = parseInt(document.getElementById('sim-base-gb').value, 10);
+            const dailyGB = parseInt(document.getElementById('sim-daily-gb').value, 10);
+            const crashDay = parseInt(document.getElementById('sim-crash-day').value, 10); // 1=Lun .. 6=Sáb
+            const speed = parseInt(document.getElementById('sim-speed').value, 10);
+
+            document.getElementById('lbl-base-gb').textContent = `${baseGB} GB`;
+            document.getElementById('lbl-daily-gb').textContent = `${dailyGB} GB`;
+            document.getElementById('lbl-speed').textContent = `${speed} GB/min`;
+
+            // Suponemos que cada día el conjunto completo crece o modifica 'dailyGB' (de los cuales un 50% es crecimiento neto para Full y 100% bloques cambiados para Inc/Dif)
+            // Para claridad didáctica estándar:
+            // - En Incremental: cada noche de Lun(1) a crashDay copia 'dailyGB'.
+            // - En Diferencial: la noche k (1..crashDay) copia k * dailyGB.
+            // - En Full diaria: la noche k copia baseGB + (k * dailyGB * 0.5). (O más sencillo y transparente en pizarra: baseGB + k * dailyGB).
+            // Usemos la convención transparente de pizarra: cada día se añaden/modifican dailyGB sobre el volumen base.
+
+            let fullStorage = baseGB; // Domingo
+            for (let d = 1; d <= crashDay; d++) {
+                fullStorage += (baseGB + d * dailyGB);
+            }
+            const fullLastNight = baseGB + crashDay * dailyGB;
+            const fullRestoreGB = fullLastNight;
+            const fullRtoMin = Math.round(fullRestoreGB / speed);
+
+            // Diferencial: Dom (baseGB) + suma de d=1..crashDay de (d * dailyGB)
+            let diffStorage = baseGB;
+            for (let d = 1; d <= crashDay; d++) {
+                diffStorage += (d * dailyGB);
+            }
+            const diffLastNight = crashDay * dailyGB;
+            const diffRestoreGB = baseGB + diffLastNight;
+            // Penalización de montaje de 2 conjuntos (+5 min)
+            const diffRtoMin = Math.round(diffRestoreGB / speed) + 5;
+
+            // Incremental: Dom (baseGB) + crashDay * dailyGB
+            const incStorage = baseGB + (crashDay * dailyGB);
+            const incLastNight = dailyGB;
+            const incRestoreGB = baseGB + (crashDay * dailyGB);
+            // Penalización por recomponer múltiples conjuntos secuenciales (+4 min por cada incremental adicional)
+            const incRtoMin = Math.round(incRestoreGB / speed) + (crashDay * 4);
+
+            document.getElementById('res-full-storage').textContent = `${fullStorage.toLocaleString('es-ES')} GB`;
+            document.getElementById('res-full-last').textContent = `${fullLastNight.toLocaleString('es-ES')} GB (${dayShort[crashDay]} 00:00)`;
+            document.getElementById('res-full-sets').textContent = `1 conjunto: Full ${dayNames[crashDay]}`;
+            document.getElementById('res-full-rto').textContent = `${fullRestoreGB} GB → ~${fullRtoMin} min`;
+
+            document.getElementById('res-diff-storage').textContent = `${diffStorage.toLocaleString('es-ES')} GB`;
+            document.getElementById('res-diff-last').textContent = `${diffLastNight.toLocaleString('es-ES')} GB (${dayShort[crashDay]} 00:00)`;
+            document.getElementById('res-diff-sets').textContent = `2 conjuntos: Full Dom + Dif ${dayShort[crashDay]}`;
+            document.getElementById('res-diff-rto').textContent = `${diffRestoreGB} GB → ~${diffRtoMin} min`;
+
+            const incChain = ["Full Dom"];
+            for (let d = 1; d <= crashDay; d++) incChain.push(`Inc ${dayShort[d]}`);
+            document.getElementById('res-inc-storage').textContent = `${incStorage.toLocaleString('es-ES')} GB`;
+            document.getElementById('res-inc-last').textContent = `${incLastNight.toLocaleString('es-ES')} GB (${dayShort[crashDay]} 00:00)`;
+            document.getElementById('res-inc-sets').textContent = `${crashDay + 1} conjuntos: ${incChain.join(' + ')}`;
+            document.getElementById('res-inc-rto').textContent = `${incRestoreGB} GB → ~${incRtoMin} min (cadena secuencial)`;
+        }
+
+        updateBackupSim();
+    </script>
+</body>
+</html>

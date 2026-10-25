@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defensa en profundidad, políticas y factor humano - EI1044</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bgGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22primaryGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2338bdf8%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232563eb%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22screenGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23090d16%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3C/linearGradient%3E%20%3Cfilter%20id%3D%22glow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%20%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%20/%3E%20%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%20/%3E%20%3C/filter%3E%20%3C/defs%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bgGrad%29%22%20/%3E%20%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3Crect%20x%3D%228%22%20y%3D%229%22%20width%3D%2248%22%20height%3D%2238%22%20rx%3D%227%22%20fill%3D%22url%28%23screenGrad%29%22%20stroke%3D%22url%28%23primaryGrad%29%22%20stroke-width%3D%222%22%20/%3E%20%3Cline%20x1%3D%228%22%20y1%3D%2218%22%20x2%3D%2256%22%20y2%3D%2218%22%20stroke%3D%22%231e293b%22%20stroke-width%3D%221.5%22%20/%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23ef4444%22%20/%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23eab308%22%20/%3E%20%3Ccircle%20cx%3D%2226%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%2322c55e%22%20/%3E%20%3Cpath%20d%3D%22M%2016%2025%20L%2023%2030.5%20L%2016%2036%22%20fill%3D%22none%22%20stroke%3D%22%2338bdf8%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cline%20x1%3D%2227%22%20y1%3D%2236%22%20x2%3D%2235%22%20y2%3D%2236%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2227%22%20r%3D%221.5%22%20fill%3D%22%2338bdf8%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2233%22%20r%3D%221.5%22%20fill%3D%22%2310b981%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cpath%20d%3D%22M%2026%2047%20L%2024%2053%20L%2040%2053%20L%2038%2047%20Z%22%20fill%3D%22%231e293b%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221%22%20/%3E%20%3Crect%20x%3D%2220%22%20y%3D%2253%22%20width%3D%2224%22%20height%3D%222.5%22%20rx%3D%221.2%22%20fill%3D%22%23334155%22%20/%3E%20%3C/svg%3E">
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .tab-btn.active,
+        .tab-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+        }
+        .is-embedded .hide-in-embed {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 sm:p-8">
+
+    <main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+
+        <!-- Cabecera -->
+        <header class="text-center border-b border-slate-200 pb-8 mb-8">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold uppercase tracking-wider mb-3">
+                <span aria-hidden="true">🏰</span>
+                <span>Tema 4 · Bloques 4.2, 4.3 y 4.7</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Defensa en profundidad, políticas y factor humano</h1>
+            <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+                Arquitectura de seguridad multicapa, bastionado de sistemas (<em>hardening</em>), jerarquía normativa documental y concienciación medible del personal.
+            </p>
+        </header>
+
+        <!-- Pestañas -->
+        <nav aria-label="Secciones de defensa y políticas" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 bg-slate-100 p-2 rounded-xl border border-slate-200">
+            <button type="button" id="tab-btn-capas" onclick="switchTab('capas')" class="tab-btn active px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all">
+                1. Defensa en profundidad, Zero Trust y Hardening
+            </button>
+            <button type="button" id="tab-btn-piramide" onclick="switchTab('piramide')" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all">
+                2. ⚡ Pirámide documental (Clasificador)
+            </button>
+            <button type="button" id="tab-btn-humano" onclick="switchTab('humano')" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-emerald-900 bg-emerald-100/80 hover:bg-emerald-200 transition-all">
+                3. 🧑‍🏫 Factor humano (Caso real)
+            </button>
+        </nav>
+
+        <!-- PESTAÑA 1: DEFENSA EN PROFUNDIDAD Y HARDENING -->
+        <section id="tab-capas" class="space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <!-- Columna izquierda: Evolución del modelo perimetral a Defensa en profundidad y Zero Trust -->
+                <div class="lg:col-span-5 bg-slate-900 text-white rounded-2xl p-6 sm:p-7 flex flex-col justify-between border border-slate-800">
+                    <div>
+                        <span class="text-xs font-mono font-bold uppercase tracking-wider text-sky-400 bg-sky-950/80 border border-sky-800 px-3 py-1 rounded-full">Cambio de paradigma</span>
+                        <h2 class="text-2xl font-bold mt-3 mb-3">Del «castillo y foso» a la defensa en profundidad y Zero Trust</h2>
+                        <p class="text-sm text-slate-300 leading-relaxed mb-4">
+                            El modelo tradicional confiaba ciegamente en cualquiera que estuviera dentro de la red local de la oficina. Con el teletrabajo, el cloud y el movimiento lateral del <em>ransomware</em>, esa premisa es suicida.
+                        </p>
+                        <div class="space-y-3 text-xs sm:text-sm">
+                            <div class="bg-slate-800/90 border border-slate-700 p-3.5 rounded-xl">
+                                <strong class="text-amber-400 block mb-1">🛡️ Defensa en profundidad (Defense in Depth):</strong>
+                                Superponer múltiples anillos concéntricos de control (físico, red, host, aplicación, datos y personas). Si un control falla o es vulnerado, el anillo interior detiene el avance.
+                            </div>
+                            <div class="bg-slate-800/90 border border-slate-700 p-3.5 rounded-xl">
+                                <strong class="text-sky-400 block mb-1">🔐 Zero Trust («Nunca confíes, verifica siempre»):</strong>
+                                Ninguna petición es confiable por su dirección IP de origen. Cada acceso exige autenticar identidad (MFA), verificar la salud del dispositivo, cifrar el canal y aplicar mínimo privilegio.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-slate-400">
+                        Controles ISO 27001:2022 asociados: <code class="text-sky-300">A.8.20</code> (Seguridad de redes), <code class="text-sky-300">A.8.22</code> (Segregación en redes) y <code class="text-sky-300">A.8.9</code> (Gestión de la configuración).
+                    </div>
+                </div>
+
+                <!-- Columna derecha: Las 6 capas concéntricas -->
+                <div class="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7">
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">Los 6 anillos concéntricos de protección</h2>
+                    <div class="space-y-3">
+                        <div class="bg-white border-l-4 border-l-rose-600 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="text-xs font-bold uppercase text-rose-700">Anillo 1 (Núcleo) · Datos e información</span>
+                                <p class="text-xs sm:text-sm text-slate-700 mt-0.5">Cifrado en reposo (AES-256) y tránsito (TLS 1.3), clasificación de datos, DLP y backups inmutables 3-2-1-1-0.</p>
+                            </div>
+                            <span class="text-xs font-mono bg-rose-50 text-rose-800 px-2.5 py-1 rounded shrink-0">A.8.13 / A.8.24</span>
+                        </div>
+
+                        <div class="bg-white border-l-4 border-l-amber-500 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="text-xs font-bold uppercase text-amber-800">Anillo 2 · Aplicaciones y bases de datos</span>
+                                <p class="text-xs sm:text-sm text-slate-700 mt-0.5">Validación de entradas (anti-SQLi/XSS), WAF, MFA FIDO2, parcheo de motores (PHP, Java, SQL) y secretos fuera del código.</p>
+                            </div>
+                            <span class="text-xs font-mono bg-amber-50 text-amber-900 px-2.5 py-1 rounded shrink-0">A.8.26 / A.8.28</span>
+                        </div>
+
+                        <div class="bg-white border-l-4 border-l-emerald-600 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="text-xs font-bold uppercase text-emerald-800">Anillo 3 · Host y sistema operativo</span>
+                                <p class="text-xs sm:text-sm text-slate-700 mt-0.5">Bastionado (<em>hardening</em>), desactivación de servicios innecesarios, agente EDR, firewall local y separación de cuentas admin.</p>
+                            </div>
+                            <span class="text-xs font-mono bg-emerald-50 text-emerald-800 px-2.5 py-1 rounded shrink-0">A.8.7 / A.8.9</span>
+                        </div>
+
+                        <div class="bg-white border-l-4 border-l-blue-600 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="text-xs font-bold uppercase text-blue-800">Anillo 4 · Red interna y segmentación</span>
+                                <p class="text-xs sm:text-sm text-slate-700 mt-0.5">Separación por VLANs (Usuarios, Servidores, Industrial OT, Invitados), NAC (802.1X), prevención de ARP spoofing y ACLs internas.</p>
+                            </div>
+                            <span class="text-xs font-mono bg-blue-50 text-blue-800 px-2.5 py-1 rounded shrink-0">A.8.20 / A.8.22</span>
+                        </div>
+
+                        <div class="bg-white border-l-4 border-l-indigo-600 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="text-xs font-bold uppercase text-indigo-800">Anillo 5 · Perímetro y DMZ</span>
+                                <p class="text-xs sm:text-sm text-slate-700 mt-0.5">Cortafuegos de nueva generación (NGFW), zona desmilitarizada (DMZ) para servicios públicos, IPS, mitigación DDoS y VPN.</p>
+                            </div>
+                            <span class="text-xs font-mono bg-indigo-50 text-indigo-800 px-2.5 py-1 rounded shrink-0">A.8.21</span>
+                        </div>
+
+                        <div class="bg-white border-l-4 border-l-slate-700 border border-slate-200 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="text-xs font-bold uppercase text-slate-800">Anillo 6 · Seguridad física y factor humano</span>
+                                <p class="text-xs sm:text-sm text-slate-700 mt-0.5">Control de acceso al CPD, SAI/generadores, climatización, política de mesas limpias y formación continua de empleados.</p>
+                            </div>
+                            <span class="text-xs font-mono bg-slate-100 text-slate-800 px-2.5 py-1 rounded shrink-0">A.6.3 / A.7.1–A.7.14</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bastionado (Hardening) práctico para el SysAdmin -->
+            <div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Guía de bastionado (<em>hardening</em>) técnico por ámbito</h2>
+                <p class="text-sm sm:text-base text-slate-600 mb-5">
+                    Un sistema recién instalado con su configuración por defecto es inseguro por definición (prioriza comodidad sobre seguridad). Bastionar consiste en reducir su superficie de ataque al mínimo indispensable:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                            <span aria-hidden="true">🖥️</span>
+                            <span>1. Sistema operativo (Host)</span>
+                        </h3>
+                        <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700">
+                            <li><strong>Eliminar o deshabilitar cuentas por defecto</strong> (<code>guest</code>, <code>administrator</code>/<code>root</code> directo por SSH) y forzar autenticación por clave pública + MFA.</li>
+                            <li><strong>Desinstalar paquetes y demonios innecesarios</strong> (si es un servidor de BBDD, no debe tener servidor de impresión CUPS ni entorno gráfico X11).</li>
+                            <li><strong>Automatizar parches de seguridad</strong> (previa validación en preproducción) y activar módulos de control obligatorio (SELinux / AppArmor).</li>
+                            <li><strong>Cifrado completo de disco</strong> (BitLocker / LUKS) y arranque seguro (Secure Boot + contraseña en BIOS/UEFI).</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                            <span aria-hidden="true">⚙️</span>
+                            <span>2. Servicios de red esenciales</span>
+                        </h3>
+                        <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700">
+                            <li><strong>DNS:</strong> Separar resolutor interno de autoritativo externo (<em>Split-Horizon DNS</em>), restringir transferencias de zona (AXFR) y firmar con <strong>DNSSEC</strong>.</li>
+                            <li><strong>DHCP:</strong> Activar <strong>DHCP Snooping</strong> en los switches para bloquear servidores DHCP piratas conectados por error o malicia en la LAN.</li>
+                            <li><strong>Web y BBDD:</strong> Ocultar cabeceras de versión (<code>ServerTokens Prod</code>), ejecutar cada servicio con un usuario sin privilegios y aislar la BBDD para que solo acepte conexiones desde el servidor de aplicaciones.</li>
+                            <li><strong>Correo:</strong> Configurar <strong>SPF, DKIM y DMARC</strong> en modo rechazo para impedir que terceros suplanten el dominio corporativo.</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+                            <span aria-hidden="true">🌐</span>
+                            <span>3. Red, routers y DMZ</span>
+                        </h3>
+                        <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700">
+                            <li><strong>Política de denegación por defecto (Deny All):</strong> En todo cortafuegos, bloquear absolutamente todo el tráfico salvo los puertos y orígenes explícitamente justificados.</li>
+                            <li><strong>Arquitectura de doble firewall o DMZ:</strong> Los servidores accesibles desde internet (web, pasarela de correo) residen en la <strong>DMZ</strong> y jamás pueden iniciar conexiones hacia la red interna de gestión.</li>
+                            <li><strong>Plano de administración fuera de banda (OOB):</strong> Administrar switches, routers e hipervisores (iDRAC/iLO) desde una VLAN de gestión exclusiva usando SSHv2/HTTPS, deshabilitando Telnet, HTTP y SNMPv1/v2c.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reto de arquitectura en el aula (sin spoilers) -->
+            <div class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-lg">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <span class="bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">💬 Reto de arquitectura en el aula</span>
+                    <span class="text-xs font-mono text-sky-400">Defensa en profundidad · DMZ vs. LAN interna</span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-white leading-snug mb-3">
+                    «El portal web B2B de Keraben está en la DMZ, pero necesita consultar el stock en la base de datos del ERP (situada en la LAN interna). Si un atacante compromete el servidor web de la DMZ, ¿qué controles de nuestros anillos impiden que salte al ERP, a los controladores de dominio o a los hornos industriales?»
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 mb-5">
+                    Debate qué ocurriría en una red plana frente a una arquitectura con defensa en profundidad y <em>Zero Trust</em> antes de desplegar la conclusión técnica.
+                </p>
+                <button type="button" onclick="toggleArchSolution()" id="btn-arch-solution" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs sm:text-sm shadow transition-all cursor-pointer">
+                    💡 Mostrar claves y conclusión técnica
+                </button>
+                <div id="arch-solution" class="hidden mt-5 p-5 bg-emerald-950/90 border border-emerald-500/50 rounded-xl text-emerald-100 space-y-3 text-xs sm:text-sm">
+                    <p class="font-bold text-emerald-300 text-sm sm:text-base">✅ Cómo detienen la intrusión los anillos de defensa en profundidad:</p>
+                    <ul class="list-disc list-outside pl-5 space-y-2 leading-relaxed">
+                        <li><strong>Anillo 5 y 4 (DMZ y firewall interno con <em>Deny All</em>):</strong> El servidor web en la DMZ <strong>jamás</strong> tiene acceso libre a la LAN. El firewall interno bloquea cualquier intento de conexión desde la DMZ hacia la red de oficinas, Active Directory (puertos <code>88/389/445</code>) o la VLAN industrial OT de los hornos.</li>
+                        <li><strong>Anillo 4 y 2 (Proxy de aplicación / API intermedia o regla pin-hole estricta):</strong> En vez de exponer el motor SQL del ERP directamente a la DMZ, el portal B2B consulta únicamente una API intermedia o réplica de lectura en una zona intermedia (únicamente por el puerto TLS autorizado y desde la IP fija del nodo web).</li>
+                        <li><strong>Anillo 3 (Bastionado del Host):</strong> El proceso web corre con un usuario de sistema sin privilegios (<code>www-data</code> en jaula/contenedor sin compiladores ni herramientas de escaneo de red) y monitorizado por un agente EDR.</li>
+                        <li><strong>Anillo 2 y 1 (Mínimo privilegio en BBDD y datos):</strong> La credencial de aplicación solo tiene permiso <code>SELECT</code> sobre la vista de catálogo/stock y <code>INSERT</code> sobre pedidos pendientes; aunque el atacante controle el frontal web, es técnicamente incapaz de ejecutar un <code>DROP TABLE</code> o volcar las tablas de RRHH o fórmulas químicas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 2: PIRÁMIDE DOCUMENTAL Y CLASIFICADOR -->
+        <section id="tab-piramide" class="hidden space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <!-- Explicación de los 4 niveles de la pirámide -->
+                <div class="lg:col-span-5 space-y-4">
+                    <h2 class="text-2xl font-bold text-slate-900">La pirámide documental de seguridad</h2>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        En un SGSI (cláusula <code>5.2</code>, <code>7.5</code> y control <code>A.5.1</code>), confundir una política con un procedimiento es uno de los errores más habituales. Cada nivel responde a una pregunta y tiene una caducidad distinta:
+                    </p>
+
+                    <div class="space-y-3">
+                        <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="font-bold text-indigo-950 text-base">1. Política (Policy)</h3>
+                                <span class="text-xs font-bold bg-indigo-200 text-indigo-900 px-2.5 py-0.5 rounded-full">Obligatoria · Estratégica</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-700">
+                                <strong>¿Qué se protege y por qué?</strong> Declaración de intenciones de alto nivel firmada por la Alta Dirección. Es agnóstica a la tecnología y cambia muy poco con los años.
+                            </p>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="font-bold text-blue-950 text-base">2. Estándar / Norma interna (Standard)</h3>
+                                <span class="text-xs font-bold bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">Obligatorio · Técnico</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-700">
+                                <strong>¿Qué requisito concreto y medible debe cumplirse?</strong> Concreta la política fijando tecnologías, algoritmos o umbrales uniformes (p. ej., longitud mínima, cifrado exigido).
+                            </p>
+                        </div>
+
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="font-bold text-emerald-950 text-base">3. Procedimiento (Procedure)</h3>
+                                <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full">Obligatorio · Operativo</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-700">
+                                <strong>¿Cómo se ejecuta paso a paso?</strong> Receta detallada y secuencial de comandos, pantallas y responsables para llevar a cabo una tarea sin errores.
+                            </p>
+                        </div>
+
+                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                            <div class="flex items-center justify-between mb-1">
+                                <h3 class="font-bold text-amber-950 text-base">4. Directriz / Guía (Guideline)</h3>
+                                <span class="text-xs font-bold bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Recomendación · Flexible</span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-700">
+                                <strong>¿Qué consejo o buena práctica nos ayuda?</strong> Orientaciones no punitivas para situaciones donde no hay una regla rígida (p. ej., consejos para detectar correos sospechosos).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clasificador interactivo para el aula -->
+                <div class="lg:col-span-7 bg-slate-900 text-white rounded-2xl p-6 sm:p-7 border border-slate-700 shadow-lg">
+                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-4 mb-5">
+                        <div>
+                            <span class="bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-full">⚡ Clasificador interactivo</span>
+                            <h2 class="text-xl font-bold text-white mt-2">Clasificador de la pirámide documental</h2>
+                        </div>
+                        <span id="doc-score-badge" class="text-xs font-mono bg-slate-800 border border-slate-600 text-amber-400 px-3 py-1.5 rounded-lg">
+                            Enunciado 1 / 6
+                        </span>
+                    </div>
+
+                    <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-5 mb-5">
+                        <p class="text-xs font-mono uppercase tracking-wider text-slate-400 mb-2">Fragmento extraído del repositorio documental de Keraben:</p>
+                        <p id="doc-statement" class="text-base sm:text-lg font-medium text-white leading-relaxed"></p>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-slate-300 font-semibold mb-3">¿En qué nivel de la pirámide documental debes catalogar este texto en tu SGSI?</p>
+
+                    <div id="doc-buttons" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                        <!-- Botones generados por JS -->
+                    </div>
+
+                    <div id="doc-feedback" class="hidden p-4 rounded-xl border text-xs sm:text-sm leading-relaxed mb-5"></div>
+
+                    <div class="flex items-center justify-between pt-3 border-t border-slate-800">
+                        <button type="button" onclick="prevDocItem()" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs sm:text-sm font-semibold">◀ Anterior</button>
+                        <button type="button" onclick="nextDocItem()" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-lg text-xs sm:text-sm font-bold">Siguiente fragmento ▶</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 3: FACTOR HUMANO Y CASO REAL EN PRODUCCIÓN -->
+        <section id="tab-humano" class="hidden space-y-8">
+            <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-xl">
+                <div class="max-w-3xl">
+                    <span class="bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">Caso real en producción · ISO 27001 Cláusulas 7.2, 7.3 y Control A.6.3</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-3 mb-3">El firewall humano: cómo diseñar y medir un programa real de concienciación</h2>
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                        En una auditoría de certificación ISO 27001, entregar un manual en PDF el primer día de contrato no basta para demostrar que el personal está concienciado. La dirección de TI necesita una <strong>plataforma viva de microformación</strong> y un <strong>cuadro de mando analítico</strong> que mida la participación y detecte en qué vectores falla la plantilla.
+                    </p>
+                </div>
+
+                <!-- Tarjetas de enlace a los 2 sistemas reales del profesor -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <!-- Sistema 1: Portal en Notion -->
+                    <div class="bg-slate-800/90 border border-slate-600 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="text-xs font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-500/30 px-3 py-1 rounded-full">Frontend formativo (Notion)</span>
+                                <span class="text-2xl" aria-hidden="true">🛡️</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Portal interno de ciberseguridad ágil</h3>
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                                Construido en Notion adaptando el <em>Kit de concienciación en ciberseguridad para PYMEs del INCIBE</em>. Organiza el aprendizaje continuo del personal en tres bloques:
+                            </p>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm text-slate-200 mb-5">
+                                <li><strong>Directrices de seguridad:</strong> reglas claras de escritorio limpio, uso de correo, dispositivos móviles y teletrabajo.</li>
+                                <li><strong>Píldoras formativas y cuestionarios:</strong> microcontenidos con test de autoevaluación integrados.</li>
+                                <li><strong>Recursos complementarios:</strong> alertas de INCIBE/OSI y canales de notificación de incidentes.</li>
+                            </ul>
+                        </div>
+                        <a href="https://portalciberseguridadagil.notion.site/" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm py-3 px-4 rounded-xl shadow transition-all">
+                            <span>Abrir Portal de Ciberseguridad en Notion</span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+
+                    <!-- Sistema 2: Dashboard en Google Sheets + Apps Script -->
+                    <div class="bg-slate-800/90 border border-slate-600 rounded-xl p-6 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full">Analítica y evidencias (Sheets + Apps Script)</span>
+                                <span class="text-2xl" aria-hidden="true">📊</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Cuadro de mando de evaluación en tiempo real</h3>
+                            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                                Las respuestas de los empleados a los cuestionarios de cada píldora se consolidan automáticamente en una hoja de cálculo gobernada por <strong>Google Apps Script</strong> que genera métricas de auditoría (cláusula <code>9.1</code>):
+                            </p>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm text-slate-200 mb-5">
+                                <li><strong>Tasa de cobertura y participación:</strong> seguimiento en tiempo real de qué áreas han completado cada píldora.</li>
+                                <li><strong>Ratio de error por cuestionario y pregunta:</strong> identifica los puntos ciegos (p. ej., si el 40 % falla en identificar dominios trampa).</li>
+                                <li><strong>Toma de decisiones basada en datos:</strong> permite reforzar controles técnicos allí donde el factor humano muestra mayor vulnerabilidad.</li>
+                            </ul>
+                        </div>
+                        <a href="https://docs.google.com/spreadsheets/d/1xWPne8wS5o4BLg1Mdku3e5BZk3OMMu24MSaPmPW3I_o/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-bold text-sm py-3 px-4 rounded-xl shadow transition-all">
+                            <span>Explorar Dashboard en Google Sheets</span>
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conexión con el taller de Notion del T4 -->
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <h3 class="font-bold text-blue-950 text-base">💡 Idea directa para tu entregable de Notion del Tema 4</h3>
+                    <p class="text-xs sm:text-sm text-blue-900 mt-1">
+                        Si eliges en tu taller práctico la <strong>Opción B (Documentación del SGSI, ref. 7.5)</strong> o la <strong>Opción C (Personal, roles y concienciación, ref. 7.2/7.3 y A.6.3)</strong>, puedes inspirarte directamente en este modelo para vincular píldoras formativas y tasas de superación con tus activos y controles.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navegación secuencial entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos del tema" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-xs sm:text-sm hide-in-embed">
+            <a href="Seguridad%20TI.html" class="justify-self-center sm:justify-self-start px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">← 01. Panorama y principios de seguridad</a>
+            <a href="../index.html" class="justify-self-center px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">📋 Volver al índice general</a>
+            <a href="Backups%20y%20continuidad.html" class="justify-self-center sm:justify-self-end px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold shadow-sm transition-colors">03. Copias de seguridad y continuidad →</a>
+        </nav>
+
+        <!-- Pie de página académico -->
+        <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-2">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:underline">DLSI</a>
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        const tabsOrder = ['capas', 'piramide', 'humano'];
+        let currentTabIndex = 0;
+
+        function switchTab(tabId) {
+            currentTabIndex = tabsOrder.indexOf(tabId);
+            if (currentTabIndex === -1) currentTabIndex = 0;
+            tabsOrder.forEach(t => {
+                document.getElementById('tab-' + t).classList.toggle('hidden', t !== tabId);
+                const btn = document.getElementById('tab-btn-' + t);
+                if (btn) btn.classList.toggle('active', t === tabId);
+            });
+        }
+
+        function stepTab(delta) {
+            const next = currentTabIndex + delta;
+            if (next >= 0 && next < tabsOrder.length) {
+                switchTab(tabsOrder[next]);
+            }
+        }
+
+        function toggleArchSolution() {
+            const box = document.getElementById('arch-solution');
+            const btn = document.getElementById('btn-arch-solution');
+            const isHidden = box.classList.toggle('hidden');
+            btn.textContent = isHidden
+                ? '💡 Mostrar claves y conclusión técnica'
+                : '🙈 Ocultar claves y conclusión técnica';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'ArrowRight') stepTab(1);
+            if (e.key === 'ArrowLeft') stepTab(-1);
+        });
+
+        switchTab('capas');
+
+        const docStatements = [
+            {
+                text: "«Toda la información confidencial de clientes y fórmulas industriales de Keraben debe estar protegida frente a accesos no autorizados, garantizando su confidencialidad, integridad y disponibilidad en cualquier ubicación.»",
+                correct: "Política",
+                explanation: "Es una Política (nivel estratégico): define el 'qué' y el 'por qué' con mandato de la Alta Dirección, sin atarse a ningún producto ni algoritmo concreto."
+            },
+            {
+                text: "«Todos los ordenadores portátiles corporativos desplazados fuera de las sedes de Castellón y Múnich deberán tener activado obligatoriamente el cifrado completo de disco mediante BitLocker o LUKS con algoritmo AES-256 y módulo TPM 2.0.»",
+                correct: "Estándar",
+                explanation: "Es un Estándar técnico obligatorio: aterriza la política fijando tecnologías, protocolos y parámetros concretos y auditablemente medibles (AES-256, TPM 2.0)."
+            },
+            {
+                text: "«Cuando Recursos Humanos notifique la baja de un empleado: 1) Abrir consola de Active Directory, 2) Deshabilitar cuenta de usuario en menos de 15 min, 3) Ejecutar el script Revoke-O365Tokens.ps1, 4) Revocar el certificado VPN en pfSense y 5) Anotar el ticket en el registro de bajas.»",
+                correct: "Procedimiento",
+                explanation: "Es un Procedimiento operativo: describe el 'cómo' paso a paso en orden cronológico para que cualquier administrador de guardia ejecute la tarea exactamente igual."
+            },
+            {
+                text: "«Para evitar caer en ataques de phishing, se aconseja revisar siempre el dominio real del remitente situando el cursor sobre el enlace sin hacer clic y desconfiar de mensajes que transmitan urgencia inusual.»",
+                correct: "Directriz",
+                explanation: "Es una Directriz (o guía de buenas prácticas): ofrece recomendaciones y criterios orientativos para ayudar al usuario a actuar con prudencia."
+            },
+            {
+                text: "«Las contraseñas de cuentas de administración de sistemas tendrán una longitud mínima de 16 caracteres, no reutilizarán las últimas 12 claves y exigirán autenticación multifactor resistente a phishing (FIDO2).»",
+                correct: "Estándar",
+                explanation: "Es un Estándar: establece especificaciones cuantitativas obligatorias (16 caracteres, historial de 12 claves, protocolo FIDO2) que los sistemas técnicos deben imponer."
+            },
+            {
+                text: "«Para verificar mensualmente la validez de los backups del ERP: 1) Seleccionar el punto de recuperación del último domingo en Veeam, 2) Lanzar restauración aislada en el VLAN-Sandbox-Test, 3) Ejecutar el script check_db_integrity.sql y 4) Adjuntar captura del resultado en la BBDD de Inspecciones en Notion.»",
+                correct: "Procedimiento",
+                explanation: "Es un Procedimiento: detalla la secuencia operativa exacta de verificación técnica (control A.8.13 y cláusula 9.1)."
+            }
+        ];
+
+        const docCategories = ["Política", "Estándar", "Procedimiento", "Directriz"];
+        let currentDocIdx = 0;
+        let selectedDocCat = null;
+
+        function renderDocClassifier() {
+            const item = docStatements[currentDocIdx];
+            document.getElementById('doc-score-badge').textContent = `Enunciado ${currentDocIdx + 1} / ${docStatements.length}`;
+            document.getElementById('doc-statement').textContent = item.text;
+
+            const btnContainer = document.getElementById('doc-buttons');
+            btnContainer.innerHTML = '';
+
+            docCategories.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => selectDocCategory(cat);
+                let cls = "py-3 px-3 rounded-xl font-bold text-xs sm:text-sm border transition-all ";
+                if (selectedDocCat === null) {
+                    cls += "bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-600 cursor-pointer";
+                } else {
+                    if (cat === item.correct) {
+                        cls += "bg-emerald-600 text-white border-emerald-400 shadow-lg scale-105";
+                    } else if (cat === selectedDocCat && cat !== item.correct) {
+                        cls += "bg-rose-900 text-rose-200 border-rose-600 line-through opacity-75";
+                    } else {
+                        cls += "bg-slate-800/40 text-slate-500 border-slate-800 opacity-50";
+                    }
+                }
+                btn.className = cls;
+                btn.textContent = cat;
+                btnContainer.appendChild(btn);
+            });
+
+            const fb = document.getElementById('doc-feedback');
+            if (selectedDocCat !== null) {
+                fb.classList.remove('hidden');
+                const isOk = selectedDocCat === item.correct;
+                fb.className = isOk
+                    ? "p-4 rounded-xl border text-xs sm:text-sm leading-relaxed mb-5 bg-emerald-950/90 border-emerald-500/50 text-emerald-100"
+                    : "p-4 rounded-xl border text-xs sm:text-sm leading-relaxed mb-5 bg-amber-950/90 border-amber-500/50 text-amber-100";
+                fb.innerHTML = `<strong>${isOk ? '✅ ¡Correcto!' : '💡 Respuesta correcta: ' + item.correct + '.'}</strong> ${item.explanation}`;
+            } else {
+                fb.classList.add('hidden');
+            }
+        }
+
+        function selectDocCategory(cat) {
+            selectedDocCat = cat;
+            renderDocClassifier();
+        }
+
+        function prevDocItem() {
+            currentDocIdx = (currentDocIdx - 1 + docStatements.length) % docStatements.length;
+            selectedDocCat = null;
+            renderDocClassifier();
+        }
+
+        function nextDocItem() {
+            currentDocIdx = (currentDocIdx + 1) % docStatements.length;
+            selectedDocCat = null;
+            renderDocClassifier();
+        }
+
+        renderDocClassifier();
+    </script>
+</body>
+</html>

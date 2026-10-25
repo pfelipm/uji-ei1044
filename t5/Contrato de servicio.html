@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: El Contrato de Servicio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .flow-arrow {
+            color: #9ca3af; /* text-gray-400 */
+        }
+        /* Estilo para términos clave */
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #b91c1c; /* text-red-700 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-6xl bg-white rounded-2xl shadow-2xl p-8">
+        
+        <!-- Título -->
+        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">El Flujo del Contrato de Servicio</h1>
+        <p class="text-center text-lg text-gray-600 mb-10">Del Deseo del Cliente al Compromiso Operativo</p>
+
+        <div class="flex flex-col lg:flex-row items-start justify-center gap-8">
+            
+            <!-- Flujo Principal (Vertical) -->
+            <div class="w-full lg:w-3/5 space-y-4">
+                
+                <!-- 1. Cliente -->
+                <div id="cliente" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('cliente')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🏢</span>
+                        <h2 class="text-2xl font-bold text-blue-800">1. Cliente (Interno/Negocio)</h2>
+                    </div>
+                    <p class="text-gray-700">El punto de partida. Es quien solicita el servicio. No entiende de tecnología, sino de necesidades de negocio.</p>
+                </div>
+
+                <!-- Flecha -->
+                <div class="flex justify-center">
+                    <svg class="w-8 h-8 flow-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </div>
+
+                <!-- 2. SLR -->
+                <div id="slr" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('slr')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">📝</span>
+                        <h2 class="text-2xl font-bold text-purple-800">2. SLR (Requisitos)</h2>
+                    </div>
+                    <p class="text-gray-700">La "carta a los reyes magos". El cliente documenta sus deseos y necesidades (Ej. "¡Quiero que Moodle funcione 100%!")</p>
+                </div>
+
+                <!-- Flecha -->
+                <div class="flex justify-center">
+                    <svg class="w-8 h-8 flow-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </div>
+
+                <!-- 3. SLA -->
+                <div id="sla" class="relative z-10 p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('sla')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">✍️</span>
+                        <h2 class="text-2xl font-bold text-green-800">3. SLA (El Contrato)</h2>
+                    </div>
+                    <p class="text-gray-700">El "contrato firmado". TI negocia el <code>SLR</code> y lo convierte en un compromiso realista, medible y con coste (Ej. "Garantizamos 99.5% de 8h a 20h").</p>
+                </div>
+
+                <!-- Flecha de Bifurcación -->
+                <div class="flex justify-center">
+                    <svg class="w-16 h-16 flow-arrow" fill="none" stroke="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M24 6 v12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M24 18 C 24 24, 12 24, 12 30 v12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M24 18 C 24 24, 36 24, 36 30 v12"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 39 l3 3 l3 -3"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M33 39 l3 3 l3 -3"></path>
+                    </svg>
+                </div>
+                <p class="text-center text-gray-500 -mt-4">El <code>SLA</code> se apoya en dos pilares:</p>
+
+                <!-- 4. Soportes del SLA (OLA y UC) -->
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- 4a. OLA -->
+                    <div id="ola" class="relative z-10 md:w-1/2 p-6 bg-yellow-50 border-2 border-yellow-300 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('ola')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">👥</span>
+                            <h2 class="text-2xl font-bold text-yellow-900">OLA (Acuerdo Operativo)</h2>
+                        </div>
+                        <p class="text-gray-700">El acuerdo <strong>interno</strong> con otros equipos de TI (Ej. Redes, BBDD) para que nos ayuden a cumplir el <code>SLA</code>.</p>
+                    </div>
+                    
+                    <!-- 4b. UC -->
+                    <div id="uc" class="relative z-10 md:w-1/2 p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('uc')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">🚚</span>
+                            <h2 class="text-2xl font-bold text-red-800">UC (Contrato de Soporte)</h2>
+                        </div>
+                        <p class="text-gray-700">El contrato <strong>externo</strong> con un proveedor (Ej. Telefónica, Microsoft Azure) que necesitamos para dar el servicio.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Panel de Información (Lateral) -->
+            <div class="w-full lg:w-2/5 lg:sticky lg:top-8">
+                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-blue-500 shadow-inner min-h-[200px]">
+                    <h3 id="info-title" class="text-2xl font-bold text-blue-900 mb-3">Haz clic en un paso</h3>
+                    <p id="info-text" class="text-gray-800">Selecciona un elemento del flujo para ver su descripción detallada y su rol en la gestión del servicio.</p>
+                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-2">
+                        <!-- Contenido dinámico aquí -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página de atribución -->
+        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
+            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
+        </p>
+    </div>
+
+    <!-- Lógica JS completa -->
+    <script>
+        const infoData = {
+            cliente: {
+                title: '1. Cliente (Interno/Negocio)',
+                text: 'El solicitante del servicio. Es el "por qué" de todo el proceso. Su perspectiva no es técnica, es de valor y necesidad de negocio.',
+                points: [
+                    'Suele ser un <strong>cliente interno</strong> (ej. otro departamento).',
+                    'Define la necesidad (Ej. "Necesito vender online").',
+                    'Es el responsable de pagar por el servicio.',
+                    'Valida si el servicio cumple sus expectativas.',
+                    'Es el interlocutor principal para el <em>Gestor del Servicio</em>.'
+                ],
+                color: 'blue'
+            },
+            slr: {
+                title: '2. SLR (Service Level Requirement)',
+                text: 'El "deseo" del cliente. Es un documento que recoge lo que el cliente quiere del servicio, a menudo en términos ideales.',
+                points: [
+                    'Suele ser <em>cualitativo</em> (Ej. "Quiero que sea rápido").',
+                    'Incluye requisitos funcionales y de rendimiento.',
+                    'Es el punto de partida para la <strong>negociación</strong>.',
+                    '<strong>NO</strong> es un contrato, es una petición (<code>SLR</code>).'
+                ],
+                color: 'purple'
+            },
+            sla: {
+                title: '3. SLA (Acuerdo de Nivel de Servicio)',
+                text: 'El "contrato firmado" y el corazón del tema. Es el documento que traduce los deseos (<code>SLR</code>) en <strong>compromisos medibles</strong> y realistas.',
+                points: [
+                    'Define el <strong>alcance</strong> del servicio.',
+                    'Establece métricas clave (<code>KPIs</code>): Disponibilidad (99.5%), Tiempos de Respuesta, Horario de Soporte.',
+                    'Detalla <strong>responsabilidades</strong> de ambas partes.',
+                    'Incluye <strong>costes y penalizaciones por incumplimiento</strong> (<code>SLA</code>).',
+                    '<em>(Nota: La parte de <strong>Gestión Financiera</strong> es un tema denso que aparcamos, pero vive aquí).</em>'
+                ],
+                color: 'green'
+            },
+            ola: {
+                title: '4a. OLA (Operational Level Agreement)',
+                text: 'El "acuerdo interno". Para que el Gestor del Servicio pueda firmar el <code>SLA</code>, necesita que sus propios compañeros se comprometan.',
+                points: [
+                    'Es un <code>SLA</code>... pero <em>dentro</em> de la organización de TI.',
+                    'Ej: "El equipo de <strong>Redes</strong> se compromete (vía <code>OLA</code>) a dar un 99.9% de disponibilidad de la LAN".',
+                    'Asegura que las dependencias internas están controladas.',
+                    'El cliente final <em>nunca</em> ve el <code>OLA</code>.'
+                ],
+                color: 'yellow'
+            },
+            uc: {
+                title: '4b. UC (Underpinning Contract)',
+                text: 'El "contrato externo" o "Contrato de Soporte". Lo que se firma con un proveedor o suministrador. Es la <strong>garantía</strong> sobre la que se construye el servicio.',
+                points: [
+                    'Es un <strong>contrato legal</strong> con un tercero (Ej. Microsoft, Telefónica).',
+                    'Ej: "Microsoft nos garantiza un 99.9% de uptime en <code>Azure</code>".',
+                    '<strong>¡Punto Clave!</strong> Si el proveedor (<code>UC</code>) falla, es probable que nosotros fallemos en el <code>SLA</code>.',
+                    'El proceso de <em>Gestión de Suministradores</em> (5.7.2) se encarga de vigilar estos contratos (<code>UC</code>).'
+                ],
+                color: 'red'
+            }
+        };
+
+        const colors = {
+            cliente: 'blue',
+            slr: 'purple',
+            sla: 'green',
+            ola: 'yellow',
+            uc: 'red'
+        };
+
+        const borderClasses = {
+            cliente: 'border-blue-500',
+            slr: 'border-purple-500',
+            sla: 'border-green-500',
+            ola: 'border-yellow-500',
+            uc: 'border-red-500'
+        };
+        
+        const textClasses = {
+            cliente: 'text-blue-900',
+            slr: 'text-purple-900',
+            sla: 'text-green-900',
+            ola: 'text-yellow-900',
+            uc: 'text-red-900'
+        };
+
+        const allBorderClasses = Object.values(borderClasses);
+        const allTextClasses = Object.values(textClasses);
+
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const infoList = document.getElementById('info-list');
+
+        let currentActive = null;
+
+        function showInfo(phase) {
+            const data = infoData[phase];
+            
+            // Actualizar panel de info
+            infoTitle.innerText = data.title;
+            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
+            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
+
+            // Actualizar estilos del panel
+            infoPanel.classList.remove(...allBorderClasses);
+            infoPanel.classList.add(borderClasses[phase]);
+            
+            infoTitle.classList.remove(...allTextClasses);
+            infoTitle.classList.add(textClasses[phase]);
+
+            // Gestionar resaltado de la tarjeta
+            if (currentActive) {
+                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
+                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
+            }
+            
+            const activeCard = document.getElementById(phase);
+            if(activeCard) {
+                activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
+                activeCard.classList.remove('shadow-lg', 'hover:scale-105');
+                currentActive = phase;
+            }
+        }
+
+        // Estado inicial (selecciona CLIENTE por defecto)
+        showInfo('cliente');
+
+    </script>
+</body>
+</html>

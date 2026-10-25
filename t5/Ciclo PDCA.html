@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Ciclo PDCA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .flow-arrow {
+            stroke-dasharray: 8 3;
+        }
+        /* [NUEVO] Estilo para términos clave */
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e5e7eb; /* bg-gray-200 */
+            color: #b91c1c; /* text-red-700 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-5xl bg-white rounded-2xl shadow-2xl p-8">
+        <!-- Título -->
+        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">El Motor de la Mejora Continua: Ciclo PDCA</h1>
+        <p class="text-center text-lg text-gray-600 mb-10">El pilar fundamental del Sistema de Gestión de Servicios de TI (SGSTI)</p>
+
+        <div class="flex flex-col md:flex-row items-center justify-center space-y-6 md:space-y-0 md:space-x-6">
+            
+            <!-- Contenedor Principal (GRID) -->
+            <div class="w-full max-w-lg">
+                <div class="grid grid-cols-2 gap-4 relative">
+                    
+                    <!-- Flecha de Flujo Circular (SVG) -->
+                    <svg class_="" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="absolute inset-0 m-auto w-3/4 h-3/4 text-blue-300 opacity-75">
+                        <path d="M 50,10 A 40,40 0 1,1 10,50" fill="none" stroke="currentColor" stroke-width="2" class="flow-arrow" transform="rotate(135 50 50)"/>
+                        <path d="M 50,90 A 40,40 0 1,1 90,50" fill="none" stroke="currentColor" stroke-width="2" class="flow-arrow" transform="rotate(135 50 50)"/>
+                        
+                        <!-- Puntas de flecha -->
+                        <path d="M 12 47 L 10 50 L 13 53" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(135 50 50)"/>
+                        <path d="M 88 53 L 90 50 L 87 47" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(135 50 50)"/>
+                    </svg>
+
+                    <!-- 1. PLAN (Planificar) -->
+                    <div id="plan" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('plan')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">🗺️</span>
+                            <h2 class="text-2xl font-bold text-blue-800">PLAN</h2>
+                        </div>
+                        <p class="text-gray-700">Establecer los objetivos, procesos y políticas para gestionar los servicios y cumplir con los requisitos del cliente (<code>SLA</code>).</p>
+                    </div>
+
+                    <!-- 2. DO (Hacer) -->
+                    <div id="do" class="relative z-10 p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('do')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">⚙️</span>
+                            <h2 class="text-2xl font-bold text-green-800">DO</h2>
+                        </div>
+                        <p class="text-gray-700">Implementar y operar los procesos definidos. Es el día a día de la provisión del servicio (atender incidentes, ejecutar cambios...).</p>
+                    </div>
+
+                    <!-- 3. ACT (Actuar) -->
+                    <div id="act" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('act')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">📈</span>
+                            <h2 class="text-2xl font-bold text-purple-800">ACT</h2>
+                        </div>
+                        <p class="text-gray-700">Implementar acciones de mejora (basadas en el <code>Check</code>) para corregir desviaciones y optimizar la eficacia y eficiencia del servicio.</p>
+                    </div>
+
+                    <!-- 4. CHECK (Verificar) -->
+                    <div id="check" class="relative z-10 p-6 bg-yellow-50 border-2 border-yellow-300 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('check')">
+                        <div class="flex items-center mb-3">
+                            <span class="text-3xl mr-3">📊</span>
+                            <h2 class="text-2xl font-bold text-yellow-900">CHECK</h2>
+                        </div>
+                        <p class="text-gray-700">Monitorizar y medir los procesos y servicios. Comparar los resultados reales (<code>KPIs</code>) contra los objetivos (<code>SLAs</code>).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel de Información (Lateral) -->
+            <div class="w-full md:w-1/3">
+                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-blue-500 shadow-inner min-h-[200px]">
+                    <h3 id="info-title" class="text-2xl font-bold text-blue-900 mb-3">Haz clic en un cuadrante</h3>
+                    <p id="info-text" class="text-gray-800">Selecciona una fase del ciclo PDCA para ver su descripción detallada y cómo se relaciona con la gestión de servicios.</p>
+                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-1">
+                        <!-- Contenido dinámico aquí -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pie de página de atribución -->
+        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
+            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
+        </p>
+    </div>
+
+    <script>
+        const infoData = {
+            plan: {
+                title: 'PLAN (Planificar)',
+                text: 'Es la <strong>fase estratégica</strong>. Aquí es donde definimos qué vamos a hacer y cómo. Es la base de todo el sistema de gestión.',
+                points: [
+                    'Definir el alcance del <code>SGSTI</code>.',
+                    'Establecer la política de gestión.',
+                    'Negociar los requisitos del cliente (<code>SLR</code>).',
+                    'Firmar los Acuerdos de Nivel de Servicio (<code>SLA</code>).',
+                    'Planificar los recursos (humanos, técnicos, financieros).'
+                ],
+                color: 'blue'
+            },
+            do: {
+                title: 'DO (Hacer)',
+                text: 'Es la <strong>fase de operación</strong>. Ponemos en marcha todo lo que hemos planificado. Es el "trabajo sucio" del día a día.',
+                points: [
+                    'Implementar los procesos definidos.',
+                    'Atender llamadas de usuario (<em>Incidentes</em>).',
+                    'Gestionar peticiones de servicio.',
+                    'Ejecutar cambios planificados (<code>RFC</code>).',
+                    'Operar la infraestructura de TI.'
+                ],
+                color: 'green'
+            },
+            check: {
+                title: 'CHECK (Verificar)',
+                text: 'Es la <strong>fase de control y medición</strong>. <em>No podemos mejorar lo que no medimos.</em> Comprobamos si estamos cumpliendo lo prometido.',
+                points: [
+                    'Monitorizar la disponibilidad del servicio (vs. <code>SLA</code>).',
+                    'Medir tiempos de resolución de <code>Incidentes</code>.',
+                    'Realizar encuestas de satisfacción al cliente.',
+                    'Hacer auditorías internas del <code>SGSTI</code>.',
+                    'Analizar tendencias (<em>Problemas</em>).'
+                ],
+                color: 'yellow'
+            },
+            act: {
+                title: 'ACT (Actuar)',
+                text: 'Es la <strong>fase de mejora</strong>. Basados en los datos del <code>Check</code>, tomamos acciones para corregir el rumbo y optimizar el servicio.',
+                points: [
+                    'Analizar los informes del <code>Check</code>.',
+                    'Identificar la causa raíz de los fallos (<em>Problemas</em>).',
+                    'Proponer y aprobar un <code>RFC</code> para una mejora.',
+                    'Actualizar la documentación.',
+                    'Volver a la fase de "<code>PLAN</code>" con las lecciones aprendidas.'
+                ],
+                color: 'purple'
+            }
+        };
+
+        const colors = {
+            plan: 'blue',
+            do: 'green',
+            check: 'yellow',
+            act: 'purple'
+        };
+
+        const borderClasses = {
+            plan: 'border-blue-500',
+            do: 'border-green-500',
+            check: 'border-yellow-500',
+            act: 'border-purple-500'
+        };
+        
+        const textClasses = {
+            plan: 'text-blue-900',
+            do: 'text-green-900',
+            check: 'text-yellow-900',
+            act: 'text-purple-900'
+        };
+
+        const allBorderClasses = Object.values(borderClasses);
+        const allTextClasses = Object.values(textClasses);
+
+        const infoPanel = document.getElementById('info-panel');
+        const infoTitle = document.getElementById('info-title');
+        const infoText = document.getElementById('info-text');
+        const infoList = document.getElementById('info-list');
+
+        let currentActive = null;
+
+        function showInfo(phase) {
+            const data = infoData[phase];
+            
+            // Actualizar panel de info
+            infoTitle.innerText = data.title; 
+            infoText.innerHTML = data.text; // [CORREGIDO]
+            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
+
+            // Actualizar estilos del panel
+            infoPanel.classList.remove(...allBorderClasses);
+            infoPanel.classList.add(borderClasses[phase]);
+            
+            infoTitle.classList.remove(...allTextClasses);
+            infoTitle.classList.add(textClasses[phase]);
+
+            // Gestionar resaltado de la tarjeta
+            if (currentActive) {
+                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
+                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
+            }
+            
+            const activeCard = document.getElementById(phase);
+            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
+            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
+            currentActive = phase;
+        }
+
+        // Estado inicial (selecciona PLAN por defecto)
+        showInfo('plan');
+
+    </script>
+</body>
+</html>

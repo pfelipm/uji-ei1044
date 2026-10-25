@@ -14,9 +14,9 @@ El temario oficial de la asignatura se articula en cinco grandes temas. Los mate
 
 * **T1. El servicio de informática** (15 SPA disponibles)
 * **T2. Automatización de tareas con PowerShell** (10 SPA disponibles)
-* **T3. Explotación de sistemas informáticos** *(Próximamente)*
-* **T4. Seguridad y administración TI** *(Próximamente)*
-* **T5. Metodologías para la gestión de servicios informáticos** *(Próximamente)*
+* **T3. Explotación de sistemas informáticos** (18 SPA disponibles)
+* **T4. Seguridad y administración TI** (7 SPA disponibles)
+* **T5. Metodologías para la gestión de servicios informáticos** (7 SPA disponibles)
 
 ---
 
@@ -72,6 +72,23 @@ Conjunto de **10 infografías interactivas (SPA)** enfocadas en el aprendizaje m
 | **08** | **Funciones y scripts** | `Funciones y scripts.html` | Funciones en memoria vs. scripts `.ps1`, bloque `param()`, `[CmdletBinding()]`, dot-sourcing y **seguridad (`ExecutionPolicy`)**. | [Ver módulo 08](https://pfelipm.github.io/uji-ei1044/t2/Funciones%20y%20scripts.html) |
 | **09** | **Gestión de errores** | `Gestión de errores.html` | Errores *non-terminating* vs. *terminating*, bloques `try/catch/finally`, `-ErrorAction Stop` e inspección con `$_.Exception`. | [Ver módulo 09](https://pfelipm.github.io/uji-ei1044/t2/Gesti%C3%B3n%20de%20errores.html) |
 | **10** | **Interactuando con el exterior** | `Módulos y ficheros.html` | PowerShell Gallery (`Install-Module`), ficheros planos, JSON (`ConvertFrom-Json`) y transformación mágica de CSV a objetos. | [Ver módulo 10](https://pfelipm.github.io/uji-ei1044/t2/M%C3%B3dulos%20y%20ficheros.html) |
+
+---
+
+## 🛡️ Tema 4: Seguridad y administración de TI
+
+Colección de **8 aplicaciones interactivas (SPA)** orientadas a la reflexión estratégica sobre IA agéntica y ciberseguridad, arquitectura defensiva, bastionado (*hardening*), continuidad operativa (copias de seguridad 3-2-1-1-0 y métricas RPO/RTO), gestión cuantitativa de riesgos, cumplimiento normativo (RGPD, LOPDGDD, ENS RD 311/2022) y diseño de un **SGSI bajo UNE-EN ISO/IEC 27001:2022**:
+
+| # | Módulo | Fichero | Conceptos clave y dinámicas | Enlace directo |
+| :-: | :--- | :--- | :--- | :--- |
+| **00** | **Cuando se levanta el puente levadizo: PHP e IA agéntica** | `Incidente PHP e IA agéntica.html` | Dinámica de apertura en 4 fases (y lectura en 2 niveles) sobre el incidente real en la UJI, las vulnerabilidades `PHP2Shell` (`CVE-2026-109618 / 109619`), los enjambres de agentes de IA sobre modelos de pesos abiertos y el debate sobre el valor diferencial del ingeniero informático. | [Ver actividad 00](https://pfelipm.github.io/uji-ei1044/t4/Incidente%20PHP%20e%20IA%20ag%C3%A9ntica.html) |
+| **01** | **Panorama, principios y amenazas de la seguridad TI** | `Seguridad TI.html` | Las tres Ds (Defensa, Detección, Disuasión), autenticación MFA/FIDO2 resistente a phishing, actores de amenaza, *Cyber Kill Chain* y laboratorio forense interactivo con 5 casos en Keraben. | [Ver módulo 01](https://pfelipm.github.io/uji-ei1044/t4/Seguridad%20TI.html) |
+| **02** | **Defensa en profundidad, políticas y factor humano** | `Defensa y políticas.html` | Anillos concéntricos y *Zero Trust*, bastionado (*hardening*) por capas (SO, servicios, red/DMZ), clasificador interactivo de la pirámide documental (*Política, Estándar, Procedimiento, Directriz*) y demostración real de concienciación en producción (Notion + Google Sheets). | [Ver módulo 02](https://pfelipm.github.io/uji-ei1044/t4/Defensa%20y%20pol%C3%ADticas.html) |
+| **03** | **Copias de seguridad y continuidad operativa** | `Backups y continuidad.html` | Por qué el RAID no es un backup, regla moderna **3-2-1-1-0** con inmutabilidad WORM, rotación GFS y **simulador cuantitativo** de copias Completa, Diferencial e Incremental (cálculo de almacenamiento, ventana de copia y RTO/RPO). | [Ver módulo 03](https://pfelipm.github.io/uji-ei1044/t4/Backups%20y%20continuidad.html) |
+| **04** | **Análisis y gestión cuantitativa de riesgos TI** | `Análisis de riesgos.html` | Ecuación del riesgo inherente y residual, valoración CIA de activos, las 4 respuestas al riesgo, **simulador de matriz de calor 5×5** y recetario de fórmulas Notion 2.0. | [Ver módulo 04](https://pfelipm.github.io/uji-ei1044/t4/An%C3%A1lisis%20de%20riesgos.html) |
+| **05** | **Marco normativo y categorización ENS** | `Marco normativo.html` | Comparativa legal RGPD, LOPDGDD y Esquema Nacional de Seguridad (RD 311/2022) con **calculadora interactiva de categoría de sistema ENS** (*Básica, Media, Alta*). | [Ver módulo 05](https://pfelipm.github.io/uji-ei1044/t4/Marco%20normativo.html) |
+| **06** | **Obligaciones proactivas y derechos ARSOPOL** | `RGPD y LOPDGDD.html` | Las 6 obligaciones organizativas (RAT, EIPD, DPO, brechas 72 h), traducción técnica de los derechos ARSOPOL, dilema entre Derecho al olvido y backups inmutables (*Tombstone Log*) y **simulador de notificación de brechas a la AEPD**. | [Ver módulo 06](https://pfelipm.github.io/uji-ei1044/t4/RGPD%20y%20LOPDGDD.html) |
+| **07** | **El SGSI y la norma ISO/IEC 27001:2022** | `ISO 27001.html` | Ciclo PDCA, cláusulas obligatorias 4 a 10, **explorador interactivo de los 93 controles del Anexo A:2022** en sus 4 dominios (`A.5` a `A.8`), Declaración de Aplicabilidad (SoA) y mapa entidad-relación de las 5 BBDD en Notion. | [Ver módulo 07](https://pfelipm.github.io/uji-ei1044/t4/ISO%2027001.html) |
 
 ---
 

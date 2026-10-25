@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El SGSI y la norma UNE-EN ISO/IEC 27001:2022 - EI1044</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bgGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22primaryGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2338bdf8%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232563eb%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22screenGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23090d16%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3C/linearGradient%3E%20%3Cfilter%20id%3D%22glow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%20%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%20/%3E%20%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%20/%3E%20%3C/filter%3E%20%3C/defs%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bgGrad%29%22%20/%3E%20%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3Crect%20x%3D%228%22%20y%3D%229%22%20width%3D%2248%22%20height%3D%2238%22%20rx%3D%227%22%20fill%3D%22url%28%23screenGrad%29%22%20stroke%3D%22url%28%23primaryGrad%29%22%20stroke-width%3D%222%22%20/%3E%20%3Cline%20x1%3D%228%22%20y1%3D%2218%22%20x2%3D%2256%22%20y2%3D%2218%22%20stroke%3D%22%231e293b%22%20stroke-width%3D%221.5%22%20/%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23ef4444%22%20/%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23eab308%22%20/%3E%20%3Ccircle%20cx%3D%2226%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%2322c55e%22%20/%3E%20%3Cpath%20d%3D%22M%2016%2025%20L%2023%2030.5%20L%2016%2036%22%20fill%3D%22none%22%20stroke%3D%22%2338bdf8%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cline%20x1%3D%2227%22%20y1%3D%2236%22%20x2%3D%2235%22%20y2%3D%2236%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2227%22%20r%3D%221.5%22%20fill%3D%22%2338bdf8%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2233%22%20r%3D%221.5%22%20fill%3D%22%2310b981%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cpath%20d%3D%22M%2026%2047%20L%2024%2053%20L%2040%2053%20L%2038%2047%20Z%22%20fill%3D%22%231e293b%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221%22%20/%3E%20%3Crect%20x%3D%2220%22%20y%3D%2253%22%20width%3D%2224%22%20height%3D%222.5%22%20rx%3D%221.2%22%20fill%3D%22%23334155%22%20/%3E%20%3C/svg%3E">
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .is-embedded .hide-in-embed {
+            display: none !important;
+        }
+        .tab-btn.active,
+        .tab-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+        }
+        .filter-chip.active,
+        .filter-chip.active:hover {
+            background-color: #2563eb !important;
+            color: #ffffff !important;
+            border-color: #2563eb !important;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen p-4 sm:p-8">
+
+    <main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+
+        <!-- Cabecera -->
+        <header class="text-center border-b border-slate-200 pb-8 mb-8">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-bold uppercase tracking-wider mb-3">
+                <span aria-hidden="true">🌐</span>
+                <span>Tema 4 · La solución sistémica certificable (UNE-EN ISO/IEC 27001:2022)</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">El Sistema de Gestión de Seguridad de la Información (ISO 27001:2022)</h1>
+            <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+                Cómo ensamblar políticas, activos, riesgos, controles del Anexo A (93 controles en 4 dominios) e incidentes dentro de una arquitectura auditable en mejora continua (PDCA).
+            </p>
+
+            <div class="mt-6 flex flex-wrap justify-center gap-3">
+                <a href="https://docs.google.com/spreadsheets/d/1gP4Z9PL1B7v2cFmBqwL9W_FyTs9AsgwPtq32eHGo7XE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-bold shadow transition-colors">
+                    <span aria-hidden="true">📊</span>
+                    <span>Abrir hoja oficial de los 93 controles ISO 27001:2022 (Anexo A) ↗</span>
+                </a>
+                <a href="https://gemini.google.com/gem/1BapRPZcnv-XWbbmaT2KS8qcYtSM1zYDU?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs sm:text-sm font-bold shadow transition-colors">
+                    <span aria-hidden="true">🤖</span>
+                    <span>Consultar Gema: Consultor GRC, ITSM y Notion ↗</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- Pestañas -->
+        <nav aria-label="Secciones de ISO 27001" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 bg-slate-100 p-2 rounded-xl border border-slate-200">
+            <button type="button" id="tab-btn-pdca" onclick="switchTab('pdca')" class="tab-btn active px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all cursor-pointer">
+                1. Ciclo PDCA y cláusulas 4–10
+            </button>
+            <button type="button" id="tab-btn-anexoa" onclick="switchTab('anexoa')" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all cursor-pointer">
+                2. 🔍 Explorador Anexo A y SoA
+            </button>
+            <button type="button" id="tab-btn-arquitectura" onclick="switchTab('arquitectura')" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-amber-900 bg-amber-100/80 hover:bg-amber-200 transition-all cursor-pointer">
+                3. 🏗️ Arquitectura Notion (5 BBDD)
+            </button>
+        </nav>
+
+        <!-- PESTAÑA 1: CICLO PDCA Y CLÁUSULAS 4 A 10 -->
+        <section id="tab-pdca" class="space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Ciclo PDCA -->
+                <div class="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-2xl p-6 flex flex-col justify-between">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">El motor del SGSI: ciclo de mejora continua (PDCA)</h2>
+                        <p class="text-sm sm:text-base text-slate-600 mb-5 leading-relaxed">
+                            ISO/IEC 27001 comparte la estructura de alto nivel (<em>Annex SL</em>) con ISO 9001 (calidad) e ISO 20000 (servicios TI), organizando sus requisitos certificables en cuatro fases cíclicas:
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-stretch">
+                        <div class="bg-blue-50 border border-blue-200 rounded-xl p-5 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-mono font-bold uppercase bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded">Cláusulas 4, 5, 6 y 7</span>
+                                <h3 class="text-lg font-extrabold text-blue-950 mt-2 mb-1.5">1. PLAN (Planificar)</h3>
+                                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                                    Definir el alcance del SGSI, compromiso de dirección, política de seguridad, <strong>metodología de evaluación y tratamiento de riesgos (cláusula 6.1)</strong>, Declaración de Aplicabilidad (SoA), competencias y concienciación (7.2/7.3).
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-mono font-bold uppercase bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded">Cláusula 8</span>
+                                <h3 class="text-lg font-extrabold text-emerald-950 mt-2 mb-1.5">2. DO (Hacer / Operar)</h3>
+                                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                                    Ejecutar en la práctica los procesos de seguridad y desplegar los <strong>controles seleccionados del Anexo A</strong> para mitigar los riesgos identificados en la planificación.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-5 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-mono font-bold uppercase bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded">Cláusula 9</span>
+                                <h3 class="text-lg font-extrabold text-amber-950 mt-2 mb-1.5">3. CHECK (Verificar)</h3>
+                                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                                    Seguimiento y medición de indicadores (KPIs, inspecciones técnicas 9.1), <strong>programa de auditoría interna (9.2)</strong> y revisión del sistema por la dirección (9.3).
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 border border-purple-200 rounded-xl p-5 flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-mono font-bold uppercase bg-purple-200 text-purple-900 px-2.5 py-0.5 rounded">Cláusula 10</span>
+                                <h3 class="text-lg font-extrabold text-purple-950 mt-2 mb-1.5">4. ACT (Actuar / Mejorar)</h3>
+                                <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+                                    Reaccionar ante las <strong>no conformidades</strong> e incidentes, investigar su causa raíz, implantar <strong>acciones correctivas (10.2)</strong> y mejorar continuamente el SGSI.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Las Cláusulas 4 a 10 y diferencia ISO 27001 vs 27002 -->
+                <div class="lg:col-span-5 flex flex-col justify-between space-y-5">
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">Las 7 cláusulas obligatorias (4 a 10)</h3>
+                        <p class="text-sm text-slate-600 mb-3">Una organización no puede excluir ninguna de las cláusulas 4 a 10 si desea certificarse:</p>
+                        <ol class="list-decimal list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
+                            <li value="4"><strong>Contexto de la organización:</strong> partes interesadas y alcance del SGSI.</li>
+                            <li><strong>Liderazgo:</strong> política de seguridad (5.2) y roles/responsabilidades (5.3).</li>
+                            <li><strong>Planificación:</strong> apreciación y tratamiento de riesgos (6.1) y SoA.</li>
+                            <li><strong>Soporte:</strong> recursos, formación/concienciación (7.2/7.3) e información documentada (7.5).</li>
+                            <li><strong>Operación:</strong> ejecución operativa del análisis y plan de tratamiento (8.1–8.3).</li>
+                            <li><strong>Evaluación del desempeño:</strong> métricas (9.1), auditoría interna (9.2) y revisión por dirección (9.3).</li>
+                            <li><strong>Mejora:</strong> mejora continua (10.1) y no conformidades / acciones correctivas (10.2).</li>
+                        </ol>
+                    </div>
+
+                    <div class="bg-slate-900 text-white rounded-2xl p-5 border border-slate-700">
+                        <h3 class="text-base sm:text-lg font-bold text-teal-400 mb-2">💡 Distinción fundamental: ISO 27001 vs. ISO 27002</h3>
+                        <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-200 leading-relaxed">
+                            <li><strong>ISO/IEC 27001:2022 (Norma de requisitos · Certificable):</strong> Define el <em>«qué debe hacer»</em> el sistema de gestión (cláusulas 4–10) e incluye en su Anexo A la lista resumida de los 93 controles.</li>
+                            <li><strong>ISO/IEC 27002:2022 (Guía de buenas prácticas · No certificable):</strong> Desarrolla en detalle el <em>«cómo implementar»</em> cada uno de los 93 controles del Anexo A con orientaciones prácticas y atributos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 2: EXPLORADOR ANEXO A:2022 (93 CONTROLES EN 4 DOMINIOS) -->
+        <section id="tab-anexoa" class="hidden space-y-6">
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900">La evolución a ISO/IEC 27001:2022: 93 controles en 4 dominios</h2>
+                        <p class="text-sm sm:text-base text-slate-600 mt-1 leading-relaxed">
+                            La versión 2022 reorganizó los antiguos 114 controles (de 14 dominios en 2013) en <strong>93 controles agrupados en 4 grandes temas</strong>, e incorporó un documento maestro obligatorio: la <strong>Declaración de Aplicabilidad (SoA)</strong>.
+                        </p>
+                    </div>
+                    <span class="text-xs sm:text-sm font-mono font-bold bg-teal-100 text-teal-900 px-3.5 py-2 rounded-lg border border-teal-200 shrink-0">
+                        37 + 8 + 14 + 34 = 93 controles
+                    </span>
+                </div>
+
+                <!-- Filtros por los 4 dominios de 2022 -->
+                <search class="flex flex-wrap items-center justify-between gap-3 mb-6">
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" onclick="filterControls('ALL')" id="flt-ALL" class="filter-chip active px-4 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-bold text-slate-700 transition-all cursor-pointer">
+                            Todos los destacados (16)
+                        </button>
+                        <button type="button" onclick="filterControls('A.5')" id="flt-A.5" class="filter-chip px-4 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-bold text-slate-700 transition-all cursor-pointer">
+                            A.5 Organizativos (37 en la norma)
+                        </button>
+                        <button type="button" onclick="filterControls('A.6')" id="flt-A.6" class="filter-chip px-4 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-bold text-slate-700 transition-all cursor-pointer">
+                            A.6 Personas (8 en la norma)
+                        </button>
+                        <button type="button" onclick="filterControls('A.7')" id="flt-A.7" class="filter-chip px-4 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-bold text-slate-700 transition-all cursor-pointer">
+                            A.7 Físicos (14 en la norma)
+                        </button>
+                        <button type="button" onclick="filterControls('A.8')" id="flt-A.8" class="filter-chip px-4 py-2 rounded-lg border border-slate-300 bg-white text-xs sm:text-sm font-bold text-slate-700 transition-all cursor-pointer">
+                            A.8 Tecnológicos (34 en la norma)
+                        </button>
+                    </div>
+                </search>
+
+                <!-- Rejilla de controles clave para el SysAdmin y el taller Notion -->
+                <div id="controls-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-stretch"></div>
+            </div>
+
+            <!-- Qué es la Declaración de Aplicabilidad (SoA) -->
+            <div class="bg-slate-900 text-white rounded-2xl p-6 border border-slate-700">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <h3 class="text-lg sm:text-xl font-extrabold text-amber-400">📋 ¿Qué es la Declaración de Aplicabilidad (SoA) y por qué es la pieza central de una auditoría?</h3>
+                    <span class="text-xs font-mono uppercase bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1 rounded-lg font-bold">Cláusula 6.1.3 d · BBDD 4 en Notion</span>
+                </div>
+                <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                    Mientras que las cláusulas 4 a 10 son todas obligatorias, los <strong>93 controles del Anexo A</strong> son un catálogo de referencia. La <strong>Declaración de Aplicabilidad (<em>Statement of Applicability - SoA</em>)</strong> es la matriz maestra donde la organización declara, para cada uno de los 93 controles: <strong>1) si aplica o se excluye</strong>, <strong>2) la justificación formal</strong> de por qué se incluye (qué riesgos mitiga o qué ley lo exige) o por qué se excluye (p. ej., <em>A.8.25 Desarrollo seguro</em> si la empresa no desarrolla software propio), y <strong>3) su estado real de implantación</strong>.
+                </p>
+            </div>
+        </section>
+
+        <!-- PESTAÑA 3: ARQUITECTURA DE LAS 5 BBDD EN NOTION -->
+        <section id="tab-arquitectura" class="hidden space-y-6">
+            <div class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-xl">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+                    <div class="max-w-3xl">
+                        <span class="bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">Arquitectura práctica del SGSI (Taller Notion)</span>
+                        <h2 class="text-2xl font-bold text-white mt-2">Mapa entidad-relación del núcleo operativo del SGSI en Notion</h2>
+                        <p class="text-sm sm:text-base text-slate-300 mt-1">
+                            En el taller práctico construirás estas <strong>5 bases de datos troncales interconectadas</strong> más <strong>1 módulo electivo</strong>, coronadas por un Cuadro de Mando del CISO con gráficas nativas:
+                        </p>
+                    </div>
+                    <a href="https://docs.google.com/document/d/1pOU3qrztwIUTwivDA9jxUFtTvE6kLP8c0FKWFM6vx14/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg transition-all">
+                        <span>📘 Abrir enunciado del Taller SGSI en Notion ↗</span>
+                    </a>
+                </div>
+
+                <!-- Las 5 entidades del núcleo -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6 items-stretch">
+                    <div class="bg-slate-800 border-t-4 border-t-sky-400 border border-slate-700 rounded-xl p-4 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-mono font-bold text-sky-400">BBDD 1 · RGPD Art. 30</span>
+                            <h3 class="font-bold text-white text-base sm:text-lg mt-1 mb-2.5">Actividades de tratamiento (RAT)</h3>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-200 leading-relaxed">
+                                <li>Finalidad y base legal</li>
+                                <li>Categoría de interesados</li>
+                                <li>Plazo de supresión</li>
+                                <li><strong class="text-sky-300">Relación ↔ Activos</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 border-t-4 border-t-blue-500 border border-slate-700 rounded-xl p-4 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-mono font-bold text-blue-400">BBDD 2 · Control A.5.9</span>
+                            <h3 class="font-bold text-white text-base sm:text-lg mt-1 mb-2.5">Inventario de activos</h3>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-200 leading-relaxed">
+                                <li>Tipo, propietario y ubicación</li>
+                                <li>Valoración C, I, A (1–5)</li>
+                                <li><strong class="text-amber-300">🧮 Fórmula Criticidad</strong></li>
+                                <li><strong class="text-blue-300">Relación ↔ RAT, Riesgos, Incidencias</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 border-t-4 border-t-rose-500 border border-slate-700 rounded-xl p-4 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-mono font-bold text-rose-400">BBDD 3 · Cláusula 6.1</span>
+                            <h3 class="font-bold text-white text-base sm:text-lg mt-1 mb-2.5">Riesgos SI</h3>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-200 leading-relaxed">
+                                <li>Amenaza y vulnerabilidad</li>
+                                <li>Probabilidad e Impacto (1–5)</li>
+                                <li><strong class="text-amber-300">🧮 Fórmulas Inherente y Residual (+Rollup)</strong></li>
+                                <li><strong class="text-rose-300">Relación ↔ Activos, SoA, Incidencias</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 border-t-4 border-t-emerald-500 border border-slate-700 rounded-xl p-4 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-mono font-bold text-emerald-400">BBDD 4 · Cláusula 6.1.3 d</span>
+                            <h3 class="font-bold text-white text-base sm:text-lg mt-1 mb-2.5">Controles Anexo A:2022 (SoA)</h3>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-200 leading-relaxed">
+                                <li>Código (A.5, A.6, A.7, A.8)</li>
+                                <li>¿Aplica? y justificación</li>
+                                <li>Estado y % eficacia mitigadora</li>
+                                <li><strong class="text-emerald-300">Relación ↔ Riesgos SI</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 border-t-4 border-t-purple-500 border border-slate-700 rounded-xl p-4 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-mono font-bold text-purple-400">BBDD 5 · A.5.24–A.5.28</span>
+                            <h3 class="font-bold text-white text-base sm:text-lg mt-1 mb-2.5">Incidencias de seguridad</h3>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-200 leading-relaxed">
+                                <li>Severidad y estado</li>
+                                <li>¿Brecha RGPD 72h AEPD?</li>
+                                <li><strong class="text-amber-300">📄 Plantilla Playbook</strong></li>
+                                <li><strong class="text-purple-300">Relación ↔ Activos, Riesgos SI</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Los 7 módulos adicionales electivos -->
+                <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-5">
+                    <h3 class="font-bold text-amber-400 text-base sm:text-lg mb-3">+ 1 Módulo adicional de ampliación (a elegir por el estudiante):</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm text-slate-200">
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700"><strong>Opción A:</strong> Plan de copias de seguridad (<code>A.8.13</code>)</div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700"><strong>Opción B:</strong> Documentación maestra SGSI (<code>7.5</code> / <code>A.5.1</code>)</div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700"><strong>Opción C:</strong> Personal y concienciación (<code>7.2/7.3</code> / <code>A.6.3</code>)</div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700"><strong>Opción D:</strong> Seguridad en proveedores (<code>A.5.19–A.5.22</code>)</div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700"><strong>Opción E:</strong> Programa de auditorías internas (<code>9.2</code>)</div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700"><strong>Opción F:</strong> Inspecciones técnicas periódicas (<code>9.1</code>)</div>
+                        <div class="bg-slate-900 p-3 rounded-lg border border-slate-700 sm:col-span-2"><strong>Opción G:</strong> No conformidades y acciones correctivas / mejora (<code>10.2</code>)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navegación secuencial entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos del tema" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-xs sm:text-sm hide-in-embed">
+            <a href="RGPD%20y%20LOPDGDD.html" class="justify-self-center sm:justify-self-start px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">← 06. Obligaciones y derechos ARSOPOL</a>
+            <a href="../index.html" class="justify-self-center px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">📋 Volver al índice general</a>
+            <span class="justify-self-center sm:justify-self-end px-4 py-2 rounded-xl bg-slate-100 text-slate-400 font-semibold border border-slate-200 select-none">Fin del Tema 4 · Taller SGSI en Notion ✓</span>
+        </nav>
+
+        <!-- Pie de página académico -->
+        <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-2">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:underline">DLSI</a>
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        const tabsOrder = ['pdca', 'anexoa', 'arquitectura'];
+        let currentTabIndex = 0;
+
+        function switchTab(tabId) {
+            currentTabIndex = tabsOrder.indexOf(tabId);
+            if (currentTabIndex === -1) currentTabIndex = 0;
+            tabsOrder.forEach(t => {
+                document.getElementById('tab-' + t).classList.toggle('hidden', t !== tabId);
+                const btn = document.getElementById('tab-btn-' + t);
+                if (btn) btn.classList.toggle('active', t === tabId);
+            });
+        }
+
+        function stepTab(delta) {
+            const next = currentTabIndex + delta;
+            if (next >= 0 && next < tabsOrder.length) {
+                switchTab(tabsOrder[next]);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+            if (e.key === 'ArrowRight') stepTab(1);
+            if (e.key === 'ArrowLeft') stepTab(-1);
+        });
+
+        const keyControls2022 = [
+            { code: "A.5.1", dom: "A.5", title: "Políticas para la seguridad de la información", type: "Preventivo", desc: "Marco normativo aprobado por la dirección, publicado y revisado periódicamente." },
+            { code: "A.5.9", dom: "A.5", title: "Inventario de información y otros activos", type: "Preventivo", desc: "Identificar y mantener un inventario de activos con su propietario asignado." },
+            { code: "A.5.15", dom: "A.5", title: "Control de acceso", type: "Preventivo", desc: "Reglas de acceso físico y lógico basadas en necesidades de negocio y mínimo privilegio." },
+            { code: "A.5.19–22", dom: "A.5", title: "Seguridad en las relaciones con proveedores", type: "Preventivo", desc: "Requisitos de seguridad en contratos cloud/terceros y supervisión de servicios." },
+            { code: "A.5.24–28", dom: "A.5", title: "Gestión de incidentes y evidencias forenses", type: "Correctivo", desc: "Planificación, triaje, respuesta, aprendizaje de incidentes y cadena de custodia." },
+            { code: "A.5.31 / 34", dom: "A.5", title: "Requisitos legales y privacidad (RGPD/ENS)", type: "Preventivo", desc: "Cumplimiento normativo y protección de datos personales (PII)." },
+            { code: "A.6.1 / 6.2", dom: "A.6", title: "Selección y condiciones de contratación", type: "Preventivo", desc: "Verificación de antecedentes y cláusulas contractuales de confidencialidad." },
+            { code: "A.6.3", dom: "A.6", title: "Concienciación, educación y formación", type: "Preventivo", desc: "Programa continuo y medible de formación en ciberseguridad para toda la plantilla." },
+            { code: "A.7.1–7.4", dom: "A.7", title: "Perímetros físicos y monitoreo del CPD", type: "Preventivo / Detectivo", desc: "Control de acceso físico a salas de servidores, vigilancia e intrusión." },
+            { code: "A.7.11", dom: "A.7", title: "Servicios de suministro (SAI y generadores)", type: "Preventivo", desc: "Redundancia eléctrica, climatización y telecomunicaciones frente a cortes." },
+            { code: "A.8.2", dom: "A.8", title: "Derechos de acceso privilegiado", type: "Preventivo", desc: "Restricción y control estricto de cuentas root / Domain Admin separadas." },
+            { code: "A.8.5", dom: "A.8", title: "Autenticación segura (MFA / FIDO2)", type: "Preventivo", desc: "Tecnologías de autenticación robustas acordes a la criticidad del activo." },
+            { code: "A.8.7 / 8.8", dom: "A.8", title: "Protección contra malware y vulnerabilidades", type: "Preventivo / Detectivo", desc: "Agentes EDR/XDR y parcheo ágil ante vulnerabilidades técnicas (como el caso PHP)." },
+            { code: "A.8.13", dom: "A.8", title: "Copias de seguridad de la información", type: "Correctivo", desc: "Backups mantenidos y probados regularmente (estrategia 3-2-1-1-0 inmutable)." },
+            { code: "A.8.15 / 16", dom: "A.8", title: "Registros (Logs) y monitoreo de actividades", type: "Detectivo", desc: "Generación, protección en SIEM y análisis de logs ante comportamientos anómalos." },
+            { code: "A.8.22 / 24", dom: "A.8", title: "Segregación en redes y uso de criptografía", type: "Preventivo", desc: "División en VLANs/DMZ (Zero Trust) y gestión de claves y cifrado en reposo/tránsito." }
+        ];
+
+        let currentDomainFilter = 'ALL';
+
+        function filterControls(dom) {
+            currentDomainFilter = dom;
+            ['ALL', 'A.5', 'A.6', 'A.7', 'A.8'].forEach(d => {
+                const btn = document.getElementById('flt-' + d);
+                if (btn) btn.classList.toggle('active', d === dom);
+            });
+            renderControlsGrid();
+        }
+
+        function renderControlsGrid() {
+            const grid = document.getElementById('controls-grid');
+            grid.innerHTML = '';
+            const list = currentDomainFilter === 'ALL'
+                ? keyControls2022
+                : keyControls2022.filter(c => c.dom === currentDomainFilter);
+
+            list.forEach(c => {
+                let badgeCls = "bg-blue-100 text-blue-800";
+                if (c.dom === 'A.6') badgeCls = "bg-emerald-100 text-emerald-800";
+                else if (c.dom === 'A.7') badgeCls = "bg-amber-100 text-amber-900";
+                else if (c.dom === 'A.8') badgeCls = "bg-purple-100 text-purple-900";
+
+                const card = document.createElement('div');
+                card.className = "bg-white border border-slate-200 rounded-xl p-5 shadow-sm flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-2.5">
+                            <span class="font-mono font-extrabold text-xs sm:text-sm px-2.5 py-0.5 rounded ${badgeCls}">${c.code}</span>
+                            <span class="text-xs font-semibold text-slate-500">${c.type}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1.5">${c.title}</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">${c.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        renderControlsGrid();
+    </script>
+</body>
+</html>
