@@ -19,7 +19,7 @@ El temario oficial de la asignatura se articula en cinco grandes temas. Los mate
 * **T2. Automatización de tareas con PowerShell** (10 SPA disponibles)
 * **T3. Explotación de sistemas informáticos** (18 SPA disponibles)
 * **T4. Seguridad y administración TI** (8 SPA disponibles)
-* **T5. Metodologías para la gestión de servicios informáticos** (7 SPA en preparación)
+* **T5. Metodologías para la gestión de servicios informáticos** (Próximamente)
 
 ---
 
