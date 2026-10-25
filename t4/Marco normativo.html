@@ -51,16 +51,6 @@
             <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
                 Las tres normas de obligado cumplimiento que gobiernan la privacidad y los sistemas de información en Europa y España: RGPD, LOPDGDD y Esquema Nacional de Seguridad (ENS).
             </p>
-            <div class="mt-5 flex flex-wrap justify-center gap-3 hide-in-embed">
-                <a href="../t1/Marco%20cumplimiento%20normativo.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs sm:text-sm font-semibold border border-slate-300 transition-colors">
-                    <span aria-hidden="true">🔗</span>
-                    <span>Ver panorámica general con ISO 27001 e IA Act (T1)</span>
-                </a>
-                <a href="RGPD%20y%20LOPDGDD.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-800 text-xs sm:text-sm font-semibold border border-blue-200 transition-colors">
-                    <span aria-hidden="true">👉</span>
-                    <span>Ir a obligaciones operativas y derechos ARSOPOL</span>
-                </a>
-            </div>
         </header>
 
         <!-- Pestañas de navegación secuencial -->
@@ -232,6 +222,28 @@
                         <p id="ens-cat-reqs" class="text-sm sm:text-base text-slate-200 leading-relaxed mt-2"></p>
                     </div>
                 </div>
+
+                <!-- Desplegable de arquitectura: Alcance, múltiples procesos y segregación de subsistemas (CCN-STIC 803) -->
+                <details class="group mt-6 bg-slate-800/90 border border-slate-700 rounded-xl overflow-hidden">
+                    <summary class="cursor-pointer list-none px-5 py-4 flex items-center justify-between font-bold text-sm sm:text-base text-sky-300 hover:bg-slate-800 transition-colors">
+                        <span>🔎 ¿Qué ocurre en un sistema real con decenas de procesos? Alcance y segregación de subsistemas (Guía CCN-STIC 803)</span>
+                        <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5 shrink-0 ml-2">
+                            <span class="group-open:hidden">Desplegar</span>
+                            <span class="hidden group-open:inline">Ocultar</span>
+                            <span class="inline-block group-open:rotate-180 transition-transform">▼</span>
+                        </span>
+                    </summary>
+                    <div class="px-5 pb-5 pt-3 border-t border-slate-700/80 space-y-3 text-sm sm:text-base text-slate-200 leading-relaxed">
+                        <p>
+                            En una organización real convivimos con múltiples servicios (portal web informativo, campus virtual, firma de actas, nóminas...). Según el <strong>Anexo I del RD 311/2022</strong> y la guía <strong>CCN-STIC 803</strong>:
+                        </p>
+                        <ul class="list-disc list-outside pl-5 space-y-2 text-slate-300">
+                            <li><strong>Doble regla del máximo dentro de un mismo sistema:</strong> Primero se evalúan las 5 dimensiones <code>[D, I, C, A, T]</code> para <em>cada</em> proceso o información; el nivel de cada dimensión del sistema es el <strong>máximo</strong> alcanzado por cualquiera de sus procesos en esa columna, y la categoría global del sistema es el <strong>máximo</strong> de las 5 dimensiones.</li>
+                            <li><strong>Decisión de arquitectura del SysAdmin (segregar para no «contaminar»):</strong> Si englobas toda la universidad o empresa en un único sistema monolítico sin aislar, un solo proceso con una dimensión en nivel <em>Alto</em> arrastra a <strong>toda la infraestructura a Categoría ALTA</strong>. Por eso, al definir el <strong>alcance (<em>scope</em>)</strong>, se aplica segmentación técnica (VLANs, cortafuegos, entornos desacoplados) para <strong>dividir y certificar subsistemas independientes en distintas categorías ENS</strong> (p. ej., <em>Sede Electrónica y Expedientes</em> en Categoría MEDIA/ALTA y <em>Portales divulgativos</em> en Categoría BÁSICA).</li>
+                            <li><strong>¿Puede dejarse algún subsistema sin certificar?</strong> En una <strong>entidad pública</strong> (como la UJI o un ayuntamiento), <strong>no</strong>: el ENS obliga a <em>todos</em> sus sistemas (como mínimo en Categoría BÁSICA). En cambio, en una <strong>empresa privada proveedora</strong> (como en ISO 27001), el alcance del certificado ENS se acota exclusivamente a los <strong>sistemas y servicios que dan soporte al contrato público</strong>, quedando el resto de sistemas internos privados fuera del alcance.</li>
+                        </ul>
+                    </div>
+                </details>
             </div>
 
             <!-- Pregunta de debate sin spoilers sobre el impacto del ENS en proveedores privados -->

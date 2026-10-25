@@ -50,17 +50,6 @@
             <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
                 Cómo ensamblar políticas, activos, riesgos, controles del Anexo A (93 controles en 4 dominios) e incidentes dentro de una arquitectura auditable en mejora continua (PDCA).
             </p>
-
-            <div class="mt-6 flex flex-wrap justify-center gap-3">
-                <a href="https://docs.google.com/spreadsheets/d/1gP4Z9PL1B7v2cFmBqwL9W_FyTs9AsgwPtq32eHGo7XE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-bold shadow transition-colors">
-                    <span aria-hidden="true">📊</span>
-                    <span>Abrir hoja oficial de los 93 controles ISO 27001:2022 (Anexo A) ↗</span>
-                </a>
-                <a href="https://gemini.google.com/gem/1BapRPZcnv-XWbbmaT2KS8qcYtSM1zYDU?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs sm:text-sm font-bold shadow transition-colors">
-                    <span aria-hidden="true">🤖</span>
-                    <span>Consultar Gema: Consultor GRC, ITSM y Notion ↗</span>
-                </a>
-            </div>
         </header>
 
         <!-- Pestañas -->
@@ -161,16 +150,18 @@
         <!-- PESTAÑA 2: EXPLORADOR ANEXO A:2022 (93 CONTROLES EN 4 DOMINIOS) -->
         <section id="tab-anexoa" class="hidden space-y-6">
             <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-5">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
                     <div>
+                        <span class="inline-block text-xs font-mono font-bold uppercase bg-teal-100 text-teal-900 px-2.5 py-0.5 rounded border border-teal-200 mb-1.5">37 Organizativos + 8 Personas + 14 Físicos + 34 Tecnológicos = 93 controles</span>
                         <h2 class="text-2xl font-bold text-slate-900">La evolución a ISO/IEC 27001:2022: 93 controles en 4 dominios</h2>
                         <p class="text-sm sm:text-base text-slate-600 mt-1 leading-relaxed">
                             La versión 2022 reorganizó los antiguos 114 controles (de 14 dominios en 2013) en <strong>93 controles agrupados en 4 grandes temas</strong>, e incorporó un documento maestro obligatorio: la <strong>Declaración de Aplicabilidad (SoA)</strong>.
                         </p>
                     </div>
-                    <span class="text-xs sm:text-sm font-mono font-bold bg-teal-100 text-teal-900 px-3.5 py-2 rounded-lg border border-teal-200 shrink-0">
-                        37 + 8 + 14 + 34 = 93 controles
-                    </span>
+                    <a href="https://docs.google.com/spreadsheets/d/1gP4Z9PL1B7v2cFmBqwL9W_FyTs9AsgwPtq32eHGo7XE/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-bold shadow-md transition-colors">
+                        <span aria-hidden="true">📊</span>
+                        <span>Abrir hoja oficial de los 93 controles ISO 27001:2022 (Anexo A) ↗</span>
+                    </a>
                 </div>
 
                 <!-- Filtros por los 4 dominios de 2022 -->
@@ -208,6 +199,27 @@
                     Mientras que las cláusulas 4 a 10 son todas obligatorias, los <strong>93 controles del Anexo A</strong> son un catálogo de referencia. La <strong>Declaración de Aplicabilidad (<em>Statement of Applicability - SoA</em>)</strong> es la matriz maestra donde la organización declara, para cada uno de los 93 controles: <strong>1) si aplica o se excluye</strong>, <strong>2) la justificación formal</strong> de por qué se incluye (qué riesgos mitiga o qué ley lo exige) o por qué se excluye (p. ej., <em>A.8.25 Desarrollo seguro</em> si la empresa no desarrolla software propio), y <strong>3) su estado real de implantación</strong>.
                 </p>
             </div>
+
+            <!-- Reto participativo sin spoilers: Auditoría de exclusiones en la SoA -->
+            <div class="bg-teal-50 border border-teal-200 rounded-2xl p-6 sm:p-7 shadow-sm">
+                <span class="bg-teal-200 text-teal-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">💬 Reto de auditoría externa · Exclusiones en la SoA</span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-3 mb-2">
+                    «En nuestra SoA hemos excluido 2 controles del Anexo A: ¿nos dará AENOR el certificado ISO 27001 o nos abrirá una No Conformidad Mayor?»
+                </h3>
+                <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
+                    Durante la auditoría de certificación, el CISO presenta la Declaración de Aplicabilidad con estas dos exclusiones:<br>
+                    <strong>Exclusión 1:</strong> Se excluye el control <code>A.8.25 (Ciclo de vida de desarrollo seguro)</code> justificando que la empresa no desarrolla código propio y utiliza exclusivamente software comercial SaaS cerrado.<br>
+                    <strong>Exclusión 2:</strong> Se excluye el control <code>A.8.13 (Copias de seguridad de la información)</code> sobre el servidor de diseños de I+D (activo con criticidad Alta y riesgo inherente Crítico) justificando que <em>«este año no hay presupuesto para cabinas de backup inmutable»</em>.<br>
+                    <strong>¿Cuál de las dos exclusiones es válida y por qué la otra tumba la certificación?</strong>
+                </p>
+                <button type="button" onclick="document.getElementById('soa-debate-ans').classList.toggle('hidden')" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm shadow transition-all cursor-pointer">
+                    💡 Mostrar claves y dictamen del auditor
+                </button>
+                <div id="soa-debate-ans" class="hidden mt-4 bg-white border border-teal-300 rounded-xl p-5 text-sm sm:text-base text-slate-800 space-y-2 leading-relaxed">
+                    <p><strong class="text-emerald-800">✅ Exclusión 1 VÁLIDA (<code>A.8.25</code>):</strong> Un control del Anexo A solo puede excluirse cuando la actividad o el riesgo asociado no existe dentro del alcance del SGSI. Si la organización no realiza desarrollo de software (y supervisa a sus proveedores SaaS mediante <code>A.5.19–A.5.22</code>), excluir <code>A.8.25</code> está plenamente justificado.</p>
+                    <p><strong class="text-rose-800">❌ Exclusión 2 NO CONFORMIDAD MAYOR (<code>A.8.13</code>):</strong> Jamás se puede declarar «No aplicable» un control necesario para mitigar un riesgo identificado como alto/crítico alegando falta de presupuesto o pereza operativa. Si existe el riesgo sobre un activo crítico, el control <strong>sí es aplicable</strong> (<code>Aplica = Sí</code>); si aún está pendiente de compra, debe figurar en el <strong>Plan de Tratamiento de Riesgos (PTR)</strong> con fecha, presupuesto y responsable, o bien contar con una aceptación formal excepcional del riesgo firmada por la Alta Dirección.</p>
+                </div>
+            </div>
         </section>
 
         <!-- PESTAÑA 3: ARQUITECTURA DE LAS 5 BBDD EN NOTION -->
@@ -215,14 +227,18 @@
             <div class="bg-slate-900 text-white rounded-2xl p-6 sm:p-8 border border-slate-700 shadow-xl">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
                     <div class="max-w-3xl">
-                        <span class="bg-amber-500 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">Arquitectura práctica del SGSI (Taller Notion)</span>
-                        <h2 class="text-2xl font-bold text-white mt-2">Mapa entidad-relación del núcleo operativo del SGSI en Notion</h2>
+                        <div class="flex flex-wrap items-center gap-2 mb-2">
+                            <span class="bg-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full shadow">📌 Entregable evaluable en Aula Virtual (10 % nota final)</span>
+                            <span class="bg-slate-800 text-sky-300 border border-slate-700 text-xs font-mono font-bold px-3 py-1 rounded-full">Sesión 3 · Práctica en Notion</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-white mt-1">Mapa entidad-relación del núcleo operativo del SGSI en Notion</h2>
                         <p class="text-sm sm:text-base text-slate-300 mt-1">
                             En el taller práctico construirás estas <strong>5 bases de datos troncales interconectadas</strong> más <strong>1 módulo electivo</strong>, coronadas por un Cuadro de Mando del CISO con gráficas nativas:
                         </p>
                     </div>
-                    <a href="https://docs.google.com/document/d/1pOU3qrztwIUTwivDA9jxUFtTvE6kLP8c0FKWFM6vx14/edit?tab=t.0" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm shadow-lg transition-all">
-                        <span>📘 Abrir enunciado del Taller SGSI en Notion ↗</span>
+                    <a href="https://gemini.google.com/gem/1BapRPZcnv-XWbbmaT2KS8qcYtSM1zYDU?usp=sharing" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs sm:text-sm shadow-lg transition-all">
+                        <span aria-hidden="true">🤖</span>
+                        <span>Consultar Gema: Consultor GRC, ITSM y Notion ↗</span>
                     </a>
                 </div>
 
@@ -248,7 +264,7 @@
                             <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-200 leading-relaxed">
                                 <li>Tipo, propietario y ubicación</li>
                                 <li>Valoración C, I, A (1–5)</li>
-                                <li><strong class="text-amber-300">🧮 Fórmula Criticidad</strong></li>
+                                <li><strong class="text-amber-300">🧮 Criticidad CIA (Máx / Media)</strong></li>
                                 <li><strong class="text-blue-300">Relación ↔ RAT, Riesgos, Incidencias</strong></li>
                             </ul>
                         </div>
@@ -260,7 +276,7 @@
                             <h3 class="font-bold text-white text-base sm:text-lg mt-1 mb-2.5">Riesgos SI</h3>
                             <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-200 leading-relaxed">
                                 <li>Amenaza y vulnerabilidad</li>
-                                <li>Probabilidad e Impacto (1–5)</li>
+                                <li>Probabilidad × Impacto CIA (Activo)</li>
                                 <li><strong class="text-amber-300">🧮 Fórmulas Inherente y Residual (+Rollup)</strong></li>
                                 <li><strong class="text-rose-300">Relación ↔ Activos, SoA, Incidencias</strong></li>
                             </ul>
