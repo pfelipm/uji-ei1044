@@ -4,7 +4,10 @@ Materiales docentes interactivos para la asignatura optativa de 4.º curso **Adm
 
 > 📅 **Curso académico:** 2026/2027 (Materiales revisados y actualizados).  
 > 🌐 **Portal web en GitHub Pages:** [https://pfelipm.github.io/uji-ei1044/](https://pfelipm.github.io/uji-ei1044/)  
-> 🤖 **Tutor inteligente de la asignatura:** [Gema de IA: PowerShell Master](https://gemini.google.com/gem/11OPVdGPKX0oEXI1_DsuOK9OU_xTC0EYO?usp=drive_link)
+> 🤖 **Tutores inteligentes de la asignatura (Gemas de IA):**  
+> - ⚡ [PowerShell Master (Tema 2)](https://gemini.google.com/gem/11OPVdGPKX0oEXI1_DsuOK9OU_xTC0EYO?usp=drive_link)  
+> - 👁️‍🗨️ [El Oráculo de Little (Tema 3)](https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing)  
+> - 🛡️ [Consultor GRC, ITSM y Notion (Temas 4 y 5)](https://gemini.google.com/gem/1BapRPZcnv-XWbbmaT2KS8qcYtSM1zYDU?usp=sharing)
 
 ---
 
@@ -15,8 +18,8 @@ El temario oficial de la asignatura se articula en cinco grandes temas. Los mate
 * **T1. El servicio de informática** (15 SPA disponibles)
 * **T2. Automatización de tareas con PowerShell** (10 SPA disponibles)
 * **T3. Explotación de sistemas informáticos** (18 SPA disponibles)
-* **T4. Seguridad y administración TI** (7 SPA disponibles)
-* **T5. Metodologías para la gestión de servicios informáticos** (7 SPA disponibles)
+* **T4. Seguridad y administración TI** (8 SPA disponibles)
+* **T5. Metodologías para la gestión de servicios informáticos** (7 SPA en preparación)
 
 ---
 
@@ -75,6 +78,33 @@ Conjunto de **10 infografías interactivas (SPA)** enfocadas en el aprendizaje m
 
 ---
 
+## 📈 Tema 3: Explotación de sistemas y análisis operacional
+
+Colección de **18 aplicaciones interactivas (SPA)** dedicadas a la monitorización y telemetría de sistemas, métricas de rendimiento y fiabilidad (MTTF, MTBF, disponibilidad), límites de escalabilidad con la ley de Amdahl y la ley de Gustafson, teoría de redes de colas, ley de Little, detección analítica de cuellos de botella y simulación interactiva en tiempo real:
+
+| # | Módulo | Fichero | Conceptos clave y dinámicas | Enlace directo |
+| :-: | :--- | :--- | :--- | :--- |
+| **01** | **Conceptos clave de la explotación** | `Conceptos clave explotación sistemas.html` | Fundamentos de monitorización y capacidad: medición de rendimiento, métricas clave (tiempo de respuesta, *throughput*, utilización), diagnóstico y modelado predictivo. | [Ver módulo 01](https://pfelipm.github.io/uji-ei1044/t3/Conceptos%20clave%20explotaci%C3%B3n%20sistemas.html) |
+| **02** | **Las métricas clave del rendimiento** | `Métricas clave rendimiento.html` | Taxonomía y dimensiones: tiempo de respuesta, productividad, utilización, fiabilidad (MTTF, MTBF), disponibilidad (SLA) y sobrecarga del sistema. | [Ver módulo 02](https://pfelipm.github.io/uji-ei1044/t3/M%C3%A9tricas%20clave%20rendimiento.html) |
+| **03** | **Conceptos de diagnóstico** | `Conceptos de diagnóstico.html` | Monitores software, hardware e híbridos. Coste de medición, *overhead* y firmas visuales de rendimiento mediante diagramas de Kiviat. | [Ver módulo 03](https://pfelipm.github.io/uji-ei1044/t3/Conceptos%20de%20diagn%C3%B3stico.html) |
+| **04** | **El ciclo de la gestión del rendimiento** | `El ciclo del rendimiento.html` | Metodología integral: de la queja de usuario al análisis de cuello de botella, predicción con Amdahl y toma de decisiones presupuestarias basadas en datos. | [Ver módulo 04](https://pfelipm.github.io/uji-ei1044/t3/El%20ciclo%20del%20rendimiento.html) |
+| **05** | **Técnicas de evaluación del rendimiento** | `Técnicas evaluación rendimiento.html` | Comparativa entre monitorización directa, modelado analítico y simulación: precisión, coste, invasividad y momento de aplicación. | [Ver módulo 05](https://pfelipm.github.io/uji-ei1044/t3/T%C3%A9cnicas%20evaluaci%C3%B3n%20rendimiento.html) |
+| **06** | **Simulador de rendimiento de sistemas** | `Simulador rendimiento sistemas.html` | Explorador visual interactivo con parámetros de carga, concurrencia, tiempo de respuesta y firma gráfica de rendimiento. | [Ver módulo 06](https://pfelipm.github.io/uji-ei1044/t3/Simulador%20rendimiento%20sistemas.html) |
+| **07** | **La ley de Amdahl** | `Ley de Amdahl.html` | Límites de la optimización: fracción paralelizable/mejorable ($f$), factor de aceleración ($k$) y rendimientos decrecientes en optimizaciones locales. | [Ver módulo 07](https://pfelipm.github.io/uji-ei1044/t3/Ley%20de%20Amdahl.html) |
+| **08** | **Simulador avanzado de la ley de Amdahl** | `Simulador Amdahl.html` | Simulador interactivo multicomponente: configuración de componentes individuales (CPU, disco, red), fracción de tiempo y proyección de aceleración global. | [Ver módulo 08](https://pfelipm.github.io/uji-ei1044/t3/Simulador%20Amdahl.html) |
+| **09** | **Amdahl en sistemas multiprocesador** | `Amdahl en multiprocesador.html` | Escalabilidad multinúcleo: impacto de la fracción secuencial sobre decenas o cientos de núcleos y cálculo del *speedup* real frente al límite asintótico. | [Ver módulo 09](https://pfelipm.github.io/uji-ei1044/t3/Amdahl%20en%20multiprocesador.html) |
+| **10** | **Amdahl vs. Gustafson** | `Amdahl vs. Gustafson.html` | *Strong scaling* frente a *weak scaling*: debate práctico de adquisición entre servidores de baja latencia monohilo y nodos de cómputo masivo paralelo. | [Ver módulo 10](https://pfelipm.github.io/uji-ei1044/t3/Amdahl%20vs.%20Gustafson.html) |
+| **11** | **De Amdahl al análisis operacional** | `De Amdahl al análisis operacional.html` | La metáfora de la vaca esférica y la transición conceptual entre la ley de Amdahl para tareas aisladas y el análisis operacional multiusuario. | [Ver módulo 11](https://pfelipm.github.io/uji-ei1044/t3/De%20Amdahl%20al%20an%C3%A1lisis%20operacional.html) |
+| **12** | **El secreto oculto de las colas de espera** | `El secreto de las colas.html` | Interacción y congestión: por qué el tiempo de respuesta no es la suma de los servicios y el impacto exponencial cuando la utilización supera el 70–80 %. | [Ver módulo 12](https://pfelipm.github.io/uji-ei1044/t3/El%20secreto%20de%20las%20colas.html) |
+| **13** | **El mapa de tu sistema (análisis operacional)** | `Análisis operacional - el mapa del sistema.html` | Modelos de redes de colas: traducción de sistemas complejos a estaciones de servicio, servidores, colas de espera y trabajos en circulación. | [Ver módulo 13](https://pfelipm.github.io/uji-ei1044/t3/An%C3%A1lisis%20operacional%20-%20el%20mapa%20del%20sistema.html) |
+| **14** | **Eligiendo el modelo correcto** | `Análisis operacional - eligiendo el modelo.html` | Taxonomía de modelos de colas: clasificación práctica entre redes abiertas vs. redes cerradas ($N, Z$) y modelos monoclase vs. multiclase. | [Ver módulo 14](https://pfelipm.github.io/uji-ei1044/t3/An%C3%A1lisis%20operacional%20-%20eligiendo%20el%20modelo.html) |
+| **15** | **Las reglas del juego operacional** | `Análisis operacional - reglas del juego.html` | Variables y leyes fundamentales: hipótesis de equilibrio de flujo, tasa de llegadas, rendimientos, ley de utilización y ley de Little ($N = X \cdot R$). | [Ver módulo 15](https://pfelipm.github.io/uji-ei1044/t3/An%C3%A1lisis%20operacional%20-%20reglas%20del%20juego.html) |
+| **16** | **El arte de la caza del cuello de botella** | `Cazando cuellos de botella.html` | Detección analítica del límite: razón de visita ($V_i$), tiempo de servicio ($S_i$), demanda de servicio ($D_i$) e identificación del recurso saturante. | [Ver módulo 16](https://pfelipm.github.io/uji-ei1044/t3/Cazando%20cuellos%20de%20botella.html) |
+| **17** | **La caja de herramientas del análisis operacional** | `Análisis operacional - herramientas.html` | Algoritmos y atajos de cálculo: receta para redes abiertas, límites asintóticos para redes cerradas y cálculo del punto de saturación ($N^*$). | [Ver módulo 17](https://pfelipm.github.io/uji-ei1044/t3/An%C3%A1lisis%20operacional%20-%20herramientas.html) |
+| **18** | **Simulador de redes de colas** | `Análisis operacional - simulador redes de colas.html` | Laboratorio analítico interactivo: configuración de dispositivos, cálculo en tiempo real de cuellos de botella, curvas asintóticas y sobrecarga. | [Ver módulo 18](https://pfelipm.github.io/uji-ei1044/t3/An%C3%A1lisis%20operacional%20-%20simulador%20redes%20de%20colas.html) |
+
+---
+
 ## 🛡️ Tema 4: Seguridad y administración de TI
 
 Colección de **8 aplicaciones interactivas (SPA)** orientadas a la reflexión estratégica sobre IA agéntica y ciberseguridad, arquitectura defensiva, bastionado (*hardening*), continuidad operativa (copias de seguridad 3-2-1-1-0 y métricas RPO/RTO), gestión cuantitativa de riesgos, cumplimiento normativo (RGPD, LOPDGDD, ENS RD 311/2022) y diseño de un **SGSI bajo UNE-EN ISO/IEC 27001:2022**:
@@ -100,10 +130,11 @@ Colección de **8 aplicaciones interactivas (SPA)** orientadas a la reflexión e
   * **En Google Sites (Iframe):** Detecta automáticamente la incrustación y oculta enlaces redundantes para una experiencia limpia e integrada.
 * **📊 Simuladores interactivos en tiempo real:**
   * **Calculadoras de TCO** (adquisición de hardware y comparativa SaaS vs. on-premise con renderizado de amortización en Canvas).
-  * **Simulador de decisión multicriterio SAW** con normalización vectorial y cálculo matricial ponderado en vivo.
-  * **Simulador avanzado PROMETHEE II** con curvas de preferencia y cálculo de flujos netos (\(\Phi\)).
+  * **Simuladores de decisión multicriterio SAW y PROMETHEE II** con normalización vectorial, curvas de preferencia y cálculo de flujos netos (\(\Phi\)).
   * **Simulador de ventana de mantenimiento y gestión de incidentes** con temporizadores y evaluación de impacto en SLA.
-* **🤖 Integración con IA generativa:** Enlace en el Tema 2 al tutor personalizado **PowerShell Master** para asistencia técnica y modernización de código.
+  * **Laboratorios de rendimiento, ley de Amdahl y redes de colas** con detección en vivo del recurso cuello de botella y cálculo de asíntotas operacionales.
+  * **Simuladores de ciberseguridad y GRC:** laboratorio forense de incidentes, calculadora cuantitativa de backups (Completa, Diferencial, Incremental y RTO/RPO), matriz de riesgos 5×5, categorización ENS (RD 311/2022), notificación de brechas AEPD en 72 h y explorador de los 93 controles de ISO/IEC 27001:2022.
+* **🤖 Integración con tutores de IA generativa (Gemas):** Asistentes especializados integrados por bloque temático (**PowerShell Master** para el Tema 2, **El Oráculo de Little** para el Tema 3 y **Consultor GRC, ITSM y Notion** para los Temas 4 y 5).
 
 ---
 
@@ -118,7 +149,7 @@ Al estar alojadas en **GitHub Pages**, las SPA se integran en el Aula Virtual (G
    * **Despliegue continuo:** Cualquier actualización o errata corregida en Git se publica al instante en GitHub Pages y se refleja en Google Sites en tiempo real, sin tener que reeditar el sitio web docente.
 
 2. **Detección contextual de incrustación (iframe):**
-   * En colecciones con flujo tutorial secuencial (especialmente **Tema 2: Automatización con PowerShell 7**), cada SPA detecta dinámicamente si se está ejecutando dentro de un iframe mediante `window.self !== window.top`.
+   * En las colecciones con flujo tutorial secuencial (como el **Tema 2: Automatización con PowerShell 7** y el **Tema 4: Seguridad y administración de TI**), cada SPA detecta dinámicamente si se está ejecutando dentro de un iframe mediante `window.self !== window.top`.
    * **Ocultación automática de navegación:** Cuando la SPA se encuentra incrustada en Google Sites, se activa la clase `.is-embedded` y se ocultan los botones de navegación secuencial (`← Módulo anterior`, `Índice` y `Módulo siguiente →`). Esto evita duplicar los controles de navegación del propio Google Site y ofrece un aspecto completamente integrado. En cambio, si el alumno accede directamente a través de GitHub Pages, la botonera permanece activa para guiar el estudio autónomo.
 
 3. **Mecanismo dual para el botón «Copiar código»:**
