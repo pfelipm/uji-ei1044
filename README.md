@@ -78,7 +78,7 @@ Conjunto de **10 infografías interactivas (SPA)** enfocadas en el aprendizaje m
 
 ---
 
-## 📈 Tema 3: Explotación de sistemas y análisis operacional
+## 📈 Tema 3: Explotación de sistemas informáticos
 
 Colección de **18 aplicaciones interactivas (SPA)** dedicadas a la monitorización y telemetría de sistemas, métricas de rendimiento y fiabilidad (MTTF, MTBF, disponibilidad), límites de escalabilidad con la ley de Amdahl y la ley de Gustafson, teoría de redes de colas, ley de Little, detección analítica de cuellos de botella y simulación interactiva en tiempo real:
 
