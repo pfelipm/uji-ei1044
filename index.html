@@ -1711,8 +1711,16 @@
             searchModules();
         }
 
+        function normalizeText(str) {
+            return (str || '')
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .trim();
+        }
+
         function searchModules() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const query = normalizeText(document.getElementById('searchInput').value);
             const cards = document.querySelectorAll('.module-card');
             let visibleCount = 0;
 
@@ -1720,9 +1728,12 @@
                 const topic = card.getAttribute('data-topic');
                 const title = card.getAttribute('data-title') || '';
                 const desc = card.getAttribute('data-desc') || '';
+                const text = card.textContent || '';
+                const href = decodeURIComponent(card.getAttribute('href') || '');
+                const searchableContent = normalizeText(`${title} ${desc} ${text} ${href}`);
 
                 const matchesTopic = (currentTopic === 'all' || topic === currentTopic);
-                const matchesQuery = (!query || title.includes(query) || desc.includes(query));
+                const matchesQuery = (!query || searchableContent.includes(query));
 
                 if (matchesTopic && matchesQuery) {
                     card.classList.remove('hidden');
