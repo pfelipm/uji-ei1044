@@ -78,11 +78,20 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm sm:text-base">
-                    <div class="bg-white p-5 rounded-xl border border-rose-200">
-                        <h3 class="font-bold text-slate-900 text-base sm:text-lg mb-2">⚙️ ¿De qué protege el RAID (1, 5, 6, 10)?</h3>
-                        <p class="text-slate-700 leading-relaxed">
-                            Protege exclusivamente frente al <strong>fallo físico de un disco duro</strong> manteniendo el servidor en marcha (<em>Alta disponibilidad</em>). Pero si un administrador ejecuta un <code>DROP TABLE</code> por error, un bug corrompe el sistema de ficheros o un <strong>ransomware cifra los volúmenes</strong>, la controladora RAID replicará esa destrucción en todos los discos espejados en menos de un milisegundo.
-                        </p>
+                    <div class="bg-white p-5 rounded-xl border border-rose-200 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-bold text-slate-900 text-base sm:text-lg mb-2">⚙️ ¿De qué protege el RAID (1, 5, 6, 10)?</h3>
+                            <p class="text-slate-700 leading-relaxed">
+                                Protege exclusivamente frente al <strong>fallo físico de un disco duro</strong> manteniendo el servidor en marcha (<em>Alta disponibilidad</em>). Pero si un administrador ejecuta un <code>DROP TABLE</code> por error, un bug corrompe el sistema de ficheros o un <strong>ransomware cifra los volúmenes</strong>, la controladora RAID replicará esa destrucción en todos los discos espejados en menos de un milisegundo.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-rose-100 flex items-center justify-between gap-2">
+                            <span class="text-xs font-semibold text-slate-500">¿Dudas entre Striping, Espejo o Paridad?</span>
+                            <button type="button" onclick="openRaidModal()" class="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-sky-300 font-bold text-xs sm:text-sm shadow transition-all cursor-pointer inline-flex items-center gap-1.5">
+                                <span aria-hidden="true">💿</span>
+                                <span>Radiografía visual de niveles RAID (0, 1, 5, 6 y 10)</span>
+                            </button>
+                        </div>
                     </div>
                     <div class="bg-white p-5 rounded-xl border border-emerald-200">
                         <h3 class="font-bold text-emerald-950 text-base sm:text-lg mb-2">🕰️ ¿De qué protege una copia de seguridad (Backup)?</h3>
@@ -441,6 +450,349 @@
             </div>
         </section>
 
+        <!-- MODAL DE INMERSIÓN VISUAL: RADIOGRAFÍA DE NIVELES RAID (0, 1, 5, 6 Y 10) -->
+        <div id="raid-modal" role="dialog" aria-modal="true" aria-labelledby="raid-modal-title" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md text-white overflow-y-auto p-6 sm:p-10">
+            <div class="max-w-6xl mx-auto space-y-6">
+                <!-- Cabecera -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+                    <div>
+                        <span class="bg-sky-400 text-slate-950 text-xs sm:text-sm font-black uppercase tracking-wider px-3.5 py-1 rounded-full">💿 Arquitectura de almacenamiento · Alta disponibilidad</span>
+                        <h2 id="raid-modal-title" class="text-2xl sm:text-4xl font-extrabold text-white mt-2.5">
+                            Radiografía visual de los niveles RAID (0, 1, 5, 6 y 10)
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-300 mt-1">
+                            Cómo distribuye los bloques cada arquitectura, cuántos discos físicos pueden morir sin caída del servicio y cuándo elegir cada nivel.
+                        </p>
+                    </div>
+                    <button type="button" onclick="closeRaidModal()" class="self-start sm:self-center shrink-0 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg transition-all cursor-pointer">
+                        ✕ Cerrar ventana (Esc)
+                    </button>
+                </div>
+
+                <!-- Fila superior: RAID 0, RAID 1 y RAID 5 -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 items-stretch">
+                    <!-- RAID 0 -->
+                    <div class="bg-slate-900 border border-rose-500/40 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <h3 class="text-xl font-extrabold text-white">⚡ RAID 0</h3>
+                                <span class="text-xs font-mono font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40 px-2.5 py-0.5 rounded-full">Striping (División)</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-3">Reparte bloques en paralelo para sumar velocidad, <strong>sin ninguna redundancia</strong>.</p>
+
+                            <!-- Diagrama visual RAID 0 -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 mb-4">
+                                <div class="text-center text-[11px] font-mono text-sky-400 border-b border-slate-800 pb-1.5 mb-2.5">
+                                    Controladora RAID 0 (Banda / Stripe)
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 text-center font-mono text-xs">
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-2 space-y-1.5">
+                                        <div class="text-[10px] text-slate-400 font-bold uppercase">🖴 Disco 1</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A1</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A3</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A5</div>
+                                    </div>
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-2 space-y-1.5">
+                                        <div class="text-[10px] text-slate-400 font-bold uppercase">🖴 Disco 2</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A2</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A4</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A6</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Píldoras de métricas -->
+                            <div class="grid grid-cols-3 gap-1.5 text-center text-xs mb-3">
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Mín. discos</span>
+                                    <strong class="text-white font-mono">2</strong>
+                                </div>
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Capacidad</span>
+                                    <strong class="text-sky-300 font-mono">100 % (N)</strong>
+                                </div>
+                                <div class="bg-rose-950/60 p-2 rounded-lg border border-rose-500/40">
+                                    <span class="block text-[10px] text-rose-300">Tolerancia</span>
+                                    <strong class="text-rose-300 font-mono">0 discos ❌</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-xs bg-rose-950/50 border border-rose-800/60 text-rose-200 p-2.5 rounded-xl">
+                            <strong>Criterio SysAdmin:</strong> Si muere 1 solo disco se pierde el 100 % del volumen. Solo para caché efímera o <em>scratch</em>, jamás en servidores críticos.
+                        </div>
+                    </div>
+
+                    <!-- RAID 1 -->
+                    <div class="bg-slate-900 border border-emerald-500/40 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <h3 class="text-xl font-extrabold text-white">🪞 RAID 1</h3>
+                                <span class="text-xs font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2.5 py-0.5 rounded-full">Mirroring (Espejo)</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-3">Clona cada bloque de forma idéntica en dos discos en tiempo real.</p>
+
+                            <!-- Diagrama visual RAID 1 -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 mb-4">
+                                <div class="text-center text-[11px] font-mono text-emerald-400 border-b border-slate-800 pb-1.5 mb-2.5">
+                                    Controladora RAID 1 (Espejo síncrono)
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 text-center font-mono text-xs">
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-2 space-y-1.5">
+                                        <div class="text-[10px] text-slate-400 font-bold uppercase">🖴 Disco 1</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A1</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A2</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/50 text-sky-200 py-1 rounded font-bold">A3</div>
+                                    </div>
+                                    <div class="bg-slate-900 border border-emerald-700/60 rounded-lg p-2 space-y-1.5">
+                                        <div class="text-[10px] text-emerald-400 font-bold uppercase">🖴 Disco 2 (Copia)</div>
+                                        <div class="bg-emerald-500/20 border border-emerald-500/50 text-emerald-200 py-1 rounded font-bold">A1 (Espejo)</div>
+                                        <div class="bg-emerald-500/20 border border-emerald-500/50 text-emerald-200 py-1 rounded font-bold">A2 (Espejo)</div>
+                                        <div class="bg-emerald-500/20 border border-emerald-500/50 text-emerald-200 py-1 rounded font-bold">A3 (Espejo)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Píldoras de métricas -->
+                            <div class="grid grid-cols-3 gap-1.5 text-center text-xs mb-3">
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Mín. discos</span>
+                                    <strong class="text-white font-mono">2</strong>
+                                </div>
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Capacidad</span>
+                                    <strong class="text-amber-300 font-mono">50 % (N/2)</strong>
+                                </div>
+                                <div class="bg-emerald-950/60 p-2 rounded-lg border border-emerald-500/40">
+                                    <span class="block text-[10px] text-emerald-300">Tolerancia</span>
+                                    <strong class="text-emerald-300 font-mono">1 disco ✅</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-xs bg-slate-950 border border-slate-800 text-slate-300 p-2.5 rounded-xl">
+                            <strong class="text-emerald-400">Criterio SysAdmin:</strong> Estándar para el par de discos NVMe/SSD de arranque del sistema operativo o hipervisor (ESXi / Proxmox).
+                        </div>
+                    </div>
+
+                    <!-- RAID 5 -->
+                    <div class="bg-slate-900 border border-amber-500/40 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <h3 class="text-xl font-extrabold text-white">🛡️ RAID 5</h3>
+                                <span class="text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2.5 py-0.5 rounded-full">Paridad simple (P)</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-3">Bandas de datos con <strong>1 bloque de paridad XOR (<code class="text-amber-300">P</code>)</strong> rotando entre todos los discos.</p>
+
+                            <!-- Diagrama visual RAID 5 -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 mb-4">
+                                <div class="text-center text-[11px] font-mono text-amber-400 border-b border-slate-800 pb-1.5 mb-2.5">
+                                    Controladora RAID 5 (Datos + Paridad XOR distribuida)
+                                </div>
+                                <div class="grid grid-cols-4 gap-1.5 text-center font-mono text-[11px]">
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-1.5 space-y-1.5">
+                                        <div class="text-[9px] text-slate-400 font-bold">D1</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">A1</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">B1</div>
+                                        <div class="bg-amber-500/30 border border-amber-400 text-amber-200 py-1 rounded font-bold">Cp</div>
+                                    </div>
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-1.5 space-y-1.5">
+                                        <div class="text-[9px] text-slate-400 font-bold">D2</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">A2</div>
+                                        <div class="bg-amber-500/30 border border-amber-400 text-amber-200 py-1 rounded font-bold">Bp</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">C1</div>
+                                    </div>
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-1.5 space-y-1.5">
+                                        <div class="text-[9px] text-slate-400 font-bold">D3</div>
+                                        <div class="bg-amber-500/30 border border-amber-400 text-amber-200 py-1 rounded font-bold">Ap</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">B2</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">C2</div>
+                                    </div>
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-1.5 space-y-1.5">
+                                        <div class="text-[9px] text-slate-400 font-bold">D4</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">A3</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">B3</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">C3</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Píldoras de métricas -->
+                            <div class="grid grid-cols-3 gap-1.5 text-center text-xs mb-3">
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Mín. discos</span>
+                                    <strong class="text-white font-mono">3</strong>
+                                </div>
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Capacidad</span>
+                                    <strong class="text-sky-300 font-mono">N − 1</strong>
+                                </div>
+                                <div class="bg-amber-950/60 p-2 rounded-lg border border-amber-500/40">
+                                    <span class="block text-[10px] text-amber-300">Tolerancia</span>
+                                    <strong class="text-amber-300 font-mono">1 disco ⚠️</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-xs bg-amber-950/50 border border-amber-800/60 text-amber-200 p-2.5 rounded-xl">
+                            <strong>Aviso SysAdmin:</strong> En discos grandes (&gt;8 TB), reconstruir la paridad lleva tantas horas de estrés que es alto el riesgo de que falle un 2.º disco durante el <em>rebuild</em>.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fila inferior: RAID 6 y RAID 10 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
+                    <!-- RAID 6 -->
+                    <div class="bg-slate-900 border border-purple-500/40 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <h3 class="text-xl font-extrabold text-white">🛡️🛡️ RAID 6</h3>
+                                <span class="text-xs font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/40 px-2.5 py-0.5 rounded-full">Doble paridad (P + Q)</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-3">Calcula <strong>dos bloques de paridad independientes (<code class="text-amber-300">P</code> y <code class="text-purple-300">Q</code>)</strong> en cada fila para resistir la muerte simultánea de 2 discos.</p>
+
+                            <!-- Diagrama visual RAID 6 -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 mb-4">
+                                <div class="text-center text-[11px] font-mono text-purple-300 border-b border-slate-800 pb-1.5 mb-2.5">
+                                    Controladora RAID 6 (Datos + Paridad P + Paridad Q Reed-Solomon)
+                                </div>
+                                <div class="grid grid-cols-4 gap-2 text-center font-mono text-xs">
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-2 space-y-1.5">
+                                        <div class="text-[10px] text-slate-400 font-bold">🖴 Disco 1</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">A1</div>
+                                        <div class="bg-amber-500/30 border border-amber-400 text-amber-200 py-1 rounded font-bold">Bp</div>
+                                    </div>
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-2 space-y-1.5">
+                                        <div class="text-[10px] text-slate-400 font-bold">🖴 Disco 2</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">A2</div>
+                                        <div class="bg-purple-500/30 border border-purple-400 text-purple-200 py-1 rounded font-bold">Bq</div>
+                                    </div>
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-2 space-y-1.5">
+                                        <div class="text-[10px] text-slate-400 font-bold">🖴 Disco 3</div>
+                                        <div class="bg-amber-500/30 border border-amber-400 text-amber-200 py-1 rounded font-bold">Ap</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">B1</div>
+                                    </div>
+                                    <div class="bg-slate-900 border border-slate-700 rounded-lg p-2 space-y-1.5">
+                                        <div class="text-[10px] text-slate-400 font-bold">🖴 Disco 4</div>
+                                        <div class="bg-purple-500/30 border border-purple-400 text-purple-200 py-1 rounded font-bold">Aq</div>
+                                        <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-1 rounded">B2</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Píldoras de métricas -->
+                            <div class="grid grid-cols-3 gap-2 text-center text-xs mb-3">
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Mín. discos</span>
+                                    <strong class="text-white font-mono">4</strong>
+                                </div>
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Capacidad</span>
+                                    <strong class="text-sky-300 font-mono">N − 2</strong>
+                                </div>
+                                <div class="bg-emerald-950/60 p-2 rounded-lg border border-emerald-500/40">
+                                    <span class="block text-[10px] text-emerald-300">Tolerancia</span>
+                                    <strong class="text-emerald-300 font-mono">2 discos ✅✅</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-xs bg-slate-950 border border-slate-800 text-slate-300 p-2.5 rounded-xl">
+                            <strong class="text-purple-300">Criterio SysAdmin:</strong> El estándar actual para cabinas NAS de gran capacidad y repositorios locales de backups (mitiga el fallo de un 2.º disco durante la reconstrucción).
+                        </div>
+                    </div>
+
+                    <!-- RAID 10 (1+0) -->
+                    <div class="bg-slate-900 border border-sky-500/40 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <h3 class="text-xl font-extrabold text-white">🚀 RAID 10 (RAID 1+0)</h3>
+                                <span class="text-xs font-mono font-bold bg-sky-500/20 text-sky-300 border border-sky-500/40 px-2.5 py-0.5 rounded-full">Banda de espejos</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-3">Combina lo mejor de ambos mundos: parejas de discos en espejo (<strong>RAID 1</strong>) unidas en paralelo mediante <strong>RAID 0</strong>, sin penalización de cálculo de paridad.</p>
+
+                            <!-- Diagrama visual RAID 10 -->
+                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-3.5 mb-4">
+                                <div class="text-center text-[11px] font-mono text-sky-400 border-b border-slate-800 pb-1.5 mb-2">
+                                    RAID 0 superior (Striping entre los dos subgrupos)
+                                </div>
+                                <div class="grid grid-cols-2 gap-3 text-center font-mono text-xs">
+                                    <!-- Subgrupo Espejo 1 -->
+                                    <div class="bg-slate-900/70 border border-emerald-500/30 rounded-lg p-2">
+                                        <div class="text-[10px] text-emerald-400 font-bold mb-1.5">Subgrupo 1 · RAID 1 (Espejo)</div>
+                                        <div class="grid grid-cols-2 gap-1.5">
+                                            <div class="bg-slate-950 border border-slate-700 rounded p-1.5 space-y-1">
+                                                <div class="text-[9px] text-slate-400">D1</div>
+                                                <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-0.5 rounded">A1</div>
+                                                <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-0.5 rounded">A3</div>
+                                            </div>
+                                            <div class="bg-slate-950 border border-emerald-700/60 rounded p-1.5 space-y-1">
+                                                <div class="text-[9px] text-emerald-400">D2</div>
+                                                <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 py-0.5 rounded">A1</div>
+                                                <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 py-0.5 rounded">A3</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Subgrupo Espejo 2 -->
+                                    <div class="bg-slate-900/70 border border-emerald-500/30 rounded-lg p-2">
+                                        <div class="text-[10px] text-emerald-400 font-bold mb-1.5">Subgrupo 2 · RAID 1 (Espejo)</div>
+                                        <div class="grid grid-cols-2 gap-1.5">
+                                            <div class="bg-slate-950 border border-slate-700 rounded p-1.5 space-y-1">
+                                                <div class="text-[9px] text-slate-400">D3</div>
+                                                <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-0.5 rounded">A2</div>
+                                                <div class="bg-sky-500/20 border border-sky-500/40 text-sky-200 py-0.5 rounded">A4</div>
+                                            </div>
+                                            <div class="bg-slate-950 border border-emerald-700/60 rounded p-1.5 space-y-1">
+                                                <div class="text-[9px] text-emerald-400">D4</div>
+                                                <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 py-0.5 rounded">A2</div>
+                                                <div class="bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 py-0.5 rounded">A4</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Píldoras de métricas -->
+                            <div class="grid grid-cols-3 gap-2 text-center text-xs mb-3">
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Mín. discos</span>
+                                    <strong class="text-white font-mono">4 (par)</strong>
+                                </div>
+                                <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
+                                    <span class="block text-[10px] text-slate-400">Capacidad</span>
+                                    <strong class="text-amber-300 font-mono">50 % (N/2)</strong>
+                                </div>
+                                <div class="bg-emerald-950/60 p-2 rounded-lg border border-emerald-500/40">
+                                    <span class="block text-[10px] text-emerald-300">Tolerancia</span>
+                                    <strong class="text-emerald-300 font-mono">1 por par ✅</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-xs bg-slate-950 border border-slate-800 text-slate-300 p-2.5 rounded-xl">
+                            <strong class="text-sky-300">Criterio SysAdmin:</strong> El estándar de oro para <strong>bases de datos transaccionales (SQL / ERP) y máquinas virtuales</strong>: máxima velocidad IOPS en escritura y reconstrucción ultrarrápida por simple copia de espejo.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pie del modal con recursos externos interactivos -->
+                <div class="bg-indigo-950/60 border border-indigo-500/40 rounded-2xl p-5 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                    <div>
+                        <span class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold">🌐 Recursos externos y calculadoras visuales de referencia</span>
+                        <p class="text-xs sm:text-sm text-slate-200 mt-0.5">
+                            Profundiza en los niveles estándar/anidados o simula combinaciones de discos de distintos tamaños e IOPS en estas herramientas:
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+                        <a href="https://es.wikipedia.org/wiki/RAID" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 font-bold text-xs sm:text-sm transition-all">
+                            📖 Wikipedia: Niveles RAID ↗
+                        </a>
+                        <a href="https://www.synology.com/es-es/support/RAID_calculator" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-xs sm:text-sm shadow transition-all">
+                            🧮 Calculadora visual RAID (Synology) ↗
+                        </a>
+                        <a href="https://wintelguy.com/raidcalc.pl" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-600 font-bold text-xs sm:text-sm transition-all">
+                            🔬 Calculadora técnica WintelGuy ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- MODAL DESAFIANTE DE CIERRE (FASE 4): ¿Y VUESTROS DATOS? -->
         <div id="personal-backup-modal" role="dialog" aria-modal="true" aria-labelledby="personal-modal-title" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md text-white overflow-y-auto p-6 sm:p-10">
             <div class="max-w-5xl mx-auto my-auto space-y-8 py-4">
@@ -628,6 +980,10 @@
         }
 
         function stepTab(delta) {
+            const raidModal = document.getElementById('raid-modal');
+            if (raidModal && !raidModal.classList.contains('hidden')) {
+                return;
+            }
             const modal = document.getElementById('personal-backup-modal');
             const isModalOpen = modal && !modal.classList.contains('hidden');
             if (isModalOpen) {
@@ -639,6 +995,22 @@
                 switchTab(tabsOrder[next]);
             } else if (delta > 0 && currentTabIndex === tabsOrder.length - 1) {
                 openPersonalBackupModal();
+            }
+        }
+
+        function openRaidModal() {
+            const modal = document.getElementById('raid-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeRaidModal() {
+            const modal = document.getElementById('raid-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
             }
         }
 
@@ -687,10 +1059,17 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                const raidModal = document.getElementById('raid-modal');
+                if (raidModal && !raidModal.classList.contains('hidden')) {
+                    closeRaidModal();
+                    return;
+                }
                 closePersonalBackupModal();
                 return;
             }
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+            const raidModal = document.getElementById('raid-modal');
+            if (raidModal && !raidModal.classList.contains('hidden')) return;
             if (e.key === 'ArrowRight') stepTab(1);
             if (e.key === 'ArrowLeft') stepTab(-1);
         });
