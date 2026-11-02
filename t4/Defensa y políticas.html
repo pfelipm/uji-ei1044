@@ -182,10 +182,23 @@
                         </h3>
                         <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700">
                             <li><strong>Política de denegación por defecto (Deny All):</strong> En todo cortafuegos, bloquear absolutamente todo el tráfico salvo los puertos y orígenes explícitamente justificados.</li>
+                            <li><strong>Control de acceso a red (IEEE 802.1X / NAC):</strong> Autenticar criptográficamente cada puerto Ethernet y Wi-Fi empresarial contra un servidor RADIUS antes de conceder enlace IP o asignar VLAN.</li>
                             <li><strong>Arquitectura de doble firewall o DMZ:</strong> Los servidores accesibles desde internet (web, pasarela de correo) residen en la <strong>DMZ</strong> y jamás pueden iniciar conexiones hacia la red interna de gestión.</li>
                             <li><strong>Plano de administración fuera de banda (OOB):</strong> Administrar switches, routers e hipervisores (iDRAC/iLO) desde una VLAN de gestión exclusiva usando SSHv2/HTTPS, deshabilitando Telnet, HTTP y SNMPv1/v2c.</li>
                         </ul>
                     </div>
+                </div>
+
+                <!-- Banner interactivo para abrir el Modal de profundización en IEEE 802.1X y NAC -->
+                <div class="mt-6 bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white rounded-2xl p-5 sm:p-6 border border-blue-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md">
+                    <div class="space-y-1">
+                        <span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">🔬 Inmersión técnica · Estándar IEEE 802.1X, EAP-TLS y NAC</span>
+                        <h3 class="text-lg sm:text-xl font-extrabold text-white">¿Qué impide que un intruso enchufe su portátil a una roseta RJ45 del pasillo o clone la MAC de una impresora?</h3>
+                        <p class="text-sm text-slate-300">Explora cómo funciona por dentro el protocolo <strong>IEEE 802.1X</strong> (el mismo que usas a diario en <code>eduroam</code>), por qué derrota al <em>MAC Spoofing</em>, la asignación dinámica de VLANs y cómo proteger dispositivos industriales OT sin soporte 802.1X.</p>
+                    </div>
+                    <button type="button" onclick="openDot1xModal()" class="shrink-0 px-5 py-3 rounded-xl bg-sky-400 hover:bg-sky-300 text-slate-950 font-extrabold text-sm sm:text-base shadow-lg transition-all cursor-pointer">
+                        🔌 Radiografía de IEEE 802.1X y NAC
+                    </button>
                 </div>
             </div>
 
@@ -374,6 +387,151 @@
             </div>
         </section>
 
+        <!-- Modal de inmersión técnica: Radiografía de IEEE 802.1X, EAP-TLS y NAC -->
+        <div id="dot1x-modal" role="dialog" aria-modal="true" aria-labelledby="dot1x-modal-title" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md text-white overflow-y-auto p-6 sm:p-10">
+            <div class="max-w-6xl mx-auto space-y-8">
+                <!-- Cabecera -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                    <div>
+                        <span class="bg-sky-400 text-slate-950 text-xs sm:text-sm font-black uppercase tracking-wider px-3.5 py-1 rounded-full">🔌 Estándar IEEE 802.1X · Port-Based Network Access Control (NAC)</span>
+                        <h2 id="dot1x-modal-title" class="text-2xl sm:text-4xl font-extrabold text-white mt-3">
+                            Radiografía técnica de IEEE 802.1X y control de acceso a la red
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-300 mt-1">
+                            Cómo aplicar <strong>Zero Trust en la capa de enlace (capa 2)</strong> para que ninguna roseta RJ45 ni red Wi-Fi corporativa (como <code>eduroam</code>) conceda acceso sin identidad criptográfica verificada.
+                        </p>
+                    </div>
+                    <button type="button" onclick="closeDot1xModal()" class="self-start sm:self-center shrink-0 px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg transition-all cursor-pointer">
+                        ✕ Cerrar ventana (Esc)
+                    </button>
+                </div>
+
+                <!-- Bloque 1: Los 3 actores y el mecanismo de doble puerto lógico -->
+                <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6">
+                    <h3 class="text-lg sm:text-xl font-extrabold text-sky-400 mb-3">1. Arquitectura IEEE 802.1X: los 3 actores y el «bloqueo en capa 2» antes de tener IP</h3>
+                    <p class="text-sm sm:text-base text-slate-300 mb-5 leading-relaxed">
+                        En una red sin 802.1X, enchufar un cable Ethernet a una toma de pared te conecta instantáneamente al dominio de difusión (recibes IP por DHCP, ves tráfico ARP y puedes escanear servidores). <strong>IEEE 802.1X</strong> detiene el ataque antes siquiera de que exista la capa IP mediante tres componentes:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div class="bg-slate-950/90 border border-sky-500/40 rounded-xl p-5">
+                            <span class="text-xs font-mono uppercase tracking-wider text-sky-400 font-bold">Actor 1 · Suplicante (Supplicant)</span>
+                            <h4 class="text-base sm:text-lg font-bold text-white mt-1 mb-2">El cliente que solicita entrar</h4>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                Es el agente integrado en el sistema operativo del portátil, estación de trabajo o móvil. Presenta la identidad del dispositivo o del usuario (idealmente un certificado digital X.509 alojado en su chip <strong>TPM 2.0</strong>) respondiendo a los retos en capa 2 mediante tramas <strong>EAPOL</strong> (<em>Extensible Authentication Protocol over LAN</em>).
+                            </p>
+                        </div>
+                        <div class="bg-slate-950/90 border border-amber-500/40 rounded-xl p-5">
+                            <span class="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold">Actor 2 · Autenticador (Switch / AP Wi-Fi)</span>
+                            <h4 class="text-base sm:text-lg font-bold text-white mt-1 mb-2">El guardia que divide el puerto en dos</h4>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                El switch gestionable o punto de acceso Wi-Fi divide lógicamente cada boca física en dos canales:
+                            </p>
+                            <ul class="list-disc list-outside pl-5 mt-2 space-y-1.5 text-xs sm:text-sm text-slate-300">
+                                <li><strong class="text-rose-300">Puerto no controlado:</strong> único abierto al enchufar el cable. Bloquea el 100 % del tráfico IP (ni DHCP, ni ARP, ni Ping) y <strong>solo deja pasar tramas <code>EAPOL</code></strong>.</li>
+                                <li><strong class="text-emerald-300">Puerto controlado:</strong> permanece cerrado a cal y canto hasta recibir la orden del servidor central.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-950/90 border border-emerald-500/40 rounded-xl p-5">
+                            <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Actor 3 · Servidor RADIUS / NAC</span>
+                            <h4 class="text-base sm:text-lg font-bold text-white mt-1 mb-2">El cerebro central de decisión</h4>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                El switch no decide por sí mismo: encapsula el diálogo EAP y lo reenvía por protocolo <strong>RADIUS</strong> al servidor central (<em>FreeRADIUS</em>, <em>Microsoft NPS</em>, <em>Cisco ISE</em> o <em>Aruba ClearPass</em>), que consulta Active Directory y la PKI interna para devolver <code>Access-Accept</code> (abrir puerto + asignar VLAN) o <code>Access-Reject</code>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloque 2: Por qué fracasa el filtrado MAC (Port Security) frente a 802.1X con EAP-TLS -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+                    <div class="bg-rose-950/30 border border-rose-500/40 rounded-2xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs font-mono uppercase tracking-wider bg-rose-500/20 text-rose-300 border border-rose-500/40 px-3 py-1 rounded-lg font-bold mb-3">❌ Por qué cae la seguridad por MAC (Port Security / Sticky MAC)</span>
+                            <h3 class="text-lg sm:text-xl font-extrabold text-white mb-3">Vulnerable a suplantación trivial (<em>MAC Spoofing</em>)</h3>
+                            <ol class="list-decimal list-outside pl-5 space-y-2.5 text-sm sm:text-base text-slate-200 leading-relaxed">
+                                <li>Muchas empresas creen proteger sus rosetas configurando el switch para que solo acepte una lista blanca de direcciones MAC conocidas (<em>MAC Filtering</em>).</li>
+                                <li>La dirección MAC viaja sin cifrar en cada trama Ethernet y <strong>cualquier tarjeta de red permite cambiarla por software en 5 segundos</strong>.</li>
+                                <li>Un atacante se acerca a una impresora de red o teléfono IP en una zona común, lee la dirección MAC impresa en su pegatina trasera (o captura una trama ARP), desconecta ese cable, ejecuta en su portátil Linux <code>ip link set dev eth0 address 00:11:22:33:44:55</code> y se enchufa en esa boca: <strong>el switch cree que sigue siendo la impresora y le entrega acceso directo a la red</strong>.</li>
+                            </ol>
+                        </div>
+                        <div class="mt-5 bg-rose-950/80 border border-rose-700/60 rounded-xl p-3.5 text-sm text-rose-200">
+                            <strong>Lección SysAdmin:</strong> Una dirección MAC es un identificador público de hardware, jamás una credencial de autenticación.
+                        </div>
+                    </div>
+
+                    <div class="bg-emerald-950/30 border border-emerald-500/40 rounded-2xl p-6 flex flex-col justify-between">
+                        <div>
+                            <span class="inline-block text-xs font-mono uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-3 py-1 rounded-lg font-bold mb-3">✅ Por qué resiste IEEE 802.1X con EAP-TLS (y MACsec)</span>
+                            <h3 class="text-lg sm:text-xl font-extrabold text-white mb-3">Autenticación mutua por certificado y clave privada en TPM</h3>
+                            <ol class="list-decimal list-outside pl-5 space-y-2.5 text-sm sm:text-base text-slate-200 leading-relaxed">
+                                <li>Con <strong>EAP-TLS</strong>, al enchufar el cable, el servidor RADIUS envía un desafío criptográfico TLS al dispositivo conectado.</li>
+                                <li>Aunque el intruso haya clonado exactamente la dirección MAC, la IP y el nombre de host de un portátil corporativo de dirección, <strong>no posee la clave privada del certificado X.509</strong> (que es inexportable y reside en el chip TPM del equipo legítimo).</li>
+                                <li>Al no poder firmar el desafío EAPOL, el puerto controlado del switch nunca se abre: el atacante no obtiene IP por DHCP ni ve una sola trama de la red.</li>
+                            </ol>
+                        </div>
+                        <div class="mt-5 bg-emerald-950/80 border border-emerald-700/60 rounded-xl p-3.5 text-sm text-emerald-200">
+                            <strong>Blindaje total en capa 2 (IEEE 802.1AE MACsec):</strong> Para evitar que un atacante intercale físicamente un mini-switch detrás de un PC ya autenticado (<em>piggybacking</em>), 802.1X negocia claves efímeras para cifrar con <strong>MACsec</strong> cada trama Ethernet entre la tarjeta de red y la boca del switch.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloque 3: Asignación dinámica de VLANs y ejemplo real en la UJI (eduroam) -->
+                <div class="bg-slate-900 border border-purple-500/40 rounded-2xl p-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <h3 class="text-lg sm:text-xl font-extrabold text-purple-300">2. Asignación dinámica de VLANs, cuarentena NAC y el caso real de <code>eduroam</code> en la UJI</h3>
+                        <span class="text-xs font-mono uppercase tracking-wider bg-purple-500/20 text-purple-200 border border-purple-500/40 px-3 py-1 rounded-lg font-bold">RADIUS Attributes · Posture Check</span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch">
+                        <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-base sm:text-lg font-bold text-white mb-2">🔀 Una misma roseta física, múltiples redes según quién se conecte</h4>
+                                <p class="text-sm text-slate-300 leading-relaxed mb-3">
+                                    Con 802.1X ya no hace falta recablear ni reconfigurar puertos manualmente cuando un empleado cambia de mesa. En el mensaje <code>Access-Accept</code>, el servidor RADIUS envía al switch el atributo <code>Tunnel-Private-Group-ID</code> para mover el puerto en caliente a la VLAN correspondiente:
+                                </p>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm text-slate-300">
+                                    <li><strong>Portátil de Ingeniería / ERP:</strong> asignado a <code>VLAN 30 (Corporativa)</code>.</li>
+                                    <li><strong>Portátil de auditor externo:</strong> asignado a <code>VLAN 200 (Invitados - solo Internet)</code>.</li>
+                                    <li><strong>Portátil corporativo con EDR apagado o sin parches:</strong> el módulo de postura <strong>NAC</strong> lo desvía a la <code>VLAN 999 (Cuarentena)</code>, donde solo tiene acceso al servidor WSUS/parches hasta actualizarse.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="bg-slate-950/90 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+                            <div>
+                                <h4 class="text-base sm:text-lg font-bold text-white mb-2">🎓 El ejemplo que usas todos los días: la red Wi-Fi <code>eduroam</code></h4>
+                                <p class="text-sm text-slate-300 leading-relaxed mb-3">
+                                    ¿Por qué en casa usas una contraseña Wi-Fi compartida (<strong>WPA2/WPA3-Personal / PSK</strong>) pero en la UJI te conectas a <code>eduroam</code> con tu usuario universitario o certificado?
+                                </p>
+                                <p class="text-sm text-slate-300 leading-relaxed">
+                                    En una red Wi-Fi con clave compartida para 15 000 alumnos, cualquiera que conozca la clave puede descifrar el tráfico de otros o montar un punto de acceso falso (<em>Evil Twin</em>). <strong>WPA2/WPA3-Enterprise es exactamente IEEE 802.1X sobre aire</strong>: cada sesión negocia una clave de cifrado única por usuario (<em>PMK</em>) tras validar tu identidad contra el servidor RADIUS de la UJI (incluso si estás de viaje en una universidad de Múnich o Tokio gracias a la federación mundial de servidores RADIUS).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bloque 4: Criterio SysAdmin: ¿Qué hacemos con las impresoras y sensores industriales OT (MAB)? -->
+                <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6">
+                    <h3 class="text-lg sm:text-xl font-extrabold text-amber-400 mb-3">3. El dilema real del administrador de sistemas: ¿qué pasa con las impresoras antiguas y los sensores industriales (OT) que no soportan 802.1X?</h3>
+                    <p class="text-sm sm:text-base text-slate-300 mb-4 leading-relaxed">
+                        En una planta industrial como Keraben hay básculas, autómatas PLC, cámaras IP o impresoras de etiquetas que carecen de cliente suplicante 802.1X. Para que funcionen se recurre a <strong>MAB (<em>MAC Authentication Bypass</em>)</strong>, pero si se configura sin cuidado reabre la puerta al <em>MAC Spoofing</em>. Así se blinda en producción:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-5">
+                            <h4 class="text-base sm:text-lg font-bold text-sky-300 mb-2">🔍 1. Perfilado continuo de huella (<em>Device Profiling</em>)</h4>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                El sistema NAC no confía solo en la dirección MAC: inspecciona pasivamente la huella del dispositivo (opciones de la petición DHCP, anuncios LLDP/CDP, pila TCP/IP, <em>User-Agent</em> HTTP y comportamiento de tráfico). Si una supuesta «impresora HP» empieza a lanzar escaneos de puertos SMB o peticiones Kerberos propias de un portátil con Kali Linux, el NAC detecta la anomalía y <strong>corta el puerto del switch en milisegundos</strong>.
+                            </p>
+                        </div>
+                        <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-5">
+                            <h4 class="text-base sm:text-lg font-bold text-amber-300 mb-2">🧱 2. Microsegmentación con ACL descargable (<em>dACL</em>)</h4>
+                            <p class="text-sm text-slate-300 leading-relaxed">
+                                Todo equipo admitido por excepción MAB jamás entra en la VLAN de oficinas ni de servidores: el servidor RADIUS inyecta dinámicamente en esa boca del switch una <strong>lista de control de acceso a medida (<code>dACL</code>)</strong>. Por ejemplo, el puerto de una impresora <strong>solo puede recibir tráfico entrante en el puerto <code>TCP 9100/631</code> desde la IP del servidor de impresión</strong> y tiene bloqueado iniciar cualquier conexión hacia el resto de la red.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Navegación secuencial entre SPAs (oculta en Google Sites) -->
         <nav aria-label="Navegación entre módulos del tema" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-xs sm:text-sm hide-in-embed">
             <a href="Seguridad%20TI.html" class="justify-self-center sm:justify-self-start px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">← 01. Panorama y principios de seguridad</a>
@@ -426,8 +584,33 @@
                 : '🙈 Ocultar claves y conclusión técnica';
         }
 
+        function openDot1xModal() {
+            const modal = document.getElementById('dot1x-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeDot1xModal() {
+            const modal = document.getElementById('dot1x-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
         document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const dot1xModal = document.getElementById('dot1x-modal');
+                if (dot1xModal && !dot1xModal.classList.contains('hidden')) {
+                    closeDot1xModal();
+                    return;
+                }
+            }
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            const dot1xModal = document.getElementById('dot1x-modal');
+            if (dot1xModal && !dot1xModal.classList.contains('hidden')) return;
             if (e.key === 'ArrowRight') stepTab(1);
             if (e.key === 'ArrowLeft') stepTab(-1);
         });
