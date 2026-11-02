@@ -820,9 +820,9 @@
                 criterion: 'La arquitectura reina para bases de datos críticas (SQL Server, Oracle, PostgreSQL, ERP) y clústeres de virtualización, donde el cálculo de paridad de RAID 5/6 penalizaría las escrituras.',
                 disks: [
                     { name: 'Disco 1 · Espejo 1A', group: 'Subgrupo 1 (RAID 1)', blocks: [{ label: 'Dato A1', type: 'data' }, { label: 'Dato A3', type: 'data' }, { label: 'Dato A5', type: 'data' }] },
-                    { name: 'Disco 2 · Espejo 1B', group: 'Subgrupo 1 (RAID 1)', blocks: [{ label: 'A1 (Espejo de D1)', type: 'mirror' }, { label: 'A3 (Espejo de D1)', type: 'mirror' }, { label: 'A5 (Espejo de D1)', type: 'mirror' }] },
+                    { name: 'Disco 2 · Espejo 1B', group: 'Subgrupo 1 (RAID 1)', blocks: [{ label: 'Espejo A1 (D1)', type: 'mirror' }, { label: 'Espejo A3 (D1)', type: 'mirror' }, { label: 'Espejo A5 (D1)', type: 'mirror' }] },
                     { name: 'Disco 3 · Espejo 2A', group: 'Subgrupo 2 (RAID 1)', blocks: [{ label: 'Dato A2', type: 'data' }, { label: 'Dato A4', type: 'data' }, { label: 'Dato A6', type: 'data' }] },
-                    { name: 'Disco 4 · Espejo 2B', group: 'Subgrupo 2 (RAID 1)', blocks: [{ label: 'A2 (Espejo de D3)', type: 'mirror' }, { label: 'A4 (Espejo de D3)', type: 'mirror' }, { label: 'A6 (Espejo de D3)', type: 'mirror' }] }
+                    { name: 'Disco 4 · Espejo 2B', group: 'Subgrupo 2 (RAID 1)', blocks: [{ label: 'Espejo A2 (D3)', type: 'mirror' }, { label: 'Espejo A4 (D3)', type: 'mirror' }, { label: 'Espejo A6 (D3)', type: 'mirror' }] }
                 ],
                 evaluateStatus: (failed) => {
                     if (failed.size === 0) return { state: 'ok', text: '🟢 ARRAY SANO: Máxima velocidad de lectura/escritura combinando 2 subgrupos espejo en paralelo.' };
@@ -1003,21 +1003,21 @@
                 const isDead = validFailed.has(idx);
                 const blocksHtml = d.blocks.map(b => {
                     if (isDead) {
-                        return `<div class="py-3 px-3 rounded-xl border border-rose-600/80 bg-rose-950/90 text-rose-300 font-mono font-extrabold text-base sm:text-lg line-through">✕ ${b.label}</div>`;
+                        return `<div class="py-3 px-2.5 rounded-xl border border-rose-600/80 bg-rose-950/90 text-rose-300 font-mono font-extrabold text-sm sm:text-base whitespace-nowrap line-through">✕ ${b.label}</div>`;
                     }
                     let bCls = "bg-sky-500/20 border-sky-400/60 text-sky-100";
                     if (b.type === 'mirror') bCls = "bg-emerald-500/25 border-emerald-400/70 text-emerald-100";
                     if (b.type === 'parityP') bCls = "bg-amber-500/30 border-amber-400 text-amber-100";
                     if (b.type === 'parityQ') bCls = "bg-purple-500/30 border-purple-400 text-purple-100";
-                    return `<div class="py-3 px-3 rounded-xl border ${bCls} font-mono font-extrabold text-base sm:text-lg shadow-sm">${b.label}</div>`;
+                    return `<div class="py-3 px-2.5 rounded-xl border ${bCls} font-mono font-extrabold text-sm sm:text-base whitespace-nowrap shadow-sm">${b.label}</div>`;
                 }).join('');
 
                 return `
                     <div onclick="toggleRaidDiskFault(${idx})" class="group cursor-pointer rounded-2xl p-4 sm:p-5 border-2 transition-all text-center space-y-3 ${isDead ? 'bg-rose-950/50 border-rose-500 shadow-lg shadow-rose-950/50' : 'bg-slate-900/90 border-slate-700 hover:border-sky-400'}">
                         ${d.group ? `<div class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">${d.group}</div>` : ''}
-                        <div class="flex items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
-                            <span class="text-base sm:text-lg font-extrabold ${isDead ? 'text-rose-300' : 'text-white'}">🖴 ${d.name}</span>
-                            <span class="text-xs font-mono px-2.5 py-1 rounded-full font-bold ${isDead ? 'bg-rose-600 text-white' : 'bg-slate-800 text-slate-300 group-hover:bg-rose-950 group-hover:text-rose-300'}">
+                        <div class="flex flex-col items-center gap-1.5 border-b border-slate-800 pb-3">
+                            <span class="text-base sm:text-lg font-extrabold whitespace-nowrap ${isDead ? 'text-rose-300' : 'text-white'}">🖴 ${d.name}</span>
+                            <span class="text-xs font-mono px-3 py-1 rounded-full font-bold whitespace-nowrap ${isDead ? 'bg-rose-600 text-white' : 'bg-slate-800 text-slate-300 group-hover:bg-rose-950 group-hover:text-rose-300'}">
                                 ${isDead ? '💥 ROTO (clic repara)' : '🟢 Sano (clic rompe)'}
                             </span>
                         </div>
