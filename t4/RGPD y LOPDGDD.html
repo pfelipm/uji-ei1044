@@ -340,12 +340,15 @@
 
             <!-- Pregunta de debate sin spoilers: ¿Qué evidencias técnicas necesita el DPO en esas 72 h? -->
             <div class="bg-sky-50 border border-sky-200 rounded-2xl p-6 sm:p-7 shadow-sm">
-                <span class="bg-sky-200 text-sky-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">💬 Reto forense · Viernes a las 19:00 h</span>
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="bg-sky-200 text-sky-950 text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full">💬 Reto forense · Sobre los Escenarios 2 y 3 (viernes a las 19:00 h)</span>
+                    <a href="https://www.aepd.es/guias-y-herramientas/herramientas/comunica-brecha-rgpd" target="_blank" rel="noopener noreferrer" class="text-xs font-bold text-sky-800 hover:text-sky-950 underline">🛠️ Ver herramienta oficial «Comunica-Brecha RGPD» (AEPD) ↗</a>
+                </div>
                 <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-3 mb-2">
-                    «El DPO tiene que rellenar el formulario oficial de la AEPD antes del lunes a las 19:00 h: ¿qué 4 evidencias técnicas depende de vosotros como SysAdmins extraer del sistema?»
+                    «Ante una brecha como la inyección SQL (Escenario 2) o el ransomware (Escenario 3) detectada un viernes a las 19:00 h, el DPO debe notificar a la AEPD antes del lunes a las 19:00 h: ¿qué 4 evidencias técnicas depende de vosotros como SysAdmins extraer del sistema?»
                 </h3>
                 <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
-                    El Delegado de Protección de Datos conoce la ley, pero no tiene acceso root a los servidores ni al SIEM. Sin vuestro informe técnico forense no puede notificar a la AEPD (ni justificar por qué no procede notificar). ¿Qué datos exactos necesitáis recopilar?
+                    Las <strong>72 horas del Art. 33 RGPD son horas naturales</strong> (no se detienen en fin de semana ni festivos). El Delegado de Protección de Datos conoce la ley, pero no tiene acceso <code>root</code> a los servidores, cortafuegos ni al SIEM: sin vuestro informe técnico forense no puede cumplimentar el formulario de la AEPD (ni acreditar en el Escenario 3 que no hubo exfiltración). ¿Qué datos exactos necesitáis recopilar?
                 </p>
                 <button type="button" onclick="document.getElementById('dpo-evidence-ans').classList.toggle('hidden')" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm shadow transition-all cursor-pointer">
                     💡 Mostrar las 4 evidencias técnicas clave para la AEPD
@@ -419,9 +422,9 @@
             },
             {
                 title: "Escenario 2 · Exfiltración por inyección SQL de 12.000 fichas de clientes y cuentas bancarias en texto plano",
-                desc: "El sábado a las 10:00 h el SIEM detecta que un atacante ha explotado un formulario vulnerable en el portal web y ha descargado una tabla con nombres, DNI, dirección, teléfono e IBAN bancario de 12.000 clientes sin cifrar.",
+                desc: "El viernes a las 19:00 h el SIEM detecta que un atacante ha explotado un formulario vulnerable en el portal web y ha descargado una tabla con nombres, DNI, dirección, teléfono e IBAN bancario de 12.000 clientes sin cifrar.",
                 correct: 2,
-                explanation: "Existe un alto riesgo de fraude financiero y suplantación de identidad para las personas afectadas. Es obligatorio: 1) Documentar en el registro interno, 2) Notificar a la AEPD en menos de 72 horas desde que se tuvo constancia (antes del martes a las 10:00 h, Art. 33) y 3) Comunicar sin dilación a los 12.000 clientes afectados (Art. 34) para que vigilen los cargos en sus cuentas."
+                explanation: "Existe un alto riesgo de fraude financiero y suplantación de identidad para las personas afectadas. Es obligatorio: 1) Documentar en el registro interno, 2) Notificar a la AEPD en menos de 72 horas naturales desde que se tuvo constancia (antes del lunes a las 19:00 h, incluidos fin de semana y festivos, Art. 33) y 3) Comunicar sin dilación a los 12.000 clientes afectados (Art. 34) para que vigilen los cargos en sus cuentas."
             },
             {
                 title: "Escenario 3 · Ransomware que cifra el servidor de expedientes durante 36 horas (sin exfiltración, restaurado desde backup)",
