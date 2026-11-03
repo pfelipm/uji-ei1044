@@ -663,28 +663,24 @@
             if (details) details.open = false;
             const modal = document.getElementById('mitigation-modal');
             modal.classList.remove('hidden');
-            modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
 
         function closeMitigationModal() {
             const modal = document.getElementById('mitigation-modal');
             modal.classList.add('hidden');
-            modal.classList.remove('flex');
             document.body.style.overflow = '';
         }
 
         function openModelingModal() {
             const modal = document.getElementById('modeling-modal');
             modal.classList.remove('hidden');
-            modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
 
         function closeModelingModal() {
             const modal = document.getElementById('modeling-modal');
             modal.classList.add('hidden');
-            modal.classList.remove('flex');
             document.body.style.overflow = '';
         }
 
@@ -697,14 +693,14 @@
     </script>
 
     <!-- Modal: Reto de reflexión sobre el cálculo del riesgo residual (modelo simplificado vs. MAGERIT / ISO 27005) -->
-    <div id="mitigation-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 overflow-y-auto overscroll-contain" onclick="if(event.target === this) closeMitigationModal()">
-        <div class="bg-slate-900 border border-slate-700 text-slate-100 rounded-2xl max-w-6xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-6 max-h-[92vh] overflow-y-auto overscroll-contain">
-            <div class="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+    <div id="mitigation-modal" role="dialog" aria-modal="true" aria-labelledby="mitigation-modal-title" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md text-white overflow-y-auto overscroll-contain p-6 sm:p-10" onclick="if(event.target === this) closeMitigationModal()">
+        <div class="max-w-6xl mx-auto space-y-6">
+            <div class="flex items-start justify-between gap-4 border-b border-slate-800 pb-5">
                 <div>
                     <span class="inline-block text-xs sm:text-sm font-mono uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 mb-1.5">🧐 Pensamiento crítico en el aula · Simulador 5×5</span>
-                    <h3 class="text-xl sm:text-2xl font-extrabold text-white">¿Os chirría algo en cómo se desplaza el riesgo residual (🛡️) en la matriz?</h3>
+                    <h3 id="mitigation-modal-title" class="text-xl sm:text-2xl font-extrabold text-white">¿Os chirría algo en cómo se desplaza el riesgo residual (🛡️) en la matriz?</h3>
                 </div>
-                <button type="button" onclick="closeMitigationModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-bold border border-slate-700 cursor-pointer">✕ Cerrar</button>
+                <button type="button" onclick="closeMitigationModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-bold border border-slate-700 cursor-pointer shrink-0">✕ Cerrar (Esc)</button>
             </div>
 
             <!-- Pregunta de debate sin spoilers a gran tamaño para proyección -->
@@ -759,14 +755,14 @@
     </div>
 
     <!-- Modal: Reto de modelado relacional en Notion (1 amenaza vs. N activos) -->
-    <div id="modeling-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 overflow-y-auto overscroll-contain" onclick="if(event.target === this) closeModelingModal()">
-        <div class="bg-slate-900 border border-slate-700 text-slate-100 rounded-2xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-8 max-h-[90vh] overflow-y-auto overscroll-contain">
-            <div class="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
+    <div id="modeling-modal" role="dialog" aria-modal="true" aria-labelledby="modeling-modal-title" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md text-white overflow-y-auto overscroll-contain p-6 sm:p-10" onclick="if(event.target === this) closeModelingModal()">
+        <div class="max-w-5xl mx-auto space-y-6">
+            <div class="flex items-start justify-between gap-4 border-b border-slate-800 pb-5">
                 <div>
-                    <span class="inline-block text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 mb-1.5">🧩 Anticipo del taller práctico en Notion (Sesión 3)</span>
-                    <h3 class="text-xl sm:text-2xl font-extrabold text-white">Reto de modelado: ¿1 fila por amenaza o 1 fila por par Amenaza × Activo?</h3>
+                    <span class="inline-block text-xs sm:text-sm font-mono uppercase tracking-wider px-2.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 mb-1.5">🧩 Anticipo del taller práctico en Notion (Sesión 3)</span>
+                    <h3 id="modeling-modal-title" class="text-xl sm:text-2xl font-extrabold text-white">Reto de modelado: ¿1 fila por amenaza o 1 fila por par Amenaza × Activo?</h3>
                 </div>
-                <button type="button" onclick="closeModelingModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-bold border border-slate-700">✕ Cerrar</button>
+                <button type="button" onclick="closeModelingModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-bold border border-slate-700 cursor-pointer shrink-0">✕ Cerrar (Esc)</button>
             </div>
 
             <!-- Pregunta de debate sin spoilers -->
