@@ -694,10 +694,10 @@
 
     <!-- Modal: Reto de reflexión sobre el cálculo del riesgo residual (modelo simplificado vs. MAGERIT / ISO 27005) -->
     <div id="mitigation-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4 overflow-y-auto" onclick="if(event.target === this) closeMitigationModal()">
-        <div class="bg-slate-900 border border-slate-700 text-slate-100 rounded-2xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-8 max-h-[90vh] overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-700 text-slate-100 rounded-2xl max-w-5xl w-full p-6 sm:p-8 shadow-2xl space-y-6 my-8 max-h-[92vh] overflow-y-auto">
             <div class="flex items-start justify-between gap-4 border-b border-slate-800 pb-4">
                 <div>
-                    <span class="inline-block text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 mb-1.5">🧐 Pensamiento crítico en el aula · Simulador 5×5</span>
+                    <span class="inline-block text-xs sm:text-sm font-mono uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 mb-1.5">🧐 Pensamiento crítico en el aula · Simulador 5×5</span>
                     <h3 class="text-xl sm:text-2xl font-extrabold text-white">¿Os chirría algo en cómo se desplaza el riesgo residual (🛡️) en la matriz?</h3>
                 </div>
                 <button type="button" onclick="closeMitigationModal()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-bold border border-slate-700 cursor-pointer">✕ Cerrar</button>
@@ -718,35 +718,35 @@
 
             <!-- Desplegable sin spoilers con la explicación técnica -->
             <details id="mitigation-details" class="group bg-slate-800/90 border border-slate-700 rounded-xl overflow-hidden">
-                <summary class="cursor-pointer list-none px-5 py-4 flex items-center justify-between font-bold text-sm sm:text-base text-emerald-300 hover:bg-slate-800 transition-colors">
+                <summary class="cursor-pointer list-none px-5 py-4 flex items-center justify-between font-bold text-base sm:text-lg text-emerald-300 hover:bg-slate-800 transition-colors">
                     <span>💡 Mostrar claves metodológicas (Modelo ágil para Notion vs. MAGERIT / ISO 27005)</span>
-                    <span class="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                    <span class="text-xs sm:text-sm font-mono text-slate-400 flex items-center gap-1.5">
                         <span class="group-open:hidden">Desplegar</span>
                         <span class="hidden group-open:inline">Ocultar</span>
                         <span class="inline-block group-open:rotate-180 transition-transform">▼</span>
                     </span>
                 </summary>
-                <div class="px-5 pb-5 pt-3 border-t border-slate-700/80 space-y-4 text-sm sm:text-base text-slate-200 leading-relaxed">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="bg-slate-900/90 border border-slate-700 p-4 rounded-xl space-y-2">
-                            <span class="text-xs font-mono font-bold uppercase text-sky-400 block">1. Enfoque purista (ISO/IEC 27005 · MAGERIT / PILAR)</span>
-                            <h4 class="font-bold text-white">Mitigación separada sobre Probabilidad vs. Impacto</h4>
-                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-300">
-                                <li><strong>Controles preventivos</strong> (p. ej., <code>A.8.22</code> Segregación VLAN OT o <code>A.8.8</code> Parcheo): reducen la <strong>Probabilidad</strong> del incidente y desplazan 🛡️ <strong>en vertical (↓)</strong>.</li>
-                                <li><strong>Controles correctivos o de contención</strong> (p. ej., <code>A.8.24</code> BitLocker ante robo físico o <code>A.8.13</code> Backups inmutables ante ransomware): no alteran la probabilidad de que te roben o ataquen, pero hunden el <strong>Impacto</strong> sobre la dimensión afectada, desplazando 🛡️ <strong>en horizontal (←)</strong>.</li>
+                <div class="px-5 pb-6 pt-4 border-t border-slate-700/80 space-y-5 text-base sm:text-lg text-slate-200 leading-relaxed">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="bg-slate-900/90 border border-slate-700 p-5 rounded-xl space-y-2.5">
+                            <span class="text-xs sm:text-sm font-mono font-bold uppercase text-sky-400 block">1. Enfoque purista (ISO/IEC 27005 · MAGERIT / PILAR)</span>
+                            <h4 class="text-lg sm:text-xl font-bold text-white">Mitigación separada sobre Probabilidad vs. Impacto</h4>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-base sm:text-lg text-slate-200 leading-relaxed">
+                                <li><strong class="text-white">Controles preventivos</strong> (p. ej., <code>A.8.22</code> Segregación VLAN OT o <code>A.8.8</code> Parcheo): reducen la <strong>Probabilidad</strong> del incidente y desplazan 🛡️ <strong>en vertical (↓)</strong>.</li>
+                                <li><strong class="text-white">Controles correctivos o de contención</strong> (p. ej., <code>A.8.24</code> BitLocker ante robo físico o <code>A.8.13</code> Backups inmutables ante ransomware): no alteran la probabilidad de que te roben o ataquen, pero hunden el <strong>Impacto</strong> sobre la dimensión afectada, desplazando 🛡️ <strong>en horizontal (←)</strong>.</li>
                             </ul>
                         </div>
-                        <div class="bg-slate-900/90 border border-slate-700 p-4 rounded-xl space-y-2">
-                            <span class="text-xs font-mono font-bold uppercase text-emerald-400 block">2. Enfoque pragmático del simulador y Notion</span>
-                            <h4 class="font-bold text-white">Factor global sobre el producto <code>P × I</code></h4>
-                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm text-slate-300">
+                        <div class="bg-slate-900/90 border border-slate-700 p-5 rounded-xl space-y-2.5">
+                            <span class="text-xs sm:text-sm font-mono font-bold uppercase text-emerald-400 block">2. Enfoque pragmático del simulador y Notion</span>
+                            <h4 class="text-lg sm:text-xl font-bold text-white">Factor global sobre el producto <code>P × I</code></h4>
+                            <ul class="list-disc list-outside pl-5 space-y-2 text-base sm:text-lg text-slate-200 leading-relaxed">
                                 <li>Aplicamos el porcentaje de mitigación global directamente al valor escalar del riesgo: <code>R_residual = R_inherente × (1 - Mitigación)</code>.</li>
-                                <li><strong>¿Por qué lo hacemos así?</strong> Porque en vuestro SGSI en Notion os permite conectar <code>BBDD Riesgos SI</code> con <code>BBDD Controles (SoA)</code> mediante <strong>un único Rollup</strong> (<code>Mitigación Media %</code>), sin obligaros a parametrizar ni cruzar 4 <em>Rollups</em> separados para Probabilidad y cada dimensión <code>C, I, A</code>.</li>
+                                <li><strong class="text-white">¿Por qué lo hacemos así?</strong> Porque en vuestro SGSI en Notion os permite conectar <code>BBDD Riesgos SI</code> con <code>BBDD Controles (SoA)</code> mediante <strong>un único Rollup</strong> (<code>Mitigación Media %</code>), sin obligaros a parametrizar ni cruzar 4 <em>Rollups</em> separados para Probabilidad y cada dimensión <code>C, I, A</code>.</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs sm:text-sm text-slate-300">
+                    <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 sm:p-5 text-sm sm:text-base text-slate-300 leading-relaxed">
                         <strong class="text-amber-300">📌 Nota sobre la proyección en la rejilla 5×5:</strong> Mientras la tarjeta KPI superior muestra el valor continuo exacto con un decimal (p. ej., <code>20 × (1 - 0,65) = 7,0 / 25</code>), el mapa de calor 5×5 reparte esa reducción mediante <code>√(1 - Mitigación)</code> y redondea a la casilla entera discreta más cercana (p. ej., <code>Fila 2 × Columna 3 = 6</code>).
                     </div>
                 </div>
