@@ -242,6 +242,19 @@
                             <li><strong>Decisión de arquitectura del SysAdmin (segregar para no «contaminar»):</strong> Si englobas toda la universidad o empresa en un único sistema monolítico sin aislar, un solo proceso con una dimensión en nivel <em>Alto</em> arrastra a <strong>toda la infraestructura a Categoría ALTA</strong>. Por eso, al definir el <strong>alcance (<em>scope</em>)</strong>, se aplica segmentación técnica (VLANs, cortafuegos, entornos desacoplados) para <strong>dividir y certificar subsistemas independientes en distintas categorías ENS</strong> (p. ej., <em>Sede Electrónica y Expedientes</em> en Categoría MEDIA/ALTA y <em>Portales divulgativos</em> en Categoría BÁSICA).</li>
                             <li><strong>¿Puede dejarse algún subsistema sin certificar?</strong> En una <strong>entidad pública</strong> (como la UJI o un ayuntamiento), <strong>no</strong>: el ENS obliga a <em>todos</em> sus sistemas (como mínimo en Categoría BÁSICA). En cambio, en una <strong>empresa privada proveedora</strong> (como en ISO 27001), el alcance del certificado ENS se acota exclusivamente a los <strong>sistemas y servicios que dan soporte al contrato público</strong>, quedando el resto de sistemas internos privados fuera del alcance.</li>
                         </ul>
+
+                        <!-- Caso real en producción: Certificado ENS de la UJI -->
+                        <div class="mt-4 bg-slate-950/90 border border-sky-500/40 rounded-xl p-4 sm:p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                            <div class="space-y-1.5">
+                                <span class="inline-block text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">🏛️ Ejemplo real en casa · Alcance del Certificado ENS de la UJI</span>
+                                <p class="text-sm sm:text-base text-slate-200 leading-relaxed">
+                                    <em>«Sistemas de información que dan soporte a los servicios de: <strong>Académico</strong> (servicios tecnológicos de soporte a la docencia), <strong>Investigación</strong> (entorno de cálculo científico), <strong>Gestión</strong> (entorno de gestión administrativa interna) y <strong>Comunes</strong> (portal universitario y servicio de internet, servicios de conexión y correo electrónico, recursos de almacenamiento y de gestión de proyectos)».</em>
+                                </p>
+                            </div>
+                            <a href="https://ujiapps.uji.es/ade/rest/storage/XDRCE44RIMUQVHCS2WZGGT9KMWA248SP?url=/comu/ens/ens.pdf" target="_blank" rel="noopener noreferrer" class="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs sm:text-sm shadow transition-all">
+                                <span>📄 Ver Certificado ENS de la UJI (PDF) ↗</span>
+                            </a>
+                        </div>
                     </div>
                 </details>
             </div>
