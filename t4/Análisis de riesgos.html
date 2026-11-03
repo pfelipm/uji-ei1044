@@ -281,12 +281,12 @@
                         <!-- Mitigación mediante controles del Anexo A -->
                         <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2.5">
                             <div class="flex justify-between items-center">
-                                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-400">3. Eficacia mitigadora de controles Anexo A (SoA)</span>
+                                <label for="risk-mit" class="text-xs sm:text-sm font-bold uppercase tracking-wider text-emerald-400">3. Eficacia mitigadora de controles Anexo A (SoA)</label>
                                 <span id="lbl-mit" class="font-mono font-bold text-emerald-400 text-base">65 %</span>
                             </div>
                             <p id="sim-controls-desc" class="text-sm text-slate-300 leading-relaxed">Controles aplicados: A.8.13 (Backups 3-2-1-1-0 inmutables), A.8.8 (Parcheo vulnerabilidades) y A.8.7 (EDR).</p>
-                            <input type="range" id="risk-mit" min="0" max="85" step="5" value="65" oninput="updateRiskSim()" class="w-full accent-emerald-400">
-                            <div class="flex justify-between text-xs text-slate-300 font-mono"><span>0 % (Sin controles)</span><span>Máx. 85 % (El riesgo cero no existe)</span></div>
+                            <input type="range" id="risk-mit" min="0" max="95" step="5" value="65" oninput="updateRiskSim()" class="w-full accent-emerald-400">
+                            <div class="flex justify-between text-xs text-slate-300 font-mono"><span>0 % (Sin controles)</span><span>Máx. 95 % (El riesgo cero no existe)</span></div>
                         </div>
                     </div>
 
