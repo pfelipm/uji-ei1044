@@ -732,7 +732,7 @@
                 controllerLabel: 'Controladora RAID 0 · División en banda (Stripe)',
                 minDisks: '2 discos',
                 capacityFormula: '100 % (N)',
-                capacityExample: '4 × 10 TB = 40 TB útiles',
+                capacityExample: '2 × 10 TB = 20 TB útiles',
                 tolerance: '0 discos ❌',
                 criterion: 'Solo apto para almacenamiento temporal de alto rendimiento (caché, renderizado o scratch). Si un solo disco físico muere, se pierde el 100 % del sistema de ficheros.',
                 disks: [
@@ -885,7 +885,7 @@
                                     <tr class="bg-slate-950 text-slate-300 border-b border-slate-700 font-bold">
                                         <th class="p-4">Nivel RAID</th>
                                         <th class="p-4">Mín. discos</th>
-                                        <th class="p-4">Capacidad útil (4 × 10 TB)</th>
+                                        <th class="p-4">Capacidad útil (discos de 10 TB)</th>
                                         <th class="p-4">Fallos tolerados</th>
                                         <th class="p-4">Penalización escritura</th>
                                         <th class="p-4">Caso de uso ideal SysAdmin</th>
@@ -895,7 +895,7 @@
                                     <tr onclick="selectRaidLevel('0')" class="hover:bg-slate-800/70 cursor-pointer transition-colors">
                                         <td class="p-4 font-extrabold text-rose-400">⚡ RAID 0 (Striping)</td>
                                         <td class="p-4 font-mono">2</td>
-                                        <td class="p-4 font-mono text-sky-300 font-bold">100 % → 40 TB</td>
+                                        <td class="p-4 font-mono text-sky-300 font-bold">100 % → 20 TB (en 2 discos)</td>
                                         <td class="p-4 font-mono text-rose-400 font-bold">0 discos ❌</td>
                                         <td class="p-4 text-emerald-300">Ninguna (máxima velocidad)</td>
                                         <td class="p-4 text-slate-300">Scratch temporal, edición de vídeo, caché</td>
