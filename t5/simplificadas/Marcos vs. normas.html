@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El ecosistema de gestión y gobierno de TI: ITIL, COBIT e ISO 20000</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .is-embedded .hide-in-embed {
+            display: none !important;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #e5e7eb;
+            color: #b91c1c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .tab-btn {
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active,
+        .tab-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.25);
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 sm:p-6 md:p-8">
+
+    <main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
+
+        <!-- Cabecera -->
+        <header class="text-center mb-8 border-b border-slate-100 pb-6">
+            <div class="inline-flex items-center gap-2 bg-indigo-50 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-200">
+                Tema 5 · Bloque 1 · Marcos de buenas prácticas vs. normas certificables
+            </div>
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+                El ecosistema de gestión y gobierno de TI
+            </h1>
+            <p class="text-slate-600 text-base sm:text-lg max-w-3xl mx-auto">
+                Entendiendo de un vistazo las diferencias entre <strong>ITIL</strong> (Gestión), <strong>COBIT</strong> (Gobierno) e <strong>ISO/IEC 20000</strong> (Norma).
+            </p>
+        </header>
+
+        <!-- Navegación por pestañas -->
+        <nav aria-label="Fases de la presentación" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8">
+            <button type="button" id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active px-4 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 border border-slate-200">
+                1. 👨‍🍳 Vista de pájaro: ITIL, COBIT e ISO 20000
+            </button>
+            <button type="button" id="tab-btn-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 border border-slate-200">
+                2. 🎯 Clasificador de casos y debate Annex SL
+            </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 1: VISTA DE PÁJARO (CURSO 25-26)   -->
+        <!-- ========================================== -->
+        <section id="tab-1" class="tab-panel fade-in">
+
+            <!-- Contenedor de 3 Tarjetas (Clicable) -->
+            <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+
+                <!-- 1. ITIL (Gestión) -->
+                <div id="itil" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02]" onclick="showInfo('itil')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">👨‍🍳</span>
+                        <h2 class="text-2xl font-bold text-blue-800">1. ITIL (Gestión)</h2>
+                    </div>
+                    <p class="text-slate-700 text-base">El <strong>«Jefe de cocina»</strong>. Es un <strong>marco</strong> (guía) enfocado en la <strong>gestión</strong> de servicios. Responde al <em>cómo</em> lo hacemos.</p>
+                </div>
+
+                <!-- 2. COBIT (Gobierno) -->
+                <div id="cobit" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02]" onclick="showInfo('cobit')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">👑</span>
+                        <h2 class="text-2xl font-bold text-purple-800">2. COBIT (Gobierno)</h2>
+                    </div>
+                    <p class="text-slate-700 text-base">El <strong>«Propietario»</strong>. Es un <strong>marco</strong> (guía) enfocado en el <strong>gobierno</strong> de TI. Responde al <em>por qué</em> lo hacemos.</p>
+                </div>
+
+                <!-- 3. ISO 20000 (Norma) -->
+                <div id="iso" class="relative z-10 p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-md cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02]" onclick="showInfo('iso')">
+                    <div class="flex items-center mb-3">
+                        <span class="text-3xl mr-3">🏆</span>
+                        <h2 class="text-2xl font-bold text-green-800">3. ISO 20000 (Norma)</h2>
+                    </div>
+                    <p class="text-slate-700 text-base">El <strong>«Examen»</strong>. Es una <strong>norma</strong> (regla) enfocada en la <strong>certificación</strong> de la organización. Responde al <em>qué</em> debemos cumplir.</p>
+                </div>
+            </div>
+
+            <!-- Panel de Información (Ancho completo debajo, estilo Curso 25-26) -->
+            <div class="w-full mb-8">
+                <div id="info-panel" class="p-6 sm:p-7 bg-slate-50 rounded-xl border-l-4 border-blue-500 shadow-inner min-h-[240px] transition-all duration-300">
+                    <h3 id="info-title" class="text-2xl font-bold text-blue-900 mb-2">Haz clic en un concepto</h3>
+                    <p id="info-text" class="text-slate-800 text-base sm:text-lg mb-4">Selecciona un concepto para ver sus características clave.</p>
+                    <ul id="info-list" class="list-disc list-outside pl-5 text-slate-700 text-base space-y-2">
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Nivel 2: Rigor normativo completo (Temas 5.02 y 5.03) -->
+            <details class="group bg-slate-50 border border-slate-200 rounded-2xl overflow-hidden mb-6">
+                <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-slate-100 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xl">🔎</span>
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-700 block">Nivel 2 · Material de consulta y estudio en casa (Temas 5.02 y 5.03)</span>
+                            <h4 class="font-bold text-slate-900 text-sm sm:text-base">Desplegar análisis técnico completo: norma vs. reglamento, cadena ENAC → AENOR, serie 20000-1/2 y antecedentes</h4>
+                        </div>
+                    </div>
+                    <span class="text-slate-500 group-open:rotate-180 transition-transform text-lg font-bold">▼</span>
+                </summary>
+                <div class="p-6 bg-white border-t border-slate-200 space-y-5 text-sm sm:text-base text-slate-700 leading-relaxed">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h5 class="font-bold text-slate-900 text-base mb-2">⚖️ Norma técnica vs. Reglamento técnico y acreditación</h5>
+                            <ul class="list-disc list-outside pl-5 space-y-2">
+                                <li><strong>Norma técnica (UNE / ISO / IEC / ITU / BSI):</strong> Especificación de adopción <strong>voluntaria</strong> consensuada por organismos de normalización (p. ej., <code>UNE-ISO/IEC 20000-1</code>).</li>
+                                <li><strong>Reglamento técnico / Ley:</strong> Disposición de cumplimiento <strong>obligatorio</strong> dictada por una autoridad pública (p. ej., <code>RGPD</code> o <code>ENS</code>).</li>
+                                <li><strong>Cadena de confianza:</strong> <strong>ENAC</strong> (Entidad Nacional de Acreditación) <em>acredita</em> la competencia técnica de las entidades certificadoras (como <strong>AENOR</strong>, SGS o Bureau Veritas), y estas <em>certifican</em> el <code>SGSTI</code> de las empresas.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                            <h5 class="font-bold text-slate-900 text-base mb-2">📚 Serie ISO/IEC 20000 y otros marcos (CMMI, MOF, BS 15000)</h5>
+                            <ul class="list-disc list-outside pl-5 space-y-2">
+                                <li><strong>ISO/IEC 20000-1 (Especificación):</strong> Contiene los requisitos obligatorios («debe») auditables para certificar el <code>SGSTI</code> de una organización (procede de la norma británica <strong>BS 15000</strong>).</li>
+                                <li><strong>ISO/IEC 20000-2 (Código de buenas prácticas):</strong> Guía de recomendaciones («debería») para ayudar a implantar la parte 1 (no certificable).</li>
+                                <li><strong>Otros marcos del ecosistema:</strong> <strong>CMMI</strong> (madurez en ingeniería de software y servicios en 5 niveles) y <strong>MOF</strong> (<em>Microsoft Operations Framework</em>, adaptación de ITIL a entornos Microsoft).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <div class="flex justify-end">
+                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
+                    Siguiente fase: Clasificador de casos y debate Annex SL →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 2: CLASIFICADOR Y DEBATE ANNEX SL  -->
+        <!-- ========================================== -->
+        <section id="tab-2" class="tab-panel hidden fade-in">
+
+            <!-- Clasificador interactivo de 4 situaciones -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 mb-8">
+                <span class="text-xs font-bold uppercase tracking-wider bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full">
+                    Práctica en directo · ¿ITIL, COBIT o ISO/IEC 20000?
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-2 mb-2">
+                    🎯 Clasificador rápido de situaciones reales
+                </h2>
+                <p class="text-slate-600 text-sm sm:text-base mb-5">
+                    Selecciona la respuesta correcta para cada una de estas 4 situaciones habituales en dirección de sistemas:
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">
+                            Caso 1: «Una ingeniera informática recién titulada quiere acreditar en su currículum personal que domina el vocabulario y los procesos de gestión de servicios».
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" onclick="checkQuiz(1, true, '¡Correcto! Las personas se certifican en ITIL (p. ej., ITIL 4 Foundation); las empresas se certifican en ISO 20000.')" class="px-3.5 py-2 rounded-lg text-sm font-bold bg-slate-100 hover:bg-blue-100 text-slate-800 border border-slate-300">ITIL Foundation</button>
+                            <button type="button" onclick="checkQuiz(1, false, 'Incorrecto: ISO/IEC 20000-1 certifica el sistema de gestión de una organización, no a personas individuales (salvo auditores).')" class="px-3.5 py-2 rounded-lg text-sm font-bold bg-slate-100 hover:bg-rose-100 text-slate-800 border border-slate-300">ISO/IEC 20000-1</button>
+                        </div>
+                        <p id="quiz-fb-1" class="hidden mt-3 text-sm font-medium p-3 rounded-lg"></p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">
+                            Caso 2: «Un proveedor de cloud necesita presentar en un concurso público un sello oficial auditado por AENOR que demuestre que su SGSTI cumple los requisitos internacionales».
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" onclick="checkQuiz(2, false, 'Incorrecto: Ninguna empresa puede certificarse corporativamente en ITIL, porque es un marco descriptivo, no una norma prescriptiva.')" class="px-3.5 py-2 rounded-lg text-sm font-bold bg-slate-100 hover:bg-rose-100 text-slate-800 border border-slate-300">ITIL v4</button>
+                            <button type="button" onclick="checkQuiz(2, true, '¡Exacto! UNE-ISO/IEC 20000-1 es la norma prescriptiva («debe») frente a la cual AENOR audita y certifica a las organizaciones.')" class="px-3.5 py-2 rounded-lg text-sm font-bold bg-slate-100 hover:bg-emerald-100 text-slate-800 border border-slate-300">UNE-ISO/IEC 20000-1</button>
+                        </div>
+                        <p id="quiz-fb-2" class="hidden mt-3 text-sm font-medium p-3 rounded-lg"></p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">
+                            Caso 3: «El Consejo de Administración de un banco quiere auditar si las inversiones millonarias en TI están alineadas con los objetivos estratégicos del negocio y el control de riesgos».
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" onclick="checkQuiz(3, true, '¡Correcto! COBIT (de ISACA) es el marco de referencia por excelencia para el Gobierno corporativo y la auditoría de TI.')" class="px-3.5 py-2 rounded-lg text-sm font-bold bg-slate-100 hover:bg-purple-100 text-slate-800 border border-slate-300">COBIT (Gobierno)</button>
+                            <button type="button" onclick="checkQuiz(3, false, 'Incorrecto: ITIL se centra en el «cómo» táctico y operativo de los servicios, mientras que el gobierno estratégico corresponde a COBIT.')" class="px-3.5 py-2 rounded-lg text-sm font-bold bg-slate-100 hover:bg-rose-100 text-slate-800 border border-slate-300">ITIL (Operación)</button>
+                        </div>
+                        <p id="quiz-fb-3" class="hidden mt-3 text-sm font-medium p-3 rounded-lg"></p>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <p class="font-bold text-slate-900 text-sm sm:text-base mb-3">
+                            Caso 4: «El responsable del Service Desk busca una guía detallada de buenas prácticas para diseñar desde cero el flujo de triaje de incidentes y la base de datos KEDB».
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" onclick="checkQuiz(4, true, '¡Muy bien! ITIL y el código de prácticas ISO/IEC 20000-2 explican el «cómo» detallado para diseñar e implantar los procesos.')" class="px-3.5 py-2 rounded-lg text-sm font-bold bg-slate-100 hover:bg-blue-100 text-slate-800 border border-slate-300">ITIL / ISO 20000-2</button>
+                            <button type="button" onclick="checkQuiz(4, false, 'Incorrecto: COBIT fija objetivos de control y gobierno, pero no desciende al diseño operativo del Service Desk como hace ITIL.')" class="px-3.5 py-2 rounded-lg text-sm font-bold bg-slate-100 hover:bg-rose-100 text-slate-800 border border-slate-300">COBIT</button>
+                        </div>
+                        <p id="quiz-fb-4" class="hidden mt-3 text-sm font-medium p-3 rounded-lg"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Debate sin spoilers: Sistemas de Gestión Integrados (Annex SL) -->
+            <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-6 mb-6">
+                <div class="flex items-start gap-4">
+                    <span class="text-3xl">🧩</span>
+                    <div class="flex-1">
+                        <span class="text-xs font-bold uppercase tracking-wider text-emerald-900 bg-emerald-200 px-2.5 py-0.5 rounded-md">
+                            Conexión Tema 4 + Tema 5 · Sistemas de Gestión Integrados (Annex SL)
+                        </span>
+                        <h3 class="text-lg sm:text-xl font-bold text-slate-900 mt-2 mb-2">
+                            ¿Por qué una empresa que ya tiene certificada la seguridad (ISO 27001) o la calidad (ISO 9001) implanta ISO 20000 con mucho menos esfuerzo?
+                        </h3>
+                        <button type="button" onclick="document.getElementById('ans-annex').classList.toggle('hidden')" class="inline-flex items-center gap-2 bg-emerald-800 hover:bg-emerald-900 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-sm mt-1">
+                            💡 Mostrar claves y conclusión técnica
+                        </button>
+                        <div id="ans-annex" class="hidden mt-4 p-4 bg-white rounded-xl border border-emerald-200 text-slate-700 text-sm sm:text-base space-y-2 fade-in">
+                            <p><strong>La Estructura de Alto Nivel (<em>High-Level Structure · Annex SL</em> de ISO):</strong> Todas las normas ISO de sistemas de gestión modernas comparten el mismo esqueleto de 10 cláusulas y el mismo ciclo <code>PDCA</code> (control documental, auditorías internas, revisión por la dirección, acciones correctivas y mejora continua).</p>
+                            <p>Exactamente eso es lo que haréis en el <strong>Taller Notion II</strong>: en lugar de crear dos islas desconectadas, evolucionaréis vuestro <strong>SGSI (ISO 27001)</strong> del Tema 4 hacia un <strong>Sistema de Gestión Integrado (SGSI + SGSTI)</strong> donde la misma base de datos de activos actúa como inventario de riesgos y como <code>CMDB</code> de servicios.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center">
+                <button type="button" onclick="switchTab(1)" class="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-sm sm:text-base font-bold px-4 py-2.5 rounded-xl transition-colors">
+                    ← Volver a la vista de pájaro
+                </button>
+                <a href="Ciclo%20PDCA.html" class="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-bold px-5 py-2.5 rounded-xl shadow transition-colors hide-in-embed">
+                    Ir a la siguiente SPA: Ciclo PDCA →
+                </a>
+            </div>
+        </section>
+
+        <!-- Navegación secuencial entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 hide-in-embed">
+            <a href="Mapa%20gesti%C3%B3n%20SI.html" class="justify-self-center sm:justify-self-start inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2 rounded-xl border border-slate-200 shadow-sm transition-colors">
+                ← Anterior: Mapa gestión SI
+            </a>
+            <a href="../../index.html" class="justify-self-center inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-blue-700 bg-slate-50 hover:bg-blue-50 px-4 py-2 rounded-xl border border-slate-200 transition-colors">
+                📋 Volver al índice general
+            </a>
+            <a href="Ciclo%20PDCA.html" class="justify-self-center sm:justify-self-end inline-flex items-center gap-2 text-sm font-bold text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-4 py-2 rounded-xl border border-blue-200 transition-colors">
+                Siguiente: Ciclo PDCA →
+            </a>
+        </nav>
+
+        <footer class="mt-8 pt-4 border-t border-slate-100 text-center text-xs text-slate-400">
+            EI1044 · Sistemas de Información · Tema 5: Metodologías de gestión de los servicios informáticos · Universitat Jaume I
+        </footer>
+
+    </main>
+
+    <script>
+        let currentTab = 1;
+        function switchTab(tabNum) {
+            currentTab = tabNum;
+            document.querySelectorAll('.tab-panel').forEach((el, idx) => {
+                el.classList.toggle('hidden', idx + 1 !== tabNum);
+            });
+            document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+                btn.classList.toggle('active', idx + 1 === tabNum);
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentTab < 2) switchTab(currentTab + 1);
+            if (e.key === 'ArrowLeft' && currentTab > 1) switchTab(currentTab - 1);
+        });
+
+        const infoData = {
+            itil: {
+                title: '1. ITIL (Marco de gestión)',
+                text: 'La «biblioteca» (Marco de buenas prácticas). Se enfoca en la <strong>gestión</strong> del servicio. Responde al <em>cómo</em> lo hacemos.',
+                points: [
+                    '<strong>Analogía:</strong> El <em>Jefe de cocina</em>.',
+                    '<strong>Pregunta clave:</strong> ¿Estamos haciendo las cosas <em>bien</em>? (Eficiencia operativa).',
+                    '<strong>Enfoque:</strong> Táctico y operativo (procesos: <code>Incidente</code>, <code>Problema</code>, <code>Cambio</code>...).',
+                    '<strong>Certificación:</strong> Se certifican las <em>personas</em> (para demostrar conocimiento profesional).',
+                    '<strong>Tipo:</strong> Descriptivo y adaptable («Deberías...»).'
+                ],
+                border: 'border-blue-500',
+                titleColor: 'text-blue-900',
+                ring: 'ring-blue-400'
+            },
+            cobit: {
+                title: '2. COBIT (Marco de gobierno)',
+                text: 'El «Propietario» (Marco de gobierno y auditoría de ISACA). Se enfoca en el <strong>gobierno corporativo</strong> de TI. Responde al <em>por qué</em> lo hacemos.',
+                points: [
+                    '<strong>Analogía:</strong> El <em>Propietario / Auditor del restaurante</em>.',
+                    '<strong>Pregunta clave:</strong> ¿Estamos haciendo las <em>cosas correctas</em>? (Alineamiento estratégico).',
+                    '<strong>Enfoque:</strong> Estratégico (entrega de valor al negocio, optimización de riesgos y recursos).',
+                    '<strong>Complementa a ITIL:</strong> <code>COBIT</code> fija el <em>qué objetivo</em> persigue la dirección; <code>ITIL</code> define el <em>cómo</em> operativo.',
+                    '<strong>Tipo:</strong> Descriptivo («Deberías...»).'
+                ],
+                border: 'border-purple-500',
+                titleColor: 'text-purple-900',
+                ring: 'ring-purple-400'
+            },
+            iso: {
+                title: '3. ISO/IEC 20000 (Norma certificable)',
+                text: 'El «Examen oficial» (Norma internacional). Se enfoca en la <strong>certificación</strong> del Sistema de Gestión (<code>SGSTI</code>). Responde al <em>qué</em> debemos cumplir.',
+                points: [
+                    '<strong>Analogía:</strong> La <em>inspección oficial para la estrella Michelin</em>.',
+                    '<strong>Pregunta clave:</strong> ¿Cumplimos <em>las reglas exigidas</em> en la norma <code>20000-1</code>?',
+                    '<strong>Enfoque:</strong> Prescriptivo (requisitos auditables con «debe»).',
+                    '<strong>Certificación:</strong> Se certifican las <em>organizaciones</em> (auditadas por entidades como AENOR).',
+                    '<strong>Relación:</strong> Es la esencia de <code>ITIL</code> destilada y convertida en norma auditable.'
+                ],
+                border: 'border-green-500',
+                titleColor: 'text-green-900',
+                ring: 'ring-green-400'
+            }
+        };
+
+        function showInfo(phase) {
+            const data = infoData[phase];
+            const infoPanel = document.getElementById('info-panel');
+            const infoTitle = document.getElementById('info-title');
+            const infoText = document.getElementById('info-text');
+            const infoList = document.getElementById('info-list');
+
+            infoTitle.innerText = data.title;
+            infoText.innerHTML = data.text;
+            infoList.innerHTML = data.points.map(p => `<li>${p}</li>`).join('');
+
+            infoPanel.className = `p-6 sm:p-7 bg-slate-50 rounded-xl border-l-4 ${data.border} shadow-inner min-h-[240px] fade-in`;
+            infoTitle.className = `text-2xl font-bold ${data.titleColor} mb-2`;
+
+            ['itil', 'cobit', 'iso'].forEach(id => {
+                const el = document.getElementById(id);
+                el.classList.remove('ring-4', 'ring-blue-400', 'ring-purple-400', 'ring-green-400', 'shadow-xl');
+            });
+            document.getElementById(phase).classList.add('ring-4', data.ring, 'shadow-xl');
+        }
+
+        function checkQuiz(num, isOk, msg) {
+            const fb = document.getElementById('quiz-fb-' + num);
+            fb.classList.remove('hidden');
+            fb.className = isOk
+                ? 'mt-3 text-sm font-semibold p-3 rounded-lg bg-emerald-50 text-emerald-900 border border-emerald-300 fade-in'
+                : 'mt-3 text-sm font-semibold p-3 rounded-lg bg-rose-50 text-rose-900 border border-rose-300 fade-in';
+            fb.textContent = msg;
+        }
+
+        showInfo('itil');
+    </script>
+</body>
+</html>

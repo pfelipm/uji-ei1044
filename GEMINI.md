@@ -8,6 +8,12 @@
   - El marcador (viñeta o número) se posiciona a la izquierda en el área de padding.
   - El texto de las líneas subsiguientes se alinea verticalmente por la izquierda con la primera línea (sangría francesa).
 
+### Escala tipográfica para proyección en aula y contenedor visual
+* **Prohibido usar micro-tamaños (`text-[9px]`, `text-[10px]`, `text-[11px]`)**: resultan ilegibles en el proyector del aula.
+* **Uso restringido de `text-xs`**: reservar `text-xs` únicamente para *badges* o píldoras superiores en mayúsculas (`uppercase tracking-wider`) y para el pie académico (`<footer>`).
+* **Cuerpo de lectura y listas (`text-sm sm:text-base` / `text-base`)**: todos los párrafos explicativos, elementos `<li>`, tarjetas de simuladores y bloques desplegables `<details>` de Nivel 2 deben usar `text-sm sm:text-base` o `text-base`, y los títulos de tarjetas deben usar `text-lg`, `text-xl` o `text-2xl`. En el cómputo global de cada SPA, las clases `text-sm` + `text-base` deben superar ampliamente (proporción 2:1 o 3:1) a `text-xs`.
+* **Contenedor principal unificado**: envolver siempre el contenido de la SPA en `<main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">`, incluyendo *favicon* SVG en el `<head>` y pie académico `<footer>` al final.
+
 ## 2. Tipografía y redacción en español
 
 ### Capitalización (Sentence case)
@@ -40,5 +46,5 @@ Todas las SPAs del proyecto deben diseñarse para cumplir simultáneamente **tre
 
 ## 4. Hoja de ruta y recordatorios pendientes
 
-* **Extender navegación `.hide-in-embed` al Tema 5:** Aplicar el mismo bloque de navegación secuencial inferior (`← Anterior | 📋 Volver al índice general | Siguiente →`) con detección de iframe a todas las SPAs de `t5/` cuando se aborde su revisión.
-* **Homogeneizar navegación en Temas 1, 2 y 3 (`t1/`, `t2/`, `t3/`):** Recordar al usuario, una vez cerrados los Temas 4 y 5, la tarea pendiente de incorporar y unificar este mismo mecanismo de navegación secuencial `.hide-in-embed` en las SPAs de los Temas 1 y 3 (y homogeneizar su estilo con el Tema 2) para que todo el repositorio sea 100 % uniforme.
+* **Temas 4 y 5 (`t4/` y `t5/`):** Completados al 100 % (estructura en pestañas, lectura a dos niveles, escala tipográfica de aula, navegación `.hide-in-embed`, sincronización con copias locales y alineación con los planes de clases en Google Docs).
+* **Homogeneizar navegación, estilo y tipografía en Temas 1, 2 y 3 (`t1/`, `t2/`, `t3/`):** Incorporar y unificar el mecanismo de navegación secuencial `.hide-in-embed`, la escala tipográfica de aula y el contenedor visual en las SPAs de los Temas 1 y 3 (y homogeneizar con el Tema 2) para que todo el repositorio sea 100 % uniforme.

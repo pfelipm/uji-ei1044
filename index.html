@@ -85,38 +85,38 @@
 
         <!-- Barra de navegación y filtrado -->
         <section class="mb-10">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl">
-                <!-- Filtros por tema -->
-                <div class="flex flex-wrap items-center gap-2" id="topic-filters">
-                    <button onclick="filterByTopic('all')" id="filter-all" class="tab-btn active px-4 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all">
+            <div class="p-4 sm:p-5 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl">
+                <!-- Filtros por tema + Buscador integrado sin recorte -->
+                <div class="flex flex-wrap items-center gap-2.5" id="topic-filters">
+                    <button onclick="filterByTopic('all')" id="filter-all" class="tab-btn active px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all whitespace-nowrap">
                         Todos los módulos <span class="ml-1 text-xs opacity-80">(61)</span>
                     </button>
-                    <button onclick="filterByTopic('t1')" id="filter-t1" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all">
+                    <button onclick="filterByTopic('t1')" id="filter-t1" class="tab-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all whitespace-nowrap">
                         Tema 1: El servicio de informática <span class="ml-1 text-xs opacity-80">(15)</span>
                     </button>
-                    <button onclick="filterByTopic('t2')" id="filter-t2" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all">
+                    <button onclick="filterByTopic('t2')" id="filter-t2" class="tab-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all whitespace-nowrap">
                         Tema 2: Automatización con PowerShell <span class="ml-1 text-xs opacity-80">(10)</span>
                     </button>
-                    <button onclick="filterByTopic('t3')" id="filter-t3" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all">
+                    <button onclick="filterByTopic('t3')" id="filter-t3" class="tab-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all whitespace-nowrap">
                         Tema 3: Explotación de sistemas informáticos <span class="ml-1 text-xs opacity-80">(18)</span>
                     </button>
-                    <button onclick="filterByTopic('t4')" id="filter-t4" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all">
+                    <button onclick="filterByTopic('t4')" id="filter-t4" class="tab-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all whitespace-nowrap">
                         Tema 4: Seguridad y administración TI <span class="ml-1 text-xs opacity-80">(8)</span>
                     </button>
-                    <button onclick="filterByTopic('t5')" id="filter-t5" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all">
+                    <button onclick="filterByTopic('t5')" id="filter-t5" class="tab-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all whitespace-nowrap">
                         Tema 5: Gestión de servicios TI <span class="ml-1 text-xs opacity-80">(7)</span>
                     </button>
-                    <button onclick="filterByTopic('aux')" id="filter-aux" class="tab-btn px-4 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all">
+                    <button onclick="filterByTopic('aux')" id="filter-aux" class="tab-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-700 bg-slate-800 text-slate-300 hover:text-white transition-all whitespace-nowrap">
                         Día 0 y evaluación <span class="ml-1 text-xs opacity-80">(3)</span>
                     </button>
-                </div>
 
-                <!-- Buscador dinámico -->
-                <div class="relative w-full md:w-80">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    </span>
-                    <input type="text" id="searchInput" oninput="searchModules()" placeholder="Buscar por título o concepto..." class="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-800/90 border border-slate-700 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    <!-- Buscador dinámico con ancho flexible garantizado -->
+                    <div class="relative flex-1 min-w-[260px]">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </span>
+                        <input type="text" id="searchInput" oninput="searchModules()" placeholder="Buscar por título o concepto..." class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-800/90 border border-slate-700 text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                    </div>
                 </div>
             </div>
 
@@ -1623,9 +1623,14 @@
                         Definición de servicio de TI, transformación de tecnología en valor de negocio, pila interactiva de 5 niveles y mapa conceptual del SGSTI.
                     </p>
                 </div>
-                <div class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform pt-2 border-t border-slate-800">
-                    <span>Abrir aplicación</span>
-                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                        <span>Abrir aplicación</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='t5/simplificadas/Mapa%20gesti%C3%B3n%20SI.html';" class="text-xs font-medium text-slate-400 hover:text-amber-300 bg-slate-800/90 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-700 hover:border-amber-500/40 transition-colors" title="Abrir versión con vista de pájaro simplificada">
+                        ⚡ Simplificada
+                    </button>
                 </div>
             </a>
 
@@ -1651,9 +1656,14 @@
                         Norma frente a reglamento, ecosistema ENAC/AENOR, comparativa entre ITIL (el cómo), COBIT (el gobierno) e ISO 20000 (el qué auditable).
                     </p>
                 </div>
-                <div class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform pt-2 border-t border-slate-800">
-                    <span>Abrir aplicación</span>
-                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                        <span>Abrir aplicación</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='t5/simplificadas/Marcos%20vs.%20normas.html';" class="text-xs font-medium text-slate-400 hover:text-amber-300 bg-slate-800/90 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-700 hover:border-amber-500/40 transition-colors" title="Abrir versión con vista de pájaro simplificada">
+                        ⚡ Simplificada
+                    </button>
                 </div>
             </a>
 
@@ -1679,9 +1689,14 @@
                         Rueda de Deming (Plan-Do-Check-Act), por qué en la práctica se arranca midiendo la operación y catálogo de las 13 familias de herramientas TI.
                     </p>
                 </div>
-                <div class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform pt-2 border-t border-slate-800">
-                    <span>Abrir aplicación</span>
-                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                        <span>Abrir aplicación</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='t5/simplificadas/Ciclo%20PDCA.html';" class="text-xs font-medium text-slate-400 hover:text-amber-300 bg-slate-800/90 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-700 hover:border-amber-500/40 transition-colors" title="Abrir versión con vista de pájaro simplificada">
+                        ⚡ Simplificada
+                    </button>
                 </div>
             </a>
 
@@ -1707,9 +1722,14 @@
                         Arquitectura completa de la norma UNE-ISO/IEC 20000-1 y guía en 7 pasos para planificar, probar y migrar servicios nuevos o modificados.
                     </p>
                 </div>
-                <div class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform pt-2 border-t border-slate-800">
-                    <span>Abrir aplicación</span>
-                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                        <span>Abrir aplicación</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='t5/simplificadas/Mapa%20ISO%2020000.html';" class="text-xs font-medium text-slate-400 hover:text-amber-300 bg-slate-800/90 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-700 hover:border-amber-500/40 transition-colors" title="Abrir versión con vista de pájaro simplificada">
+                        ⚡ Simplificada
+                    </button>
                 </div>
             </a>
 
@@ -1735,9 +1755,14 @@
                         Cadena de soporte SLA ↔ OLA ↔ UC, informes KGI/KPI, costes directos/indirectos, estrategia de sourcing y auditor interactivo de coherencia SLA.
                     </p>
                 </div>
-                <div class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform pt-2 border-t border-slate-800">
-                    <span>Abrir aplicación</span>
-                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                        <span>Abrir aplicación</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='t5/simplificadas/Contrato%20de%20servicio.html';" class="text-xs font-medium text-slate-400 hover:text-amber-300 bg-slate-800/90 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-700 hover:border-amber-500/40 transition-colors" title="Abrir versión con vista de pájaro simplificada">
+                        ⚡ Simplificada
+                    </button>
                 </div>
             </a>
 
@@ -1763,9 +1788,14 @@
                         Árbol de fallos interactivo (puertas OR vs. AND), arquitecturas de recuperación ante desastres y comité de crisis DRP sobre 3 escenarios reales.
                     </p>
                 </div>
-                <div class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform pt-2 border-t border-slate-800">
-                    <span>Abrir aplicación</span>
-                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                        <span>Abrir aplicación</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='t5/simplificadas/Fallos%20vs.%20desastres.html';" class="text-xs font-medium text-slate-400 hover:text-amber-300 bg-slate-800/90 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-700 hover:border-amber-500/40 transition-colors" title="Abrir versión con vista de pájaro simplificada">
+                        ⚡ Simplificada
+                    </button>
                 </div>
             </a>
 
@@ -1791,9 +1821,14 @@
                         De la alerta al cierre: Incidentes, Problemas (KEDB), Cambios (RFC/CAB), Entregas (DSL/DHS), simulador de 5 tickets y arquitectura CMDB en Notion.
                     </p>
                 </div>
-                <div class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform pt-2 border-t border-slate-800">
-                    <span>Abrir aplicación</span>
-                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span class="flex items-center text-sm font-semibold text-amber-400 group-hover:translate-x-1 transition-transform">
+                        <span>Abrir aplicación</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    </span>
+                    <button type="button" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='t5/simplificadas/Flujo%20resoluci%C3%B3n.html';" class="text-xs font-medium text-slate-400 hover:text-amber-300 bg-slate-800/90 hover:bg-slate-700 px-2.5 py-1 rounded-lg border border-slate-700 hover:border-amber-500/40 transition-colors" title="Abrir versión con vista de pájaro simplificada">
+                        ⚡ Simplificada
+                    </button>
                 </div>
             </a>
             </div>
