@@ -3,44 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El contrato de servicio: SLA, OLA, UC y relaciones (5.6 y 5.7)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>El contrato de servicio: SLA, OLA, UC y relaciones (5.6 y 5.7) - EI1044</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bgGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22primaryGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2338bdf8%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232563eb%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22screenGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23090d16%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3C/linearGradient%3E%20%3Cfilter%20id%3D%22glow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%20%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%20/%3E%20%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%20/%3E%20%3C/filter%3E%20%3C/defs%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bgGrad%29%22%20/%3E%20%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3Crect%20x%3D%228%22%20y%3D%229%22%20width%3D%2248%22%20height%3D%2238%22%20rx%3D%227%22%20fill%3D%22url%28%23screenGrad%29%22%20stroke%3D%22url%28%23primaryGrad%29%22%20stroke-width%3D%222%22%20/%3E%20%3Cline%20x1%3D%228%22%20y1%3D%2218%22%20x2%3D%2256%22%20y2%3D%2218%22%20stroke%3D%22%231e293b%22%20stroke-width%3D%221.5%22%20/%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23ef4444%22%20/%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23eab308%22%20/%3E%20%3Ccircle%20cx%3D%2226%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%2322c55e%22%20/%3E%20%3Cpath%20d%3D%22M%2016%2025%20L%2023%2030.5%20L%2016%2036%22%20fill%3D%22none%22%20stroke%3D%22%2338bdf8%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cline%20x1%3D%2227%22%20y1%3D%2236%22%20x2%3D%2235%22%20y2%3D%2236%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2227%22%20r%3D%221.5%22%20fill%3D%22%2338bdf8%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2233%22%20r%3D%221.5%22%20fill%3D%22%2310b981%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cpath%20d%3D%22M%2026%2047%20L%2024%2053%20L%2040%2053%20L%2038%2047%20Z%22%20fill%3D%22%231e293b%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3Crect%20x%3D%2220%22%20y%3D%2253%22%20width%3D%2224%22%20height%3D%222.5%22%20rx%3D%221.2%22%20fill%3D%22%23334155%22%20/%3E%20%3C/svg%3E">
     <script>
         if (window.self !== window.top) {
             document.documentElement.classList.add('is-embedded');
         }
     </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
+            background-color: #f1f5f9;
         }
         .is-embedded .hide-in-embed {
             display: none !important;
-        }
-        .tab-btn {
-            transition: all 0.2s ease;
         }
         .tab-btn.active,
         .tab-btn.active:hover {
             background-color: #0f172a !important;
             color: #ffffff !important;
-            border-color: #0f172a !important;
-            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.25);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
         }
         .node {
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.22s ease;
             cursor: pointer;
         }
         .node:hover {
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
         .node.active-node {
-            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.15);
-            transform: scale(1.03);
-            z-index: 10;
+            box-shadow: 0 12px 24px -6px rgba(15, 23, 42, 0.16);
+            transform: translateY(-2px);
         }
         .sourcing-card {
             transition: all 0.2s ease;
@@ -52,47 +49,44 @@
             background-color: #eff6ff !important;
             box-shadow: 0 8px 16px -4px rgba(30, 64, 175, 0.18);
         }
-        .fade-in {
-            animation: fadeIn 0.35s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        details > summary {
-            list-style: none;
-        }
-        details > summary::-webkit-details-marker {
-            display: none;
+        code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            border: 1px solid #cbd5e1;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col p-4 md:p-8">
+<body class="text-slate-800 min-h-screen p-4 sm:p-8">
 
-    <main class="max-w-7xl mx-auto w-full flex-grow flex flex-col">
+    <main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
 
         <!-- Cabecera -->
-        <header class="text-center mb-6">
-            <div class="inline-flex items-center gap-2 bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-blue-200">
-                Tema 5 · Sesión 3 · Actividad 2 (ISO/IEC 20000: Cláusulas 5.6 y 5.7)
+        <header class="text-center border-b border-slate-200 pb-8 mb-8">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-800 text-xs font-bold uppercase tracking-wider mb-3">
+                <span aria-hidden="true">🤝</span>
+                <span>Tema 5 · Provisión del servicio y procesos de relaciones (Cláusulas 5.6 y 5.7)</span>
             </div>
-            <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
                 El contrato de servicio: SLA, OLA, UC y gestión de relaciones
             </h1>
-            <p class="text-slate-600 text-sm md:text-base max-w-3xl mx-auto">
-                Por qué un <strong>SLA</strong> con el cliente es papel mojado si no se apoya en acuerdos internos (<strong>OLA</strong>), contratos con proveedores (<strong>UC</strong>), control financiero, capacidad e informes.
+            <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+                Por qué un <code>SLA</code> con el cliente es papel mojado si no se apoya en acuerdos internos (<code>OLA</code>), contratos con proveedores (<code>UC</code>), control financiero, capacidad e informes.
             </p>
         </header>
 
-        <!-- Navegación de pestañas secuenciales -->
-        <nav aria-label="Fases de la sesión" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
-            <button type="button" id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+        <!-- Barra de pestañas secuenciales -->
+        <nav aria-label="Fases de la sesión" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 bg-slate-100 p-2 rounded-xl border border-slate-200">
+            <button type="button" id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all cursor-pointer">
                 1. 🔗 La cadena del contrato: SLA, OLA y UC
             </button>
-            <button type="button" id="tab-btn-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+            <button type="button" id="tab-btn-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all cursor-pointer">
                 2. 🤝 Relaciones (5.7): negocio (BRM) y suministradores (RFP)
             </button>
-            <button type="button" id="tab-btn-3" onclick="switchTab(3)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+            <button type="button" id="tab-btn-3" onclick="switchTab(3)" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-amber-900 bg-amber-100/80 hover:bg-amber-200 transition-all cursor-pointer">
                 3. 🧮 Simulador de auditoría SLA ↔ OLA ↔ UC
             </button>
         </nav>
@@ -100,101 +94,106 @@
         <!-- ========================================== -->
         <!-- PESTAÑA 1: LA CADENA DEL CONTRATO + 5.6    -->
         <!-- ========================================== -->
-        <section id="tab-panel-1" class="fade-in flex-grow flex flex-col">
+        <section id="tab-panel-1" class="space-y-8">
 
-            <!-- Diagrama interactivo de la cadena (5 eslabones) -->
-            <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-200 mb-6">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
-                    <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500">
-                        Cadena de dependencia contractual (haz clic en cada eslabón para auditarlo)
-                    </h2>
-                    <span class="text-xs font-semibold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-                        Cláusula 5.6.1 · Gestión del nivel de servicio (SLM)
-                    </span>
+            <!-- Diagrama interactivo de la cadena (5 eslabones amplios y legibles) -->
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <span class="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded bg-blue-100 text-blue-900">Cláusula 5.6.1 · Gestión del nivel de servicio (SLM)</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mt-1">
+                            Cadena de dependencia contractual (haz clic en cada eslabón para auditarlo)
+                        </h2>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-9 items-center gap-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                     <!-- 1. Cliente / SLR -->
-                    <div id="node-cliente" onclick="selectNode('cliente')" class="node active-node md:col-span-2 bg-slate-50 border-2 border-slate-400 rounded-xl p-3.5 text-center ring-4 ring-slate-300">
-                        <div class="text-2xl mb-1">🏢</div>
-                        <span class="text-[10px] font-bold uppercase tracking-wider bg-slate-200 text-slate-800 px-2 py-0.5 rounded-full">Negocio</span>
-                        <h3 class="text-sm font-bold text-slate-800 mt-1.5">Cliente y catálogo</h3>
-                        <p class="text-[11px] text-slate-500 mt-0.5">Requisitos SLR y cartera</p>
-                    </div>
-
-                    <div class="hidden md:flex justify-center text-slate-400 font-bold text-lg">⟷</div>
+                    <button type="button" id="node-cliente" onclick="selectNode('cliente')" class="node active-node text-left bg-white border-2 border-slate-500 rounded-2xl p-4 ring-4 ring-slate-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-2xl" aria-hidden="true">🏢</span>
+                            <span class="text-xs font-mono font-bold uppercase bg-slate-200 text-slate-800 px-2 py-0.5 rounded">1. Negocio</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-slate-900">Cliente y catálogo</h3>
+                        <p class="text-sm text-slate-600 mt-1">Requisitos <code>SLR</code> y cartera de servicios</p>
+                    </button>
 
                     <!-- 2. SLA -->
-                    <div id="node-sla" onclick="selectNode('sla')" class="node md:col-span-2 bg-blue-50 border-2 border-blue-400 rounded-xl p-3.5 text-center">
-                        <div class="text-2xl mb-1">📜</div>
-                        <span class="text-[10px] font-bold uppercase tracking-wider bg-blue-200 text-blue-900 px-2 py-0.5 rounded-full">Acuerdo frontal</span>
-                        <h3 class="text-sm font-bold text-blue-900 mt-1.5">SLA</h3>
-                        <p class="text-[11px] text-blue-700 mt-0.5">Service Level Agreement</p>
-                    </div>
-
-                    <div class="hidden md:flex justify-center text-slate-400 font-bold text-lg">➔</div>
-
-                    <!-- 3. Servicio TI -->
-                    <div id="node-ti" onclick="selectNode('ti')" class="node md:col-span-1 bg-slate-900 border-2 border-slate-700 rounded-xl p-3.5 text-center text-white">
-                        <div class="text-2xl mb-1">⚙️</div>
-                        <h3 class="text-xs font-bold mt-1">Dpto. TI</h3>
-                        <p class="text-[10px] text-slate-300 mt-0.5">Orquestador</p>
-                    </div>
-
-                    <div class="hidden md:flex justify-center text-slate-400 font-bold text-lg">➔</div>
-
-                    <!-- 4. OLA y UC -->
-                    <div class="md:col-span-1 flex flex-col gap-2.5">
-                        <div id="node-ola" onclick="selectNode('ola')" class="node bg-emerald-50 border-2 border-emerald-400 rounded-xl p-2.5 text-center">
-                            <span class="text-[9px] font-bold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-1.5 py-0.5 rounded-full">Interno</span>
-                            <h3 class="text-xs font-bold text-emerald-900 mt-1">🤝 OLA</h3>
-                            <p class="text-[10px] text-emerald-700">Equipos TI</p>
+                    <button type="button" id="node-sla" onclick="selectNode('sla')" class="node text-left bg-blue-50 border-2 border-blue-300 rounded-2xl p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-2xl" aria-hidden="true">📜</span>
+                            <span class="text-xs font-mono font-bold uppercase bg-blue-200 text-blue-950 px-2 py-0.5 rounded">2. Frontal</span>
                         </div>
-                        <div id="node-uc" onclick="selectNode('uc')" class="node bg-purple-50 border-2 border-purple-400 rounded-xl p-2.5 text-center">
-                            <span class="text-[9px] font-bold uppercase tracking-wider bg-purple-200 text-purple-900 px-1.5 py-0.5 rounded-full">Externo</span>
-                            <h3 class="text-xs font-bold text-purple-900 mt-1">🚚 UC</h3>
-                            <p class="text-[10px] text-purple-700">Proveedores</p>
+                        <h3 class="text-lg font-extrabold text-blue-950">Acuerdo SLA</h3>
+                        <p class="text-sm text-blue-800 mt-1"><em>Service Level Agreement</em> con el cliente</p>
+                    </button>
+
+                    <!-- 3. Dpto. TI -->
+                    <button type="button" id="node-ti" onclick="selectNode('ti')" class="node text-left bg-slate-900 border-2 border-slate-700 rounded-2xl p-4 text-white">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-2xl" aria-hidden="true">⚙️</span>
+                            <span class="text-xs font-mono font-bold uppercase bg-indigo-500/30 text-indigo-200 px-2 py-0.5 rounded">3. Centro</span>
                         </div>
-                    </div>
+                        <h3 class="text-lg font-extrabold text-white">Departamento TI</h3>
+                        <p class="text-sm text-slate-300 mt-1">Integrador y responsable del servicio</p>
+                    </button>
+
+                    <!-- 4. OLA -->
+                    <button type="button" id="node-ola" onclick="selectNode('ola')" class="node text-left bg-emerald-50 border-2 border-emerald-300 rounded-2xl p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-2xl" aria-hidden="true">🤝</span>
+                            <span class="text-xs font-mono font-bold uppercase bg-emerald-200 text-emerald-950 px-2 py-0.5 rounded">4. Interno</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-emerald-950">Acuerdo OLA</h3>
+                        <p class="text-sm text-emerald-800 mt-1">Compromiso entre equipos internos de TI</p>
+                    </button>
+
+                    <!-- 5. UC -->
+                    <button type="button" id="node-uc" onclick="selectNode('uc')" class="node text-left bg-purple-50 border-2 border-purple-300 rounded-2xl p-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-2xl" aria-hidden="true">🚚</span>
+                            <span class="text-xs font-mono font-bold uppercase bg-purple-200 text-purple-950 px-2 py-0.5 rounded">5. Externo</span>
+                        </div>
+                        <h3 class="text-lg font-extrabold text-purple-950">Contrato UC</h3>
+                        <p class="text-sm text-purple-800 mt-1">Contrato jurídico con suministradores</p>
+                    </button>
                 </div>
-            </div>
 
-            <!-- Panel de detalle del eslabón seleccionado -->
-            <div id="detail-panel" class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 md:p-8 mb-6">
-                <!-- Se inyecta por JS -->
+                <!-- Panel de detalle del eslabón seleccionado -->
+                <div id="detail-panel" class="bg-white rounded-2xl shadow-sm border-2 border-slate-300 p-6"></div>
             </div>
 
             <!-- Nivel 2: Los otros 3 procesos de Provisión del Servicio (5.6.2, 5.6.4, 5.6.5) -->
-            <details class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
-                <summary class="px-6 py-4 cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between font-bold text-slate-800 text-sm md:text-base">
-                    <span>🔎 Desplegar análisis técnico completo: informes (5.6.2), gestión financiera (5.6.4) y capacidad (5.6.5)</span>
-                    <span class="text-xs font-semibold text-blue-700 bg-blue-100 px-2.5 py-1 rounded-full">Nivel 2 · Estudio en casa</span>
+            <details class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <summary class="px-6 py-4 cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between font-bold text-slate-800 text-sm sm:text-base select-none">
+                    <span>🔎 Desplegar análisis técnico completo: Informes KGI/KPI (5.6.2), gestión financiera (5.6.4) y capacidad (5.6.5)</span>
+                    <span class="text-slate-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
                 </summary>
-                <div class="p-6 border-t border-slate-200 space-y-6 text-sm text-slate-700">
+                <div class="p-6 border-t border-slate-200 space-y-6 text-sm sm:text-base text-slate-700 leading-relaxed">
 
                     <!-- 5.6.2 Generación de informes -->
                     <div class="bg-slate-50 rounded-xl p-5 border border-slate-200">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <h3 class="font-extrabold text-slate-900 text-base">📊 5.6.2 Generación de informes del servicio (Service Reporting)</h3>
-                            <span class="text-xs font-bold bg-slate-200 text-slate-800 px-2.5 py-0.5 rounded-full">Tema 5.06.2</span>
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <h3 class="font-extrabold text-slate-900 text-lg">📊 5.6.2 Generación de informes del servicio (Service Reporting)</h3>
+                            <span class="text-xs font-mono font-bold bg-slate-200 text-slate-800 px-2.5 py-0.5 rounded">Apartado 5.6.2</span>
                         </div>
-                        <p class="mb-3 leading-relaxed">
-                            En un SGSTI maduro, las decisiones no se toman por intuición, sino a partir de una <strong>base de datos de indicadores y medidas</strong> fiable y con perspectiva histórica. Todo informe debe cumplir cinco principios: <strong>claridad</strong> (adaptado al destinatario), <strong>mantenimiento del estilo</strong>, <strong>fiabilidad</strong>, <strong>referencia temporal (histórico/tendencia)</strong> y <strong>puntualidad</strong>.
+                        <p class="mb-3">
+                            Las decisiones en el <code>SGSTI</code> se basan en una <strong>base de datos de indicadores y medidas</strong> fiable y con perspectiva histórica. Todo informe debe cumplir cinco principios: <strong>claridad</strong> (adaptado al destinatario), <strong>mantenimiento del estilo</strong>, <strong>fiabilidad</strong>, <strong>referencia temporal (histórico/tendencia)</strong> y <strong>puntualidad</strong>.
                         </p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                            <div class="bg-white p-4 rounded-lg border border-slate-200">
-                                <h4 class="font-bold text-slate-900 mb-2">Jerarquía de indicadores: KGI vs. KPI</h4>
-                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
-                                    <li><strong>KGI (<em>Key Goal Indicator</em> · Indicador clave de meta):</strong> Mide a nivel estratégico o táctico si el servicio ha cumplido su objetivo de negocio (p. ej., <em>«disponibilidad trimestral del ERP ≥ 99,5 %»</em>).</li>
-                                    <li><strong>KPI (<em>Key Performance Indicator</em> · Indicador clave de rendimiento):</strong> Mide la eficiencia operativa de un proceso concreto (p. ej., <em>«tiempo medio de respuesta en 1.ª línea &lt; 10 min»</em> o <em>«% de incidentes resueltos sin escalar»</em>).</li>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Jerarquía de indicadores: KGI vs. KPI</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5">
+                                    <li><strong>KGI (<em>Key Goal Indicator</em> · Indicador clave de meta):</strong> Mide a nivel estratégico si el servicio ha cumplido su objetivo de negocio (p. ej., <em>«disponibilidad trimestral del ERP ≥ 99,5 %»</em>).</li>
+                                    <li><strong>KPI (<em>Key Performance Indicator</em> · Indicador clave de rendimiento):</strong> Mide la eficiencia operativa de un proceso (p. ej., <em>«tiempo medio de respuesta en 1.ª línea &lt; 10 min»</em>).</li>
                                 </ul>
                             </div>
-                            <div class="bg-white p-4 rounded-lg border border-slate-200">
-                                <h4 class="font-bold text-slate-900 mb-2">Los 3 tipos de informes del servicio</h4>
-                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
-                                    <li><strong>Paneles de control (tiempo real):</strong> Monitorización continua para técnicos y <em>Service Desk</em> (colas de tickets, alertas de red, umbrales CPU).</li>
-                                    <li><strong>Informes del servicio (periódicos):</strong> Seguimiento mensual/trimestral del cumplimiento de los SLA junto al cliente.</li>
-                                    <li><strong>Cuadros de mando (<em>Balanced Scorecards</em>):</strong> Síntesis ejecutiva de KGI para la alta dirección y el gobierno de TI.</li>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Los 3 tipos de informes del servicio</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5">
+                                    <li><strong>Paneles de control (tiempo real):</strong> Monitorización continua para técnicos y <em>Service Desk</em> (colas de tickets, alertas de red).</li>
+                                    <li><strong>Informes del servicio (periódicos):</strong> Seguimiento mensual/trimestral del cumplimiento de los <code>SLA</code> junto al cliente.</li>
+                                    <li><strong>Cuadros de mando (<em>Balanced Scorecards</em>):</strong> Síntesis ejecutiva de <code>KGI</code> para la alta dirección y el gobierno de TI.</li>
                                 </ul>
                             </div>
                         </div>
@@ -202,30 +201,30 @@
 
                     <!-- 5.6.4 Gestión financiera -->
                     <div class="bg-amber-50/60 rounded-xl p-5 border border-amber-200">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <h3 class="font-extrabold text-amber-950 text-base">💶 5.6.4 Elaboración de presupuestos y contabilidad de los servicios de TI</h3>
-                            <span class="text-xs font-bold bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Tema 5.06.4</span>
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <h3 class="font-extrabold text-amber-950 text-lg">💶 5.6.4 Elaboración de presupuestos y contabilidad de los servicios de TI</h3>
+                            <span class="text-xs font-mono font-bold bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded">Apartado 5.6.4</span>
                         </div>
-                        <p class="mb-3 leading-relaxed">
-                            Aunque un departamento de TI interno no emita facturas mercantiles a otros departamentos de la misma empresa, la norma ISO 20000 exige conocer con exactitud cuánto cuesta cada servicio para evitar que el negocio perciba a TI como un «pozo sin fondo». Sus tres actividades son: <strong>1) Presupuestar</strong> (planificar disponibilidad financiera anual), <strong>2) Contabilizar</strong> (identificar gastos por servicio/cliente) y <strong>3) Facturar o informar oficialmente de costes (<em>showback / chargeback</em>)</strong>.
+                        <p class="mb-3">
+                            Sus tres actividades son: <strong>1) Presupuestar</strong> (planificar disponibilidad financiera anual), <strong>2) Contabilizar</strong> (identificar gastos por servicio/cliente) y <strong>3) Facturar o informar oficialmente de costes (<em>showback / chargeback</em>)</strong>:
                         </p>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
-                            <div class="bg-white p-3.5 rounded-lg border border-amber-200">
-                                <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider mb-1">1. Costes directos</h4>
-                                <p class="text-xs text-slate-600 leading-relaxed">
-                                    Atribuibles de forma exclusiva e inequívoca a un único servicio (p. ej., licencias del software de diseño cerámico CAD o un servidor dedicado exclusivamente al portal B2B).
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+                            <div class="bg-white p-4 rounded-xl border border-amber-200">
+                                <h4 class="font-bold text-amber-950 text-base mb-1">1. Costes directos</h4>
+                                <p class="text-sm text-slate-700">
+                                    Atribuibles en exclusiva a un único servicio (p. ej., licencias del software de diseño cerámico CAD o un servidor dedicado al portal B2B).
                                 </p>
                             </div>
-                            <div class="bg-white p-3.5 rounded-lg border border-amber-200">
-                                <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider mb-1">2. Indirectos imputables</h4>
-                                <p class="text-xs text-slate-600 leading-relaxed">
-                                    Compartidos entre varios servicios pero medibles y prorrateables según consumo (p. ej., porcentaje de CPU/RAM en un clúster de máquinas virtuales o gigabytes en cabina SAN).
+                            <div class="bg-white p-4 rounded-xl border border-amber-200">
+                                <h4 class="font-bold text-amber-950 text-base mb-1">2. Indirectos imputables</h4>
+                                <p class="text-sm text-slate-700">
+                                    Compartidos entre varios servicios pero medibles y prorrateables según consumo (p. ej., % de CPU/RAM en un clúster VMware o espacio en SAN).
                                 </p>
                             </div>
-                            <div class="bg-white p-3.5 rounded-lg border border-amber-200">
-                                <h4 class="font-bold text-amber-900 text-xs uppercase tracking-wider mb-1">3. Indirectos no absorbibles</h4>
-                                <p class="text-xs text-slate-600 leading-relaxed">
-                                    Costes estructurales generales de difícil reparto directo (p. ej., cortafuegos perimetral del CPD, climatización, sueldo del CIO o personal administrativo de TI).
+                            <div class="bg-white p-4 rounded-xl border border-amber-200">
+                                <h4 class="font-bold text-amber-950 text-base mb-1">3. Indirectos no absorbibles</h4>
+                                <p class="text-sm text-slate-700">
+                                    Costes estructurales generales de difícil reparto directo (p. ej., cortafuegos perimetral, climatización del CPD o sueldo del CIO).
                                 </p>
                             </div>
                         </div>
@@ -233,170 +232,164 @@
 
                     <!-- 5.6.5 Gestión de la capacidad -->
                     <div class="bg-indigo-50/60 rounded-xl p-5 border border-indigo-200">
-                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <h3 class="font-extrabold text-indigo-950 text-base">📈 5.6.5 Gestión de la capacidad (Capacity Management)</h3>
-                            <span class="text-xs font-bold bg-indigo-200 text-indigo-900 px-2.5 py-0.5 rounded-full">Tema 5.06.5</span>
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <h3 class="font-extrabold text-indigo-950 text-lg">📈 5.6.5 Gestión de la capacidad (Capacity Management)</h3>
+                            <span class="text-xs font-mono font-bold bg-indigo-200 text-indigo-900 px-2.5 py-0.5 rounded">Apartado 5.6.5</span>
                         </div>
-                        <p class="mb-3 leading-relaxed">
-                            Su objetivo es garantizar que TI disponga en todo momento de capacidad suficiente para cumplir los SLA acordados con un equilibrio económico: <strong>evitar tanto el déficit de capacidad</strong> (caídas o lentitud en picos de negocio) <strong>como el sobredimensionamiento ocioso</strong> (comprar hierro o nube que nunca se amortiza).
+                        <p class="mb-2">
+                            Garantiza que TI disponga en todo momento de capacidad suficiente para cumplir los <code>SLA</code> con equilibrio económico (evitando tanto caídas por saturación como comprar servidores ociosos):
                         </p>
-                        <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
-                            <li><strong>Parte proactiva (Plan de capacidad):</strong> Prever necesidades futuras traducidas desde el negocio (p. ej., si Keraben abre una nueva planta logística o la UJI inicia el periodo de matrícula en julio/septiembre) y simular escenarios antes de que ocurra el cuello de botella.</li>
-                            <li><strong>Parte reactiva (Monitorización y ajuste / <em>tuning</em>):</strong> Vigilar umbrales de uso (CPU, memoria, IOPS de disco, ancho de banda), equilibrar cargas y resolver degradaciones de rendimiento antes de que disparen incidentes graves.</li>
+                        <ul class="list-disc list-outside pl-5 space-y-1.5">
+                            <li><strong>Parte proactiva (Plan de capacidad):</strong> Prever necesidades futuras traducidas desde el negocio (p. ej., apertura de una nueva planta logística en Keraben o periodo de matrícula en la UJI) y simular escenarios antes del cuello de botella.</li>
+                            <li><strong>Parte reactiva (Monitorización y ajuste / <em>tuning</em>):</strong> Vigilar umbrales de uso (CPU, RAM, IOPS, red), equilibrar cargas y resolver degradaciones antes de que disparen incidentes.</li>
                         </ul>
                     </div>
 
                 </div>
             </details>
-
-            <div class="mt-auto flex justify-end">
-                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
-                    Siguiente fase: Relaciones con negocio y suministradores (5.7) →
-                </button>
-            </div>
         </section>
 
         <!-- ========================================== -->
         <!-- PESTAÑA 2: PROCESOS DE RELACIONES (5.7)    -->
         <!-- ========================================== -->
-        <section id="tab-panel-2" class="fade-in flex-grow flex flex-col hidden">
+        <section id="tab-panel-2" class="hidden space-y-8">
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
 
                 <!-- 5.7.1 Gestión de las relaciones con el negocio (BRM) -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
-                    <div class="flex items-center justify-between gap-2 mb-3">
-                        <span class="text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
-                            Cláusula 5.7.1 · Hacia el cliente
-                        </span>
-                        <span class="text-xs font-semibold text-slate-500">Tema 5.07</span>
+                <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6 flex flex-col justify-between space-y-5">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-mono font-bold uppercase bg-blue-100 text-blue-900 px-2.5 py-0.5 rounded">
+                                Cláusula 5.7.1 · Hacia el cliente interno
+                            </span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">
+                            🤝 Gestión de las relaciones con el negocio (BRM)
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-600 mb-4 leading-relaxed">
+                            Establece un puente continuo de confianza y alineación estratégica entre TI y las unidades de negocio:
+                        </p>
+
+                        <ul class="list-disc list-outside pl-5 space-y-2.5 text-sm sm:text-base text-slate-700 leading-relaxed">
+                            <li><strong>Interlocutor único designado:</strong> Un responsable formal que conoce el negocio del cliente y evita negociaciones informales de pasillo.</li>
+                            <li><strong>Contraste con el catálogo de servicios:</strong> Toda nueva necesidad se contrasta con el <strong>Catálogo de servicios</strong>; si no existe, se recogen los <code>SLR</code> y se negocia el <code>SLA</code>.</li>
+                            <li><strong>Reclamaciones como oportunidad de mejora:</strong> Las quejas formales por mala prestación se registran y alimentan acciones correctivas del ciclo PDCA.</li>
+                            <li><strong>Medición anual de la satisfacción:</strong> Encuestas periódicas para medir la percepción real más allá de los números técnicos.</li>
+                        </ul>
                     </div>
-                    <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mb-2">
-                        🤝 Gestión de las relaciones con el negocio (BRM)
-                    </h2>
-                    <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                        Evita que la comunicación entre el departamento de TI y las unidades de negocio sea esporádica o solo se produzca cuando algo se rompe. Establece un puente continuo de confianza y alineación estratégica.
-                    </p>
 
-                    <ul class="list-disc list-outside pl-5 space-y-2.5 text-sm text-slate-700 mb-5">
-                        <li><strong>Interlocutor único designado:</strong> Un responsable formal (<em>Business Relationship Manager</em>) que conoce el negocio del cliente y evita que cada usuario negocie por su cuenta con los técnicos.</li>
-                        <li><strong>Contraste con el catálogo de servicios:</strong> Cuando el negocio plantea una nueva necesidad, se contrasta primero con el <strong>Catálogo de servicios</strong> actual; si no encaja, se recogen los <strong>SLR (<em>Service Level Requirements</em>)</strong> y se inicia la creación/modificación del servicio (5.5) y la negociación del <strong>SLA</strong>.</li>
-                        <li><strong>Reuniones periódicas de revisión:</strong> Análisis conjunto de informes de SLA (5.6.2) y evolución de las necesidades de negocio.</li>
-                        <li><strong>Proceso formal de reclamaciones (quejas):</strong> Una reclamación formal por una mala prestación (incluso si el SLA numérico se cumplió por los pelos) <strong>no debe verse como un ataque, sino como una oportunidad de mejora</strong> vinculada al ciclo PDCA.</li>
-                        <li><strong>Medición anual de la satisfacción:</strong> Encuestas estructuradas para evaluar la percepción real del servicio más allá de las métricas técnicas frías.</li>
-                    </ul>
-
-                    <div class="mt-auto bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 leading-relaxed">
-                        <strong>💡 Efecto sandía en TI (<em>Watermelon SLA</em>):</strong> Los indicadores técnicos parecen verdes por fuera (99,5 % uptime global), pero el cliente está rojo por dentro porque el único corte de 2 horas ocurrió justo durante el cierre de facturación mensual. La gestión de relaciones con el negocio detecta esta brecha.
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-sm sm:text-base text-blue-950 leading-relaxed">
+                        <strong>💡 Efecto sandía en TI (<em>Watermelon SLA</em>):</strong> Los indicadores parecen verdes por fuera (<code>99,5 %</code> de uptime mensual), pero el cliente está rojo por dentro porque el único corte de 2 horas ocurrió justo durante el cierre de facturación.
                     </div>
                 </div>
 
                 <!-- 5.7.2 Gestión de suministradores (Supplier Management) -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
-                    <div class="flex items-center justify-between gap-2 mb-3">
-                        <span class="text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-900 px-3 py-1 rounded-full">
-                            Cláusula 5.7.2 · Hacia los proveedores
-                        </span>
-                        <span class="text-xs font-semibold text-slate-500">Tema 5.07</span>
-                    </div>
-                    <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mb-2">
-                        🚚 Gestión de suministradores y estrategia de <em>sourcing</em>
-                    </h2>
-                    <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                        En la actualidad, las organizaciones llegan a externalizar hasta el <strong>70 % del presupuesto de TI</strong>. Recuerda la regla de oro de ISO 20000: <strong>puedes subcontratar la ejecución técnica mediante un UC, pero nunca puedes delegar la responsabilidad final ante tu cliente</strong>.
-                    </p>
-
-                    <!-- Selector interactivo de estrategia de sourcing -->
-                    <div class="mb-4">
-                        <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                            Compara las 3 estrategias de provisión (haz clic en cada modelo):
+                <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6 flex flex-col justify-between space-y-5">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-mono font-bold uppercase bg-purple-100 text-purple-900 px-2.5 py-0.5 rounded">
+                                Cláusula 5.7.2 · Hacia los proveedores externos
+                            </span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-slate-900 mb-2">
+                            🚚 Gestión de suministradores y <em>sourcing</em>
+                        </h2>
+                        <p class="text-sm sm:text-base text-slate-600 mb-4 leading-relaxed">
+                            Puedes subcontratar la ejecución técnica mediante un contrato <code>UC</code>, pero <strong>nunca puedes delegar la responsabilidad final ante tu cliente</strong>. Compara las 3 estrategias:
                         </p>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-3">
-                            <button type="button" id="src-btn-insourcing" onclick="selectSourcing('insourcing')" class="sourcing-card active text-left p-2.5 rounded-xl border border-slate-200 bg-slate-50">
-                                <span class="block text-xs font-extrabold text-slate-900">1. Insourcing</span>
-                                <span class="text-[11px] text-slate-600">Recursos 100 % internos</span>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-4">
+                            <button type="button" id="src-btn-insourcing" onclick="selectSourcing('insourcing')" class="sourcing-card active text-left p-3 rounded-xl border border-slate-300 bg-white">
+                                <span class="block text-sm font-extrabold text-slate-900">1. Insourcing</span>
+                                <span class="text-xs text-slate-600">100 % interno</span>
                             </button>
-                            <button type="button" id="src-btn-selectivo" onclick="selectSourcing('selectivo')" class="sourcing-card text-left p-2.5 rounded-xl border border-slate-200 bg-slate-50">
-                                <span class="block text-xs font-extrabold text-slate-900">2. Outsourcing selectivo</span>
-                                <span class="text-[11px] text-slate-600">Mixto / <em>Smart sourcing</em></span>
+                            <button type="button" id="src-btn-selectivo" onclick="selectSourcing('selectivo')" class="sourcing-card text-left p-3 rounded-xl border border-slate-300 bg-white">
+                                <span class="block text-sm font-extrabold text-slate-900">2. Smart sourcing</span>
+                                <span class="text-xs text-slate-600">Selectivo / mixto</span>
                             </button>
-                            <button type="button" id="src-btn-total" onclick="selectSourcing('total')" class="sourcing-card text-left p-2.5 rounded-xl border border-slate-200 bg-slate-50">
-                                <span class="block text-xs font-extrabold text-slate-900">3. Outsourcing total</span>
-                                <span class="text-[11px] text-slate-600">Externalización > 80 %</span>
+                            <button type="button" id="src-btn-total" onclick="selectSourcing('total')" class="sourcing-card text-left p-3 rounded-xl border border-slate-300 bg-white">
+                                <span class="block text-sm font-extrabold text-slate-900">3. Outsourcing total</span>
+                                <span class="text-xs text-slate-600">Externalización &gt; 80 %</span>
                             </button>
                         </div>
-                        <div id="sourcing-detail" class="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs text-slate-700 leading-relaxed">
-                            <!-- JS -->
-                        </div>
+
+                        <div id="sourcing-detail" class="bg-white border border-slate-200 rounded-xl p-4 text-sm sm:text-base text-slate-700 leading-relaxed shadow-sm"></div>
                     </div>
 
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                        Ciclo de vida del contrato con suministradores (RFI → RFP → SCD → Salida)
-                    </h3>
-                    <ol class="list-decimal list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700">
-                        <li><strong>Evaluación y selección (RFI → Caso de negocio → RFP):</strong> Sondeo del mercado mediante una <strong>RFI (<em>Request for Information</em>)</strong>, estudio de viabilidad (<em>Business Case</em>) y pliego formal de condiciones <strong>RFP (<em>Request for Proposal</em>)</strong> evaluado con métodos multicriterio objetivos (como <strong>SAW o PROMETHEE</strong> vistos en el Tema 1).</li>
-                        <li><strong>Contratación y registro en la SCD:</strong> Firma del <strong>UC (<em>Underpinning Contract</em>)</strong> con niveles de servicio alineados al SLA, penalizaciones, confidencialidad (RGPD/ENS) y registro en la <strong>SCD (<em>Supplier and Contract Database</em>)</strong>. Existen tres tipos de relación: <em>transaccional</em> (compra puntual), <em>contractual</em> (servicio continuado) y <em>alianza estratégica / partenariado</em>.</li>
-                        <li><strong>Gestión del rendimiento y disputas:</strong> Auditoría periódica de entregas y tiempos de respuesta del proveedor.</li>
-                        <li><strong>⚠️ Etapa crítica de finalización o salida del contrato:</strong> Todo contrato UC debe prever desde el día 1 cómo se cerrará (por vencimiento o rescisión anticipada): <strong>retención del conocimiento, devolución/borrado seguro de datos y traspaso ordenado</strong> a un nuevo proveedor o reabsorción interna (evitando el secuestro tecnológico o <em>vendor lock-in</em>).</li>
-                    </ol>
+                    <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 text-sm sm:text-base text-purple-950 leading-relaxed">
+                        <strong>🔗 Ciclo del suministrador:</strong> <code>1. RFI / RFP</code> (selección multicriterio) → <code>2. Contrato UC en la SCD</code> → <code>3. Vigilancia y disputas</code> → <code>4. Salida / finalización ordenada</code>.
+                    </div>
                 </div>
 
             </div>
 
-            <div class="mt-auto flex justify-between items-center">
-                <button type="button" onclick="switchTab(1)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
-                    ← Anterior: Cadena del contrato
-                </button>
-                <button type="button" onclick="switchTab(3)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
-                    Siguiente fase: Simulador de auditoría SLA ↔ OLA ↔ UC →
-                </button>
-            </div>
+            <!-- Nivel 2: Detalle del ciclo de contratación RFI/RFP, SCD y Cláusula de Salida (Tema 5.07.2) -->
+            <details class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <summary class="px-6 py-4 cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between font-bold text-slate-800 text-sm sm:text-base select-none">
+                    <span>🔎 Desplegar análisis técnico completo: Licitación RFI/RFP, base de datos SCD y etapa de salida del contrato (5.7.2)</span>
+                    <span class="text-slate-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
+                </summary>
+                <div class="p-6 border-t border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-5 text-sm sm:text-base text-slate-700 leading-relaxed">
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-slate-900 text-base mb-2">1. Selección (RFI → Caso de negocio → RFP) y registro en SCD</h4>
+                        <ul class="list-disc list-outside pl-5 space-y-1.5">
+                            <li><strong>RFI (<em>Request for Information</em>) y RFP (<em>Request for Proposal</em>):</strong> Sondeo inicial del mercado, análisis de viabilidad (<em>Business Case</em> / TCO) y pliego formal evaluado con métodos multicriterio objetivos (como <strong>SAW o PROMETHEE</strong> del Tema 1).</li>
+                            <li><strong>Base de datos SCD (<em>Supplier and Contract Database</em>):</strong> Registra todos los proveedores y contratos <code>UC</code>, distinguiendo entre relación <em>transaccional</em>, <em>contractual</em> y <em>alianza estratégica</em>.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-slate-900 text-base mb-2">2. ⚠️ Etapa crítica: finalización o salida del contrato</h4>
+                        <ul class="list-disc list-outside pl-5 space-y-1.5">
+                            <li><strong>Prevención del <em>vendor lock-in</em>:</strong> Todo contrato <code>UC</code> debe regular desde el día de su firma qué ocurrirá cuando venza o se rescinda anticipadamente.</li>
+                            <li><strong>Garantías de reversibilidad:</strong> Retención del conocimiento técnico, formato estándar de exportación de datos, devolución o destrucción certificada de datos personales (<code>RGPD</code>) y plan de transición hacia el nuevo proveedor o hacia el equipo interno.</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
         </section>
 
         <!-- ========================================== -->
         <!-- PESTAÑA 3: SIMULADOR DE AUDITORÍA SLA      -->
         <!-- ========================================== -->
-        <section id="tab-panel-3" class="fade-in flex-grow flex flex-col hidden">
+        <section id="tab-panel-3" class="hidden space-y-8">
 
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
-                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                    <div>
-                        <span class="text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-900 px-3 py-1 rounded-full">
-                            Laboratorio interactivo · Caso Keraben Grupo (ERP y expediciones)
-                        </span>
-                        <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mt-2">
-                            🧮 Auditor de coherencia contractual: ¿estás firmando un «SLA tramposo»?
-                        </h2>
-                    </div>
+            <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6 space-y-6">
+                <div>
+                    <span class="text-xs font-mono font-bold uppercase bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded">
+                        Laboratorio interactivo · Caso Keraben Grupo (ERP y expediciones)
+                    </span>
+                    <h2 class="text-2xl font-bold text-slate-900 mt-1">
+                        🧮 Auditor de coherencia contractual: ¿estás firmando un «SLA tramposo»?
+                    </h2>
+                    <p class="text-sm sm:text-base text-slate-600 mt-1 leading-relaxed">
+                        El director de logística de <strong>Keraben Grupo</strong> exige un <code>SLA</code> para el servicio de expediciones (operativo <strong>24×7, 720 horas/mes</strong>). Ajusta los compromisos de los tres eslabones y comprueba matemáticamente si la cadena se sostiene:
+                    </p>
                 </div>
 
-                <p class="text-sm text-slate-600 mb-5 leading-relaxed">
-                    El director de operaciones logísticas de <strong>Keraben Grupo</strong> exige al departamento de TI firmar un nuevo <strong>SLA</strong> para el servicio de gestión de almacén y expediciones (operativo <strong>24×7, 720 horas/mes</strong>). Ajusta los compromisos de los tres eslabones y comprueba matemáticamente si la cadena se sostiene o se rompe:
-                </p>
-
                 <!-- Controles del simulador -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
 
                     <!-- Control 1: SLA con el Cliente -->
-                    <div class="bg-blue-50/70 border-2 border-blue-300 rounded-xl p-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-blue-900">1. Compromiso SLA (Cliente)</span>
-                            <span class="text-lg">📜</span>
+                    <div class="bg-white border-2 border-blue-300 rounded-xl p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-extrabold uppercase text-blue-900 bg-blue-100 px-2.5 py-0.5 rounded">1. Compromiso SLA (Cliente)</span>
+                            <span class="text-xl" aria-hidden="true">📜</span>
                         </div>
-                        <label for="sim-sla-uptime" class="block text-xs font-bold text-slate-700 mb-1">
+                        <label for="sim-sla-uptime" class="block text-sm font-bold text-slate-800 mb-1.5">
                             Disponibilidad mensual prometida (24×7):
                         </label>
-                        <select id="sim-sla-uptime" onchange="runSlaAudit()" class="w-full rounded-lg border border-blue-300 bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800 mb-3">
+                        <select id="sim-sla-uptime" onchange="runSlaAudit()" class="w-full rounded-lg border border-blue-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800 mb-4">
                             <option value="99.0">99,0 % (máx. 7 h 12 min caída/mes)</option>
                             <option value="99.5">99,5 % (máx. 3 h 36 min caída/mes)</option>
                             <option value="99.9" selected>99,9 % (máx. 43,2 min caída/mes)</option>
                             <option value="99.99">99,99 % (máx. 4,3 min caída/mes)</option>
                         </select>
 
-                        <label for="sim-sla-ttr" class="block text-xs font-bold text-slate-700 mb-1">
+                        <label for="sim-sla-ttr" class="block text-sm font-bold text-slate-800 mb-1.5">
                             Tiempo máx. de resolución crítica (P1):
                         </label>
-                        <select id="sim-sla-ttr" onchange="runSlaAudit()" class="w-full rounded-lg border border-blue-300 bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800">
+                        <select id="sim-sla-ttr" onchange="runSlaAudit()" class="w-full rounded-lg border border-blue-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800">
                             <option value="2">2 horas (24×7)</option>
                             <option value="4" selected>4 horas (24×7)</option>
                             <option value="8">8 horas (24×7)</option>
@@ -404,23 +397,23 @@
                     </div>
 
                     <!-- Control 2: OLA Interno (BBDD / Redes) -->
-                    <div class="bg-emerald-50/70 border-2 border-emerald-300 rounded-xl p-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-900">2. Acuerdo OLA (Equipos TI)</span>
-                            <span class="text-lg">🤝</span>
+                    <div class="bg-white border-2 border-emerald-300 rounded-xl p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-extrabold uppercase text-emerald-900 bg-emerald-100 px-2.5 py-0.5 rounded">2. Acuerdo OLA (Equipos TI)</span>
+                            <span class="text-xl" aria-hidden="true">🤝</span>
                         </div>
-                        <label for="sim-ola-hours" class="block text-xs font-bold text-slate-700 mb-1">
-                            Horario de cobertura del equipo interno de BBDD:
+                        <label for="sim-ola-hours" class="block text-sm font-bold text-slate-800 mb-1.5">
+                            Horario de cobertura del equipo de BBDD:
                         </label>
-                        <select id="sim-ola-hours" onchange="runSlaAudit()" class="w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800 mb-3">
+                        <select id="sim-ola-hours" onchange="runSlaAudit()" class="w-full rounded-lg border border-emerald-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800 mb-4">
                             <option value="8x5" selected>Lunes a viernes 8×5 (sin guardia nocturna)</option>
                             <option value="24x7">Guardia localizada 24×7 los 365 días</option>
                         </select>
 
-                        <label for="sim-ola-ttr" class="block text-xs font-bold text-slate-700 mb-1">
-                            Tiempo interno de intervención en BBDD (OLA):
+                        <label for="sim-ola-ttr" class="block text-sm font-bold text-slate-800 mb-1.5">
+                            Tiempo interno de intervención (OLA):
                         </label>
-                        <select id="sim-ola-ttr" onchange="runSlaAudit()" class="w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800">
+                        <select id="sim-ola-ttr" onchange="runSlaAudit()" class="w-full rounded-lg border border-emerald-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800">
                             <option value="1">1 hora desde el escalado</option>
                             <option value="2">2 horas desde el escalado</option>
                             <option value="6" selected>6 horas desde el escalado</option>
@@ -428,24 +421,24 @@
                     </div>
 
                     <!-- Control 3: UC Proveedor Externo -->
-                    <div class="bg-purple-50/70 border-2 border-purple-300 rounded-xl p-4">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-extrabold uppercase tracking-wider text-purple-900">3. Contrato UC (Proveedor)</span>
-                            <span class="text-lg">🚚</span>
+                    <div class="bg-white border-2 border-purple-300 rounded-xl p-5 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-xs font-mono font-extrabold uppercase text-purple-900 bg-purple-100 px-2.5 py-0.5 rounded">3. Contrato UC (Proveedor)</span>
+                            <span class="text-xl" aria-hidden="true">🚚</span>
                         </div>
-                        <label for="sim-uc-ttr" class="block text-xs font-bold text-slate-700 mb-1">
+                        <label for="sim-uc-ttr" class="block text-sm font-bold text-slate-800 mb-1.5">
                             Contrato de soporte de hardware / fibra (UC):
                         </label>
-                        <select id="sim-uc-ttr" onchange="runSlaAudit()" class="w-full rounded-lg border border-purple-300 bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800 mb-3">
+                        <select id="sim-uc-ttr" onchange="runSlaAudit()" class="w-full rounded-lg border border-purple-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800 mb-4">
                             <option value="24" selected>NBD (Next Business Day · 24 h laborables)</option>
                             <option value="4">Crítico 24×7 · Sustitución en &lt; 3 horas</option>
                             <option value="1">Misión crítica 24×7 · &lt; 1 h + línea redundante</option>
                         </select>
 
-                        <label for="sim-uc-exit" class="block text-xs font-bold text-slate-700 mb-1">
-                            Cláusula de salida y transferencia en el UC:
+                        <label for="sim-uc-exit" class="block text-sm font-bold text-slate-800 mb-1.5">
+                            Cláusula de salida y reversibilidad en el UC:
                         </label>
-                        <select id="sim-uc-exit" onchange="runSlaAudit()" class="w-full rounded-lg border border-purple-300 bg-white px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800">
+                        <select id="sim-uc-exit" onchange="runSlaAudit()" class="w-full rounded-lg border border-purple-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-800">
                             <option value="no" selected>Sin plan de salida ni exportación de datos</option>
                             <option value="yes">Plan de reversibilidad y exportación en SCD</option>
                         </select>
@@ -454,66 +447,63 @@
                 </div>
 
                 <!-- Resultado del dictamen de auditoría -->
-                <div id="sim-audit-result" class="rounded-2xl p-5 border-2 transition-all">
-                    <!-- JS -->
-                </div>
+                <div id="sim-audit-result" class="rounded-2xl p-6 border-2 transition-all"></div>
             </div>
 
             <!-- Reto de debate en el aula (sin spoilers) -->
-            <div class="bg-slate-900 text-white rounded-2xl p-6 md:p-8 shadow-lg mb-6">
-                <div class="flex flex-wrap items-center gap-2 mb-3">
-                    <span class="bg-amber-400 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">
-                        🎯 Debate en el aula · Pregunta sin spoiler
-                    </span>
-                    <span class="text-xs text-slate-300 font-medium">Sesión 3 · Actividad 2</span>
-                </div>
-                <h3 class="text-lg md:text-2xl font-extrabold mb-3 leading-snug">
+            <div class="bg-amber-50/90 border-2 border-amber-200 rounded-2xl p-6">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold uppercase bg-amber-200 text-amber-950 mb-1.5">
+                    💬 Debate en el aula · Pregunta sin spoiler
+                </span>
+                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2 leading-snug">
                     «Si el proveedor externo de telecomunicaciones o nube incumple su contrato UC y deja a Keraben 10 horas sin poder expedir camiones, ¿puede el CIO excusarse ante Dirección General diciendo que "la culpa legal es del proveedor externo"?»
                 </h3>
-                <p class="text-sm text-slate-300 mb-5">
+                <p class="text-sm sm:text-base text-slate-700 mb-4 leading-relaxed">
                     Debatid qué responde la norma <strong>ISO/IEC 20000</strong> respecto a la cadena de responsabilidad y cómo deben fluir las penalizaciones económicas.
                 </p>
 
-                <button type="button" onclick="toggleClassroomSpoiler('spoiler-sla-debate')" class="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs sm:text-sm px-4 py-2.5 rounded-xl transition-colors">
-                    💡 Mostrar claves y conclusión técnica
-                </button>
-
-                <div id="spoiler-sla-debate" class="hidden mt-5 pt-5 border-t border-slate-700 text-sm text-slate-200 space-y-3 fade-in">
-                    <p class="font-bold text-amber-300 text-base">
-                        Dictamen ISO/IEC 20000 (Cláusulas 5.6.1 y 5.7.2):
-                    </p>
-                    <ul class="list-disc list-outside pl-5 space-y-2 leading-relaxed">
-                        <li><strong>La responsabilidad ante el negocio jamás se subcontrata:</strong> Frente a Dirección General o al cliente del servicio, el único responsable del incumplimiento del <strong>SLA</strong> es el proveedor de servicios de TI (el CIO / departamento de TI). Echar la culpa al tercero destruye la confianza que construye el proceso <strong>5.7.1 (BRM)</strong>.</li>
-                        <li><strong>Cadena de repercusión hacia atrás (<em>Back-to-back contracts</em>):</strong> El departamento de TI asume el fallo ante el cliente en la reunión de revisión del SLA, pero inmediatamente ejecuta las cláusulas de penalización económica del <strong>UC (<em>Underpinning Contract</em>)</strong> contra el suministrador externo a través del proceso <strong>5.7.2 (Gestión de suministradores)</strong>.</li>
-                        <li><strong>Regla de diseño de tiempos:</strong> Para que un SLA de resolución en $T_{\text{SLA}}$ horas sea viable, la suma del tiempo de triaje en 1.ª línea + el tiempo del <strong>OLA</strong> o del <strong>UC</strong> + la verificación debe ser <strong>estrictamente menor</strong> que $T_{\text{SLA}}$:
-                            $$\text{Triaje} + \max(T_{\text{OLA}}, T_{\text{UC}}) + \text{Restauración} < T_{\text{SLA}}$$
-                        </li>
-                    </ul>
-                </div>
+                <details class="bg-white border border-amber-300 rounded-xl overflow-hidden">
+                    <summary class="px-4 py-3.5 text-sm sm:text-base font-bold text-amber-950 cursor-pointer hover:bg-amber-100/60 select-none">
+                        💡 Mostrar claves y conclusión técnica
+                    </summary>
+                    <div class="px-4 pb-4 pt-3 border-t border-amber-200 text-sm sm:text-base text-slate-700 space-y-2 leading-relaxed">
+                        <ul class="list-disc list-outside pl-5 space-y-1.5">
+                            <li><strong>La responsabilidad ante el negocio jamás se subcontrata:</strong> Frente a Dirección General o al cliente del servicio, el único responsable del incumplimiento del <code>SLA</code> es el proveedor de servicios de TI (el CIO). Echar la culpa al tercero destruye la confianza construida en el proceso <strong>5.7.1 (BRM)</strong>.</li>
+                            <li><strong>Cadena de repercusión hacia atrás (<em>Back-to-back contracts</em>):</strong> El departamento de TI da la cara y asume el fallo ante el cliente en la revisión del <code>SLA</code>, e inmediatamente ejecuta las cláusulas de penalización económica del <code>UC</code> contra el suministrador externo mediante el proceso <strong>5.7.2 (Gestión de suministradores)</strong>.</li>
+                            <li><strong>Regla matemática de diseño de tiempos:</strong> Para que un <code>SLA</code> de resolución sea viable, la suma del tiempo de triaje en 1.ª línea + el tiempo máximo del <code>OLA</code> o del <code>UC</code> + la verificación debe ser <strong>estrictamente menor</strong> que el tiempo prometido en el <code>SLA</code>.</li>
+                        </ul>
+                    </div>
+                </details>
             </div>
 
-            <div class="mt-auto flex flex-wrap justify-between items-center gap-3">
-                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
-                    ← Anterior: Relaciones (5.7)
-                </button>
-                <a href="Fallos%20vs.%20desastres.html" class="hide-in-embed inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
-                    Siguiente SPA (06): Disponibilidad vs. continuidad (DRP) →
+            <!-- Botón de transición directa a la siguiente SPA -->
+            <div class="flex justify-end pt-2 hide-in-embed">
+                <a href="Fallos%20vs.%20desastres.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition-colors shadow-md">
+                    <span>Siguiente actividad: 06. Disponibilidad vs. continuidad del servicio (DRP)</span>
+                    <span aria-hidden="true">→</span>
                 </a>
             </div>
         </section>
 
-        <!-- Barra de navegación secuencial inferior entre SPAs (oculta en Google Sites) -->
-        <nav aria-label="Navegación entre módulos" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 hide-in-embed">
-            <a href="Mapa%20ISO%2020000.html" class="justify-self-center sm:justify-self-start inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all">
-                ← 04. Mapa de procesos ISO 20000
-            </a>
-            <a href="../index.html" class="justify-self-center inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-blue-50 px-4 py-2.5 rounded-xl border border-slate-200 transition-all">
-                📋 Volver al índice general
-            </a>
-            <a href="Fallos%20vs.%20desastres.html" class="justify-self-center sm:justify-self-end inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition-all">
-                06. Disponibilidad vs. continuidad (DRP) →
-            </a>
+        <!-- Navegación secuencial entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos del tema" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-xs sm:text-sm hide-in-embed">
+            <a href="Mapa%20ISO%2020000.html" class="justify-self-center sm:justify-self-start px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">← 04. Mapa de procesos ISO 20000</a>
+            <a href="../index.html" class="justify-self-center px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">📋 Volver al índice general</a>
+            <a href="Fallos%20vs.%20desastres.html" class="justify-self-center sm:justify-self-end px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors whitespace-nowrap">06. Disponibilidad vs. continuidad →</a>
         </nav>
+
+        <!-- Pie de página académico -->
+        <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-2">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:underline">DLSI</a>
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
 
     </main>
 
@@ -546,60 +536,59 @@
 
         const nodeData = {
             cliente: {
-                tag: 'Punto de partida del negocio · Cláusula 5.6.1 y 5.7.1',
+                tag: 'Eslabón 1 · Punto de partida del negocio (Cláusulas 5.6.1 y 5.7.1)',
                 title: '🏢 El cliente, el Catálogo de servicios y los requisitos (SLR)',
                 color: 'slate',
-                desc: 'El cliente es quien recibe valor del servicio de TI (la comunidad universitaria en la UJI o los departamentos de logística, ventas y planta cerámica en Keraben Grupo). Antes de firmar ningún SLA, TI debe publicar su <strong>Catálogo de servicios</strong> escrito en lenguaje de negocio (no en jerga de servidores) y recoger los <strong>SLR (<em>Service Level Requirements</em>)</strong>.',
+                desc: 'Antes de firmar ningún <code>SLA</code>, el departamento de TI debe publicar su <strong>Catálogo de servicios</strong> escrito en lenguaje de negocio y recoger los <strong>SLR (<em>Service Level Requirements</em>)</strong> cuando el cliente necesita un servicio nuevo o modificado.',
                 bullets: [
-                    '<strong>Catálogo de servicios como escaparate y cortafuegos:</strong> Define qué servicios ofrece TI, a quién van dirigidos y en qué modalidades (p. ej., Oro 24×7 vs. Plata 8×5). Lo que no está en el catálogo no se improvisa por pasillo.',
-                    '<strong>SLR (Requisitos de nivel de servicio):</strong> Lo que el cliente solicita inicialmente («necesito que el sistema de hornos no pare nunca») antes de contrastarlo con el coste real (5.6.4) y negociar el SLA definitivo.'
+                    '<strong>Catálogo de servicios como escaparate y cortafuegos:</strong> Define qué servicios activos ofrece TI, a quién van dirigidos y en qué modalidades (p. ej., Oro 24×7 vs. Plata 8×5).',
+                    '<strong>SLR (Requisitos de nivel de servicio):</strong> La «carta a los Reyes Magos» inicial del cliente antes de contrastarla con el coste real (5.6.4) y negociar el <code>SLA</code> definitivo.'
                 ],
-                example: '<strong>Caso Keraben / UJI:</strong> Para el Aula Virtual de la UJI, el pico crítico ocurre en época de exámenes oficiales; para el ERP de Keraben, el bloqueo de albaranes impide que los camiones salgan de Nules hacia los puertos de Valencia y Castellón.'
+                example: '💡 <strong>Caso Keraben / UJI:</strong> Para el Aula Virtual de la UJI, el pico crítico ocurre en semanas de exámenes oficiales; para el ERP de Keraben, el bloqueo de albaranes impide que los camiones salgan de Nules hacia los puertos.'
             },
             sla: {
-                tag: 'Acuerdo frontal · Cláusula 5.6.1 (Service Level Management)',
+                tag: 'Eslabón 2 · Acuerdo frontal con el cliente (Cláusula 5.6.1)',
                 title: '📜 SLA (Service Level Agreement · Acuerdo de Nivel de Servicio)',
                 color: 'blue',
-                desc: 'Es el <strong>acuerdo formal y escrito entre el proveedor de TI y el cliente</strong>. Define con métricas verificables qué servicio se presta, con qué objetivos de calidad y qué ocurre si se incumple. Nunca debe redactarse con promesas ambiguas como «el sistema irá rápido».',
+                desc: 'Es el <strong>acuerdo formal y escrito entre el proveedor de TI y el cliente</strong>. Define con métricas verificables qué servicio se presta, con qué objetivos de calidad y qué ocurre si se incumple. Nunca debe redactarse con promesas ambiguas.',
                 bullets: [
-                    '<strong>Métricas obligatorias:</strong> Disponibilidad garantizada (p. ej., 99,5 % mensual), horario de servicio y soporte (24×7 vs. 8×5), tiempos máximos de respuesta y de resolución según prioridad (P1 a P4), y ventanas de mantenimiento pactadas.',
-                    '<strong>Responsabilidades del cliente:</strong> El SLA también obliga al usuario (p. ej., comunicar incidentes por el canal oficial y no compartir credenciales).',
-                    '<strong>Regla de oro ISO 20000:</strong> Cualquier modificación de un SLA debe tramitarse formalmente a través del proceso de <strong>Gestión del cambio (5.9.2)</strong>.'
+                    '<strong>Métricas obligatorias:</strong> Disponibilidad garantizada (p. ej., <code>99,9 %</code> mensual), horario de servicio y soporte (24×7 vs. 8×5), tiempos máximos de respuesta y de resolución por prioridad (P1 a P4) y ventanas de mantenimiento.',
+                    '<strong>Control de cambios sobre el SLA:</strong> Cualquier modificación de un <code>SLA</code> debe tramitarse formalmente bajo el proceso de <strong>Gestión del cambio (5.9.2)</strong>.'
                 ],
-                example: '<strong>Ejemplo de cláusula SLA verificable:</strong> «Disponibilidad mensual del módulo de expediciones ERP ≥ 99,9 % en horario 24×7. Tiempo máximo de restauración ante caída crítica (Prioridad 1): 4 horas.»'
+                example: '💡 <strong>Ejemplo verificable:</strong> «Disponibilidad mensual del módulo de expediciones ERP ≥ 99,9 % en horario 24×7. Tiempo máximo de restauración ante caída crítica (Prioridad 1): 4 horas.»'
             },
             ti: {
-                tag: 'El corazón de las operaciones · Orquestador del SGSTI',
+                tag: 'Eslabón 3 · El corazón de las operaciones (Orquestador del SGSTI)',
                 title: '⚙️ El departamento de TI como integrador responsable',
                 color: 'slate',
-                desc: 'El departamento de TI se sitúa en el centro del reloj de arena: da la cara ante el cliente mediante el <strong>SLA</strong>, pero por detrás necesita coordinar a múltiples equipos técnicos internos (redes, bases de datos, desarrollo) y a empresas externas (operadoras de fibra, AWS/Azure, fabricantes de hardware).',
+                desc: 'El departamento de TI se sitúa en el centro del reloj de arena: da la cara ante el cliente mediante el <code>SLA</code>, pero por detrás necesita coordinar a múltiples equipos técnicos internos (redes, bases de datos, desarrollo) y a empresas externas.',
                 bullets: [
-                    '<strong>El peligro del cuello de botella interno:</strong> Si el <em>Service Desk</em> (1.ª línea) recibe un incidente grave a las 14:00, pero el administrador de bases de datos (2.ª línea) tarda 5 horas en mirar el ticket porque «estaba en otra cosa», el SLA de 4 horas con el cliente estalla.',
-                    '<strong>Solución normativa:</strong> Traducir cada compromiso del SLA en compromisos aún más estrictos hacia atrás mediante <strong>OLAs</strong> (internos) y <strong>UCs</strong> (externos).'
+                    '<strong>El peligro del cuello de botella interno:</strong> Si el <em>Service Desk</em> recibe un incidente grave a las 14:00, pero el administrador de bases de datos tarda 5 horas en mirar el ticket, el <code>SLA</code> de 4 horas con el cliente fracasa.',
+                    '<strong>Solución normativa:</strong> Respaldar cada compromiso del <code>SLA</code> con compromisos aún más estrictos hacia atrás mediante <code>OLAs</code> (internos) y <code>UCs</code> (externos).'
                 ],
-                example: '<strong>Analogía industrial:</strong> Si Keraben promete entregar azulejos en 48 h a un distribuidor alemán (SLA), el turno de hornos y el almacén interno (OLA) y la empresa externa de camiones (UC) deben operar en menos de 48 h.'
+                example: '💡 <strong>Analogía industrial:</strong> Si Keraben promete entregar azulejos en 48 h a un distribuidor alemán (SLA), el turno de hornos y almacén interno (OLA) y la agencia de transporte (UC) deben operar en mucho menos de 48 h.'
             },
             ola: {
-                tag: 'Acuerdo horizontal interno · Cláusula 5.6.1',
+                tag: 'Eslabón 4 · Acuerdo horizontal interno (Cláusula 5.6.1)',
                 title: '🤝 OLA (Operational Level Agreement · Acuerdo de Nivel Operativo)',
                 color: 'emerald',
-                desc: 'Es un <strong>acuerdo interno dentro de la propia organización de TI</strong> (sin carácter de contrato mercantil externo) firmado entre distintas áreas técnicas (p. ej., entre el <em>Service Desk</em> de 1.ª línea y el equipo de Administración de Bases de Datos o Comunicaciones de 2.ª línea).',
+                desc: 'Es un <strong>acuerdo interno dentro de la propia organización de TI</strong> firmado entre distintas áreas técnicas (p. ej., entre el <em>Service Desk</em> de 1.ª línea y el equipo de Bases de Datos o Redes de 2.ª línea).',
                 bullets: [
-                    '<strong>Propósito:</strong> Eliminar los «reinos de taifas» internos y fijar en cuánto tiempo debe responder un especialista de 2.ª línea cuando el <em>Service Desk</em> le escala un incidente.',
-                    '<strong>Coherencia matemática:</strong> Si el SLA con el cliente exige resolver una caída en 4 horas, el OLA con el equipo de BBDD o Redes debe obligarles a intervenir en <strong>menos de 1 o 2 horas</strong> y en el mismo horario (24×7 si el SLA es 24×7).'
+                    '<strong>Propósito:</strong> Eliminar los «reinos de taifas» internos y fijar en cuánto tiempo debe intervenir un especialista de 2.ª línea cuando recibe un escalado.',
+                    '<strong>Coherencia matemática:</strong> Si el <code>SLA</code> exige resolver una caída en 4 horas (24×7), el <code>OLA</code> interno debe obligar a intervenir en <strong>1 o 2 horas</strong> y con cobertura de guardia 24×7.'
                 ],
-                example: '<strong>Ejemplo real de OLA:</strong> «El equipo de Redes de la UJI se compromete ante el CAU (Centro de Atención a Usuarios) a diagnosticar cualquier caída de electrónica de red de un aulario en un máximo de 30 minutos desde el escalado.»'
+                example: '💡 <strong>Ejemplo real de OLA:</strong> «El equipo de Redes se compromete ante el Service Desk a diagnosticar cualquier caída de electrónica de red de planta en un máximo de 30 minutos desde el escalado.»'
             },
             uc: {
-                tag: 'Contrato jurídico externo · Cláusula 5.7.2 (Gestión de suministradores)',
+                tag: 'Eslabón 5 · Contrato jurídico externo (Cláusula 5.7.2 · Suministradores)',
                 title: '🚚 UC (Underpinning Contract · Contrato de Soporte con Terceros)',
                 color: 'purple',
-                desc: 'Es un <strong>contrato legalmente vinculante con un suministrador externo</strong> (operadora de telecomunicaciones, proveedor <em>cloud</em>, mantenimiento de cabinas de discos o consultora de ERP) que soporta una parte crítica del servicio entregado al cliente.',
+                desc: 'Es un <strong>contrato legalmente vinculante con un suministrador externo</strong> (operadora de fibra, proveedor cloud AWS/Azure, mantenimiento de cabinas SAN) que soporta una parte crítica del servicio entregado al cliente.',
                 bullets: [
-                    '<strong>Alineación obligatoria con el SLA:</strong> Nunca puedes firmar un SLA de 4 horas con tu cliente si el contrato UC con el fabricante de tus servidores es de tipo <em>Next Business Day (NBD)</em> (24 horas laborables).',
-                    '<strong>Control en la SCD (<em>Supplier & Contract Database</em>):</strong> Todos los UC deben estar inventariados junto con sus fechas de renovación, penalizaciones por incumplimiento y <strong>cláusulas de finalización/salida</strong> para evitar el <em>vendor lock-in</em>.'
+                    '<strong>Alineación obligatoria con el SLA:</strong> Jamás firmes un <code>SLA</code> de 4 horas si el contrato <code>UC</code> con el fabricante de tus servidores es <em>Next Business Day</em> (24 horas laborables).',
+                    '<strong>Registro en la SCD:</strong> Todo <code>UC</code> se registra en la <strong>SCD (<em>Supplier & Contract Database</em>)</strong> junto con sus penalizaciones y su <strong>cláusula de finalización/salida</strong>.'
                 ],
-                example: '<strong>Ejemplo real de UC:</strong> Contrato mercantil con el operador de fibra óptica que garantiza doble acometida física diversa al CPD de Nules y tiempo de reparación máximo de 3 horas 24×7 bajo penalización económica.'
+                example: '💡 <strong>Ejemplo real de UC:</strong> Contrato mercantil con el operador de telecomunicaciones que garantiza doble acometida física al CPD y reparación en &lt; 3 horas 24×7 bajo penalización económica.'
             }
         };
 
@@ -607,39 +596,39 @@
             const keys = ['cliente', 'sla', 'ti', 'ola', 'uc'];
             keys.forEach(k => {
                 const el = document.getElementById('node-' + k);
-                el.classList.remove('active-node', 'ring-4', 'ring-slate-300', 'ring-blue-300', 'ring-emerald-300', 'ring-purple-300');
+                el.classList.remove('active-node', 'ring-4', 'ring-slate-200', 'ring-blue-200', 'ring-emerald-200', 'ring-purple-200');
             });
 
             const activeEl = document.getElementById('node-' + nodeKey);
             activeEl.classList.add('active-node', 'ring-4');
-            if (nodeKey === 'sla') activeEl.classList.add('ring-blue-300');
-            else if (nodeKey === 'ola') activeEl.classList.add('ring-emerald-300');
-            else if (nodeKey === 'uc') activeEl.classList.add('ring-purple-300');
-            else activeEl.classList.add('ring-slate-300');
+            if (nodeKey === 'sla') activeEl.classList.add('ring-blue-200');
+            else if (nodeKey === 'ola') activeEl.classList.add('ring-emerald-200');
+            else if (nodeKey === 'uc') activeEl.classList.add('ring-purple-200');
+            else activeEl.classList.add('ring-slate-200');
 
             const d = nodeData[nodeKey];
             const colorMap = {
                 slate: { bg: 'bg-slate-50', border: 'border-slate-300', badge: 'bg-slate-200 text-slate-800', title: 'text-slate-900' },
-                blue: { bg: 'bg-blue-50/50', border: 'border-blue-300', badge: 'bg-blue-100 text-blue-900', title: 'text-blue-950' },
-                emerald: { bg: 'bg-emerald-50/50', border: 'border-emerald-300', badge: 'bg-emerald-100 text-emerald-900', title: 'text-emerald-950' },
-                purple: { bg: 'bg-purple-50/50', border: 'border-purple-300', badge: 'bg-purple-100 text-purple-900', title: 'text-purple-950' }
+                blue: { bg: 'bg-blue-50/70', border: 'border-blue-300', badge: 'bg-blue-100 text-blue-900', title: 'text-blue-950' },
+                emerald: { bg: 'bg-emerald-50/70', border: 'border-emerald-300', badge: 'bg-emerald-100 text-emerald-900', title: 'text-emerald-950' },
+                purple: { bg: 'bg-purple-50/70', border: 'border-purple-300', badge: 'bg-purple-100 text-purple-900', title: 'text-purple-950' }
             };
             const c = colorMap[d.color];
-
             const bulletsHtml = d.bullets.map(b => `<li>${b}</li>`).join('');
 
             const panel = document.getElementById('detail-panel');
+            panel.className = `bg-white rounded-2xl shadow-sm border-2 ${c.border} p-6 space-y-4`;
             panel.innerHTML = `
-                <div class="fade-in">
-                    <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2 ${c.badge}">
+                <div>
+                    <span class="inline-block text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded mb-2 ${c.badge}">
                         ${d.tag}
                     </span>
-                    <h3 class="text-xl md:text-2xl font-extrabold ${c.title} mb-3">${d.title}</h3>
-                    <p class="text-sm md:text-base text-slate-700 leading-relaxed mb-4">${d.desc}</p>
-                    <ul class="list-disc list-outside pl-5 space-y-2 text-sm text-slate-700 mb-5">
+                    <h3 class="text-xl sm:text-2xl font-extrabold ${c.title} mb-2">${d.title}</h3>
+                    <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">${d.desc}</p>
+                    <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700 mb-4 leading-relaxed">
                         ${bulletsHtml}
                     </ul>
-                    <div class="${c.bg} border ${c.border} rounded-xl p-4 text-xs sm:text-sm text-slate-800">
+                    <div class="${c.bg} border ${c.border} rounded-xl p-4 text-sm sm:text-base text-slate-800 leading-relaxed">
                         ${d.example}
                     </div>
                 </div>
@@ -649,15 +638,15 @@
         const sourcingData = {
             insourcing: {
                 title: '1. Insourcing (Provisión 100 % interna)',
-                text: 'El servicio se diseña, opera y mantiene íntegramente con personal e infraestructura propia. Otorga <strong>máximo control estratégico y confidencialidad</strong>, pero exige fuertes inversiones (CAPEX) y dificulta cubrir guardias 24×7 o tecnologías muy especializadas con plantillas pequeñas.'
+                text: 'El servicio se opera íntegramente con personal e infraestructura propia. Otorga <strong>máximo control estratégico y confidencialidad</strong>, pero exige fuertes inversiones (CAPEX) y dificulta cubrir guardias 24×7 con plantillas reducidas.'
             },
             selectivo: {
                 title: '2. Outsourcing selectivo (Smart sourcing · Modelo recomendado)',
-                text: 'La organización retiene en casa el <strong>gobierno de TI, el conocimiento del negocio y la arquitectura clave</strong>, y subcontrata selectivamente mediante contratos <strong>UC</strong> aquellas capas donde los proveedores externos aportan economías de escala o soporte 24×7 (comunicaciones, nube, hardware, ciberseguridad 24×7).'
+                text: 'La organización retiene en casa el <strong>gobierno de TI, el conocimiento del negocio y la arquitectura clave</strong>, y subcontrata selectivamente mediante contratos <code>UC</code> aquellas capas donde los proveedores aportan economías de escala o soporte 24×7.'
             },
             total: {
                 title: '3. Outsourcing total (Externalización > 80 %)',
-                text: 'Se transfiere la práctica totalidad de las operaciones e infraestructura de TI a un gran integrador externo. Convierte costes fijos en variables (OPEX), pero entraña un <strong>altísimo riesgo de pérdida de control y dependencia extrema (<em>vendor lock-in</em>)</strong> si no se diseña una cláusula de salida rigurosa.'
+                text: 'Se transfiere la práctica totalidad de las operaciones a un integrador externo. Convierte costes fijos en variables (OPEX), pero entraña un <strong>altísimo riesgo de pérdida de control y dependencia extrema (<em>vendor lock-in</em>)</strong>.'
             }
         };
 
@@ -668,7 +657,7 @@
             document.getElementById('src-btn-' + key).classList.add('active');
             const d = sourcingData[key];
             document.getElementById('sourcing-detail').innerHTML = `
-                <p class="font-bold text-slate-900 mb-1">${d.title}</p>
+                <p class="font-bold text-slate-900 text-base mb-1">${d.title}</p>
                 <p>${d.text}</p>
             `;
         }
@@ -689,65 +678,57 @@
             const issues = [];
 
             if (olaHours === '8x5') {
-                issues.push('<strong>Brecha de horario en el OLA interno:</strong> Prometes un SLA 24×7 a logística de Keraben, pero tu equipo interno de Bases de Datos solo tiene acuerdo OLA de lunes a viernes (8×5). Si el ERP cae un sábado a las 22:00 cargando contenedores, nadie en 2.ª línea está obligado a responder hasta el lunes.');
+                issues.push('<strong>Brecha de horario en el OLA interno:</strong> Prometes un SLA 24×7 a logística de Keraben, pero tu equipo interno de Bases de Datos solo tiene acuerdo OLA de lunes a viernes (8×5).');
             }
             if (olaTtr >= slaTtr) {
-                issues.push(`<strong>Incoherencia matemática en el OLA (${olaTtr} h ≥ SLA ${slaTtr} h):</strong> El acuerdo interno de intervención de BBDD (${olaTtr} h) iguala o supera el tiempo total de resolución prometido al cliente (${slaTtr} h), sin dejar margen para el triaje del <em>Service Desk</em> ni la verificación.`);
+                issues.push(`<strong>Incoherencia matemática en el OLA (${olaTtr} h ≥ SLA ${slaTtr} h):</strong> El acuerdo interno de intervención de BBDD (${olaTtr} h) iguala o supera el tiempo total prometido al cliente (${slaTtr} h).`);
             }
             if (ucTtr >= slaTtr) {
-                issues.push(`<strong>Cuello de botella en el contrato externo UC (${ucTtr} h ≥ SLA ${slaTtr} h):</strong> El soporte del proveedor externo tarda hasta ${ucTtr} horas, rompiendo el compromiso frontal de ${slaTtr} horas firmado en el SLA.`);
+                issues.push(`<strong>Cuello de botella en el contrato externo UC (${ucTtr} h ≥ SLA ${slaTtr} h):</strong> El soporte del proveedor externo tarda hasta ${ucTtr} horas, rompiendo el compromiso frontal de ${slaTtr} horas del SLA.`);
             }
             if (slaUptime >= 99.99 && ucTtr > 1) {
-                issues.push('<strong>Imposibilidad física de «cuatro nueves» (99,99 %):</strong> Con solo 4,3 minutos de caída permitida al mes, necesitas redundancia automática y contrato UC de misión crítica (&lt; 1 h con línea redundante).');
+                issues.push('<strong>Imposibilidad física de «cuatro nueves» (99,99 %):</strong> Con solo 4,3 minutos de caída permitida al mes, necesitas redundancia automática y contrato UC de misión crítica (&lt; 1 h).');
             }
             if (ucExit === 'no') {
-                issues.push('<strong>No conformidad ISO 20000 (Cláusula 5.7.2 · Salida del contrato):</strong> El contrato UC carece de cláusula de finalización, reversibilidad y devolución de datos en la SCD, exponiendo a la empresa a <em>vendor lock-in</em>.');
+                issues.push('<strong>No conformidad ISO 20000 (Cláusula 5.7.2 · Salida del contrato):</strong> El contrato UC carece de cláusula de finalización, reversibilidad y devolución de datos en la SCD.');
             }
 
             const box = document.getElementById('sim-audit-result');
             if (issues.length === 0) {
-                box.className = 'rounded-2xl p-5 border-2 bg-emerald-50 border-emerald-400 text-emerald-950 fade-in';
+                box.className = 'rounded-2xl p-6 border-2 bg-emerald-50 border-emerald-400 text-emerald-950';
                 box.innerHTML = `
                     <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-                        <span class="text-xs font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-3 py-1 rounded-full">
+                        <span class="text-xs font-mono font-extrabold uppercase bg-emerald-200 text-emerald-900 px-3 py-1 rounded">
                             ✅ Cadena contractual coherente y auditable (ISO/IEC 20000)
                         </span>
-                        <span class="text-xs font-bold text-emerald-800">
+                        <span class="text-sm font-bold text-emerald-800">
                             Colchón de indisponibilidad permitido: ${maxDowntimeStr}
                         </span>
                     </div>
-                    <p class="text-sm leading-relaxed mt-2">
-                        <strong>¡Diseño impecable!</strong> El horario 24×7 del SLA está respaldado por guardias internas 24×7 en el <strong>OLA</strong> (${olaTtr} h &lt; ${slaTtr} h), un contrato externo <strong>UC</strong> con respuesta en ${ucTtr} h (&lt; ${slaTtr} h) y una cláusula de salida/reversibilidad documentada en la base de datos de contratos (<strong>SCD</strong>).
+                    <p class="text-sm sm:text-base leading-relaxed mt-2">
+                        <strong>¡Diseño impecable!</strong> El horario 24×7 del <code>SLA</code> está respaldado por guardias internas 24×7 en el <code>OLA</code> (${olaTtr} h &lt; ${slaTtr} h), un contrato externo <code>UC</code> con respuesta en ${ucTtr} h (&lt; ${slaTtr} h) y una cláusula de salida/reversibilidad documentada en la base de datos de contratos (<code>SCD</code>).
                     </p>
                 `;
             } else {
-                box.className = 'rounded-2xl p-5 border-2 bg-rose-50 border-rose-400 text-rose-950 fade-in';
+                box.className = 'rounded-2xl p-6 border-2 bg-rose-50 border-rose-400 text-rose-950';
                 const listHtml = issues.map(i => `<li>${i}</li>`).join('');
                 box.innerHTML = `
                     <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-                        <span class="text-xs font-extrabold uppercase tracking-wider bg-rose-200 text-rose-900 px-3 py-1 rounded-full">
+                        <span class="text-xs font-mono font-extrabold uppercase bg-rose-200 text-rose-900 px-3 py-1 rounded">
                             🚨 Alerta de auditoría: SLA tramposo / desalineado (${issues.length} ${issues.length === 1 ? 'fallo detectado' : 'fallos detectados'})
                         </span>
-                        <span class="text-xs font-bold text-rose-800">
-                            Tiempo máx. de caída permitido por tu SLA (${slaUptime.toString().replace('.', ',')} %): ${maxDowntimeStr}
+                        <span class="text-sm font-bold text-rose-800">
+                            Caída máx. permitida por tu SLA (${slaUptime.toString().replace('.', ',')} %): ${maxDowntimeStr}
                         </span>
                     </div>
-                    <p class="text-xs sm:text-sm font-semibold text-rose-900 mt-2 mb-2">
+                    <p class="text-sm sm:text-base font-bold text-rose-900 mt-2 mb-2">
                         Un auditor de certificación ISO/IEC 20000 levantaría una <strong>No Conformidad Mayor</strong> por las siguientes brechas en tu cadena de soporte:
                     </p>
-                    <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm text-rose-900">
+                    <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-rose-900 leading-relaxed">
                         ${listHtml}
                     </ul>
-                    <p class="text-xs text-rose-800 mt-3 font-medium">
-                        👉 Ajusta los desplegables del OLA (24×7 y tiempo &lt; SLA) y del UC (soporte crítico y cláusula de salida) hasta lograr una cadena coherente.
-                    </p>
                 `;
             }
-        }
-
-        function toggleClassroomSpoiler(id) {
-            const el = document.getElementById(id);
-            el.classList.toggle('hidden');
         }
 
         // Inicialización

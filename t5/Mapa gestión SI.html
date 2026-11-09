@@ -82,14 +82,14 @@
                         </p>
 
                         <div class="bg-white border-l-4 border-indigo-600 rounded-xl p-5 shadow-sm mb-4">
-                            <h3 class="text-base font-extrabold text-indigo-950 mb-1.5">Definición de servicio de TI (ISO/IEC 20000)</h3>
-                            <p class="text-sm text-slate-700 leading-relaxed">
+                            <h3 class="text-lg font-extrabold text-indigo-950 mb-1.5">Definición de servicio de TI (ISO/IEC 20000)</h3>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
                                 Es una <strong>solución informática completa</strong> que cubre unas necesidades específicas del negocio, que TI entrega y mantiene de forma <strong>autocontenida y empaquetada</strong>, liberando al cliente y a los usuarios de las complejidades internas de la tecnología subyacente.
                             </p>
                         </div>
 
-                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 mb-2">El área de TI como eslabón intermedio en la cadena de valor</h3>
-                        <ul class="list-disc list-outside pl-5 space-y-2 text-sm text-slate-700 leading-relaxed">
+                        <h3 class="text-base font-bold uppercase tracking-wider text-slate-600 mb-2">El área de TI como eslabón intermedio en la cadena de valor</h3>
+                        <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base text-slate-700 leading-relaxed">
                             <li><strong>Hacia el negocio (aguas arriba):</strong> TI actúa como un proveedor que empaqueta hardware, software base, aplicaciones, comunicaciones y soporte en servicios listos para usar (puesto de trabajo conectado, correo corporativo, portal web, ERP, facturación).</li>
                             <li><strong>Hacia el mercado (aguas abajo):</strong> Para construir esos servicios, el área interna de TI contrata a su vez servicios a terceros (alojamiento en CPD/nube, telecomunicaciones, desarrollo o teleatención).</li>
                         </ul>
@@ -97,11 +97,11 @@
 
                     <!-- Nivel 2: Estudio autónomo -->
                     <details class="group bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
-                        <summary class="flex items-center justify-between px-4 py-3 text-xs sm:text-sm font-bold text-slate-800 cursor-pointer hover:bg-slate-50 select-none">
+                        <summary class="flex items-center justify-between px-4 py-3.5 text-sm sm:text-base font-bold text-slate-800 cursor-pointer hover:bg-slate-50 select-none">
                             <span>🔎 Desplegar análisis técnico: Procesos, BPMN y estructura matricial</span>
                             <span class="text-slate-400 group-open:rotate-180 transition-transform" aria-hidden="true">▼</span>
                         </summary>
-                        <div class="px-4 pb-4 pt-2 border-t border-slate-100 text-xs sm:text-sm text-slate-600 space-y-2.5 leading-relaxed">
+                        <div class="px-4 pb-4 pt-3 border-t border-slate-100 text-sm sm:text-base text-slate-700 space-y-2.5 leading-relaxed">
                             <p><strong>Orientación a procesos:</strong> ISO/IEC 20000 estructura toda la actividad de TI en torno a <em>procesos</em> (conjuntos de actividades interrelacionadas que transforman entradas en resultados medibles, donde la salida de un proceso alimenta la entrada de otro).</p>
                             <p><strong>Modelado BPMN:</strong> Todo proceso debe poder representarse mediante un diagrama de flujo —preferiblemente con notación estándar <strong>BPMN (Business Process Model and Notation)</strong>— y contar con métricas de rendimiento objetivas.</p>
                             <p><strong>Estructura matricial en TI:</strong> Implantar procesos no obliga a destruir el organigrama jerárquico existente (Sistemas, Redes, Desarrollo), sino que suele generar una <strong>organización matricial</strong> donde los flujos horizontales de cada proceso (con su propio <em>propietario o responsable de proceso</em>) cruzan transversalmente las unidades técnicas verticales.</p>
@@ -114,71 +114,71 @@
                     <div>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold uppercase bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 mb-2">Arquitectura de la actividad en TI</span>
                         <h2 class="text-2xl font-bold text-white mb-2">Las 5 capas del departamento de TI</h2>
-                        <p class="text-sm text-slate-300 mb-5 leading-relaxed">
+                        <p class="text-sm sm:text-base text-slate-300 mb-5 leading-relaxed">
                             Haz clic en cada estrato para explorar qué regula y cómo se ensamblan la estrategia, los procesos del <code>SGSTI</code>, las personas, las herramientas y la infraestructura:
                         </p>
 
                         <div class="space-y-2.5" id="layers-stack">
                             <button type="button" onclick="selectLayer(1)" id="layer-btn-1" class="w-full text-left p-3.5 rounded-xl border transition-all flex items-center justify-between bg-indigo-600/30 border-indigo-400 text-white">
                                 <div class="flex items-center gap-3">
-                                    <span class="w-7 h-7 rounded-lg bg-indigo-500 text-white font-extrabold text-xs flex items-center justify-center shrink-0">1</span>
+                                    <span class="w-8 h-8 rounded-lg bg-indigo-500 text-white font-extrabold text-sm flex items-center justify-center shrink-0">1</span>
                                     <div>
-                                        <span class="font-bold text-sm sm:text-base block">Gobierno de TI (Estrategia)</span>
-                                        <span class="text-xs text-indigo-200">Alineamiento con el negocio, valor e inversión (COBIT / ISO 38500)</span>
+                                        <span class="font-bold text-base block">Gobierno de TI (Estrategia)</span>
+                                        <span class="text-sm text-indigo-200">Alineamiento con el negocio, valor e inversión (COBIT / ISO 38500)</span>
                                     </div>
                                 </div>
-                                <span class="text-lg" aria-hidden="true">👑</span>
+                                <span class="text-xl" aria-hidden="true">👑</span>
                             </button>
 
                             <button type="button" onclick="selectLayer(2)" id="layer-btn-2" class="w-full text-left p-3.5 rounded-xl border transition-all flex items-center justify-between bg-slate-800/90 border-slate-700 text-slate-200 hover:border-slate-500">
                                 <div class="flex items-center gap-3">
-                                    <span class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0">2</span>
+                                    <span class="w-8 h-8 rounded-lg bg-emerald-600 text-white font-extrabold text-sm flex items-center justify-center shrink-0">2</span>
                                     <div>
-                                        <span class="font-bold text-sm sm:text-base block">Procesos de gestión del servicio (SGSTI)</span>
-                                        <span class="text-xs text-slate-400">El núcleo normativo de ISO/IEC 20000 y las prácticas de ITIL</span>
+                                        <span class="font-bold text-base block">Procesos de gestión del servicio (SGSTI)</span>
+                                        <span class="text-sm text-slate-300">El núcleo normativo de ISO/IEC 20000 y las prácticas de ITIL</span>
                                     </div>
                                 </div>
-                                <span class="text-lg" aria-hidden="true">⚙️</span>
+                                <span class="text-xl" aria-hidden="true">⚙️</span>
                             </button>
 
                             <button type="button" onclick="selectLayer(3)" id="layer-btn-3" class="w-full text-left p-3.5 rounded-xl border transition-all flex items-center justify-between bg-slate-800/90 border-slate-700 text-slate-200 hover:border-slate-500">
                                 <div class="flex items-center gap-3">
-                                    <span class="w-7 h-7 rounded-lg bg-amber-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0">3</span>
+                                    <span class="w-8 h-8 rounded-lg bg-amber-600 text-white font-extrabold text-sm flex items-center justify-center shrink-0">3</span>
                                     <div>
-                                        <span class="font-bold text-sm sm:text-base block">Equipos de trabajo de TI</span>
-                                        <span class="text-xs text-slate-400">Roles, especialistas técnicos y gestores en estructura matricial</span>
+                                        <span class="font-bold text-base block">Equipos de trabajo de TI</span>
+                                        <span class="text-sm text-slate-300">Roles, especialistas técnicos y gestores en estructura matricial</span>
                                     </div>
                                 </div>
-                                <span class="text-lg" aria-hidden="true">👥</span>
+                                <span class="text-xl" aria-hidden="true">👥</span>
                             </button>
 
                             <button type="button" onclick="selectLayer(4)" id="layer-btn-4" class="w-full text-left p-3.5 rounded-xl border transition-all flex items-center justify-between bg-slate-800/90 border-slate-700 text-slate-200 hover:border-slate-500">
                                 <div class="flex items-center gap-3">
-                                    <span class="w-7 h-7 rounded-lg bg-sky-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0">4</span>
+                                    <span class="w-8 h-8 rounded-lg bg-sky-600 text-white font-extrabold text-sm flex items-center justify-center shrink-0">4</span>
                                     <div>
-                                        <span class="font-bold text-sm sm:text-base block">Herramientas de gestión y monitorización</span>
-                                        <span class="text-xs text-slate-400">Service Desk, ticketing, CMDB, autodescubrimiento y cuadros de mando</span>
+                                        <span class="font-bold text-base block">Herramientas de gestión y monitorización</span>
+                                        <span class="text-sm text-slate-300">Service Desk, ticketing, CMDB, autodescubrimiento y cuadros de mando</span>
                                     </div>
                                 </div>
-                                <span class="text-lg" aria-hidden="true">🧰</span>
+                                <span class="text-xl" aria-hidden="true">🧰</span>
                             </button>
 
                             <button type="button" onclick="selectLayer(5)" id="layer-btn-5" class="w-full text-left p-3.5 rounded-xl border transition-all flex items-center justify-between bg-slate-800/90 border-slate-700 text-slate-200 hover:border-slate-500">
                                 <div class="flex items-center gap-3">
-                                    <span class="w-7 h-7 rounded-lg bg-purple-600 text-white font-extrabold text-xs flex items-center justify-center shrink-0">5</span>
+                                    <span class="w-8 h-8 rounded-lg bg-purple-600 text-white font-extrabold text-sm flex items-center justify-center shrink-0">5</span>
                                     <div>
-                                        <span class="font-bold text-sm sm:text-base block">La tecnología (Infraestructura y aplicaciones)</span>
-                                        <span class="text-xs text-slate-400">Servidores, redes, SGBD, almacenamiento y software aplicativo</span>
+                                        <span class="font-bold text-base block">La tecnología (Infraestructura y aplicaciones)</span>
+                                        <span class="text-sm text-slate-300">Servidores, redes, SGBD, almacenamiento y software aplicativo</span>
                                     </div>
                                 </div>
-                                <span class="text-lg" aria-hidden="true">🖧</span>
+                                <span class="text-xl" aria-hidden="true">🖧</span>
                             </button>
                         </div>
                     </div>
 
                     <!-- Detalle dinámico del nivel seleccionado -->
-                    <div id="layer-detail" class="mt-5 p-4 rounded-xl bg-slate-950/90 border border-slate-700 text-xs sm:text-sm text-slate-200 leading-relaxed">
-                        <p id="layer-detail-title" class="font-bold text-indigo-300 mb-1">Nivel 1 · Gobierno de TI (Estrategia)</p>
+                    <div id="layer-detail" class="mt-5 p-4 rounded-xl bg-slate-950/90 border border-slate-700 text-sm sm:text-base text-slate-200 leading-relaxed">
+                        <p id="layer-detail-title" class="font-bold text-indigo-300 text-base sm:text-lg mb-1">Nivel 1 · Gobierno de TI (Estrategia)</p>
                         <p id="layer-detail-desc">Marca el rumbo desde la alta dirección: asegura que las inversiones tecnológicas generen valor para la empresa, optimiza recursos y mantiene el riesgo corporativo bajo control.</p>
                     </div>
                 </div>
@@ -189,17 +189,17 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
                     <div>
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold uppercase bg-amber-200 text-amber-950 mb-1.5">💬 Debate en el aula · Caso Keraben</span>
-                        <h3 class="text-lg sm:text-xl font-extrabold text-slate-900">«Todos los servidores están en verde, pero no podemos facturar ningún palé»</h3>
+                        <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900">«Todos los servidores están en verde, pero no podemos facturar ningún palé»</h3>
                     </div>
                 </div>
                 <p class="text-sm sm:text-base text-slate-700 leading-relaxed mb-4">
                     Son las 11:00 h en la planta de Nules. El director de logística de Keraben llama furioso porque los camiones llevan dos horas parados sin albaranes de salida. El administrador de sistemas mira su consola Zabbix y responde: <em>«No es culpa nuestra: la CPU del servidor está al 12 %, los discos RAID están sanos y el switch responde al ping en 0,4 ms»</em>. <strong>¿Dónde está el fallo de enfoque y qué diferencia hay entre administrar componentes y gestionar un servicio de TI?</strong>
                 </p>
                 <details class="bg-white border border-amber-300 rounded-xl overflow-hidden">
-                    <summary class="px-4 py-3 text-xs sm:text-sm font-bold text-amber-950 cursor-pointer hover:bg-amber-100/60 select-none">
+                    <summary class="px-4 py-3.5 text-sm sm:text-base font-bold text-amber-950 cursor-pointer hover:bg-amber-100/60 select-none">
                         💡 Mostrar claves y conclusión técnica
                     </summary>
-                    <div class="px-4 pb-4 pt-3 border-t border-amber-200 text-xs sm:text-sm text-slate-700 space-y-2 leading-relaxed">
+                    <div class="px-4 pb-4 pt-3 border-t border-amber-200 text-sm sm:text-base text-slate-700 space-y-2 leading-relaxed">
                         <ul class="list-disc list-outside pl-5 space-y-1.5">
                             <li><strong>La falacia del componente aislado:</strong> Al negocio no le importa si un servidor Linux tiene la CPU al 12 %; el negocio consume el <strong>servicio de expedición y facturación de extremo a extremo</strong>. Si un certificado caducado en la pasarela EDI o un proceso bloqueado en la cola de impresión impide emitir el albarán, el servicio está caído al 100 % para el cliente aunque el hardware esté «en verde».</li>
                             <li><strong>El rol del SGSTI:</strong> Un Sistema de Gestión de Servicios de TI (<code>SGSTI</code>) obliga a medir la disponibilidad y calidad desde la perspectiva del resultado entregado al usuario final (<code>SLA</code>), coordinando todos los elementos de configuración (<code>CMDB</code>), equipos internos (<code>OLA</code>) y proveedores externos (<code>UC</code>).</li>
@@ -219,7 +219,7 @@
                         <div>
                             <span class="text-xs font-mono uppercase tracking-wider text-indigo-300 font-bold">El corazón normativo (Apartados 5.3 y 5.4)</span>
                             <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-0.5">El motor: Sistema de Gestión de Servicios de TI (SGSTI) + Ciclo PDCA</h2>
-                            <p class="text-sm text-slate-300 mt-1.5 leading-relaxed max-w-4xl">
+                            <p class="text-sm sm:text-base text-slate-300 mt-1.5 leading-relaxed max-w-4xl">
                                 Conjunto interrelacionado de <strong>políticas, procesos, procedimientos, instrucciones de trabajo y recursos</strong> (humanos y materiales) que trabajan coordinadamente bajo la rueda de Deming (<code>Plan → Do → Check → Act</code>) para que los servicios de TI se entreguen de forma eficaz, predecible y alineada con el negocio.
                             </p>
                         </div>
@@ -238,7 +238,7 @@
                             <span class="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded bg-emerald-200 text-emerald-950">Bloque 1 · Frontend</span>
                         </div>
                         <h3 class="text-xl font-extrabold text-emerald-950 mb-2">1. El contrato y las relaciones</h3>
-                        <p class="text-sm text-slate-700 leading-relaxed">
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
                             Define <strong>qué prometemos al negocio</strong> y cómo nos respaldamos por arriba (clientes) y por abajo (equipos internos y proveedores).
                         </p>
                         <div class="mt-4 pt-3 border-t border-emerald-200/80 flex flex-wrap gap-1.5">
@@ -253,7 +253,7 @@
                             <span class="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded bg-rose-200 text-rose-950">Bloque 2 · Backend</span>
                         </div>
                         <h3 class="text-xl font-extrabold text-rose-950 mb-2">2. El flujo de resolución y control</h3>
-                        <p class="text-sm text-slate-700 leading-relaxed">
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
                             Define <strong>cómo operamos, restauramos e introducimos cambios</strong> en producción sin provocar nuevas caídas.
                         </p>
                         <div class="mt-4 pt-3 border-t border-rose-200/80 flex flex-wrap gap-1.5">
@@ -268,7 +268,7 @@
                             <span class="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded bg-amber-200 text-amber-950">Bloque 3 · Resiliencia</span>
                         </div>
                         <h3 class="text-xl font-extrabold text-amber-950 mb-2">3. Los seguros del servicio</h3>
-                        <p class="text-sm text-slate-700 leading-relaxed">
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
                             La «letra pequeña» del <code>SLA</code>: cómo protegemos el servicio frente a <strong>fallos diarios, desastres mayores y ciberamenazas</strong>.
                         </p>
                         <div class="mt-4 pt-3 border-t border-amber-200/80 flex flex-wrap gap-1.5">
@@ -283,7 +283,7 @@
                             <span class="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded bg-purple-200 text-purple-950">Bloque 4 · Cultura</span>
                         </div>
                         <h3 class="text-xl font-extrabold text-purple-950 mb-2">4. El debate: agilidad vs. rigor</h3>
-                        <p class="text-sm text-slate-700 leading-relaxed">
+                        <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
                             La cuestión filosófica clave para un ingeniero: <strong>¿burocracia que nos frena o control que garantiza la estabilidad?</strong>
                         </p>
                         <div class="mt-4 pt-3 border-t border-purple-200/80 flex flex-wrap gap-1.5">
@@ -300,8 +300,8 @@
                         </div>
                         <h3 id="info-title" class="text-2xl font-extrabold text-slate-900">1. El contrato (Qué prometemos)</h3>
                         <p id="info-text" class="text-sm sm:text-base text-slate-700 leading-relaxed"></p>
-                        <ul id="info-list" class="list-disc list-outside pl-5 text-sm text-slate-700 space-y-2 leading-relaxed"></ul>
-                        <div id="info-takeaway" class="p-3.5 rounded-xl bg-white border border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed"></div>
+                        <ul id="info-list" class="list-disc list-outside pl-5 text-sm sm:text-base text-slate-700 space-y-2 leading-relaxed"></ul>
+                        <div id="info-takeaway" class="p-4 rounded-xl bg-white border border-slate-200 text-sm sm:text-base text-slate-700 leading-relaxed"></div>
                     </div>
                 </div>
             </div>

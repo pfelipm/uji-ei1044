@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El flujo de resolución, control y entrega (ISO 20000: 5.8, 5.9 y 5.10)</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍🚒</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
@@ -65,45 +66,48 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col p-4 md:p-8">
+<body class="min-h-screen p-4 sm:p-6 md:p-8">
 
-    <main class="max-w-7xl mx-auto w-full flex-grow flex flex-col">
+    <main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
 
         <!-- Cabecera -->
-        <header class="text-center mb-6">
-            <div class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-200">
+        <header class="text-center mb-8 border-b border-slate-100 pb-6">
+            <div class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3 border border-indigo-200">
                 Tema 5 · Sesión 5 · Actividades 1, 2 y 3 (ISO/IEC 20000: Cláusulas 5.8, 5.9 y 5.10)
             </div>
-            <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">
                 El flujo de resolución, control de cambios y entrega en TI
             </h1>
-            <p class="text-slate-600 text-sm md:text-base max-w-3xl mx-auto">
+            <p class="text-slate-600 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
                 Del apagafuegos inmediato (<strong>Incidente</strong>) a la erradicación de la causa raíz (<strong>Problema / KEDB</strong>), el paso seguro a producción (<strong>RFC / CAB / Entrega</strong>) y el mapa de activos (<strong>CMDB</strong>).
             </p>
         </header>
 
         <!-- Navegación de pestañas secuenciales -->
-        <nav aria-label="Fases de la sesión" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
-            <button type="button" id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
-                1. 👨‍🚒 Flujo de extremo a extremo (5.8, 5.9 y 5.10)
+        <nav aria-label="Fases de la sesión" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8">
+            <button type="button" id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active px-4 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-200">
+                1. 👨‍🚒 Flujo de extremo a extremo (5.8–5.10)
             </button>
-            <button type="button" id="tab-btn-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
-                2. 🚦 Simulador de triaje en el Service Desk (5 tickets)
+            <button type="button" id="tab-btn-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-200">
+                2. 🚦 Simulador de triaje (5 tickets)
             </button>
-            <button type="button" id="tab-btn-3" onclick="switchTab(3)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
-                3. 👷 Comité CAB / ECAB y arquitectura CMDB en Notion
+            <button type="button" id="tab-btn-3" onclick="switchTab(3)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-200">
+                3. 👷 Comité de cambios CAB / ECAB
+            </button>
+            <button type="button" id="tab-btn-4" onclick="switchTab(4)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 border border-slate-200 shadow-sm hover:bg-slate-200">
+                4. 🗺️ CMDB en 3 capas (Notion)
             </button>
         </nav>
 
         <!-- ========================================== -->
         <!-- PESTAÑA 1: FLUJO DE EXTREMO A EXTREMO      -->
         <!-- ========================================== -->
-        <section id="tab-panel-1" class="fade-in flex-grow flex flex-col">
+        <section id="tab-panel-1" class="fade-in flex flex-col">
 
             <!-- Diagrama interactivo de 4 etapas + CMDB -->
-            <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-200 mb-6">
+            <div class="bg-slate-50 p-5 sm:p-6 rounded-2xl shadow-sm border border-slate-200 mb-6">
                 <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                    <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500">
+                    <h2 class="text-sm font-bold uppercase tracking-widest text-slate-600">
                         Cadena operativa del SGSTI (haz clic en cada proceso para inspeccionarlo)
                     </h2>
                     <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
@@ -111,79 +115,79 @@
                     </span>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-2">
                     <!-- Paso 1: Incidente -->
-                    <div id="step-incidente" onclick="selectStep('incidente')" class="step-card active-step bg-amber-50 border-2 border-amber-400 rounded-xl p-4 ring-4 ring-amber-200">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full">1. Apagar el fuego (5.8.1)</span>
-                            <span class="text-xl">👨‍🚒</span>
+                    <div id="step-incidente" onclick="selectStep('incidente')" class="step-card active-step bg-amber-50 border-2 border-amber-400 rounded-xl p-5 ring-4 ring-amber-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">1. Apagar el fuego (5.8.1)</span>
+                            <span class="text-2xl">👨‍🚒</span>
                         </div>
-                        <h3 class="text-sm font-extrabold text-amber-950">Gestión del incidente y peticiones</h3>
-                        <p class="text-xs text-amber-800 mt-1">Restaurar el servicio lo antes posible (con o sin <em>workaround</em>).</p>
+                        <h3 class="text-base sm:text-lg font-extrabold text-amber-950">Gestión del incidente y peticiones</h3>
+                        <p class="text-sm sm:text-base text-amber-900 mt-1.5 leading-relaxed">Restaurar el servicio lo antes posible (con o sin <em>workaround</em>).</p>
                     </div>
 
                     <!-- Paso 2: Problema -->
-                    <div id="step-problema" onclick="selectStep('problema')" class="step-card bg-blue-50 border-2 border-blue-400 rounded-xl p-4">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2 py-0.5 rounded-full">2. Investigar (5.8.2)</span>
-                            <span class="text-xl">🕵️‍♂️</span>
+                    <div id="step-problema" onclick="selectStep('problema')" class="step-card bg-blue-50 border-2 border-blue-400 rounded-xl p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">2. Investigar (5.8.2)</span>
+                            <span class="text-2xl">🕵️‍♂️</span>
                         </div>
-                        <h3 class="text-sm font-extrabold text-blue-950">Gestión del problema y KEDB</h3>
-                        <p class="text-xs text-blue-800 mt-1">Descubrir la causa raíz, documentar el Error Conocido y evitar que se repita.</p>
+                        <h3 class="text-base sm:text-lg font-extrabold text-blue-950">Gestión del problema y KEDB</h3>
+                        <p class="text-sm sm:text-base text-blue-900 mt-1.5 leading-relaxed">Descubrir la causa raíz, documentar el Error Conocido y evitar que se repita.</p>
                     </div>
 
                     <!-- Paso 3: Cambio y Entrega -->
-                    <div id="step-cambio" onclick="selectStep('cambio')" class="step-card bg-emerald-50 border-2 border-emerald-400 rounded-xl p-4">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full">3. Modificar y desplegar (5.9.2 / 5.10)</span>
-                            <span class="text-xl">👷</span>
+                    <div id="step-cambio" onclick="selectStep('cambio')" class="step-card bg-emerald-50 border-2 border-emerald-400 rounded-xl p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full">3. Modificar (5.9.2 / 5.10)</span>
+                            <span class="text-2xl">👷</span>
                         </div>
-                        <h3 class="text-sm font-extrabold text-emerald-950">Gestión del cambio y de la entrega</h3>
-                        <p class="text-xs text-emerald-800 mt-1">Aprobar la RFC en el CAB, probar la versión (DSL/DHS) y pasar a producción con <em>rollback</em>.</p>
+                        <h3 class="text-base sm:text-lg font-extrabold text-emerald-950">Gestión del cambio y entrega</h3>
+                        <p class="text-sm sm:text-base text-emerald-900 mt-1.5 leading-relaxed">Aprobar la RFC en el CAB, probar la versión (DSL/DHS) y pasar a producción con <em>rollback</em>.</p>
                     </div>
 
                     <!-- Paso 4: Configuración CMDB -->
-                    <div id="step-cmdb" onclick="selectStep('cmdb')" class="step-card bg-purple-50 border-2 border-purple-400 rounded-xl p-4">
-                        <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">4. Cimiento transversal (5.9.1)</span>
-                            <span class="text-xl">🗺️</span>
+                    <div id="step-cmdb" onclick="selectStep('cmdb')" class="step-card bg-purple-50 border-2 border-purple-400 rounded-xl p-5">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-purple-200 text-purple-900 px-2.5 py-0.5 rounded-full">4. Cimiento (5.9.1)</span>
+                            <span class="text-2xl">🗺️</span>
                         </div>
-                        <h3 class="text-sm font-extrabold text-purple-950">Gestión de la configuración (CMDB)</h3>
-                        <p class="text-xs text-purple-800 mt-1">Inventario vivo de activos (CIs) y sus relaciones que alimenta a los otros tres procesos.</p>
+                        <h3 class="text-base sm:text-lg font-extrabold text-purple-950">Gestión de configuración (CMDB)</h3>
+                        <p class="text-sm sm:text-base text-purple-900 mt-1.5 leading-relaxed">Inventario vivo de activos (CIs) y sus relaciones que alimenta a los otros tres procesos.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Panel dinámico de detalle del paso seleccionado -->
-            <div id="step-detail-panel" class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 md:p-8 mb-6">
+            <div id="step-detail-panel" class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 sm:p-8 mb-6">
                 <!-- JS -->
             </div>
 
             <!-- Nivel 2: Rigor normativo completo de los PDFs 5.08, 5.09 y 5.10 -->
             <details class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
-                <summary class="px-6 py-4 cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between font-bold text-slate-800 text-sm md:text-base">
+                <summary class="px-6 py-4 cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between font-bold text-slate-800 text-sm sm:text-base">
                     <span>🔎 Desplegar análisis técnico completo: métricas (MTTR, MTBF, MTBSI), ciclo de errores (KEDB), aprobaciones CAB y DSL/DHS</span>
                     <span class="text-xs font-semibold text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-full">Nivel 2 · Estudio en casa</span>
                 </summary>
-                <div class="p-6 border-t border-slate-200 space-y-6 text-sm text-slate-700">
+                <div class="p-6 border-t border-slate-200 space-y-6 text-sm sm:text-base text-slate-700">
 
                     <!-- Bloque 1: Métricas de Incidentes y Escalados (Tema 5.08.1) -->
                     <div class="bg-amber-50/60 rounded-xl p-5 border border-amber-200">
                         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <h3 class="font-extrabold text-amber-950 text-base">⏱️ 5.8.1 Métricas de fiabilidad, escalado dual y secuencia de restauración</h3>
+                            <h3 class="font-extrabold text-amber-950 text-lg">⏱️ 5.8.1 Métricas de fiabilidad, escalado dual y secuencia de restauración</h3>
                             <span class="text-xs font-bold bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Tema 5.08.1</span>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-white p-4 rounded-lg border border-amber-200">
-                                <h4 class="font-bold text-slate-900 mb-2">Escalado funcional vs. Escalado jerárquico</h4>
-                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                            <div class="bg-white p-5 rounded-xl border border-amber-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Escalado funcional vs. Escalado jerárquico</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base">
                                     <li><strong>Escalado funcional (horizontal · por conocimiento):</strong> El <em>Service Desk</em> (1.ª línea) transfiere el ticket a un especialista técnico de 2.ª línea (redes, BBDD) o 3.ª línea (proveedor externo bajo contrato UC) porque requiere mayor pericia técnica.</li>
                                     <li><strong>Escalado jerárquico (vertical · por autoridad):</strong> Se avisa a los mandos (Gestor de Incidentes, CIO, Dirección) porque el incidente es crítico (P1), amenaza con romper el SLA o requiere movilizar recursos extraordinarios.</li>
                                 </ul>
                             </div>
-                            <div class="bg-white p-4 rounded-lg border border-amber-200">
-                                <h4 class="font-bold text-slate-900 mb-2">Métricas temporales: MTBF, MTTR y MTBSI</h4>
-                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                            <div class="bg-white p-5 rounded-xl border border-amber-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Métricas temporales: MTBF, MTTR y MTBSI</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base">
                                     <li><strong>MTBF (<em>Mean Time Between Failures</em>):</strong> Tiempo medio que el servicio funciona sin fallos (mide la <em>fiabilidad</em> entre la restauración de un fallo y la detección del siguiente).</li>
                                     <li><strong>MTTR (<em>Mean Time To Restore / Repair</em>):</strong> Tiempo medio que se tarda en recuperar el servicio desde que cae hasta que vuelve a estar operativo para el usuario.</li>
                                     <li><strong>MTBSI (<em>Mean Time Between System Incidents</em>):</strong> Tiempo medio entre el inicio de dos incidentes consecutivos:
@@ -192,7 +196,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <p class="text-xs text-slate-600 mt-3 leading-relaxed">
+                        <p class="text-sm sm:text-base text-slate-700 mt-4 leading-relaxed">
                             <strong>Secuencia técnica de resolución y cierre:</strong> 1) <em>Reparación</em> del elemento hardware/software averiado ➔ 2) <em>Recuperación</em> de los datos y estado consistente ➔ 3) <em>Restauración</em> del servicio para el usuario ➔ 4) <em>Cierre del incidente</em> (con confirmación explícita del usuario o <strong>cierre automático tras p. ej. 2 días sin respuesta</strong>, seguido de encuesta de satisfacción).
                         </p>
                     </div>
@@ -200,24 +204,24 @@
                     <!-- Bloque 2: Ciclo de vida del Problema (Tema 5.08.2) -->
                     <div class="bg-blue-50/60 rounded-xl p-5 border border-blue-200">
                         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <h3 class="font-extrabold text-blue-950 text-base">🔬 5.8.2 Distinción entre Causa raíz, Error y Error conocido (KEDB)</h3>
+                            <h3 class="font-extrabold text-blue-950 text-lg">🔬 5.8.2 Distinción entre Causa raíz, Error y Error conocido (KEDB)</h3>
                             <span class="text-xs font-bold bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">Tema 5.08.2</span>
                         </div>
-                        <p class="mb-3 leading-relaxed text-xs sm:text-sm">
+                        <p class="mb-4 leading-relaxed text-sm sm:text-base">
                             La Gestión del Problema actúa de forma <strong>reactiva</strong> (tras uno o varios incidentes graves o repetitivos) o <strong>proactiva</strong> (analizando tendencias antes de que el usuario sufra cortes). Su ciclo de vida se divide en dos etapas formales:
                         </p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="bg-white p-4 rounded-lg border border-blue-200">
-                                <h4 class="font-bold text-slate-900 mb-2">Etapa 1: Control de problemas (Investigar)</h4>
-                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                            <div class="bg-white p-5 rounded-xl border border-blue-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Etapa 1: Control de problemas (Investigar)</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base">
                                     <li>Identificar y registrar el problema (vinculándolo a los incidentes que lo dispararon).</li>
                                     <li>Investigar el diagnóstico hasta aislar la <strong>Causa raíz</strong> (el origen físico, lógico o humano subyacente).</li>
                                     <li>Cuando se conoce la causa raíz de un problema, se convierte técnicamente en un <strong>Error</strong>; cuando además se documenta su solución temporal (<em>workaround</em>) o definitiva en la base de datos <strong>KEDB</strong>, pasa a ser un <strong>Error Conocido (<em>Known Error</em>)</strong>.</li>
                                 </ul>
                             </div>
-                            <div class="bg-white p-4 rounded-lg border border-blue-200">
-                                <h4 class="font-bold text-slate-900 mb-2">Etapa 2: Control de errores (Erradicar)</h4>
-                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                            <div class="bg-white p-5 rounded-xl border border-blue-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Etapa 2: Control de errores (Erradicar)</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base">
                                     <li>Compartir el <em>workaround</em> en la <strong>KEDB</strong> con el <em>Service Desk</em> para que futuros incidentes idénticos se resuelvan en minutos.</li>
                                     <li>Solicitar una <strong>RFC (<em>Request for Change</em>)</strong> a Gestión del Cambio (5.9.2) para aplicar la solución definitiva en producción.</li>
                                     <li><strong>Paso final obligatorio:</strong> Una vez implantado el cambio definitivo, <strong>retirar las soluciones temporales (<em>workarounds</em>)</strong> que se hubieran dejado puestas y cerrar el problema.</li>
@@ -229,14 +233,14 @@
                     <!-- Bloque 3: Configuración (5.9.1), Cambio (5.9.2) y Entrega (5.10) -->
                     <div class="bg-emerald-50/60 rounded-xl p-5 border border-emerald-200">
                         <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
-                            <h3 class="font-extrabold text-emerald-950 text-base">📦 5.9 y 5.10 Relaciones CMDB, las 4 aprobaciones del cambio y bibliotecas DSL / DHS</h3>
+                            <h3 class="font-extrabold text-emerald-950 text-lg">📦 5.9 y 5.10 Relaciones CMDB, las 4 aprobaciones del cambio y bibliotecas DSL / DHS</h3>
                             <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full">Temas 5.09 y 5.10</span>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div class="bg-white p-4 rounded-lg border border-emerald-200">
-                                <h4 class="font-bold text-slate-900 mb-2">6 relaciones oficiales entre CIs (5.9.1)</h4>
-                                <p class="text-xs text-slate-600 mb-2">Una CMDB no es una hoja Excel de inventario; su valor reside en mapear las relaciones entre CIs:</p>
-                                <ul class="list-disc list-outside pl-5 space-y-1 text-xs">
+                            <div class="bg-white p-5 rounded-xl border border-emerald-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Relaciones oficiales entre CIs (5.9.1)</h4>
+                                <p class="text-sm sm:text-base text-slate-600 mb-2">Una CMDB no es una hoja Excel de inventario; su valor reside en mapear las relaciones entre CIs:</p>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-sm sm:text-base">
                                     <li><strong>Usa</strong> (el Servicio ERP <em>usa</em> la BBDD Oracle).</li>
                                     <li><strong>Parte de / Formado por</strong> (relación padre-hijo).</li>
                                     <li><strong>Conectado a</strong> (topología de red/fibra).</li>
@@ -244,17 +248,17 @@
                                     <li><strong>Localizado en</strong> (ubicación física en rack/planta).</li>
                                 </ul>
                             </div>
-                            <div class="bg-white p-4 rounded-lg border border-emerald-200">
-                                <h4 class="font-bold text-slate-900 mb-2">Las 4 aprobaciones y el PSA (5.9.2)</h4>
-                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs">
+                            <div class="bg-white p-5 rounded-xl border border-emerald-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Las 4 aprobaciones y el PSA (5.9.2)</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base">
                                     <li><strong>Equilibrio Agilidad vs. Rigurosidad:</strong> Filtrar RFCs inviables, categorizar (menor, significativo, mayor) y evaluar el impacto en el <strong>PSA (<em>Projected Service Availability</em>)</strong>.</li>
                                     <li><strong>4 hitos de aprobación CAB:</strong> 1) Aprobación de construcción, 2) Aprobación de implantación (calendario <strong>FSC</strong>), 3) Paso a producción y 4) Revisión post-implementación (<strong>PIR</strong>).</li>
                                     <li><strong>Cambios de emergencia (ECAB):</strong> Ante incidentes críticos o 0-day activos, se autoriza por vía rápida con pruebas esenciales y <strong>la documentación se difiere hasta el cierre</strong>.</li>
                                 </ul>
                             </div>
-                            <div class="bg-white p-4 rounded-lg border border-emerald-200">
-                                <h4 class="font-bold text-slate-900 mb-2">Entrega (5.10): DSL y DHS</h4>
-                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs">
+                            <div class="bg-white p-5 rounded-xl border border-emerald-200">
+                                <h4 class="font-bold text-slate-900 text-base mb-2">Entrega (5.10): DSL y DHS</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-2 text-sm sm:text-base">
                                     <li><strong>Unidad de entrega (<em>Release</em>):</strong> Paquete técnico completo (entregas mayores vs. menores) probado en preproducción antes de desplegar.</li>
                                     <li><strong>DSL (<em>Definitive Software Library</em>):</strong> Biblioteca segura donde se custodian las copias maestras autorizadas de todo el software y código en producción.</li>
                                     <li><strong>DHS (<em>Definitive Hardware Store</em>):</strong> Almacén controlado de repuestos y hardware maestro idéntico al de producción para sustituciones rápidas.</li>
@@ -266,8 +270,8 @@
                 </div>
             </details>
 
-            <div class="mt-auto flex justify-end">
-                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
+            <div class="mt-4 flex justify-end">
+                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold px-5 py-3 rounded-xl shadow transition-colors">
                     Siguiente fase: Simulador de triaje en el Service Desk (5 tickets) →
                 </button>
             </div>
@@ -276,230 +280,300 @@
         <!-- ========================================== -->
         <!-- PESTAÑA 2: SIMULADOR DE TRIAJE (5 TICKETS) -->
         <!-- ========================================== -->
-        <section id="tab-panel-2" class="fade-in flex-grow flex flex-col hidden">
+        <section id="tab-panel-2" class="fade-in flex flex-col hidden">
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
 
                 <!-- Columna izquierda (7 cols): Los 5 tickets de la Sesión 5 · Actividad 1 -->
-                <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                <div class="lg:col-span-7 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
                     <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                         <span class="text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-900 px-3 py-1 rounded-full">
                             Dinámica en vivo · Sesión 5 · Actividad 1 (Sin spoilers)
                         </span>
                         <span class="text-xs font-semibold text-slate-500">Caso Keraben Grupo y UJI</span>
                     </div>
-                    <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mb-2">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">
                         🚦 Mesa de triaje del <em>Service Desk</em> (1.ª línea): las 09:00 h del lunes
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
+                    <p class="text-sm sm:text-base text-slate-600 mb-5 leading-relaxed">
                         Acaban de entrar estas <strong>5 comunicaciones simultáneas</strong> en la cola de atención. Selecciona cada caso, debate con la clase qué tipo de registro es (<strong>Petición de servicio, Incidente, Problema o RFC</strong>), qué prioridad le corresponde y a quién debe escalarse, y pulsa después el botón para comprobar el dictamen:
                     </p>
 
                     <!-- Selector de los 5 tickets -->
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <button type="button" id="tkt-btn-1" onclick="selectTicket(1)" class="ticket-btn active px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                    <div class="flex flex-wrap gap-2 mb-5">
+                        <button type="button" id="tkt-btn-1" onclick="selectTicket(1)" class="ticket-btn active px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-200 bg-white text-slate-700 shadow-sm">
                             Ticket #1 · Becario Múnich
                         </button>
-                        <button type="button" id="tkt-btn-2" onclick="selectTicket(2)" class="ticket-btn px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        <button type="button" id="tkt-btn-2" onclick="selectTicket(2)" class="ticket-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-200 bg-white text-slate-700 shadow-sm">
                             Ticket #2 · Impresora Línea 2
                         </button>
-                        <button type="button" id="tkt-btn-3" onclick="selectTicket(3)" class="ticket-btn px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        <button type="button" id="tkt-btn-3" onclick="selectTicket(3)" class="ticket-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-200 bg-white text-slate-700 shadow-sm">
                             Ticket #3 · Corte VPN 00:00 h
                         </button>
-                        <button type="button" id="tkt-btn-4" onclick="selectTicket(4)" class="ticket-btn px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        <button type="button" id="tkt-btn-4" onclick="selectTicket(4)" class="ticket-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-200 bg-white text-slate-700 shadow-sm">
                             Ticket #4 · Caída BBDD ERP
                         </button>
-                        <button type="button" id="tkt-btn-5" onclick="selectTicket(5)" class="ticket-btn px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        <button type="button" id="tkt-btn-5" onclick="selectTicket(5)" class="ticket-btn px-3.5 py-2 rounded-xl text-sm font-bold border border-slate-200 bg-white text-slate-700 shadow-sm">
                             Ticket #5 · Parche PHP CVE
                         </button>
                     </div>
 
                     <!-- Tarjeta del ticket activo -->
-                    <div id="ticket-display" class="rounded-2xl border-2 border-slate-200 bg-slate-50 p-5 flex-grow flex flex-col">
+                    <div id="ticket-display" class="rounded-2xl border-2 border-slate-200 bg-white p-5 sm:p-6 flex-grow flex flex-col">
                         <!-- JS -->
                     </div>
                 </div>
 
                 <!-- Columna derecha (5 cols): Calculadora interactiva de Prioridad (Impacto x Urgencia) -->
-                <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                <div class="lg:col-span-5 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
                     <span class="inline-block self-start text-xs font-bold uppercase tracking-wider bg-indigo-100 text-indigo-900 px-3 py-1 rounded-full mb-2">
                         Calculadora ISO 20000 / ITIL (Tema 5.08.1)
                     </span>
-                    <h3 class="text-base md:text-lg font-extrabold text-slate-900 mb-2">
+                    <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 mb-2">
                         🧮 Matriz de priorización: $\text{Impacto} \times \text{Urgencia}$
                     </h3>
-                    <p class="text-xs text-slate-600 mb-4 leading-relaxed">
-                        En un <em>Service Desk</em> profesional no atiende antes «quien más grita por teléfono». La <strong>Prioridad</strong> se calcula cruzando dos variables objetivas:
+                    <p class="text-sm sm:text-base text-slate-600 mb-4 leading-relaxed">
+                        En un <em>Service Desk</em> profesional no se atiende antes a «quien más grita por teléfono». La <strong>Prioridad</strong> se calcula cruzando dos variables objetivas:
                     </p>
 
-                    <div class="space-y-3 mb-4">
+                    <div class="space-y-4 mb-5">
                         <div>
-                            <label for="calc-impact" class="block text-xs font-bold text-slate-700 mb-1">
+                            <label for="calc-impact" class="block text-sm font-bold text-slate-800 mb-1.5">
                                 1. Impacto en el negocio (usuarios / procesos VBF afectados):
                             </label>
-                            <select id="calc-impact" onchange="updatePriorityCalc()" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800">
-                                <option value="3">Alto (3) · Planta parada, múltiples sedes o servicio crítico VBF caído</option>
-                                <option value="2" selected>Medio (2) · Un departamento o línea afectada con alternativa parcial</option>
+                            <select id="calc-impact" onchange="updatePriorityCalc()" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm sm:text-base font-semibold text-slate-800">
+                                <option value="3">Alto (3) · Planta parada, múltiples sedes o servicio VBF caído</option>
+                                <option value="2" selected>Medio (2) · Un departamento o línea afectada con alternativa</option>
                                 <option value="1">Bajo (1) · Un único usuario afectado en tarea no crítica</option>
                             </select>
                         </div>
 
                         <div>
-                            <label for="calc-urgency" class="block text-xs font-bold text-slate-700 mb-1">
+                            <label for="calc-urgency" class="block text-sm font-bold text-slate-800 mb-1.5">
                                 2. Urgencia temporal (margen antes de causar daño grave):
                             </label>
-                            <select id="calc-urgency" onchange="updatePriorityCalc()" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800">
-                                <option value="3">Alta (3) · Inmediata (camión en muelle, examen en curso, brecha activa)</option>
+                            <select id="calc-urgency" onchange="updatePriorityCalc()" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm sm:text-base font-semibold text-slate-800">
+                                <option value="3">Alta (3) · Inmediata (camión en muelle, examen, brecha activa)</option>
                                 <option value="2" selected>Media (2) · Puede esperar unas horas sin paralizar el negocio</option>
                                 <option value="1">Baja (1) · Planificable en días (solicitud estándar o mejora)</option>
                             </select>
                         </div>
                     </div>
 
-                    <div id="priority-calc-output" class="rounded-xl p-4 border-2 mt-auto">
+                    <div id="priority-calc-output" class="rounded-xl p-5 border-2 mt-auto">
                         <!-- JS -->
                     </div>
                 </div>
 
             </div>
 
-            <div class="mt-auto flex justify-between items-center">
-                <button type="button" onclick="switchTab(1)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
+            <div class="mt-4 flex flex-wrap justify-between items-center gap-3">
+                <button type="button" onclick="switchTab(1)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm sm:text-base font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
                     ← Anterior: Flujo de extremo a extremo
                 </button>
-                <button type="button" onclick="switchTab(3)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
-                    Siguiente fase: Comité CAB / ECAB y arquitectura CMDB en Notion →
+                <button type="button" onclick="switchTab(3)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold px-5 py-3 rounded-xl shadow transition-colors">
+                    Siguiente fase: Comité de cambios CAB / ECAB →
                 </button>
             </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- PESTAÑA 3: COMITÉ CAB Y CMDB EN NOTION     -->
+        <!-- PESTAÑA 3: COMITÉ DE CAMBIOS CAB / ECAB    -->
         <!-- ========================================== -->
-        <section id="tab-panel-3" class="fade-in flex-grow flex flex-col hidden">
+        <section id="tab-panel-3" class="fade-in flex flex-col hidden">
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
 
-                <!-- Bloque izquierdo: Simulación del Comité CAB / ECAB (Sesión 5 · Actividad 2) -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
-                    <div class="flex items-center justify-between gap-2 mb-3">
+                <!-- Columna izquierda (7 cols): Simulador de auditoría CAB (Sesión 5 · Actividad 2) -->
+                <div class="lg:col-span-7 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                         <span class="text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-900 px-3 py-1 rounded-full">
-                            Sesión 5 · Actividad 2 · Role-play CAB / ECAB
+                            Sesión 5 · Actividad 2 · Role-play del Comité CAB / ECAB
                         </span>
                         <span class="text-xs font-semibold text-slate-500">Cláusulas 5.9.2 y 5.10</span>
                     </div>
-                    <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mb-2">
+                    <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">
                         👷 El Comité de Cambios (CAB): ¿autorizas o rechazas el pase a producción?
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
+                    <p class="text-sm sm:text-base text-slate-600 mb-5 leading-relaxed">
                         El <strong>80 % de las caídas graves de TI</strong> están provocadas por cambios mal probados o improvisados por los propios técnicos. Antes de aprobar cualquier <strong>RFC (<em>Request for Change</em>)</strong> en el calendario <strong>FSC</strong>, el Gestor del Cambio y el <strong>CAB</strong> verifican estos 5 requisitos obligatorios (marca cada casilla para auditar la RFC):
                     </p>
 
-                    <div class="space-y-2.5 mb-4 text-xs sm:text-sm">
-                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
-                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                    <div class="space-y-3 mb-5 text-sm sm:text-base">
+                        <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-1 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                             <span><strong>1. Activo (CI) e impacto identificados en la CMDB:</strong> Sabemos exactamente qué servidor/software se toca y qué servicios del catálogo dependen de él.</span>
                         </label>
-                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
-                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                        <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-1 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                             <span><strong>2. Pruebas superadas en entorno preproductivo (5.10):</strong> La entrega (<em>Release</em> en la DSL) ha superado las pruebas funcionales y de carga sin errores.</span>
                         </label>
-                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
-                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                        <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-1 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                             <span><strong>3. Ventana de cambio y PSA (<em>Projected Service Availability</em>):</strong> La ventana elegida en el calendario <strong>FSC</strong> respeta el SLA con el negocio (p. ej., domingo a las 02:00 h).</span>
                         </label>
-                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
-                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                        <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-1 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                             <span><strong>4. Plan de marcha atrás (<em>Rollback</em>) probado:</strong> Si a mitad del despliegue algo falla, existe un procedimiento cronometrado (<em>snapshot</em> / versión anterior en DSL) para revertir en minutos.</span>
                         </label>
-                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
-                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                        <label class="flex items-start gap-3 p-4 rounded-xl border border-slate-200 bg-white cursor-pointer hover:bg-slate-50 transition-colors shadow-sm">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-1 h-5 w-5 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
                             <span><strong>5. Revisión Post-Implementación (PIR) programada:</strong> Se comprobará tras el cambio que el problema raíz quedó erradicado y se actualizará la CMDB.</span>
                         </label>
                     </div>
 
-                    <div id="cab-verdict-box" class="rounded-xl p-4 border-2 mt-auto">
+                    <div id="cab-verdict-box" class="rounded-xl p-5 border-2 mt-auto">
                         <!-- JS -->
                     </div>
                 </div>
 
-                <!-- Bloque derecho: Arquitectura CMDB de 3 capas para el Taller Notion II (Sesión 5 · Actividad 3 y Sesión 6) -->
-                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
-                    <div class="flex items-center justify-between gap-2 mb-3">
-                        <span class="text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-900 px-3 py-1 rounded-full">
-                            Puente hacia la Sesión 6 · Taller Notion II (SGSI + SGSTI)
-                        </span>
-                        <span class="text-xs font-semibold text-slate-500">Cláusula 5.9.1</span>
-                    </div>
-                    <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mb-2">
-                        🗺️ Arquitectura de la CMDB en 3 capas: relación reflexiva en Notion
-                    </h2>
-                    <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
-                        En el <strong>Taller Notion II</strong> transformaréis vuestro inventario de activos del Tema 4 en una verdadera <strong>CMDB</strong> creando una relación reflexiva bidireccional (<code>Depende de</code> ⟷ <code>Soporta a</code>). Haz clic en cualquier capa para simular cómo se propaga un fallo o cómo se analiza el impacto de una RFC:
+                <!-- Columna derecha (5 cols): Las 3 vías de cambio en ISO 20000 / ITIL -->
+                <div class="lg:col-span-5 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                    <span class="inline-block self-start text-xs font-bold uppercase tracking-wider bg-blue-100 text-blue-900 px-3 py-1 rounded-full mb-2">
+                        Agilidad vs. Rigurosidad (Tema 5.09.2)
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 mb-2">
+                        ⚖️ Las 3 vías de autorización de un cambio
+                    </h3>
+                    <p class="text-sm sm:text-base text-slate-600 mb-4 leading-relaxed">
+                        Gestión del Cambio no busca paralizar TI con burocracia, sino adaptar el rigor de aprobación al nivel de riesgo:
                     </p>
 
-                    <div class="space-y-3 mb-4">
-                        <!-- Capa 3: Servicios de Negocio -->
-                        <div id="cmdb-layer-3" onclick="selectCmdbLayer(3)" class="cursor-pointer rounded-xl border-2 border-blue-400 bg-blue-50 p-3.5 transition-all">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2 py-0.5 rounded-full">Capa 3 · Catálogo de servicios (SLA)</span>
-                                <span class="text-xs font-bold text-blue-800">Depende de Capa 2 ↓</span>
+                    <div class="space-y-4 flex-grow">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold uppercase tracking-wider bg-slate-200 text-slate-800 px-2.5 py-0.5 rounded-full">1. Cambio estándar (Preaprobado)</span>
+                                <span class="text-lg">🟢</span>
                             </div>
-                            <p class="text-sm font-extrabold text-slate-900 mt-1">🏢 Servicio ERP de expediciones y logística (Keraben) / Aula Virtual (UJI)</p>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mt-1">
+                                <strong>Bajo riesgo, repetitivo y documentado</strong> (p. ej., instalar un PC nuevo o dar de alta un buzón). No pasa cada vez por el CAB: se tramita directamente como petición de servicio.
+                            </p>
                         </div>
 
-                        <div class="text-center text-xs font-bold text-slate-400">⬆️ <code>Soporta a</code> &nbsp;|&nbsp; <code>Depende de</code> ⬇️</div>
-
-                        <!-- Capa 2: Activos Lógicos / Software / Datos -->
-                        <div id="cmdb-layer-2" onclick="selectCmdbLayer(2)" class="cursor-pointer rounded-xl border-2 border-purple-400 bg-purple-50 p-3.5 transition-all">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">Capa 2 · CIs lógicos, BBDD y software (DSL)</span>
-                                <span class="text-xs font-bold text-purple-800">Instalado en Capa 1 ↓</span>
+                        <div class="bg-white p-4 rounded-xl border border-emerald-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-900 px-2.5 py-0.5 rounded-full">2. Cambio normal (RFC + CAB)</span>
+                                <span class="text-lg">🟡</span>
                             </div>
-                            <p class="text-sm font-extrabold text-slate-900 mt-1">🗄️ Clúster Base de Datos Oracle / Motor PHP Moodle + Datos RGPD</p>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mt-1">
+                                <strong>Cambio no trivial sobre un CI de producción</strong> (p. ej., actualizar el motor Oracle o reprogramar backups). Requiere RFC completa, evaluación del <strong>CAB</strong>, ventana en el calendario <strong>FSC</strong> y plan de <em>rollback</em>.
+                            </p>
                         </div>
 
-                        <div class="text-center text-xs font-bold text-slate-400">⬆️ <code>Soporta a</code> &nbsp;|&nbsp; <code>Depende de</code> ⬇️</div>
-
-                        <!-- Capa 1: Infraestructura Física / Virtual -->
-                        <div id="cmdb-layer-1" onclick="selectCmdbLayer(1)" class="cursor-pointer rounded-xl border-2 border-amber-400 bg-amber-50 p-3.5 transition-all">
-                            <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full">Capa 1 · CIs de infraestructura física / virtual (DHS)</span>
-                                <span class="text-xs font-bold text-amber-800">Base física en CPD</span>
+                        <div class="bg-white p-4 rounded-xl border border-rose-200 shadow-sm">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-bold uppercase tracking-wider bg-rose-100 text-rose-900 px-2.5 py-0.5 rounded-full">3. Cambio de emergencia (ECAB)</span>
+                                <span class="text-lg">🔴</span>
                             </div>
-                            <p class="text-sm font-extrabold text-slate-900 mt-1">🖧 Servidor Host VMware ESXi-01 + Cabina SAN Fibra + Switch Core</p>
+                            <p class="text-sm sm:text-base text-slate-700 leading-relaxed mt-1">
+                                <strong>Resolución de un Incidente Mayor P1 o brecha 0-day activa</strong> (Ticket #5). El comité de emergencia (<strong>ECAB</strong>) lo autoriza por vía rápida con pruebas esenciales y <em>snapshot</em> previo, difiriendo la documentación administrativa al cierre (PIR).
+                            </p>
                         </div>
-                    </div>
-
-                    <div id="cmdb-layer-detail" class="rounded-xl p-4 bg-slate-900 text-white text-xs sm:text-sm leading-relaxed mt-auto">
-                        <!-- JS -->
                     </div>
                 </div>
 
             </div>
 
-            <div class="mt-auto flex flex-wrap justify-between items-center gap-3">
-                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
+            <div class="mt-4 flex flex-wrap justify-between items-center gap-3">
+                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm sm:text-base font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
                     ← Anterior: Simulador de triaje (5 tickets)
                 </button>
-                <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-xl">
+                <button type="button" onclick="switchTab(4)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold px-5 py-3 rounded-xl shadow transition-colors">
+                    Siguiente fase: Arquitectura CMDB en 3 capas (Notion) →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 4: ARQUITECTURA CMDB EN 3 CAPAS    -->
+        <!-- ========================================== -->
+        <section id="tab-panel-4" class="fade-in flex flex-col hidden">
+
+            <div class="bg-slate-50 rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 mb-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-900 px-3 py-1 rounded-full">
+                        Sesión 5 · Actividad 3 y puente hacia la Sesión 6 · Taller Notion II (SGSI + SGSTI)
+                    </span>
+                    <span class="text-xs font-semibold text-slate-500">Cláusula 5.9.1 · Gestión de la configuración</span>
+                </div>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">
+                    🗺️ Arquitectura de la CMDB en 3 capas: relación reflexiva en Notion
+                </h2>
+                <p class="text-sm sm:text-base text-slate-600 mb-6 leading-relaxed">
+                    En el <strong>Taller Notion II</strong> transformaréis vuestro inventario de activos del Tema 4 en una verdadera <strong>CMDB</strong> creando una relación reflexiva bidireccional (<code>Depende de</code> ⟷ <code>Soporta a</code>). Haz clic en cualquiera de las 3 capas para simular cómo se propaga un fallo o cómo se analiza el impacto de una RFC:
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+                    <!-- Columna izquierda (6 cols): Las 3 capas interactivas -->
+                    <div class="lg:col-span-6 space-y-3 flex flex-col justify-center">
+                        <!-- Capa 3: Servicios de Negocio -->
+                        <div id="cmdb-layer-3" onclick="selectCmdbLayer(3)" class="cursor-pointer rounded-2xl border-2 border-blue-400 bg-blue-50 p-5 transition-all shadow-sm hover:shadow">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                                <span class="text-xs font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">Capa 3 · Catálogo de servicios (SLA)</span>
+                                <span class="text-xs font-bold text-blue-800">Depende de Capa 2 ↓</span>
+                            </div>
+                            <p class="text-base sm:text-lg font-extrabold text-slate-900">🏢 Servicio ERP de expediciones y logística (Keraben) / Aula Virtual (UJI)</p>
+                        </div>
+
+                        <div class="text-center text-sm font-bold text-slate-500 py-0.5">⬆️ <code>Soporta a</code> (Análisis de impacto) &nbsp;|&nbsp; <code>Depende de</code> (Causa raíz) ⬇️</div>
+
+                        <!-- Capa 2: Activos Lógicos / Software / Datos -->
+                        <div id="cmdb-layer-2" onclick="selectCmdbLayer(2)" class="cursor-pointer rounded-2xl border-2 border-purple-400 bg-purple-50 p-5 transition-all shadow-sm hover:shadow">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                                <span class="text-xs font-extrabold uppercase tracking-wider bg-purple-200 text-purple-900 px-2.5 py-0.5 rounded-full">Capa 2 · CIs lógicos, BBDD y software (DSL)</span>
+                                <span class="text-xs font-bold text-purple-800">Instalado en Capa 1 ↓</span>
+                            </div>
+                            <p class="text-base sm:text-lg font-extrabold text-slate-900">🗄️ Clúster Base de Datos Oracle / Motor PHP Moodle + Datos RGPD</p>
+                        </div>
+
+                        <div class="text-center text-sm font-bold text-slate-500 py-0.5">⬆️ <code>Soporta a</code> (Análisis de impacto) &nbsp;|&nbsp; <code>Depende de</code> (Causa raíz) ⬇️</div>
+
+                        <!-- Capa 1: Infraestructura Física / Virtual -->
+                        <div id="cmdb-layer-1" onclick="selectCmdbLayer(1)" class="cursor-pointer rounded-2xl border-2 border-amber-400 bg-amber-50 p-5 transition-all shadow-sm hover:shadow">
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+                                <span class="text-xs font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Capa 1 · Infraestructura física y virtual (DHS)</span>
+                                <span class="text-xs font-bold text-amber-800">Base física en CPD</span>
+                            </div>
+                            <p class="text-base sm:text-lg font-extrabold text-slate-900">🖧 Servidor Host VMware ESXi-01 + Cabina SAN Fibra + Switch Core</p>
+                        </div>
+                    </div>
+
+                    <!-- Columna derecha (6 cols): Panel de inspección de la capa seleccionada -->
+                    <div id="cmdb-layer-detail" class="lg:col-span-6 rounded-2xl p-6 sm:p-7 bg-slate-900 text-white text-sm sm:text-base leading-relaxed flex flex-col justify-between shadow-md">
+                        <!-- JS -->
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mt-4 flex flex-wrap justify-between items-center gap-3">
+                <button type="button" onclick="switchTab(3)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm sm:text-base font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
+                    ← Anterior: Comité de cambios CAB / ECAB
+                </button>
+                <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-900 border border-emerald-300 text-sm sm:text-base font-extrabold px-5 py-3 rounded-xl">
                     🎉 Fin del recorrido interactivo T5 · Listos para el Taller Notion II (SGSTI)
                 </div>
             </div>
         </section>
 
-        <!-- Barra de navegación secuencial inferior entre SPAs (oculta en Google Sites) -->
+        <!-- Navegación secuencial entre SPAs (oculta cuando se embebe en Google Sites) -->
         <nav aria-label="Navegación entre módulos" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 hide-in-embed">
-            <a href="Fallos%20vs.%20desastres.html" class="justify-self-center sm:justify-self-start inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all">
-                ← 06. Disponibilidad vs. continuidad (DRP)
+            <a href="Fallos%20vs.%20desastres.html" class="justify-self-center sm:justify-self-start inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all">
+                ← Anterior: Disponibilidad vs. continuidad
             </a>
-            <a href="../index.html" class="justify-self-center inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-blue-50 px-4 py-2.5 rounded-xl border border-slate-200 transition-all">
+            <a href="../index.html" class="justify-self-center inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-blue-700 bg-slate-50 hover:bg-blue-50 px-4 py-2 rounded-xl border border-slate-200 transition-colors">
                 📋 Volver al índice general
             </a>
-            <span class="justify-self-center sm:justify-self-end inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-4 py-2.5 rounded-xl">
+            <span class="justify-self-center sm:justify-self-end inline-flex items-center gap-2 text-sm font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-4 py-2.5 rounded-xl">
                 Fin T5 · Taller Notion II · SGSTI ✓
             </span>
         </nav>
+
+        <!-- Pie académico -->
+        <footer class="mt-8 pt-4 border-t border-slate-100 text-center text-xs text-slate-400">
+            EI1044 · Sistemas de Información · Tema 5: Metodologías de gestión de los servicios informáticos · Universitat Jaume I
+        </footer>
 
     </main>
 
@@ -508,7 +582,7 @@
 
         function switchTab(tabNumber) {
             currentTab = tabNumber;
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 1; i <= 4; i++) {
                 const panel = document.getElementById('tab-panel-' + i);
                 const btn = document.getElementById('tab-btn-' + i);
                 if (i === tabNumber) {
@@ -523,7 +597,7 @@
 
         document.addEventListener('keydown', function(e) {
             if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-            if (e.key === 'ArrowRight' && currentTab < 3) {
+            if (e.key === 'ArrowRight' && currentTab < 4) {
                 switchTab(currentTab + 1);
             } else if (e.key === 'ArrowLeft' && currentTab > 1) {
                 switchTab(currentTab - 1);
@@ -607,15 +681,15 @@
 
             document.getElementById('step-detail-panel').innerHTML = `
                 <div class="fade-in">
-                    <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2 ${c.badge}">
+                    <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3 ${c.badge}">
                         ${d.badge}
                     </span>
-                    <h3 class="text-xl md:text-2xl font-extrabold text-slate-900 mb-2">${d.title}</h3>
-                    <p class="text-sm md:text-base text-slate-700 mb-4">${d.mission}</p>
-                    <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700 mb-5 leading-relaxed">
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-3">${d.title}</h3>
+                    <p class="text-base sm:text-lg text-slate-700 mb-4 leading-relaxed">${d.mission}</p>
+                    <ul class="list-disc list-outside pl-5 space-y-2.5 text-sm sm:text-base text-slate-700 mb-5 leading-relaxed">
                         ${pointsHtml}
                     </ul>
-                    <div class="p-4 rounded-xl border ${c.quote} text-xs sm:text-sm italic font-medium">
+                    <div class="p-4 rounded-xl border ${c.quote} text-sm sm:text-base italic font-medium">
                         ${d.quote}
                     </div>
                 </div>
@@ -646,10 +720,10 @@
             },
             3: {
                 caller: 'Alerta automática de monitorización + queja del equipo de exportación',
-                time: '09:10 h · Canal: Panel de control y histórico de tickets',
+                time: '09:10 h · Canal: Panel de control e histórico de tickets',
                 title: '«Anoche a las 00:00 h se volvió a cortar el túnel VPN entre las delegaciones internacionales y la sede central durante 12 minutos. Ya es la cuarta vez este mes que ocurre exactamente a medianoche y se resuelve solo al reiniciarse el proceso.»',
                 question: 'Hoy a las 09:10 h la VPN funciona perfectamente. ¿Debemos cerrar el ticket y olvidarnos, o qué proceso de ISO 20000 debemos abrir?',
-                verdictType: 'apertura de un Problema para Análisis de Causa Raíz (RCA · Cláusula 5.8.2)',
+                verdictType: 'Apertura de un Problema para Análisis de Causa Raíz (RCA · Cláusula 5.8.2)',
                 priority: 'Prioridad Media de investigación (Impacto 2 × Urgencia 2 · El servicio ahora está arriba, pero el fallo es recurrente)',
                 escalation: 'Escalado funcional a 2.ª línea (Administración de Redes y Sistemas) bajo Gestión del Problema.',
                 explanation: 'Los cuatro cortes individuales fueron <em>incidentes</em> ya cerrados. Como la causa subyacente es desconocida y se repite con un patrón horario (colisión con la tarea programada de copia de seguridad a las 00:00 h que satura la interfaz del cortafuegos), se abre un <strong>Problema</strong> para investigar la causa raíz, documentar el <strong>Error Conocido en la KEDB</strong> y pedir una <strong>RFC</strong> que reprograma la ventana de backup.'
@@ -683,25 +757,25 @@
             const t = ticketsData[num];
             document.getElementById('ticket-display').innerHTML = `
                 <div class="fade-in flex flex-col flex-grow">
-                    <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 mb-2">
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500 mb-3">
                         <span class="font-bold text-slate-700">👤 Remitente: ${t.caller}</span>
                         <span>🕒 ${t.time}</span>
                     </div>
-                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-4">
-                        <p class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">${t.title}</p>
+                    <div class="bg-slate-50 p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm mb-4">
+                        <p class="text-base sm:text-lg font-extrabold text-slate-900 leading-snug">${t.title}</p>
                     </div>
-                    <p class="text-xs sm:text-sm font-semibold text-indigo-900 bg-indigo-50 border border-indigo-200 rounded-xl p-3 mb-4">
+                    <p class="text-sm sm:text-base font-semibold text-indigo-900 bg-indigo-50 border border-indigo-200 rounded-xl p-4 mb-4">
                         🤔 <strong>Pregunta para el aula:</strong> ${t.question}
                     </p>
                     <div class="mt-auto">
-                        <button type="button" onclick="toggleTicketSpoiler()" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
+                        <button type="button" onclick="toggleTicketSpoiler()" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm sm:text-base font-bold px-5 py-2.5 rounded-xl transition-colors">
                             💡 Mostrar dictamen de triaje y escalado (Ticket #${num})
                         </button>
-                        <div id="ticket-spoiler-box" class="hidden mt-4 pt-4 border-t border-slate-300 space-y-2 text-xs sm:text-sm text-slate-800 fade-in">
+                        <div id="ticket-spoiler-box" class="hidden mt-4 pt-4 border-t border-slate-300 space-y-2.5 text-sm sm:text-base text-slate-800 fade-in">
                             <p><strong class="text-slate-950">🏷️ Clasificación ISO 20000:</strong> <span class="font-bold text-indigo-700">${t.verdictType}</span></p>
                             <p><strong class="text-slate-950">🚦 Prioridad calculada:</strong> ${t.priority}</p>
                             <p><strong class="text-slate-950">🚀 Ruta de escalado:</strong> ${t.escalation}</p>
-                            <p class="leading-relaxed bg-white p-3 rounded-lg border border-slate-200 mt-2">${t.explanation}</p>
+                            <p class="leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-200 mt-2">${t.explanation}</p>
                         </div>
                     </div>
                 </div>
@@ -720,32 +794,32 @@
 
             const out = document.getElementById('priority-calc-output');
             if (score >= 9) {
-                out.className = 'rounded-xl p-4 border-2 bg-rose-50 border-rose-400 text-rose-950 mt-auto fade-in';
+                out.className = 'rounded-xl p-5 border-2 bg-rose-50 border-rose-400 text-rose-950 mt-auto fade-in';
                 out.innerHTML = `
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-rose-200 text-rose-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 1 (Crítica)</span>
-                    <h4 class="text-base font-extrabold mt-1.5">🚨 Prioridad P1 · Incidente Mayor</h4>
-                    <p class="text-xs mt-1 leading-relaxed">Atención inmediata 24×7. Objetivo SLA de resolución &lt; 2–4 h. Requiere <strong>escalado funcional inmediato (N2/N3)</strong> y <strong>escalado jerárquico al CIO</strong>.</p>
+                    <span class="text-xs font-extrabold uppercase tracking-wider bg-rose-200 text-rose-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 1 (Crítica)</span>
+                    <h4 class="text-lg font-extrabold mt-2">🚨 Prioridad P1 · Incidente Mayor</h4>
+                    <p class="text-sm sm:text-base mt-1.5 leading-relaxed">Atención inmediata 24×7. Objetivo SLA de resolución &lt; 2–4 h. Requiere <strong>escalado funcional inmediato (N2/N3)</strong> y <strong>escalado jerárquico al CIO</strong>.</p>
                 `;
             } else if (score >= 6) {
-                out.className = 'rounded-xl p-4 border-2 bg-amber-50 border-amber-400 text-amber-950 mt-auto fade-in';
+                out.className = 'rounded-xl p-5 border-2 bg-amber-50 border-amber-400 text-amber-950 mt-auto fade-in';
                 out.innerHTML = `
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 2 (Alta)</span>
-                    <h4 class="text-base font-extrabold mt-1.5">🔥 Prioridad P2 · Atención preferente</h4>
-                    <p class="text-xs mt-1 leading-relaxed">Afecta seriamente a una línea operativa o tiene alta urgencia temporal (p. ej., camión en muelle). Aplicación inmediata de <em>workaround</em> en KEDB o escalado a N2 en &lt; 30 min.</p>
+                    <span class="text-xs font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 2 (Alta)</span>
+                    <h4 class="text-lg font-extrabold mt-2">🔥 Prioridad P2 · Atención preferente</h4>
+                    <p class="text-sm sm:text-base mt-1.5 leading-relaxed">Afecta seriamente a una línea operativa o tiene alta urgencia temporal (p. ej., camión en muelle). Aplicación inmediata de <em>workaround</em> en KEDB o escalado a N2 en &lt; 30 min.</p>
                 `;
             } else if (score >= 3) {
-                out.className = 'rounded-xl p-4 border-2 bg-blue-50 border-blue-300 text-blue-950 mt-auto fade-in';
+                out.className = 'rounded-xl p-5 border-2 bg-blue-50 border-blue-300 text-blue-950 mt-auto fade-in';
                 out.innerHTML = `
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 3 (Media)</span>
-                    <h4 class="text-base font-extrabold mt-1.5">⏱️ Prioridad P3 · Cola operativa normal</h4>
-                    <p class="text-xs mt-1 leading-relaxed">Resolución dentro de la jornada laboral (SLA 8 h – 24 h) por orden de llegada sin interrumpir a los técnicos dedicados a incidentes P1/P2.</p>
+                    <span class="text-xs font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 3 (Media)</span>
+                    <h4 class="text-lg font-extrabold mt-2">⏱️ Prioridad P3 · Cola operativa normal</h4>
+                    <p class="text-sm sm:text-base mt-1.5 leading-relaxed">Resolución dentro de la jornada laboral (SLA 8 h – 24 h) por orden de llegada sin interrumpir a los técnicos dedicados a incidentes P1/P2.</p>
                 `;
             } else {
-                out.className = 'rounded-xl p-4 border-2 bg-slate-100 border-slate-300 text-slate-900 mt-auto fade-in';
+                out.className = 'rounded-xl p-5 border-2 bg-white border-slate-300 text-slate-900 mt-auto fade-in';
                 out.innerHTML = `
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-slate-200 text-slate-800 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 4 (Baja / Planificada)</span>
-                    <h4 class="text-base font-extrabold mt-1.5">📋 Prioridad P4 · Petición o consulta estándar</h4>
-                    <p class="text-xs mt-1 leading-relaxed">Típica de peticiones de usuario (altas de cuentas, consultas, instalación de software estándar). Se resuelve según el flujo programado del catálogo (24 h – 72 h).</p>
+                    <span class="text-xs font-extrabold uppercase tracking-wider bg-slate-200 text-slate-800 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 4 (Baja / Planificada)</span>
+                    <h4 class="text-lg font-extrabold mt-2">📋 Prioridad P4 · Petición o consulta estándar</h4>
+                    <p class="text-sm sm:text-base mt-1.5 leading-relaxed">Típica de peticiones de usuario (altas de cuentas, consultas, instalación de software estándar). Se resuelve según el flujo programado del catálogo (24 h – 72 h).</p>
                 `;
             }
         }
@@ -757,18 +831,18 @@
 
             const box = document.getElementById('cab-verdict-box');
             if (checkedCount === 5) {
-                box.className = 'rounded-xl p-4 border-2 bg-emerald-50 border-emerald-400 text-emerald-950 mt-auto fade-in';
+                box.className = 'rounded-xl p-5 border-2 bg-emerald-50 border-emerald-400 text-emerald-950 mt-auto fade-in';
                 box.innerHTML = `
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full">Dictamen del CAB: 5/5 verificados</span>
-                    <h4 class="text-sm sm:text-base font-extrabold mt-1">✅ RFC APROBADA e inscrita en el calendario FSC</h4>
-                    <p class="text-xs mt-1 leading-relaxed">El cambio cuenta con trazabilidad en la CMDB, paquete validado en la biblioteca <strong>DSL</strong>, ventana pactada sin dañar el <strong>PSA</strong> y <strong>plan de marcha atrás (<em>Rollback</em>)</strong> listo. Puede desplegarse en producción.</p>
+                    <span class="text-xs font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full">Dictamen del CAB: 5/5 verificados</span>
+                    <h4 class="text-lg font-extrabold mt-2">✅ RFC APROBADA e inscrita en el calendario FSC</h4>
+                    <p class="text-sm sm:text-base mt-1.5 leading-relaxed">El cambio cuenta con trazabilidad en la CMDB, paquete validado en la biblioteca <strong>DSL</strong>, ventana pactada sin dañar el <strong>PSA</strong> y <strong>plan de marcha atrás (<em>Rollback</em>)</strong> listo. Puede desplegarse en producción.</p>
                 `;
             } else {
-                box.className = 'rounded-xl p-4 border-2 bg-amber-50 border-amber-300 text-amber-950 mt-auto fade-in';
+                box.className = 'rounded-xl p-5 border-2 bg-amber-50 border-amber-300 text-amber-950 mt-auto fade-in';
                 box.innerHTML = `
-                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Dictamen del CAB: ${checkedCount}/5 requisitos verificados</span>
-                    <h4 class="text-sm sm:text-base font-extrabold mt-1">✋ RFC RETENIDA · No autorizar el pase a producción</h4>
-                    <p class="text-xs mt-1 leading-relaxed">Faltan ${5 - checkedCount} garantías críticas. Desplegar sin evaluar el impacto en la CMDB o sin probar el <em>Rollback</em> convierte el cambio en una ruleta rusa para los SLA del negocio.</p>
+                    <span class="text-xs font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Dictamen del CAB: ${checkedCount}/5 requisitos verificados</span>
+                    <h4 class="text-lg font-extrabold mt-2">✋ RFC RETENIDA · No autorizar el pase a producción</h4>
+                    <p class="text-sm sm:text-base mt-1.5 leading-relaxed">Faltan ${5 - checkedCount} garantías críticas. Desplegar sin evaluar el impacto en la CMDB o sin probar el <em>Rollback</em> convierte el cambio en una ruleta rusa para los SLA del negocio.</p>
                 `;
             }
         }
@@ -797,8 +871,15 @@
             const d = cmdbLayerInfo[layerNum];
             document.getElementById('cmdb-layer-detail').innerHTML = `
                 <div class="fade-in">
-                    <p class="font-extrabold text-amber-300 mb-1">${d.title}</p>
-                    <p class="text-slate-200 text-xs leading-relaxed">${d.text}</p>
+                    <span class="inline-block text-xs font-bold uppercase tracking-wider bg-indigo-500/30 text-indigo-200 px-3 py-1 rounded-full mb-3 border border-indigo-400/40">
+                        Inspección de relaciones CMDB en Notion
+                    </span>
+                    <h3 class="text-lg sm:text-xl font-extrabold text-amber-300 mb-3">${d.title}</h3>
+                    <p class="text-slate-200 text-sm sm:text-base leading-relaxed mb-5">${d.text}</p>
+                </div>
+                <div class="pt-4 border-t border-slate-700 text-xs sm:text-sm text-slate-300 space-y-1.5">
+                    <p>💡 <strong>Cómo implementarlo en Notion (Sesión 6):</strong></p>
+                    <p>En la base de datos de Activos/CIs, añade una propiedad <em>Relation</em> apuntando a la <strong>misma base de datos</strong> y activa <em>Separate directions</em>: llama a una dirección <code>Depende de (Capa inferior)</code> y a la inversa <code>Soporta a (Capa superior)</code>.</p>
                 </div>
             `;
         }
@@ -808,7 +889,7 @@
         selectTicket(1);
         updatePriorityCalc();
         updateCabChecklist();
-        selectCmdbLayer(1);
+        selectCmdbLayer(2);
     </script>
 </body>
 </html>
