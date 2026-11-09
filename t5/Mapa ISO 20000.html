@@ -3,216 +3,500 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografía: Mapa de Procesos ISO 20000</title>
+    <title>Mapa de procesos ISO/IEC 20000 y ciclo de nuevos servicios - EI1044</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%2264%22%20height%3D%2264%22%3E%20%3Cdefs%3E%20%3ClinearGradient%20id%3D%22bgGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%231e293b%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22primaryGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%2338bdf8%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%232563eb%22%20/%3E%20%3C/linearGradient%3E%20%3ClinearGradient%20id%3D%22screenGrad%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%20%3Cstop%20offset%3D%220%25%22%20stop-color%3D%22%23090d16%22%20/%3E%20%3Cstop%20offset%3D%22100%25%22%20stop-color%3D%22%230f172a%22%20/%3E%20%3C/linearGradient%3E%20%3Cfilter%20id%3D%22glow%22%20x%3D%22-20%25%22%20y%3D%22-20%25%22%20width%3D%22140%25%22%20height%3D%22140%25%22%3E%20%3CfeGaussianBlur%20stdDeviation%3D%221.5%22%20result%3D%22blur%22%20/%3E%20%3CfeComposite%20in%3D%22SourceGraphic%22%20in2%3D%22blur%22%20operator%3D%22over%22%20/%3E%20%3C/filter%3E%20%3C/defs%3E%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22url%28%23bgGrad%29%22%20/%3E%20%3Crect%20x%3D%221%22%20y%3D%221%22%20width%3D%2262%22%20height%3D%2262%22%20rx%3D%2213%22%20fill%3D%22none%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3Crect%20x%3D%228%22%20y%3D%229%22%20width%3D%2248%22%20height%3D%2238%22%20rx%3D%227%22%20fill%3D%22url%28%23screenGrad%29%22%20stroke%3D%22url%28%23primaryGrad%29%22%20stroke-width%3D%222%22%20/%3E%20%3Cline%20x1%3D%228%22%20y1%3D%2218%22%20x2%3D%2256%22%20y2%3D%2218%22%20stroke%3D%22%231e293b%22%20stroke-width%3D%221.5%22%20/%3E%20%3Ccircle%20cx%3D%2214%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23ef4444%22%20/%3E%20%3Ccircle%20cx%3D%2220%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%23eab308%22%20/%3E%20%3Ccircle%20cx%3D%2226%22%20cy%3D%2213.5%22%20r%3D%221.8%22%20fill%3D%22%2322c55e%22%20/%3E%20%3Cpath%20d%3D%22M%2016%2025%20L%2023%2030.5%20L%2016%2036%22%20fill%3D%22none%22%20stroke%3D%22%2338bdf8%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cline%20x1%3D%2227%22%20y1%3D%2236%22%20x2%3D%2235%22%20y2%3D%2236%22%20stroke%3D%22%2360a5fa%22%20stroke-width%3D%222.5%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2227%22%20r%3D%221.5%22%20fill%3D%22%2338bdf8%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Ccircle%20cx%3D%2248%22%20cy%3D%2233%22%20r%3D%221.5%22%20fill%3D%22%2310b981%22%20filter%3D%22url%28%23glow%29%22%20/%3E%20%3Cpath%20d%3D%22M%2026%2047%20L%2024%2053%20L%2040%2053%20L%2038%2047%20Z%22%20fill%3D%22%231e293b%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.5%22%20/%3E%20%3Crect%20x%3D%2220%22%20y%3D%2253%22%20width%3D%2224%22%20height%3D%222.5%22%20rx%3D%221.2%22%20fill%3D%22%23334155%22%20/%3E%20%3C/svg%3E">
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
         }
-        /* Estilo para términos clave */
+        .is-embedded .hide-in-embed {
+            display: none !important;
+        }
+        .tab-btn.active,
+        .tab-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+        }
+        .filter-chip.active,
+        .filter-chip.active:hover {
+            background-color: #2563eb !important;
+            color: #ffffff !important;
+            border-color: #2563eb !important;
+        }
+        .family-card.active {
+            transform: translateX(4px);
+            box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.14);
+        }
         code {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #e5e7eb; /* bg-gray-200 */
-            color: #b91c1c; /* text-red-700 */
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: 600;
+            border: 1px solid #cbd5e1;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
-    <div class="w-full max-w-6xl bg-white rounded-2xl shadow-2xl p-8">
-        
-        <!-- Título -->
-        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">Mapa de Procesos (ISO/IEC 20000)</h1>
-        <p class="text-center text-lg text-gray-600 mb-10">La agrupación oficial de procesos según la norma.</p>
+<body class="text-slate-800 min-h-screen p-4 sm:p-8">
 
-        <div class="flex flex-col lg:flex-row items-start justify-center gap-8">
-            
-            <!-- Flujo Principal (Vertical) -->
-            <div class="w-full lg:w-3/5 space-y-4">
-                
-                <!-- 1. Procesos de Provisión del Servicio -->
-                <div id="provision" class="relative z-10 p-6 bg-green-50 border-2 border-green-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('provision')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🚀</span>
-                        <h2 class="text-2xl font-bold text-green-800">1. Procesos de Provisión del Servicio</h2>
-                    </div>
-                    <p class="text-gray-700">Definen, configuran y mantienen el servicio. Es el bloque de "planificación y seguros".</p>
-                </div>
+    <main class="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-10">
 
-                <!-- 2. Procesos de Relaciones -->
-                <div id="relaciones" class="relative z-10 p-6 bg-yellow-50 border-2 border-yellow-300 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('relaciones')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🤝</span>
-                        <h2 class="text-2xl font-bold text-yellow-900">2. Procesos de Relaciones</h2>
-                    </div>
-                    <p class="text-gray-700">Gestionan la comunicación con las partes interesadas: clientes (internos) y proveedores (externos).</p>
-                </div>
+        <!-- Cabecera -->
+        <header class="text-center border-b border-slate-200 pb-8 mb-8">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-800 text-xs font-bold uppercase tracking-wider mb-3">
+                <span aria-hidden="true">🗂️</span>
+                <span>Tema 5 · Estructura de UNE-ISO/IEC 20000 y nuevos servicios (Apartados 5.2 y 5.5)</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Mapa de procesos ISO/IEC 20000 y creación de nuevos servicios</h1>
+            <p class="text-slate-600 mt-3 text-base sm:text-lg max-w-3xl mx-auto leading-relaxed">
+                Las 5 familias de procesos operativos de la norma (13 procesos en total) y el flujo de extremo a extremo para planificar, probar y migrar servicios nuevos o modificados.
+            </p>
+        </header>
 
-                <!-- 3. Procesos de Resolución -->
-                <div id="resolucion" class="relative z-10 p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('resolucion')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">👨‍🚒</span>
-                        <h2 class="text-2xl font-bold text-red-800">3. Procesos de Resolución</h2>
-                    </div>
-                    <p class="text-gray-700">Se activan cuando algo falla. Es el "equipo de respuesta" (Bomberos y Detectives).</p>
-                </div>
+        <!-- Barra de pestañas secuenciales -->
+        <nav aria-label="Fases de la sesión" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 bg-slate-100 p-2 rounded-xl border border-slate-200">
+            <button type="button" id="tab-btn-familias" onclick="switchTab('familias')" class="tab-btn active px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all cursor-pointer">
+                1. 🗺️ Las 5 familias de procesos (ISO/IEC 20000)
+            </button>
+            <button type="button" id="tab-btn-nuevos" onclick="switchTab('nuevos')" class="tab-btn px-4 py-2.5 rounded-lg text-xs sm:text-sm font-bold text-slate-700 hover:text-slate-900 transition-all cursor-pointer">
+                2. 🚀 Creación y migración de nuevos servicios (5.5)
+            </button>
+        </nav>
 
-                <!-- 4. Procesos de Control -->
-                <div id="control" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('control')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🛡️</span>
-                        <h2 class="text-2xl font-bold text-purple-800">4. Procesos de Control</h2>
+        <!-- PESTAÑA 1: LAS 5 FAMILIAS DE PROCESOS DE ISO/IEC 20000 -->
+        <section id="tab-familias" class="space-y-8">
+            <!-- Marco envolvente 5.3, 5.4 y 5.5 -->
+            <div class="bg-slate-900 text-slate-100 rounded-2xl p-5 border border-slate-800">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm">
+                    <div class="bg-slate-800/90 p-4 rounded-xl border border-slate-700">
+                        <span class="font-mono font-bold text-sky-400">Apartado 5.3</span>
+                        <h2 class="font-bold text-white text-sm sm:text-base mt-0.5">El sistema de gestión (SGSTI)</h2>
+                        <p class="text-slate-300 mt-1 leading-relaxed">Responsabilidad de la dirección, políticas, gobierno documental y gestión de recursos y competencias.</p>
                     </div>
-                    <p class="text-gray-700">Garantizan la estabilidad, evitando el caos. Son el "control de tráfico" y el "mapa" de TI.</p>
-                </div>
-
-                <!-- 5. Proceso de Entrega -->
-                <div id="entrega" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('entrega')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">📦</span>
-                        <h2 class="text-2xl font-bold text-blue-800">5. Proceso de Entrega</h2>
+                    <div class="bg-slate-800/90 p-4 rounded-xl border border-slate-700">
+                        <span class="font-mono font-bold text-emerald-400">Apartado 5.4</span>
+                        <h2 class="font-bold text-white text-sm sm:text-base mt-0.5">Planificación e implementación (PDCA)</h2>
+                        <p class="text-slate-300 mt-1 leading-relaxed">Implantación, seguimiento, medición y mejora continua de la gestión del servicio.</p>
                     </div>
-                    <p class="text-gray-700">El proceso "ejecutor". Se encarga de poner en producción (desplegar) los cambios aprobados.</p>
+                    <div class="bg-slate-800/90 p-4 rounded-xl border border-slate-700">
+                        <span class="font-mono font-bold text-amber-400">Apartado 5.5</span>
+                        <h2 class="font-bold text-white text-sm sm:text-base mt-0.5">Servicios nuevos o modificados</h2>
+                        <p class="text-slate-300 mt-1 leading-relaxed">Creación, viabilidad (TCO/ROI), pruebas, migración y retirada controlada de servicios (ver Pestaña 2).</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Panel de Información (Lateral) -->
-            <div class="w-full lg:w-2/5 lg:sticky lg:top-8">
-                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-green-500 shadow-inner min-h-[300px]">
-                    <h3 id="info-title" class="text-2xl font-bold text-green-900 mb-3">Haz clic en una familia</h3>
-                    <p id="info-text" class="text-gray-800">Selecciona una familia de procesos para ver qué procesos específicos de la norma ISO 20000 contiene.</p>
-                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-2">
-                        <!-- Contenido dinámico aquí -->
-                    </ul>
+            <!-- Selector interactivo de las 5 familias (Apartados 5.6 a 5.10) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-6 space-y-3.5">
+                    <button type="button" id="fam-provision" onclick="showFamily('provision')" class="family-card active w-full text-left p-5 bg-emerald-50 border-2 border-emerald-600 rounded-2xl transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl" aria-hidden="true">🚀</span>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-emerald-950">1. Procesos de provisión del servicio</h3>
+                            </div>
+                            <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-emerald-200 text-emerald-950">Apartado 5.6 · 6 procesos</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Definen, dimensionan, presupuestan y protegen el servicio para cumplir lo pactado con el negocio.
+                        </p>
+                    </button>
+
+                    <button type="button" id="fam-relaciones" onclick="showFamily('relaciones')" class="family-card w-full text-left p-5 bg-amber-50 border-2 border-amber-200 hover:border-amber-400 rounded-2xl transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl" aria-hidden="true">🤝</span>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-amber-950">2. Procesos de relaciones</h3>
+                            </div>
+                            <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-amber-200 text-amber-950">Apartado 5.7 · 2 procesos</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Regulan los dos extremos de la cadena de provisión: el diálogo con los clientes (negocio) y el control de suministradores externos.
+                        </p>
+                    </button>
+
+                    <button type="button" id="fam-resolucion" onclick="showFamily('resolucion')" class="family-card w-full text-left p-5 bg-rose-50 border-2 border-rose-200 hover:border-rose-400 rounded-2xl transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl" aria-hidden="true">👨‍🚒</span>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-rose-950">3. Procesos de resolución</h3>
+                            </div>
+                            <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-rose-200 text-rose-950">Apartado 5.8 · 2 procesos</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            El equipo de respuesta rápida («bomberos») e investigación de causa raíz («detectives») cuando algo falla o se degrada.
+                        </p>
+                    </button>
+
+                    <button type="button" id="fam-control" onclick="showFamily('control')" class="family-card w-full text-left p-5 bg-purple-50 border-2 border-purple-200 hover:border-purple-400 rounded-2xl transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl" aria-hidden="true">🛡️</span>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-purple-950">4. Procesos de control</h3>
+                            </div>
+                            <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-purple-200 text-purple-950">Apartado 5.9 · 2 procesos</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Aseguran la calidad de la información sobre los componentes (<code>CMDB</code>) y que todo cambio (<code>RFC</code>) se apruebe de forma controlada.
+                        </p>
+                    </button>
+
+                    <button type="button" id="fam-entrega" onclick="showFamily('entrega')" class="family-card w-full text-left p-5 bg-blue-50 border-2 border-blue-200 hover:border-blue-400 rounded-2xl transition-all cursor-pointer">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl" aria-hidden="true">📦</span>
+                                <h3 class="text-lg sm:text-xl font-extrabold text-blue-950">5. Proceso de entrega</h3>
+                            </div>
+                            <span class="text-xs font-mono font-bold px-2.5 py-0.5 rounded bg-blue-200 text-blue-950">Apartado 5.10 · 1 proceso</span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">
+                            Empaqueta, prueba e implanta en el entorno de producción real los cambios previamente autorizados.
+                        </p>
+                    </button>
+                </div>
+
+                <!-- Panel derecho de detalle de procesos -->
+                <div class="lg:col-span-6 lg:sticky lg:top-8">
+                    <div id="fam-panel" class="p-6 bg-slate-50 rounded-2xl border-2 border-emerald-600 shadow-sm space-y-4">
+                        <span id="fam-badge" class="text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded bg-emerald-100 text-emerald-900">Apartado 5.6 · 6 procesos</span>
+                        <h3 id="fam-title" class="text-2xl font-extrabold text-slate-900">1. Procesos de provisión del servicio</h3>
+                        <p id="fam-text" class="text-sm sm:text-base text-slate-700 leading-relaxed"></p>
+                        <div id="fam-list" class="space-y-3"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Pie de página de atribución -->
-        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
-            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
-        </p>
-    </div>
+        <!-- PESTAÑA 2: PLANIFICACIÓN E IMPLEMENTACIÓN DE NUEVOS SERVICIOS (APARTADO 5.5) -->
+        <section id="tab-nuevos" class="hidden space-y-8">
+            <!-- Secuencia de 7 pasos de creación de un servicio (Tema 5.05) -->
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 space-y-6">
+                <div>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-bold uppercase bg-teal-100 text-teal-900 mb-1">Ciclo de vida de creación o modificación (Apartado 5.5)</span>
+                    <h2 class="text-2xl font-bold text-slate-900">De la necesidad del cliente al cierre postimplantación (PIR)</h2>
+                    <p class="text-sm sm:text-base text-slate-600 mt-1 leading-relaxed">
+                        Crear un servicio nuevo o migrar uno existente es crítico porque opera en un tiempo acotado, no puede interrumpir los servicios que ya están en marcha y exige un plan de contingencia para volver atrás si algo falla. Recorre sus 7 hitos documentales:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                        <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">Paso 1 · BRM y Catálogo</span>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base mt-2 mb-1">Diálogo inicial con el cliente</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Arranca en <em>Relaciones con el negocio</em>. Si la necesidad ya está cubierta en el <strong>Catálogo de servicios</strong>, se tramita como una simple solicitud; si no, se captura el <code>SLR</code> para crear o evolucionar el servicio.
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                        <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">Paso 2 · Caso de negocio</span>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base mt-2 mb-1">Viabilidad (TCO y ROI)</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            En inversiones relevantes se elabora el estudio de viabilidad evaluando el impacto en HW, SW base/aplicativo, RR. HH. y organización, calculando el <strong>Coste Total de Propiedad (<code>TCO</code>)</strong> y el <strong>Retorno de Inversión (<code>ROI</code>)</strong>.
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                        <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">Paso 3 · De SLR a SLA</span>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base mt-2 mb-1">Especificación y propuesta</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Se traducen los requisitos del cliente (<code>SLR</code>) en especificaciones técnicas internas y se negocia y firma con el cliente la <strong>Propuesta de servicio</strong> (qué se entrega y cuándo) y el <strong><code>SLA</code></strong> (compromisos habituales).
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                        <span class="text-xs font-mono font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded">Paso 4 · Plan y contingencia</span>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base mt-2 mb-1">Plan de proyecto y OLA/UC</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Define fases, hitos medibles, acuerdos internos (<code>OLA</code>) y contratos externos (<code>UC</code>), calendario (fechas legales, picos críticos) y el <strong>Plan de Contingencia</strong> (especialmente vital en migraciones con datos históricos).
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                        <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Paso 5 · RFC, CAB y FSC</span>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base mt-2 mb-1">Aprobación del cambio</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Se tramita la <strong>Solicitud de Cambio (<code>RFC</code>)</strong> ante Gestión del Cambio. El comité <strong><code>CAB</code></strong> evalúa y aprueba la planificación, incorporándola al calendario de cambios planificados (<strong><code>FSC</code></strong> - <em>Forward Schedule of Change</em>).
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                        <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">Paso 6 · Los 4 tipos de pruebas</span>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base mt-2 mb-1">Construcción y verificación</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Antes de pasar a producción bajo Gestión de Entrega, se superan 4 niveles de pruebas: <strong>1) Unitarias</strong> (módulos aislados), <strong>2) Integración</strong> (y conversión de datos), <strong>3) Aceptación</strong> (por usuarios) y <strong>4) Volumen</strong> (rendimiento).
+                        </p>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm md:col-span-2">
+                        <span class="text-xs font-mono font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded">Paso 7 · Despliegue, formación y revisión postimplantación (PIR)</span>
+                        <h3 class="font-bold text-slate-900 text-sm sm:text-base mt-2 mb-1">Puesta en producción, documentación y cierre formal</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Se actualiza toda la documentación (manuales de usuario, explotación y diseño), se forma a usuarios y técnicos del <em>Service Desk</em>, y tras el paso a producción se ejecuta la <strong>Revisión Postimplantación (<code>PIR</code> - <em>Post Implementation Review</em>)</strong> para contrastar resultados esperados vs. reales (o activar la marcha atrás si hay desviaciones graves) antes de cerrar formalmente la <code>RFC</code> y la <code>SLR</code>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparador interactivo de estrategias de migración (Tema 5.05, págs. 30-33) -->
+            <div class="bg-white border-2 border-slate-200 rounded-2xl p-6 space-y-5 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 pb-4">
+                    <div>
+                        <span class="text-xs font-mono font-bold uppercase text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded">Estrategias de implantación en migraciones (Apartado 5.5)</span>
+                        <h3 class="text-xl font-extrabold text-slate-900 mt-1">¿Cómo apagamos el sistema antiguo y encendemos el nuevo?</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" id="mig-btn-bigbang" onclick="showMigration('bigbang')" class="filter-chip active px-3.5 py-2 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 cursor-pointer">💥 1. Big-bang</button>
+                        <button type="button" id="mig-btn-paralela" onclick="showMigration('paralela')" class="filter-chip px-3.5 py-2 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 cursor-pointer">🔀 2. Operación paralela</button>
+                        <button type="button" id="mig-btn-etapas" onclick="showMigration('etapas')" class="filter-chip px-3.5 py-2 rounded-lg text-xs font-bold border border-slate-300 bg-white text-slate-700 cursor-pointer">🪜 3. Por etapas o iterativa</button>
+                    </div>
+                </div>
+
+                <div id="mig-content" class="grid grid-cols-1 md:grid-cols-3 gap-5"></div>
+            </div>
+
+            <!-- Botón de transición directa a la siguiente SPA -->
+            <div class="flex justify-end pt-2 hide-in-embed">
+                <a href="Contrato%20de%20servicio.html" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition-colors shadow-md">
+                    <span>Siguiente actividad: 05. El flujo del contrato de servicio (SLR, SLA, OLA y UC)</span>
+                    <span aria-hidden="true">→</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Navegación secuencial entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos del tema" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-xs sm:text-sm hide-in-embed">
+            <a href="Ciclo%20PDCA.html" class="justify-self-center sm:justify-self-start px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">← 03. Ciclo PDCA y herramientas</a>
+            <a href="../index.html" class="justify-self-center px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold border border-slate-300 transition-colors">📋 Volver al índice general</a>
+            <a href="Contrato%20de%20servicio.html" class="justify-self-center sm:justify-self-end px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors whitespace-nowrap">05. El contrato de servicio (SLA) →</a>
+        </nav>
+
+        <!-- Pie de página académico -->
+        <footer class="mt-8 pt-6 border-t border-slate-200 text-center text-xs text-slate-500 pb-2">
+            <p class="font-medium text-slate-700">Administración de Sistemas Informáticos (EI1044) · Grado en Ingeniería Informática</p>
+            <p class="mt-1">Universitat Jaume I (UJI) · Curso 2026/2027</p>
+            <p class="mt-1">
+                Autor: <a href="https://www.pablofelip.uji.es" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">Pablo Felip Monferrer</a> · <a href="https://www.uji.es/departaments/lsi/" target="_blank" rel="noopener noreferrer" class="text-slate-600 hover:underline">DLSI</a>
+            </p>
+            <p class="mt-2 text-slate-400">
+                Distribuido bajo licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">CC BY-NC-SA 4.0</a> ·
+                <a href="https://github.com/pfelipm/uji-ei1044" target="_blank" rel="noopener noreferrer" class="underline hover:text-slate-600">Repositorio en GitHub</a>
+            </p>
+        </footer>
+
+    </main>
 
     <script>
-        const infoData = {
-            provision: {
-                title: '1. Procesos de Provisión',
-                text: 'Procesos estratégicos para definir y mantener el servicio.',
-                points: [
-                    'Gestión de Nivel de Servicio (<code>SLA</code>)',
-                    'Gestión de Informes del Servicio',
-                    'Gestión de la Continuidad y Disponibilidad',
-                    'Gestión de Presupuesto y Contabilidad (Financiera)',
-                    'Gestión de la Capacidad',
-                    'Gestión de la Seguridad de la Información'
-                ],
-                color: 'green'
-            },
-            relaciones: {
-                title: '2. Procesos de Relaciones',
-                text: 'Procesos que gestionan la comunicación con Clientes y Proveedores.',
-                points: [
-                    'Gestión de Relaciones con el Negocio (con el <em>Cliente Interno</em>)',
-                    'Gestión de Suministradores (gestiona los <code>UC</code>)'
-                ],
-                color: 'yellow'
-            },
-            resolucion: {
-                title: '3. Procesos de Resolución',
-                text: 'Procesos reactivos y proactivos para gestionar los fallos.',
-                points: [
-                    'Gestión de Incidentes (el "Bombero")',
-                    'Gestión de Problemas (el "Detective")'
-                ],
-                color: 'red'
-            },
-            control: {
-                title: '4. Procesos de Control',
-                text: 'Procesos que garantizan la estabilidad y el control del entorno.',
-                points: [
-                    'Gestión de la Configuración (la <code>CMDB</code> o "Mapa")',
-                    'Gestión del Cambio (el <code>RFC</code> o "Controlador")'
-                ],
-                color: 'purple'
-            },
-            entrega: {
-                title: '5. Proceso de Entrega',
-                text: 'Proceso que ejecuta el despliegue del software en producción.',
-                points: [
-                    'Gestión de la Entrega y Despliegue (ejecuta el <code>RFC</code> aprobado)'
-                ],
-                color: 'blue'
-            }
-        };
+        const tabsOrder = ['familias', 'nuevos'];
+        let currentTabIndex = 0;
 
-        const colors = {
-            provision: 'green',
-            relaciones: 'yellow',
-            resolucion: 'red',
-            control: 'purple',
-            entrega: 'blue'
-        };
-
-        const borderClasses = {
-            provision: 'border-green-500',
-            relaciones: 'border-yellow-500',
-            resolucion: 'border-red-500',
-            control: 'border-purple-500',
-            entrega: 'border-blue-500'
-        };
-        
-        const textClasses = {
-            provision: 'text-green-900',
-            relaciones: 'text-yellow-900',
-            resolucion: 'text-red-900',
-            control: 'text-purple-900',
-            entrega: 'text-blue-900'
-        };
-
-        const allBorderClasses = Object.values(borderClasses);
-        const allTextClasses = Object.values(textClasses);
-
-        const infoPanel = document.getElementById('info-panel');
-        const infoTitle = document.getElementById('info-title');
-        const infoText = document.getElementById('info-text');
-        const infoList = document.getElementById('info-list');
-
-        let currentActive = null;
-
-        function showInfo(phase) {
-            const data = infoData[phase];
-            
-            // Actualizar panel de info
-            infoTitle.innerText = data.title;
-            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
-            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
-
-            // Actualizar estilos del panel
-            infoPanel.classList.remove(...allBorderClasses);
-            infoPanel.classList.add(borderClasses[phase]);
-            
-            infoTitle.classList.remove(...allTextClasses);
-            infoTitle.classList.add(textClasses[phase]);
-
-            // Gestionar resaltado de la tarjeta
-            if (currentActive) {
-                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
-                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
-            }
-            
-            const activeCard = document.getElementById(phase);
-            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
-            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
-            currentActive = phase;
+        function switchTab(tabId) {
+            currentTabIndex = tabsOrder.indexOf(tabId);
+            if (currentTabIndex === -1) currentTabIndex = 0;
+            tabsOrder.forEach(t => {
+                document.getElementById('tab-' + t).classList.toggle('hidden', t !== tabId);
+                const btn = document.getElementById('tab-btn-' + t);
+                if (btn) btn.classList.toggle('active', t === tabId);
+            });
         }
 
-        // Estado inicial (selecciona PROVISIÓN por defecto)
-        showInfo('provision');
+        function stepTab(delta) {
+            const next = currentTabIndex + delta;
+            if (next >= 0 && next < tabsOrder.length) {
+                switchTab(tabsOrder[next]);
+            }
+        }
 
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+            if (e.key === 'ArrowRight') stepTab(1);
+            if (e.key === 'ArrowLeft') stepTab(-1);
+        });
+
+        const familiesData = {
+            provision: {
+                badge: 'Apartado 5.6 · 6 procesos estratégicos y tácticos',
+                badgeClass: 'bg-emerald-100 text-emerald-900',
+                panelBorder: 'border-emerald-600',
+                activeBorder: 'border-emerald-600',
+                idleBorder: 'border-emerald-200 hover:border-emerald-400',
+                title: '1. Procesos de provisión del servicio',
+                text: 'Regulan las actividades necesarias para que los servicios en explotación cumplan los cometidos pactados con el negocio en calidad, rendimiento, coste y resiliencia:',
+                processes: [
+                    { code: '5.6.1', name: 'Gestión del nivel de servicio', desc: 'Mantiene el Catálogo de servicios y negocia/monitoriza la cadena de acuerdos SLA, OLA y UC.' },
+                    { code: '5.6.2', name: 'Generación de informes del servicio', desc: 'Transforma mediciones históricas en indicadores (KGI y KPI), informes periódicos y cuadros de mando fiables.' },
+                    { code: '5.6.3', name: 'Gestión de la continuidad y disponibilidad', desc: 'Asegura el uptime diario (FTA/SPOF) y la supervivencia ante desastres mayores (BIA, VBF, RPO/RTO y planes DRP).' },
+                    { code: '5.6.4', name: 'Presupuesto y contabilidad de los servicios de TI', desc: 'Presupuesta, contabiliza costes directos e indirectos (imputables y no absorbibles) por servicio y fija tarifas.' },
+                    { code: '5.6.5', name: 'Gestión de la capacidad', desc: 'Garantiza de forma proactiva y reactiva capacidad suficiente para la demanda actual y futura a coste razonable.' },
+                    { code: '5.6.6', name: 'Gestión de la seguridad de la información', desc: 'Protege la seguridad física y lógica apoyándose en ISO/IEC 27001/27002 (evaluación de riesgos, RTP y SoA).' }
+                ]
+            },
+            relaciones: {
+                badge: 'Apartado 5.7 · 2 procesos en los extremos de la cadena',
+                badgeClass: 'bg-amber-100 text-amber-950',
+                panelBorder: 'border-amber-500',
+                activeBorder: 'border-amber-500',
+                idleBorder: 'border-amber-200 hover:border-amber-400',
+                title: '2. Procesos de relaciones',
+                text: 'Especifican cómo se relaciona el proveedor de TI con su mundo exterior: hacia arriba con los clientes del negocio y hacia abajo con los proveedores contratados:',
+                processes: [
+                    { code: '5.7.1', name: 'Gestión de relaciones con el negocio (BRM)', desc: 'Interlocutor único ante los clientes internos: contrasta necesidades con el catálogo, recoge SLRs, gestiona reclamaciones formalmente y mide la satisfacción.' },
+                    { code: '5.7.2', name: 'Gestión de suministradores', desc: 'Define la estrategia de sourcing (insourcing vs. outsourcing), dirige licitaciones (RFI/RFP), registra contratos UC en la base de datos SCD, vigila su desempeño y planifica la salida o finalización del contrato.' }
+                ]
+            },
+            resolucion: {
+                badge: 'Apartado 5.8 · 2 procesos operativos de respuesta e investigación',
+                badgeClass: 'bg-rose-100 text-rose-900',
+                panelBorder: 'border-rose-600',
+                activeBorder: 'border-rose-600',
+                idleBorder: 'border-rose-200 hover:border-rose-400',
+                title: '3. Procesos de resolución',
+                text: 'Se activan ante interrupciones, degradaciones o solicitudes de usuarios. Separan la urgencia de restaurar el servicio de la investigación profunda de los defectos:',
+                processes: [
+                    { code: '5.8.1', name: 'Gestión del incidente (y peticiones de servicio)', desc: 'El «bombero» reactivo: registra tickets en el Service Desk, clasifica por prioridad (Impacto × Urgencia), escala funcional o jerárquicamente y restaura el servicio lo antes posible.' },
+                    { code: '5.8.2', name: 'Gestión del problema', desc: 'El «detective» reactivo y proactivo: investiga la causa raíz desconocida, convierte problemas en Errores Conocidos (KE) con soluciones provisionales (workarounds) y solicita RFCs definitivas.' }
+                ]
+            },
+            control: {
+                badge: 'Apartado 5.9 · 2 procesos guardianes de la estabilidad',
+                badgeClass: 'bg-purple-100 text-purple-900',
+                panelBorder: 'border-purple-600',
+                activeBorder: 'border-purple-600',
+                idleBorder: 'border-purple-200 hover:border-purple-400',
+                title: '4. Procesos de control',
+                text: 'Deben implantarse siempre de forma conjunta para que ningún cambio se evalúe a ciegas y ningún elemento modificado quede desactualizado:',
+                processes: [
+                    { code: '5.9.1', name: 'Gestión de la configuración', desc: 'Mantiene la CMDB con todos los elementos de configuración (CIs) y sus relaciones (Usa, Parte de, Instalado en, Conectado a) y gestiona la Biblioteca Definitiva de Software (DSL).' },
+                    { code: '5.9.2', name: 'Gestión del cambio', desc: 'Registra, clasifica y evalúa todas las solicitudes de cambio (RFC) con asesoría del comité CAB (o ECAB en emergencias), exigiendo pruebas y planes de marcha atrás (rollback).' }
+                ]
+            },
+            entrega: {
+                badge: 'Apartado 5.10 · 1 proceso de transición a producción',
+                badgeClass: 'bg-blue-100 text-blue-900',
+                panelBorder: 'border-blue-600',
+                activeBorder: 'border-blue-600',
+                idleBorder: 'border-blue-200 hover:border-blue-400',
+                title: '5. Proceso de entrega',
+                processes: [
+                    { code: '5.10.1', name: 'Gestión de la entrega y despliegue', desc: 'Trabaja mano a mano con Gestión del Cambio: agrupa los cambios autorizados en paquetes de entrega (mayores o menores), coordina las pruebas, ejecuta el paso a producción (o la marcha atrás si falla) y mantiene el Almacén de Hardware Definitivo (DHS).' }
+                ],
+                text: 'Define las actividades durante el tránsito de los cambios autorizados desde el entorno de desarrollo y pruebas hasta el entorno de explotación real:'
+            }
+        };
+
+        function showFamily(key) {
+            const d = familiesData[key];
+            document.getElementById('fam-badge').className = 'text-xs font-mono font-bold uppercase px-2.5 py-0.5 rounded ' + d.badgeClass;
+            document.getElementById('fam-badge').textContent = d.badge;
+            document.getElementById('fam-panel').className = 'p-6 bg-slate-50 rounded-2xl border-2 shadow-sm space-y-4 ' + d.panelBorder;
+            document.getElementById('fam-title').textContent = d.title;
+            document.getElementById('fam-text').textContent = d.text;
+
+            const listEl = document.getElementById('fam-list');
+            listEl.innerHTML = d.processes.map(p => `
+                <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="text-xs font-mono font-extrabold px-2 py-0.5 rounded bg-slate-100 text-slate-800 border border-slate-300">${p.code}</span>
+                        <h4 class="font-bold text-slate-900 text-sm sm:text-base">${p.name}</h4>
+                    </div>
+                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${p.desc}</p>
+                </div>
+            `).join('');
+
+            ['provision', 'relaciones', 'resolucion', 'control', 'entrega'].forEach(id => {
+                const btn = document.getElementById('fam-' + id);
+                const fData = familiesData[id];
+                btn.classList.remove('active', fData.activeBorder, ...fData.idleBorder.split(' '));
+                if (id === key) {
+                    btn.classList.add('active', fData.activeBorder);
+                } else {
+                    btn.classList.add(...fData.idleBorder.split(' '));
+                }
+            });
+        }
+
+        const migrationData = {
+            bigbang: {
+                title: '1. Implantación Big-bang (Corte directo)',
+                desc: 'Se fija un instante exacto en el tiempo a partir del cual el sistema antiguo se apaga definitivamente y todos los usuarios pasan a operar exclusivamente sobre el nuevo servicio migrado.',
+                pros: [
+                    'Minimiza el tiempo de convivencia entre ambos sistemas.',
+                    'Menor consumo de recursos técnicos y humanos (no hay que mantener ni dar soporte a dos sistemas simultáneamente).'
+                ],
+                cons: [
+                    '<strong>Riesgo máximo:</strong> cualquier fallo no detectado paraliza a toda la organización.',
+                    'El tiempo de ventana para la conversión de datos históricos puede resultar insuficiente.',
+                    'La marcha atrás (<em>rollback</em>) una vez introducidos datos nuevos es muy costosa o casi imposible; exige pruebas exhaustivas.'
+                ]
+            },
+            paralela: {
+                title: '2. Operación paralela (Convivencia simultánea)',
+                desc: 'El sistema antiguo y el nuevo operan simultáneamente en explotación real hasta verificar con total certeza el buen funcionamiento del nuevo. Suele emplear interfaces automáticas de sincronización para evitar la doble introducción manual de datos.',
+                pros: [
+                    '<strong>Máxima seguridad operativa:</strong> simplifica radicalmente la marcha atrás si aparece un fallo grave.',
+                    'Permite cotejar en vivo que los resultados del sistema nuevo coinciden exactamente con los del antiguo.'
+                ],
+                cons: [
+                    'Elevado consumo de recursos de infraestructura (doble entorno en producción) y de soporte.',
+                    'Complejidad técnica para construir y mantener las interfaces automáticas de replicación de datos.'
+                ]
+            },
+            etapas: {
+                title: '3. Implantación por etapas o iterativa (Fases)',
+                desc: 'Estrategia híbrida donde el sistema antiguo va siendo sustituido paulatinamente por el nuevo (por módulos funcionales, por delegaciones geográficas como empezar por Múnich antes de Nules, o por grupos de usuarios).',
+                pros: [
+                    'Acota el radio de impacto de los problemas iniciales a un subconjunto controlado de usuarios o funciones.',
+                    'Permite aprender y afinar el despliegue entre una etapa y la siguiente.'
+                ],
+                cons: [
+                    'Exige un estudio muy riguroso de la partición en fases y pasarelas temporales entre módulos antiguos y nuevos.',
+                    'Prolonga la duración total del proyecto de migración.'
+                ]
+            }
+        };
+
+        function showMigration(key) {
+            ['bigbang', 'paralela', 'etapas'].forEach(k => {
+                const btn = document.getElementById('mig-btn-' + k);
+                if (btn) btn.classList.toggle('active', k === key);
+            });
+            const m = migrationData[key];
+            const container = document.getElementById('mig-content');
+            container.innerHTML = `
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-5">
+                    <span class="text-xs font-mono font-bold uppercase text-slate-500">Definición operativa</span>
+                    <h4 class="text-lg font-extrabold text-slate-900 mt-1 mb-2">${m.title}</h4>
+                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">${m.desc}</p>
+                </div>
+                <div class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-5">
+                    <span class="text-xs font-mono font-bold uppercase text-emerald-800">✅ Ventajas principales</span>
+                    <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700 mt-2 leading-relaxed">
+                        ${m.pros.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="bg-rose-50/70 border border-rose-200 rounded-xl p-5">
+                    <span class="text-xs font-mono font-bold uppercase text-rose-800">⚠️ Riesgos y condicionantes</span>
+                    <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700 mt-2 leading-relaxed">
+                        ${m.cons.map(c => `<li>${c}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        showFamily('provision');
+        showMigration('bigbang');
     </script>
 </body>
 </html>

@@ -3,185 +3,713 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografía: Disponibilidad vs. Continuidad</title>
+    <title>Disponibilidad vs. continuidad y seguridad (ISO 20000: 5.6.3 y 5.6.6)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
         }
-        /* Estilo para términos clave */
-        code {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #e5e7eb; /* bg-gray-200 */
-            color: #b91c1c; /* text-red-700 */
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
+        .is-embedded .hide-in-embed {
+            display: none !important;
+        }
+        .tab-btn {
+            transition: all 0.2s ease;
+        }
+        .tab-btn.active,
+        .tab-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.25);
+        }
+        .arch-btn {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .arch-btn.active,
+        .arch-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+        }
+        .gate-btn {
+            transition: all 0.2s ease;
+        }
+        .gate-btn.active,
+        .gate-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.35s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
-    <div class="w-full max-w-7xl bg-white rounded-2xl shadow-2xl p-8">
-        
-        <!-- Título -->
-        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">La "Letra Pequeña" del SLA: Disponibilidad vs. Continuidad</h1>
-        <p class="text-center text-lg text-gray-600 mb-10">Entendiendo la diferencia entre un "fallo" y un "desastre"</p>
+<body class="min-h-screen flex flex-col p-4 md:p-8">
 
-        <!-- [MODIFICADO] Layout principal a flex-col -->
-        <div class="flex flex-col items-start justify-center gap-8">
-            
-            <!-- [MODIFICADO] Contenedor de 3 Tarjetas -->
-            <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <!-- 1. Disponibilidad -->
-                <div id="disponibilidad" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('disponibilidad')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">📈</span>
-                        <h2 class="text-2xl font-bold text-blue-800">1. Gestión de la Disponibilidad</h2>
-                    </div>
-                    <p class="text-gray-700">Se enfoca en <strong>prevenir y gestionar fallos</strong> para cumplir con el <code>SLA</code> en <em>condiciones normales</em> de operación.</p>
-                </div>
+    <main class="max-w-7xl mx-auto w-full flex-grow flex flex-col">
 
-                <!-- 2. Continuidad -->
-                <div id="continuidad" class="relative z-10 p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('continuidad')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🔥</span>
-                        <h2 class="text-2xl font-bold text-red-800">2. Gestión de la Continuidad</h2>
-                    </div>
-                    <p class="text-gray-700">Se enfoca en <strong>recuperar el servicio</strong> después de un <em>desastre mayor</em>. Es el "Plan B" de la organización.</p>
-                </div>
-
-                <!-- [NUEVA] 3. Mini-Taller DRP -->
-                <div id="taller_drp" class="relative z-10 p-6 bg-orange-50 border-2 border-orange-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('taller_drp')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🧠</span>
-                        <h2 class="text-2xl font-bold text-orange-800">3. ¡Mini-Taller DRP!</h2>
-                    </div>
-                    <p class="text-gray-700">Hablemos de "Continuidad". Haz clic aquí para ver las instrucciones de la <strong>actividad de debate</strong> en grupo.</p>
-                </div>
+        <!-- Cabecera -->
+        <header class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-rose-200">
+                Tema 5 · Sesión 3 · Actividad 3 (ISO/IEC 20000: Cláusulas 5.6.3 y 5.6.6)
             </div>
+            <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+                Los «seguros» del servicio: disponibilidad, continuidad (DRP) y seguridad
+            </h1>
+            <p class="text-slate-600 text-sm md:text-base max-w-3xl mx-auto">
+                Cómo diseñar servicios resilientes frente a fallos cotidianos de componentes (<strong>FTA / SPOF</strong>) y planes de supervivencia ante desastres mayores (<strong>BIA, RPO y RTO</strong>).
+            </p>
+        </header>
 
-            <!-- [NUEVO] Separador visual -->
-            <hr class="w-full border-t-2 border-gray-200 my-4">
+        <!-- Navegación de pestañas secuenciales -->
+        <nav aria-label="Fases de la sesión" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
+            <button type="button" id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+                1. ⚖️ Disponibilidad vs. continuidad y árbol de fallos (FTA)
+            </button>
+            <button type="button" id="tab-btn-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+                2. 🏗️ Arquitecturas de continuidad (BIA, RPO/RTO y sitios)
+            </button>
+            <button type="button" id="tab-btn-3" onclick="switchTab(3)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+                3. 🧠 Mini-taller DRP en el aula (3 escenarios)
+            </button>
+        </nav>
 
-            <!-- [MODIFICADO] Panel de Información (Debajo) -->
-            <div class="w-full">
-                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-gray-300 shadow-inner min-h-[250px] transition-all duration-300">
-                    <h3 id="info-title" class="text-2xl font-bold text-gray-900 mb-3">Haz clic en un concepto</h3>
-                    <p id="info-text" class="text-gray-800">Selecciona un concepto para ver sus objetivos, alcance y métricas clave.</p>
-                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-2">
-                        <!-- Contenido dinámico aquí -->
+        <!-- ========================================== -->
+        <!-- PESTAÑA 1: DISPONIBILIDAD VS CONTINUIDAD   -->
+        <!-- ========================================== -->
+        <section id="tab-panel-1" class="fade-in flex-grow flex flex-col">
+
+            <!-- Comparativa dual: Disponibilidad vs Continuidad -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+                <!-- Columna 1: Disponibilidad -->
+                <div class="bg-white rounded-2xl border-t-8 border-emerald-500 border border-slate-200 shadow-sm p-6 flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full">
+                            Operación en condiciones normales
+                        </span>
+                        <span class="text-2xl">🛡️</span>
+                    </div>
+                    <h2 class="text-xl font-extrabold text-slate-900 mb-1">
+                        Gestión de la disponibilidad (5.6.3)
+                    </h2>
+                    <p class="text-xs font-bold text-emerald-700 uppercase tracking-wide mb-3">
+                        Objetivo: Fiabilidad cotidiana y tolerancia a fallos de componentes
+                    </p>
+                    <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                        Asegura que los servicios de TI cumplan los porcentajes de disponibilidad acordados en el <strong>SLA</strong> (p. ej., 99,9 %) frente a averías habituales del día a día (rotura de un disco, caída de una fuente de alimentación o corte de una tarjeta de red).
+                    </p>
+                    <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700 mt-auto">
+                        <li><strong>Foco en las VBF (<em>Vital Business Functions</em>):</strong> Identifica las funciones vitales del negocio (p. ej., expedición de camiones en Keraben o exámenes en el Aula Virtual UJI) para concentrar en ellas la inversión en redundancia local.</li>
+                        <li><strong>Herramienta analítica clave:</strong> <strong>Análisis del Árbol de Fallos (FTA)</strong> para detectar y eliminar <strong>Puntos Únicos de Fallo (SPOF)</strong> mediante redundancia local (RAID, clústeres activo-pasivo, doble fuente).</li>
                     </ul>
                 </div>
-            </div>
-        </div>
 
-        <!-- Pie de página de atribución -->
-        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
-            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
-        </p>
-    </div>
+                <!-- Columna 2: Continuidad -->
+                <div class="bg-white rounded-2xl border-t-8 border-rose-600 border border-slate-200 shadow-sm p-6 flex flex-col">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold uppercase tracking-wider bg-rose-100 text-rose-800 px-3 py-1 rounded-full">
+                            Supervivencia ante catástrofes
+                        </span>
+                        <span class="text-2xl">🌋</span>
+                    </div>
+                    <h2 class="text-xl font-extrabold text-slate-900 mb-1">
+                        Gestión de la continuidad del servicio (5.6.3)
+                    </h2>
+                    <p class="text-xs font-bold text-rose-700 uppercase tracking-wide mb-3">
+                        Objetivo: Recuperación ante desastres (DRP) extraordinarios
+                    </p>
+                    <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                        Entra en acción cuando ocurre un evento catastrófico de baja probabilidad pero impacto extremo que inutiliza el centro de datos completo (incendio del CPD, inundación/DANA, ciberataque masivo de <em>ransomware</em>) y donde la redundancia local no sirve de nada.
+                    </p>
+                    <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700 mt-auto">
+                        <li><strong>Foco en el BIA (<em>Business Impact Analysis</em>):</strong> Cuantifica cuánto dinero, reputación o capacidad operativa pierde la organización por cada hora/día sin servicio.</li>
+                        <li><strong>Regla de oro de la norma:</strong> Un Plan de Continuidad (DRP) que solo existe en un PDF y <strong>no se prueba periódicamente mediante simulacros reales</strong> es un plan fallido (e incumple ISO 20000).</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Laboratorio interactivo: Árbol de Fallos (FTA) y SPOF -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider bg-slate-200 text-slate-800 px-3 py-1 rounded-full">
+                            Simulador interactivo · Tema 5.06.3 (Fault Tree Analysis)
+                        </span>
+                        <h3 class="text-lg md:text-xl font-extrabold text-slate-900 mt-2">
+                            🌳 Análisis del Árbol de Fallos (FTA): puertas lógicas OR (SPOF) vs. AND (Redundancia)
+                        </h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" id="gate-btn-or" onclick="setFtaMode('or')" class="gate-btn active px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-300 bg-white text-slate-700">
+                            ⚠️ Puerta OR (En serie · Con SPOF)
+                        </button>
+                        <button type="button" id="gate-btn-and" onclick="setFtaMode('and')" class="gate-btn px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-300 bg-white text-slate-700">
+                            ✅ Puerta AND (En paralelo · Redundante)
+                        </button>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-slate-600 mb-5 leading-relaxed">
+                    El <strong>Análisis del Árbol de Fallos (FTA)</strong> modela de arriba abajo qué combinaciones de fallos en componentes básicos provocan la caída del servicio superior (<em>Top Event</em>). Haz clic sobre los sucesos básicos inferiores para simular su rotura en directo:
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+
+                    <!-- Visualizador del árbol FTA -->
+                    <div class="lg:col-span-7 bg-slate-50 rounded-2xl p-5 border border-slate-200 flex flex-col items-center">
+                        <!-- Top Event (Rectángulo) -->
+                        <div id="fta-top-event" class="w-full max-w-md rounded-xl p-3.5 text-center border-2 transition-all mb-3">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-white/80 text-slate-800">
+                                Suceso superior (Rectángulo FTA)
+                            </span>
+                            <h4 id="fta-top-title" class="text-sm sm:text-base font-extrabold mt-1">
+                                Servicio ERP de expediciones: OPERATIVO
+                            </h4>
+                        </div>
+
+                        <div class="h-4 w-0.5 bg-slate-400"></div>
+
+                        <!-- Puerta Lógica (OR / AND) -->
+                        <div id="fta-gate-box" class="px-4 py-2 rounded-full font-extrabold text-xs uppercase tracking-wider border-2 shadow-sm mb-3">
+                            <!-- JS -->
+                        </div>
+
+                        <div class="w-48 h-3 border-t-2 border-l-2 border-r-2 border-slate-400"></div>
+
+                        <!-- Sucesos Básicos (Círculos interactivos) -->
+                        <div class="grid grid-cols-2 gap-4 w-full max-w-md">
+                            <button type="button" id="fta-comp-a" onclick="toggleFtaComponent('a')" class="p-3.5 rounded-2xl border-2 text-center transition-all cursor-pointer shadow-sm">
+                                <!-- JS -->
+                            </button>
+                            <button type="button" id="fta-comp-b" onclick="toggleFtaComponent('b')" class="p-3.5 rounded-2xl border-2 text-center transition-all cursor-pointer shadow-sm">
+                                <!-- JS -->
+                            </button>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-3 text-center">
+                            👆 Haz clic en el <strong>Componente A</strong> o en el <strong>Componente B</strong> para provocar o reparar su avería.
+                        </p>
+                    </div>
+
+                    <!-- Explicación y simbología oficial FTA -->
+                    <div class="lg:col-span-5 space-y-3 text-xs sm:text-sm text-slate-700">
+                        <div id="fta-explanation" class="p-4 rounded-xl border">
+                            <!-- JS -->
+                        </div>
+
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-900 mb-2">📐 Simbología oficial del Árbol de Fallos (Tema 5.06.3):</h4>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs">
+                                <li><strong>Rectángulos (Suceso superior e intermedios):</strong> Fallos que se producen como combinación lógica de otros sucesos inferiores.</li>
+                                <li><strong>Círculos (Sucesos básicos):</strong> Fallos elementales independientes con datos de probabilidad conocidos (p. ej., rotura física de un disco duro o corte de una fuente).</li>
+                                <li><strong>Rombos (Sucesos no desarrollados):</strong> Fallos que no se descomponen más por falta de información o porque su gestión escapa a nuestro alcance.</li>
+                                <li><strong>Puerta OR (Suma lógica):</strong> El fallo superior ocurre si falla <em>cualquiera</em> de las entradas. Cada entrada debajo de una puerta OR es un <strong>SPOF (Punto Único de Fallo)</strong>.</li>
+                                <li><strong>Puerta AND (Producto lógico):</strong> El fallo superior <em>solo</em> ocurre si fallan <strong>todas</strong> las entradas simultáneamente (redundancia en paralelo).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Nivel 2: Cláusula 5.6.6 Gestión de la Seguridad de la Información -->
+            <details class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+                <summary class="px-6 py-4 cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between font-bold text-slate-800 text-sm md:text-base">
+                    <span>🔎 Desplegar análisis técnico completo: Gestión de la seguridad de la información (Cláusula 5.6.6 e ISO 27001)</span>
+                    <span class="text-xs font-semibold text-rose-700 bg-rose-100 px-2.5 py-1 rounded-full">Nivel 2 · Estudio en casa</span>
+                </summary>
+                <div class="p-6 border-t border-slate-200 space-y-4 text-sm text-slate-700">
+                    <p class="leading-relaxed">
+                        En la familia de <strong>Provisión del servicio (5.6)</strong> de ISO/IEC 20000, el proceso <strong>5.6.6 Gestión de la seguridad de la información</strong> conecta directamente el SGSTI con el <strong>SGSI (ISO/IEC 27001 e ISO/IEC 27002)</strong> que estudiamos en el Tema 4:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-900 mb-2">1. Frontera entre Seguridad física, lógica y Continuidad</h4>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                                <li><strong>Seguridad física vs. Continuidad:</strong> Es fundamental delimitar qué controles pertenecen a seguridad física preventiva (control de accesos biométrico al CPD, extinción por gas inerte, SAI/UPS) y cuándo se activa el Plan de Continuidad (DRP).</li>
+                                <li><strong>Seguridad lógica:</strong> Control de identidades, privilegios mínimos, cifrado, segmentación de red y registro de auditoría sobre los activos de información (<strong>CIs</strong> en la CMDB).</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-900 mb-2">2. Ciclo documental y pruebas periódicas (ISO 27001)</h4>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                                <li><strong>Análisis de riesgos y RTP (<em>Risk Treatment Plan</em>):</strong> Identificar amenazas, vulnerabilidades e impactos para decidir si mitigar, transferir, evitar o aceptar cada riesgo.</li>
+                                <li><strong>SoA (<em>Statement of Applicability</em> · Declaración de aplicabilidad):</strong> Documento auditable que justifica qué controles de ISO 27002 se aplican y cuáles se excluyen.</li>
+                                <li><strong>Pruebas periódicas y <em>hacking</em> ético:</strong> Auditorías de vulnerabilidades y tests de intrusión para verificar que los controles siguen siendo eficaces tras los cambios en producción.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <div class="mt-auto flex justify-end">
+                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
+                    Siguiente fase: Arquitecturas de continuidad (BIA, RPO y RTO) →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 2: ARQUITECTURAS DE CONTINUIDAD    -->
+        <!-- ========================================== -->
+        <section id="tab-panel-2" class="fade-in flex-grow flex flex-col hidden">
+
+            <!-- Cronología visual RPO vs RTO -->
+            <div class="bg-slate-900 text-white rounded-2xl p-6 mb-6 shadow-md">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-amber-400 text-slate-950 px-3 py-1 rounded-full">
+                        Métricas rectoras del BIA (Business Impact Analysis)
+                    </span>
+                    <span class="text-xs text-slate-300">Tema 5.06.3</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                    <div class="bg-slate-800/90 border border-amber-400/50 rounded-xl p-4">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">⏪ Mirando al pasado (Datos)</span>
+                        <h3 class="text-lg font-extrabold text-white mt-1">RPO (Recovery Point Objective)</h3>
+                        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                            <strong>Punto objetivo de recuperación:</strong> Cantidad máxima de datos (medida en tiempo) que la organización acepta perder tras el desastre (p. ej., 15 min, 4 h o 24 h).
+                        </p>
+                        <p class="text-xs font-bold text-amber-300 mt-2">
+                            ➔ Determina la frecuencia de copias de seguridad o réplica.
+                        </p>
+                    </div>
+
+                    <div class="text-center py-2">
+                        <div class="inline-flex flex-col items-center bg-rose-600 text-white px-5 py-3 rounded-2xl shadow-lg border-2 border-rose-400">
+                            <span class="text-2xl">💥</span>
+                            <span class="text-xs font-extrabold uppercase tracking-widest mt-1">Momento $T_0$ del desastre</span>
+                            <span class="text-[11px] text-rose-100">Caída total del CPD principal</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800/90 border border-sky-400/50 rounded-xl p-4">
+                        <span class="text-xs font-extrabold uppercase tracking-wider text-sky-300">⏩ Mirando al futuro (Servicio)</span>
+                        <h3 class="text-lg font-extrabold text-white mt-1">RTO (Recovery Time Objective)</h3>
+                        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                            <strong>Tiempo objetivo de recuperación:</strong> Tiempo máximo que el negocio puede sobrevivir con el servicio caído antes de sufrir daños inasumibles (p. ej., 0 min, 4 h o 72 h).
+                        </p>
+                        <p class="text-xs font-bold text-sky-300 mt-2">
+                            ➔ Determina la arquitectura del centro de respaldo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explorador de las 5 arquitecturas de recuperación de Tema 5.06.3 -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
+                <h2 class="text-base md:text-lg font-extrabold text-slate-900 mb-2">
+                    🏗️ Catálogo oficial de opciones de recuperación (Tema 5.06.3): coste vs. velocidad (RTO/RPO)
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-600 mb-4">
+                    Selecciona cada una de las <strong>5 estrategias de continuidad</strong> para analizar sus métricas de RTO/RPO, infraestructura requerida y casos de uso:
+                </p>
+
+                <div class="flex flex-wrap gap-2 mb-5">
+                    <button type="button" id="arch-btn-inmediata" onclick="selectArch('inmediata')" class="arch-btn active px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        1. ⚡ Recuperación inmediata (Activo-activo)
+                    </button>
+                    <button type="button" id="arch-btn-hot" onclick="selectArch('hot')" class="arch-btn px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        2. 🔥 Rápida (Hot standby · &lt; 24 h)
+                    </button>
+                    <button type="button" id="arch-btn-warm" onclick="selectArch('warm')" class="arch-btn px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        3. 🌤️ Intermedia (Warm standby · 24–72 h)
+                    </button>
+                    <button type="button" id="arch-btn-cold" onclick="selectArch('cold')" class="arch-btn px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        4. ❄️ Gradual (Cold standby · &gt; 72 h)
+                    </button>
+                    <button type="button" id="arch-btn-manual" onclick="selectArch('manual')" class="arch-btn px-3.5 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                        5. 🤝 Acuerdos recíprocos y operación manual
+                    </button>
+                </div>
+
+                <div id="arch-detail-box" class="rounded-2xl border border-slate-200 p-5 bg-slate-50">
+                    <!-- JS -->
+                </div>
+            </div>
+
+            <div class="mt-auto flex justify-between items-center">
+                <button type="button" onclick="switchTab(1)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
+                    ← Anterior: Disponibilidad y FTA
+                </button>
+                <button type="button" onclick="switchTab(3)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
+                    Siguiente fase: Mini-taller DRP en el aula (3 escenarios) →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 3: MINI-TALLER DRP (SIN SPOILERS)  -->
+        <!-- ========================================== -->
+        <section id="tab-panel-3" class="fade-in flex-grow flex flex-col hidden">
+
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 mb-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                    <span class="text-xs font-bold uppercase tracking-wider bg-rose-100 text-rose-800 px-3 py-1 rounded-full">
+                        Dinámica participativa en el aula · Sin spoilers
+                    </span>
+                    <span class="text-xs font-semibold text-slate-500">Sesión 3 · Actividad 3</span>
+                </div>
+                <h2 class="text-xl md:text-2xl font-extrabold text-slate-900 mb-2">
+                    🧠 Comité de crisis: diseñad la respuesta ante 3 desastres reales
+                </h2>
+                <p class="text-sm text-slate-600 mb-6 leading-relaxed">
+                    Para cada escenario, debatid primero en equipo: <strong>1) ¿Por qué la Alta Disponibilidad local no basta aquí?</strong>, <strong>2) ¿Qué RPO y RTO fijaría el negocio en el BIA?</strong> y <strong>3) ¿Qué arquitectura o medida del DRP salvaría la organización?</strong> Desplegad después el dictamen técnico.
+                </p>
+
+                <div class="space-y-5">
+
+                    <!-- Escenario 1: Incendio en CPD -->
+                    <div class="rounded-2xl border-2 border-slate-200 bg-slate-50 p-5">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-rose-200 text-rose-900 px-3 py-1 rounded-full">
+                                Escenario 1 · Destrucción física del CPD principal
+                            </span>
+                            <span class="text-xs font-bold text-slate-500">Caso UJI / Planta Keraben Nules</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-extrabold text-slate-900 mb-2">
+                            🔥 Cortocircuito e incendio en la sala de baterías del SAI que calcina el CPD principal a las 06:00 h en plena semana de cierre logístico / actas universitarias
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-700 mb-4 leading-relaxed">
+                            Todos los servidores en racimo (clúster HA local) y la cabina principal RAID 10 alojados en el mismo edificio han quedado inoperativos por calor y hollín. ¿Qué arquitectura de continuidad necesitarías haber contratado previamente para reanudar las expediciones o las actas en menos de 2 horas sin perder los albaranes del turno de noche?
+                        </p>
+                        <button type="button" onclick="toggleSpoiler('drp-spoiler-1')" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                            💡 Mostrar claves y conclusión técnica (Escenario 1)
+                        </button>
+                        <div id="drp-spoiler-1" class="hidden mt-4 pt-4 border-t border-slate-300 text-xs sm:text-sm text-slate-800 space-y-2 fade-in">
+                            <p class="font-bold text-rose-900">Dictamen DRP · Escenario 1:</p>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5">
+                                <li><strong>Fallo del diseño local:</strong> Tener dos servidores en clúster y discos en RAID 10 dentro de la <em>misma sala física</em> protege la disponibilidad ante roturas de hardware, pero el edificio entero actúa como un <strong>SPOF geográfico</strong> en el Árbol de Fallos (FTA).</li>
+                                <li><strong>Métricas BIA requeridas:</strong> Para funciones vitales (VBF) como expediciones o registro oficial, <strong>RPO &lt; 15 min (o ≈ 0)</strong> y <strong>RTO &lt; 2 horas</strong>.</li>
+                                <li><strong>Arquitectura de solución:</strong> <strong>Recuperación inmediata (Activo-activo en otro edificio lejano / nube)</strong> o <strong>Recuperación rápida (<em>Hot standby</em>)</strong> en un CPD secundario geográficamente separado (o región <em>cloud</em>) con replicación continua de base de datos y conmutación de DNS/BGP probada en simulacros.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Escenario 2: Ransomware masivo -->
+                    <div class="rounded-2xl border-2 border-slate-200 bg-slate-50 p-5">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-purple-200 text-purple-900 px-3 py-1 rounded-full">
+                                Escenario 2 · Ciberataque destructivo (5.6.3 + 5.6.6)
+                            </span>
+                            <span class="text-xs font-bold text-slate-500">La trampa de la replicación síncrona</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-extrabold text-slate-900 mb-2">
+                            🦠 Un ataque de <em>ransomware</em> obtiene credenciales de administrador de dominio a las 03:00 h y cifra el CPD principal... ¡y el sitio Activo-activo replica el cifrado en milisegundos al CPD secundario!
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-700 mb-4 leading-relaxed">
+                            La empresa presumía de tener un clúster <em>mirroring</em> Activo-activo entre dos ciudades con $\text{RPO} \approx 0$. Sin embargo, cuando un fichero se cifra en el nodo A, el espejo cifra instantáneamente el nodo B. ¿Por qué ha fallado la estrategia y qué combinación de controles de 5.6.3 y 5.6.6 lo evita?
+                        </p>
+                        <button type="button" onclick="toggleSpoiler('drp-spoiler-2')" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                            💡 Mostrar claves y conclusión técnica (Escenario 2)
+                        </button>
+                        <div id="drp-spoiler-2" class="hidden mt-4 pt-4 border-t border-slate-300 text-xs sm:text-sm text-slate-800 space-y-2 fade-in">
+                            <p class="font-bold text-purple-900">Dictamen DRP · Escenario 2:</p>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5">
+                                <li><strong>La paradoja del espejo síncrono:</strong> La replicación Activo-activo protege frente a incendios o caídas eléctricas, pero <strong>propaga al instante las corrupciones lógicas, borrados accidentales y el cifrado por <em>ransomware</em></strong>.</li>
+                                <li><strong>Solución técnica (Regla 3-2-1-1-0):</strong> Además de la réplica de alta disponibilidad, el Plan de Continuidad exige <strong>copias de seguridad inmutables (WORM / <em>Object Lock</em>) o desconectadas (<em>Air-gapped</em>)</strong> en un dominio de credenciales totalmente independiente del Directorio Activo de producción.</li>
+                                <li><strong>Lección de RPO/RTO:</strong> Ante <em>ransomware</em>, el $\text{RPO}$ real será el de la última copia limpia e inmutable (p. ej., 4 a 12 horas atrás) y el $\text{RTO}$ dependerá de la velocidad de restauración masiva tras aislar y limpiar la red comprometida.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Escenario 3: DANA / Apagón regional 48h -->
+                    <div class="rounded-2xl border-2 border-slate-200 bg-slate-50 p-5">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <span class="text-xs font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-3 py-1 rounded-full">
+                                Escenario 3 · Catástrofe meteorológica comarcal (DANA)
+                            </span>
+                            <span class="text-xs font-bold text-slate-500">Fallo de suministros y soluciones manuales</span>
+                        </div>
+                        <h3 class="text-base md:text-lg font-extrabold text-slate-900 mb-2">
+                            🌧️ Una DANA inunda las subestaciones eléctricas y corta las canalizaciones de fibra óptica terrestre de toda la comarca durante 48 horas
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-700 mb-4 leading-relaxed">
+                            Las baterías de los SAI (UPS) del CPD local solo aguantan 30 minutos para un apagado ordenado. Los camiones siguen llegando a la planta logística para recoger mercancía ya fabricada. ¿Qué elementos no informáticos e infraestructurales contempla la cláusula 5.6.3 de ISO 20000 para este escenario?
+                        </p>
+                        <button type="button" onclick="toggleSpoiler('drp-spoiler-3')" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                            💡 Mostrar claves y conclusión técnica (Escenario 3)
+                        </button>
+                        <div id="drp-spoiler-3" class="hidden mt-4 pt-4 border-t border-slate-300 text-xs sm:text-sm text-slate-800 space-y-2 fade-in">
+                            <p class="font-bold text-amber-900">Dictamen DRP · Escenario 3:</p>
+                            <ul class="list-disc list-outside pl-5 space-y-1.5">
+                                <li><strong>Autonomía energética y enlace alternativo:</strong> Un SAI de baterías solo evita cortes por microapagones. Para aguantar 48 h se requiere <strong>grupo electrógeno diésel con contratos UC de suministro prioritario de combustible</strong> y enlace de comunicaciones no terrestre (satélite de baja órbita o radioenlace) o conmutar la operación a la nube fuera de la provincia afectada.</li>
+                                <li><strong>Soluciones manuales (<em>Workarounds</em> en papel · Tema 5.06.3):</strong> Cuando cae toda infraestructura local, el Plan de Continuidad del Negocio (BCP) debe incluir <strong>formularios impresos de albaranes de emergencia y listados de stock predescargados</strong> para despachar camiones manualmente, y el procedimiento posterior de volcado de datos al ERP una vez restablecido el sistema.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="mt-auto flex flex-wrap justify-between items-center gap-3">
+                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
+                    ← Anterior: Arquitecturas de continuidad
+                </button>
+                <a href="Flujo%20resoluci%C3%B3n.html" class="hide-in-embed inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
+                    Siguiente SPA (07): El flujo de resolución y control (5.8 – 5.10) →
+                </a>
+            </div>
+        </section>
+
+        <!-- Barra de navegación secuencial inferior entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 hide-in-embed">
+            <a href="Contrato%20de%20servicio.html" class="justify-self-center sm:justify-self-start inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all">
+                ← 05. El contrato de servicio (SLA)
+            </a>
+            <a href="../index.html" class="justify-self-center inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-blue-50 px-4 py-2.5 rounded-xl border border-slate-200 transition-all">
+                📋 Volver al índice general
+            </a>
+            <a href="Flujo%20resoluci%C3%B3n.html" class="justify-self-center sm:justify-self-end inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white bg-slate-900 hover:bg-slate-800 px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition-all">
+                07. El flujo de resolución y control →
+            </a>
+        </nav>
+
+    </main>
 
     <script>
-        const infoData = {
-            disponibilidad: {
-                title: '1. Gestión de la Disponibilidad',
-                text: 'Se enfoca en <strong>prevenir y gestionar fallos</strong> para cumplir con el <code>SLA</code> en <em>condiciones normales</em> de operación.',
-                points: [
-                    '<strong>Objetivo:</strong> Cumplir el <code>SLA</code> (Ej. 99.5% de uptime).',
-                    '<strong>Alcance:</strong> Fallos técnicos (bugs, reinicios, fallos de disco).',
-                    '<strong>Métrica Clave:</strong> Porcentaje de Disponibilidad (%).',
-                    '<strong>Concepto Clave:</strong> Redundancia, balanceo de carga, monitorización de <code>KPIs</code>.',
-                    '<strong>Analogía:</strong> Es el <em>mantenimiento preventivo</em> y las <em>reparaciones menores</em> de un coche.'
-                ],
-                color: 'blue'
-            },
-            continuidad: {
-                title: '2. Gestión de la Continuidad',
-                text: 'Se enfoca en <strong>recuperar el servicio</strong> después de un <em>desastre mayor</em>. Es el "Plan B" de la organización.',
-                points: [
-                    '<strong>Objetivo:</strong> Sobrevivir al desastre y reanudar el negocio.',
-                    '<strong>Alcance:</strong> Desastres (incendios, inundaciones, ciberataques masivos).',
-                    '<strong>Métricas Clave:</strong> <code>RTO</code> (Tiempo para Recuperar) y <code>RPO</code> (Datos que se pueden perder).',
-                    '<strong>Concepto Clave:</strong> Plan de Recuperación ante Desastres (<code>DRP</code>), <em>backups</em> externos, <em>cold/hot sites</em>.',
-                    '<strong>Analogía:</strong> Es el <em>seguro a todo riesgo</em> y el <em>coche de sustitución</em> tras un siniestro total.'
-                ],
-                color: 'red'
-            },
-            taller_drp: {
-                title: '3. ¡Mini-Taller DRP!',
-                text: 'Ahora que sabéis la diferencia, ¡a practicar! En grupos, elegid uno de los siguientes escenarios de desastre. Tenéis 5-10 minutos para debatir las <strong>tres primeras preguntas</strong> que haríais para empezar vuestro <code>DRP</code>.',
-                points: [
-                    '<strong>Escenario 1:</strong> Un incendio destruye el CPD principal de la UJI.',
-                    '<strong>Escenario 2:</strong> Un ataque de <em>Ransomware</em> cifra todos los servidores de producción, BBDD incluidas.',
-                    '<strong>Escenario 3:</strong> Una inundación (Gota Fría) deja el campus sin luz ni fibra óptica durante 48 horas.',
-                    '<strong>Preguntas Guía:</strong> ¿Qué es lo primero que os preocupa? ¿"Cuánto tardamos en volver"? ¿"Cuántos datos hemos perdido"? (Pista: acabáis de definir el <code>RTO</code> y el <code>RPO</code>).'
-                ],
-                color: 'orange'
+        let currentTab = 1;
+
+        function switchTab(tabNumber) {
+            currentTab = tabNumber;
+            for (let i = 1; i <= 3; i++) {
+                const panel = document.getElementById('tab-panel-' + i);
+                const btn = document.getElementById('tab-btn-' + i);
+                if (i === tabNumber) {
+                    panel.classList.remove('hidden');
+                    btn.classList.add('active');
+                } else {
+                    panel.classList.add('hidden');
+                    btn.classList.remove('active');
+                }
             }
-        };
-
-        // --- Lógica JS (Adaptada para los 3 IDs) ---
-
-        const colors = {
-            disponibilidad: 'blue',
-            continuidad: 'red',
-            taller_drp: 'orange'
-        };
-
-        const borderClasses = {
-            disponibilidad: 'border-blue-500',
-            continuidad: 'border-red-500',
-            taller_drp: 'border-orange-500'
-        };
-        
-        const textClasses = {
-            disponibilidad: 'text-blue-900',
-            continuidad: 'text-red-900',
-            taller_drp: 'text-orange-900'
-        };
-
-        const allBorderClasses = Object.values(borderClasses);
-        const allTextClasses = Object.values(textClasses);
-
-        const infoPanel = document.getElementById('info-panel');
-        const infoTitle = document.getElementById('info-title');
-        const infoText = document.getElementById('info-text');
-        const infoList = document.getElementById('info-list');
-
-        let currentActive = null;
-
-        function showInfo(phase) {
-            const data = infoData[phase];
-            
-            // Actualizar panel de info
-            infoTitle.innerText = data.title;
-            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
-            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
-
-            // Actualizar estilos del panel
-            infoPanel.classList.remove(...allBorderClasses);
-            infoPanel.classList.add(borderClasses[phase]);
-            
-            infoTitle.classList.remove(...allTextClasses);
-            infoTitle.classList.add(textClasses[phase]);
-
-            // Gestionar resaltado de la tarjeta
-            if (currentActive) {
-                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
-                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
-            }
-            
-            const activeCard = document.getElementById(phase);
-            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
-            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
-            currentActive = phase;
         }
 
-        // Estado inicial (selecciona DISPONIBILIDAD por defecto)
-        showInfo('disponibilidad');
+        document.addEventListener('keydown', function(e) {
+            if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+            if (e.key === 'ArrowRight' && currentTab < 3) {
+                switchTab(currentTab + 1);
+            } else if (e.key === 'ArrowLeft' && currentTab > 1) {
+                switchTab(currentTab - 1);
+            }
+        });
 
+        // Simulador FTA (Árbol de Fallos)
+        let ftaMode = 'or'; // 'or' = SPOF en serie, 'and' = Redundancia en paralelo
+        let compAFailed = true; // Empezamos con 1 componente caído para ver el contraste inmediato
+        let compBFailed = false;
+
+        function setFtaMode(mode) {
+            ftaMode = mode;
+            document.getElementById('gate-btn-or').classList.toggle('active', mode === 'or');
+            document.getElementById('gate-btn-and').classList.toggle('active', mode === 'and');
+            renderFta();
+        }
+
+        function toggleFtaComponent(comp) {
+            if (comp === 'a') compAFailed = !compAFailed;
+            if (comp === 'b') compBFailed = !compBFailed;
+            renderFta();
+        }
+
+        function renderFta() {
+            const topFailed = ftaMode === 'or' ? (compAFailed || compBFailed) : (compAFailed && compBFailed);
+
+            const topBox = document.getElementById('fta-top-event');
+            const topTitle = document.getElementById('fta-top-title');
+            if (topFailed) {
+                topBox.className = 'w-full max-w-md rounded-xl p-3.5 text-center border-2 transition-all mb-3 bg-rose-600 border-rose-700 text-white shadow-md';
+                topTitle.textContent = '🚨 Suceso superior: CAÍDA TOTAL DEL SERVICIO ERP';
+            } else {
+                topBox.className = 'w-full max-w-md rounded-xl p-3.5 text-center border-2 transition-all mb-3 bg-emerald-600 border-emerald-700 text-white shadow-md';
+                topTitle.textContent = '✅ Suceso superior: SERVICIO ERP OPERATIVO (Sin corte)';
+            }
+
+            const gateBox = document.getElementById('fta-gate-box');
+            if (ftaMode === 'or') {
+                gateBox.className = 'px-4 py-2 rounded-full font-extrabold text-xs uppercase tracking-wider border-2 shadow-sm mb-3 bg-amber-100 border-amber-400 text-amber-900';
+                gateBox.textContent = 'Puerta lógica OR (Basta 1 fallo para caer · SPOF)';
+            } else {
+                gateBox.className = 'px-4 py-2 rounded-full font-extrabold text-xs uppercase tracking-wider border-2 shadow-sm mb-3 bg-blue-100 border-blue-400 text-blue-900';
+                gateBox.textContent = 'Puerta lógica AND (Solo cae si fallan AMBOS a la vez)';
+            }
+
+            const labelA = ftaMode === 'or' ? 'Switch Core Único (SPOF)' : 'Nodo A · Switch Primario';
+            const labelB = ftaMode === 'or' ? 'Fuente Eléctrica Única (SPOF)' : 'Nodo B · Switch Redundante';
+
+            const btnA = document.getElementById('fta-comp-a');
+            btnA.className = compAFailed
+                ? 'p-3.5 rounded-2xl border-2 text-center transition-all cursor-pointer shadow-sm bg-rose-50 border-rose-500 text-rose-950'
+                : 'p-3.5 rounded-2xl border-2 text-center transition-all cursor-pointer shadow-sm bg-emerald-50 border-emerald-500 text-emerald-950';
+            btnA.innerHTML = `
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${compAFailed ? 'bg-rose-200 text-rose-900' : 'bg-emerald-200 text-emerald-900'}">
+                    Suceso básico A (Círculo)
+                </span>
+                <p class="font-extrabold text-xs sm:text-sm mt-1.5">${labelA}</p>
+                <p class="text-xs font-bold mt-1 ${compAFailed ? 'text-rose-700' : 'text-emerald-700'}">
+                    ${compAFailed ? '❌ AVERIADO (clic para reparar)' : '✔️ SANO (clic para romper)'}
+                </p>
+            `;
+
+            const btnB = document.getElementById('fta-comp-b');
+            btnB.className = compBFailed
+                ? 'p-3.5 rounded-2xl border-2 text-center transition-all cursor-pointer shadow-sm bg-rose-50 border-rose-500 text-rose-950'
+                : 'p-3.5 rounded-2xl border-2 text-center transition-all cursor-pointer shadow-sm bg-emerald-50 border-emerald-500 text-emerald-950';
+            btnB.innerHTML = `
+                <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${compBFailed ? 'bg-rose-200 text-rose-900' : 'bg-emerald-200 text-emerald-900'}">
+                    Suceso básico B (Círculo)
+                </span>
+                <p class="font-extrabold text-xs sm:text-sm mt-1.5">${labelB}</p>
+                <p class="text-xs font-bold mt-1 ${compBFailed ? 'text-rose-700' : 'text-emerald-700'}">
+                    ${compBFailed ? '❌ AVERIADO (clic para reparar)' : '✔️ SANO (clic para romper)'}
+                </p>
+            `;
+
+            const exp = document.getElementById('fta-explanation');
+            if (ftaMode === 'or') {
+                exp.className = 'p-4 rounded-xl border bg-amber-50 border-amber-300 text-amber-950';
+                exp.innerHTML = `
+                    <p class="font-extrabold mb-1">⚠️ Diagnóstico FTA en modo Puerta OR (Dependencia en serie):</p>
+                    <p class="text-xs leading-relaxed">
+                        Cuando varios componentes están unidos por una <strong>puerta OR</strong>, basta con que falle <strong>uno solo</strong> para derribar el servicio completo. En ingeniería de disponibilidad, toda rama que entra directamente a una puerta OR es un <strong>SPOF (<em>Single Point of Failure</em>)</strong> que debe eliminarse en las funciones vitales del negocio (<strong>VBF</strong>).
+                    </p>
+                `;
+            } else {
+                exp.className = 'p-4 rounded-xl border bg-blue-50 border-blue-300 text-blue-950';
+                exp.innerHTML = `
+                    <p class="font-extrabold mb-1">✅ Diagnóstico FTA en modo Puerta AND (Redundancia en paralelo):</p>
+                    <p class="text-xs leading-relaxed">
+                        Al sustituir la puerta OR por una <strong>puerta AND</strong> (p. ej., dos switches en pila de alta disponibilidad o discos en RAID 1), el fallo de un único componente <strong>no interrumpe el servicio</strong>. El suceso superior solo ocurre si fallan ambos simultáneamente ($P_{A \cap B} = P_A \times P_B$).
+                    </p>
+                `;
+            }
+        }
+
+        // Datos de las 5 arquitecturas de recuperación (Tema 5.06.3)
+        const archData = {
+            inmediata: {
+                badge: 'Nivel 1 · Máxima criticidad (VBF críticas)',
+                title: '⚡ Recuperación inmediata (Activo-activo / Mirroring síncrono)',
+                rto: 'RTO ≈ 0 (segundos / transparente)',
+                rpo: 'RPO ≈ 0 (cero pérdida de transacciones)',
+                cost: 'Coste: Muy alto (100 % infraestructura duplicada en vivo)',
+                desc: 'El servicio se ejecuta simultáneamente en dos centros de datos geográficamente distantes con replicación síncrona de datos y balanceo de carga activo. Si el CPD principal desaparece, el segundo centro absorbe el 100 % del tráfico sin interrupción apreciable para los usuarios.',
+                bullets: [
+                    '<strong>Infraestructura:</strong> Dos CPDs completos conectados por fibra oscura de baja latencia o arquitectura multi-región activa en la nube.',
+                    '<strong>Caso de uso típico:</strong> Banca electrónica, pasarelas de pago, control de hornos continuos 24×7 o historia clínica hospitalaria de urgencias.'
+                ]
+            },
+            hot: {
+                badge: 'Nivel 2 · Alta criticidad',
+                title: '🔥 Recuperación rápida (Hot standby · Centro de respaldo caliente)',
+                rto: 'RTO < 24 horas (típicamente de 15 min a 4 horas)',
+                rpo: 'RPO: De minutos a pocas horas (réplica asíncrona frecuente)',
+                cost: 'Coste: Alto',
+                desc: 'Existe un centro de datos secundario con los servidores encendidos, el software instalado y las bases de datos actualizadas mediante replicación asíncrona continua o <em>snapshots</em> horarios. Ante un desastre, basta con activar la conmutación (<em>failover</em>) y redirigir el tráfico.',
+                bullets: [
+                    '<strong>Infraestructura:</strong> Hardware o máquinas virtuales preaprovisionadas en espera activa (<em>standby</em>) listas para asumir carga.',
+                    '<strong>Caso de uso típico:</strong> ERP corporativo de Keraben Grupo (expediciones y pedidos) o plataforma de docencia y exámenes de la UJI.'
+                ]
+            },
+            warm: {
+                badge: 'Nivel 3 · Criticidad media',
+                title: '🌤️ Recuperación intermedia (Warm standby · Centro templado)',
+                rto: 'RTO entre 24 y 72 horas (1 a 3 días)',
+                rpo: 'RPO: Entre 12 y 24 horas (último backup diario)',
+                cost: 'Coste: Moderado / Equilibrado',
+                desc: 'El sitio secundario dispone de infraestructura básica de red y servidores (o capacidad reservada en nube), pero los sistemas no están levantados en tiempo real. Tras el desastre, los técnicos deben instalar o levantar las imágenes y volcar la última copia de seguridad externa.',
+                bullets: [
+                    '<strong>Infraestructura:</strong> Servidores base disponibles o infraestructura como código (IaC) en la nube lista para desplegar y restaurar <em>backups</em>.',
+                    '<strong>Caso de uso típico:</strong> Sistemas de gestión interna no transaccionales al minuto (intranet documental, CRM analítico, portal de proveedores no crítico).'
+                ]
+            },
+            cold: {
+                badge: 'Nivel 4 · Baja criticidad',
+                title: '❄️ Recuperación gradual (Cold standby · Centro frío)',
+                rto: 'RTO > 72 horas (más de 3 días / semanas)',
+                rpo: 'RPO > 24 horas (copias semanales o diarias externas)',
+                cost: 'Coste: Bajo (mínimo mantenimiento recurrente)',
+                desc: 'Solo se dispone de un local o espacio acondicionado (con electricidad, climatización y comunicaciones básicas) o un acuerdo de provisión, pero <strong>sin servidores instalados</strong>. Cuando ocurre el desastre, hay que adquirir/alquilar los equipos, instalarlos desde cero y restaurar cintas o copias remotas.',
+                bullets: [
+                    '<strong>Infraestructura:</strong> Sala blanca vacía o contrato de entrega de hardware de emergencia.',
+                    '<strong>Caso de uso típico:</strong> Entornos de desarrollo/pruebas, archivos históricos, aplicaciones departamentales cuya parada de una semana es tolerable según el BIA.'
+                ]
+            },
+            manual: {
+                badge: 'Nivel 5 · Complemento indispensable y alianzas (Tema 5.06.3)',
+                title: '🤝 Acuerdos recíprocos y soluciones manuales (Operación en papel)',
+                rto: 'RTO operativo inmediato en modo degradado manual',
+                rpo: 'Depende del volcado posterior al restaurar TI',
+                cost: 'Coste: Muy bajo (requiere organización y entrenamiento)',
+                desc: 'La norma ISO 20000 y los apuntes oficiales (Tema 5.06.3) destacan dos mecanismos complementarios que todo Plan de Continuidad debe contemplar más allá del alquiler de CPDs:',
+                bullets: [
+                    '<strong>Acuerdos recíprocos (<em>Reciprocal agreements</em>):</strong> Convenio entre dos organizaciones con infraestructuras similares (p. ej., dos universidades públicas o dos plantas industriales del mismo grupo empresarial) para cederse mutuamente espacio de CPD y capacidad de cómputo en caso de catástrofe en una de ellas.',
+                    '<strong>Soluciones manuales (formularios en papel):</strong> Procedimientos alternativos sin ordenador para que el negocio no se paralice mientras dura el RTO (p. ej., albaranes en papel autocopiativo en el muelle de carga de Keraben) seguidos de un protocolo de introducción de datos cuando vuelve el sistema.'
+                ]
+            }
+        };
+
+        function selectArch(key) {
+            ['inmediata', 'hot', 'warm', 'cold', 'manual'].forEach(k => {
+                document.getElementById('arch-btn-' + k).classList.toggle('active', k === key);
+            });
+            const d = archData[key];
+            const bulletsHtml = d.bullets.map(b => `<li>${b}</li>`).join('');
+            document.getElementById('arch-detail-box').innerHTML = `
+                <div class="fade-in">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="text-xs font-extrabold uppercase tracking-wider bg-slate-200 text-slate-900 px-3 py-1 rounded-full">
+                            ${d.badge}
+                        </span>
+                        <span class="text-xs font-bold text-slate-600">${d.cost}</span>
+                    </div>
+                    <h3 class="text-lg md:text-xl font-extrabold text-slate-900 mb-3">${d.title}</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                        <div class="bg-white p-3 rounded-xl border border-slate-200">
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700">Objetivo de tiempo (RTO)</span>
+                            <p class="text-sm font-extrabold text-slate-900 mt-0.5">${d.rto}</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-slate-200">
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-amber-700">Objetivo de punto de datos (RPO)</span>
+                            <p class="text-sm font-extrabold text-slate-900 mt-0.5">${d.rpo}</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-slate-700 leading-relaxed mb-3">${d.desc}</p>
+                    <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm text-slate-700">
+                        ${bulletsHtml}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function toggleSpoiler(id) {
+            document.getElementById(id).classList.toggle('hidden');
+        }
+
+        // Inicialización
+        renderFta();
+        selectArch('inmediata');
     </script>
 </body>
 </html>

@@ -3,242 +3,812 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografía: El Flujo de Resolución</title>
+    <title>El flujo de resolución, control y entrega (ISO 20000: 5.8, 5.9 y 5.10)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
         }
-        .flow-arrow {
-            color: #9ca3af; /* text-gray-400 */
+        .is-embedded .hide-in-embed {
+            display: none !important;
         }
-        /* Estilo para términos clave */
-        code {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #e5e7eb; /* bg-gray-200 */
-            color: #b91c1c; /* text-red-700 */
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
+        .tab-btn {
+            transition: all 0.2s ease;
         }
-        .flow-link {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.875rem; /* text-sm */
-            color: #6b7280; /* text-gray-500 */
-            font-style: italic;
+        .tab-btn.active,
+        .tab-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+            box-shadow: 0 4px 12px -2px rgba(15, 23, 42, 0.25);
+        }
+        .step-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        .step-card:hover {
+            transform: translateY(-3px);
+        }
+        .step-card.active-step {
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.14);
+            transform: scale(1.02);
+        }
+        .ticket-btn {
+            transition: all 0.2s ease;
+        }
+        .ticket-btn.active,
+        .ticket-btn.active:hover {
+            background-color: #0f172a !important;
+            color: #ffffff !important;
+            border-color: #0f172a !important;
+        }
+        .fade-in {
+            animation: fadeIn 0.35s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
         }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-6">
-    <div class="w-full max-w-6xl bg-white rounded-2xl shadow-2xl p-8">
-        
-        <!-- Título -->
-        <h1 class="text-3xl font-bold text-center text-blue-900 mb-2">El Flujo de Resolución de TI</h1>
-        <p class="text-center text-lg text-gray-600 mb-10">Del Síntoma (Fuego) a la Solución Controlada (Ingeniería)</p>
+<body class="min-h-screen flex flex-col p-4 md:p-8">
 
-        <div class="flex flex-col lg:flex-row items-start justify-center gap-8">
-            
-            <!-- Flujo Principal (Vertical) -->
-            <div class="w-full lg:w-3/5 space-y-4">
-                
-                <!-- 0. Inicio -->
-                <div class="relative z-10 p-6 bg-gray-50 border-2 border-gray-200 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🔔</span>
-                        <h2 class="text-2xl font-bold text-gray-800">Inicio: Alerta de Usuario</h2>
+    <main class="max-w-7xl mx-auto w-full flex-grow flex flex-col">
+
+        <!-- Cabecera -->
+        <header class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-2 border border-indigo-200">
+                Tema 5 · Sesión 5 · Actividades 1, 2 y 3 (ISO/IEC 20000: Cláusulas 5.8, 5.9 y 5.10)
+            </div>
+            <h1 class="text-2xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+                El flujo de resolución, control de cambios y entrega en TI
+            </h1>
+            <p class="text-slate-600 text-sm md:text-base max-w-3xl mx-auto">
+                Del apagafuegos inmediato (<strong>Incidente</strong>) a la erradicación de la causa raíz (<strong>Problema / KEDB</strong>), el paso seguro a producción (<strong>RFC / CAB / Entrega</strong>) y el mapa de activos (<strong>CMDB</strong>).
+            </p>
+        </header>
+
+        <!-- Navegación de pestañas secuenciales -->
+        <nav aria-label="Fases de la sesión" class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6">
+            <button type="button" id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+                1. 👨‍🚒 Flujo de extremo a extremo (5.8, 5.9 y 5.10)
+            </button>
+            <button type="button" id="tab-btn-2" onclick="switchTab(2)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+                2. 🚦 Simulador de triaje en el Service Desk (5 tickets)
+            </button>
+            <button type="button" id="tab-btn-3" onclick="switchTab(3)" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm bg-white text-slate-700 border border-slate-200 shadow-sm">
+                3. 👷 Comité CAB / ECAB y arquitectura CMDB en Notion
+            </button>
+        </nav>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 1: FLUJO DE EXTREMO A EXTREMO      -->
+        <!-- ========================================== -->
+        <section id="tab-panel-1" class="fade-in flex-grow flex flex-col">
+
+            <!-- Diagrama interactivo de 4 etapas + CMDB -->
+            <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-200 mb-6">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h2 class="text-xs font-bold uppercase tracking-widest text-slate-500">
+                        Cadena operativa del SGSTI (haz clic en cada proceso para inspeccionarlo)
+                    </h2>
+                    <span class="text-xs font-semibold text-indigo-700 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200">
+                        Resolución (5.8) · Control (5.9) · Entrega (5.10)
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-4">
+                    <!-- Paso 1: Incidente -->
+                    <div id="step-incidente" onclick="selectStep('incidente')" class="step-card active-step bg-amber-50 border-2 border-amber-400 rounded-xl p-4 ring-4 ring-amber-200">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full">1. Apagar el fuego (5.8.1)</span>
+                            <span class="text-xl">👨‍🚒</span>
+                        </div>
+                        <h3 class="text-sm font-extrabold text-amber-950">Gestión del incidente y peticiones</h3>
+                        <p class="text-xs text-amber-800 mt-1">Restaurar el servicio lo antes posible (con o sin <em>workaround</em>).</p>
                     </div>
-                    <p class="text-gray-700">Un usuario llama al <em>Service Desk</em> o un sistema de monitorización reporta un fallo. (Ej. "¡No puedo imprimir!", "¡Moodle va lento!").</p>
-                </div>
 
-                <!-- Flecha -->
-                <div class="flex justify-center">
-                    <svg class="w-8 h-8 flow-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                </div>
-
-                <!-- 1. Incidente -->
-                <div id="incidente" class="relative z-10 p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('incidente')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">👨‍🚒</span>
-                        <h2 class="text-2xl font-bold text-red-800">1. Gestión de Incidentes</h2>
+                    <!-- Paso 2: Problema -->
+                    <div id="step-problema" onclick="selectStep('problema')" class="step-card bg-blue-50 border-2 border-blue-400 rounded-xl p-4">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2 py-0.5 rounded-full">2. Investigar (5.8.2)</span>
+                            <span class="text-xl">🕵️‍♂️</span>
+                        </div>
+                        <h3 class="text-sm font-extrabold text-blue-950">Gestión del problema y KEDB</h3>
+                        <p class="text-xs text-blue-800 mt-1">Descubrir la causa raíz, documentar el Error Conocido y evitar que se repita.</p>
                     </div>
-                    <p class="text-gray-700">El "Bombero". El objetivo es apagar el fuego y <strong>restaurar el servicio</strong> lo más rápido posible. Es <em>reactivo</em>.</p>
-                </div>
 
-                <!-- Flecha y texto de enlace -->
-                <div class="text-center">
-                    <svg class="w-8 h-8 flow-arrow inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                    <p class="flow-link">Si los incidentes se repiten...</p>
-                </div>
-
-                <!-- 2. Problema -->
-                <div id="problema" class="relative z-10 p-6 bg-yellow-50 border-2 border-yellow-300 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('problema')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🕵️‍♂️</span>
-                        <h2 class="text-2xl font-bold text-yellow-900">2. Gestión de Problemas</h2>
+                    <!-- Paso 3: Cambio y Entrega -->
+                    <div id="step-cambio" onclick="selectStep('cambio')" class="step-card bg-emerald-50 border-2 border-emerald-400 rounded-xl p-4">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full">3. Modificar y desplegar (5.9.2 / 5.10)</span>
+                            <span class="text-xl">👷</span>
+                        </div>
+                        <h3 class="text-sm font-extrabold text-emerald-950">Gestión del cambio y de la entrega</h3>
+                        <p class="text-xs text-emerald-800 mt-1">Aprobar la RFC en el CAB, probar la versión (DSL/DHS) y pasar a producción con <em>rollback</em>.</p>
                     </div>
-                    <p class="text-gray-700">El "Detective". El objetivo es encontrar la <strong>causa raíz</strong> de los incidentes recurrentes. Es <em>proactivo</em>.</p>
-                </div>
 
-                <!-- Flecha y texto de enlace -->
-                <div class="text-center">
-                    <svg class="w-8 h-8 flow-arrow inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                    <p class="flow-link">La solución definitiva requiere un...</p>
-                </div>
-
-                <!-- 3. Cambio -->
-                <div id="cambio" class="relative z-10 p-6 bg-purple-50 border-2 border-purple-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('cambio')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">👷‍♀️</span>
-                        <h2 class="text-2xl font-bold text-purple-800">3. Gestión del Cambio (RFC)</h2>
+                    <!-- Paso 4: Configuración CMDB -->
+                    <div id="step-cmdb" onclick="selectStep('cmdb')" class="step-card bg-purple-50 border-2 border-purple-400 rounded-xl p-4">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">4. Cimiento transversal (5.9.1)</span>
+                            <span class="text-xl">🗺️</span>
+                        </div>
+                        <h3 class="text-sm font-extrabold text-purple-950">Gestión de la configuración (CMDB)</h3>
+                        <p class="text-xs text-purple-800 mt-1">Inventario vivo de activos (CIs) y sus relaciones que alimenta a los otros tres procesos.</p>
                     </div>
-                    <p class="text-gray-700">El "Ingeniero/Controlador". El objetivo es implementar la solución <strong>sin causar nuevos problemas</strong>, de forma controlada.</p>
                 </div>
-                
-                <!-- Flecha y texto de enlace -->
-                <div class="text-center">
-                    <svg class="w-8 h-8 flow-arrow inline-block -rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    <p class="flow-link">...Este proceso consulta el...</p>
+            </div>
+
+            <!-- Panel dinámico de detalle del paso seleccionado -->
+            <div id="step-detail-panel" class="bg-white rounded-2xl shadow-md border border-slate-200 p-6 md:p-8 mb-6">
+                <!-- JS -->
+            </div>
+
+            <!-- Nivel 2: Rigor normativo completo de los PDFs 5.08, 5.09 y 5.10 -->
+            <details class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-6">
+                <summary class="px-6 py-4 cursor-pointer bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between font-bold text-slate-800 text-sm md:text-base">
+                    <span>🔎 Desplegar análisis técnico completo: métricas (MTTR, MTBF, MTBSI), ciclo de errores (KEDB), aprobaciones CAB y DSL/DHS</span>
+                    <span class="text-xs font-semibold text-indigo-700 bg-indigo-100 px-2.5 py-1 rounded-full">Nivel 2 · Estudio en casa</span>
+                </summary>
+                <div class="p-6 border-t border-slate-200 space-y-6 text-sm text-slate-700">
+
+                    <!-- Bloque 1: Métricas de Incidentes y Escalados (Tema 5.08.1) -->
+                    <div class="bg-amber-50/60 rounded-xl p-5 border border-amber-200">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h3 class="font-extrabold text-amber-950 text-base">⏱️ 5.8.1 Métricas de fiabilidad, escalado dual y secuencia de restauración</h3>
+                            <span class="text-xs font-bold bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Tema 5.08.1</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-amber-200">
+                                <h4 class="font-bold text-slate-900 mb-2">Escalado funcional vs. Escalado jerárquico</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                                    <li><strong>Escalado funcional (horizontal · por conocimiento):</strong> El <em>Service Desk</em> (1.ª línea) transfiere el ticket a un especialista técnico de 2.ª línea (redes, BBDD) o 3.ª línea (proveedor externo bajo contrato UC) porque requiere mayor pericia técnica.</li>
+                                    <li><strong>Escalado jerárquico (vertical · por autoridad):</strong> Se avisa a los mandos (Gestor de Incidentes, CIO, Dirección) porque el incidente es crítico (P1), amenaza con romper el SLA o requiere movilizar recursos extraordinarios.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-amber-200">
+                                <h4 class="font-bold text-slate-900 mb-2">Métricas temporales: MTBF, MTTR y MTBSI</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                                    <li><strong>MTBF (<em>Mean Time Between Failures</em>):</strong> Tiempo medio que el servicio funciona sin fallos (mide la <em>fiabilidad</em> entre la restauración de un fallo y la detección del siguiente).</li>
+                                    <li><strong>MTTR (<em>Mean Time To Restore / Repair</em>):</strong> Tiempo medio que se tarda en recuperar el servicio desde que cae hasta que vuelve a estar operativo para el usuario.</li>
+                                    <li><strong>MTBSI (<em>Mean Time Between System Incidents</em>):</strong> Tiempo medio entre el inicio de dos incidentes consecutivos:
+                                        $$\text{MTBSI} = \text{MTTR} + \text{MTBF}$$
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-600 mt-3 leading-relaxed">
+                            <strong>Secuencia técnica de resolución y cierre:</strong> 1) <em>Reparación</em> del elemento hardware/software averiado ➔ 2) <em>Recuperación</em> de los datos y estado consistente ➔ 3) <em>Restauración</em> del servicio para el usuario ➔ 4) <em>Cierre del incidente</em> (con confirmación explícita del usuario o <strong>cierre automático tras p. ej. 2 días sin respuesta</strong>, seguido de encuesta de satisfacción).
+                        </p>
+                    </div>
+
+                    <!-- Bloque 2: Ciclo de vida del Problema (Tema 5.08.2) -->
+                    <div class="bg-blue-50/60 rounded-xl p-5 border border-blue-200">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h3 class="font-extrabold text-blue-950 text-base">🔬 5.8.2 Distinción entre Causa raíz, Error y Error conocido (KEDB)</h3>
+                            <span class="text-xs font-bold bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">Tema 5.08.2</span>
+                        </div>
+                        <p class="mb-3 leading-relaxed text-xs sm:text-sm">
+                            La Gestión del Problema actúa de forma <strong>reactiva</strong> (tras uno o varios incidentes graves o repetitivos) o <strong>proactiva</strong> (analizando tendencias antes de que el usuario sufra cortes). Su ciclo de vida se divide en dos etapas formales:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-bold text-slate-900 mb-2">Etapa 1: Control de problemas (Investigar)</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                                    <li>Identificar y registrar el problema (vinculándolo a los incidentes que lo dispararon).</li>
+                                    <li>Investigar el diagnóstico hasta aislar la <strong>Causa raíz</strong> (el origen físico, lógico o humano subyacente).</li>
+                                    <li>Cuando se conoce la causa raíz de un problema, se convierte técnicamente en un <strong>Error</strong>; cuando además se documenta su solución temporal (<em>workaround</em>) o definitiva en la base de datos <strong>KEDB</strong>, pasa a ser un <strong>Error Conocido (<em>Known Error</em>)</strong>.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-blue-200">
+                                <h4 class="font-bold text-slate-900 mb-2">Etapa 2: Control de errores (Erradicar)</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs sm:text-sm">
+                                    <li>Compartir el <em>workaround</em> en la <strong>KEDB</strong> con el <em>Service Desk</em> para que futuros incidentes idénticos se resuelvan en minutos.</li>
+                                    <li>Solicitar una <strong>RFC (<em>Request for Change</em>)</strong> a Gestión del Cambio (5.9.2) para aplicar la solución definitiva en producción.</li>
+                                    <li><strong>Paso final obligatorio:</strong> Una vez implantado el cambio definitivo, <strong>retirar las soluciones temporales (<em>workarounds</em>)</strong> que se hubieran dejado puestas y cerrar el problema.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bloque 3: Configuración (5.9.1), Cambio (5.9.2) y Entrega (5.10) -->
+                    <div class="bg-emerald-50/60 rounded-xl p-5 border border-emerald-200">
+                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                            <h3 class="font-extrabold text-emerald-950 text-base">📦 5.9 y 5.10 Relaciones CMDB, las 4 aprobaciones del cambio y bibliotecas DSL / DHS</h3>
+                            <span class="text-xs font-bold bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full">Temas 5.09 y 5.10</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded-lg border border-emerald-200">
+                                <h4 class="font-bold text-slate-900 mb-2">6 relaciones oficiales entre CIs (5.9.1)</h4>
+                                <p class="text-xs text-slate-600 mb-2">Una CMDB no es una hoja Excel de inventario; su valor reside en mapear las relaciones entre CIs:</p>
+                                <ul class="list-disc list-outside pl-5 space-y-1 text-xs">
+                                    <li><strong>Usa</strong> (el Servicio ERP <em>usa</em> la BBDD Oracle).</li>
+                                    <li><strong>Parte de / Formado por</strong> (relación padre-hijo).</li>
+                                    <li><strong>Conectado a</strong> (topología de red/fibra).</li>
+                                    <li><strong>Instalado en</strong> (software sobre servidor físico/VM).</li>
+                                    <li><strong>Localizado en</strong> (ubicación física en rack/planta).</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-emerald-200">
+                                <h4 class="font-bold text-slate-900 mb-2">Las 4 aprobaciones y el PSA (5.9.2)</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs">
+                                    <li><strong>Equilibrio Agilidad vs. Rigurosidad:</strong> Filtrar RFCs inviables, categorizar (menor, significativo, mayor) y evaluar el impacto en el <strong>PSA (<em>Projected Service Availability</em>)</strong>.</li>
+                                    <li><strong>4 hitos de aprobación CAB:</strong> 1) Aprobación de construcción, 2) Aprobación de implantación (calendario <strong>FSC</strong>), 3) Paso a producción y 4) Revisión post-implementación (<strong>PIR</strong>).</li>
+                                    <li><strong>Cambios de emergencia (ECAB):</strong> Ante incidentes críticos o 0-day activos, se autoriza por vía rápida con pruebas esenciales y <strong>la documentación se difiere hasta el cierre</strong>.</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border border-emerald-200">
+                                <h4 class="font-bold text-slate-900 mb-2">Entrega (5.10): DSL y DHS</h4>
+                                <ul class="list-disc list-outside pl-5 space-y-1.5 text-xs">
+                                    <li><strong>Unidad de entrega (<em>Release</em>):</strong> Paquete técnico completo (entregas mayores vs. menores) probado en preproducción antes de desplegar.</li>
+                                    <li><strong>DSL (<em>Definitive Software Library</em>):</strong> Biblioteca segura donde se custodian las copias maestras autorizadas de todo el software y código en producción.</li>
+                                    <li><strong>DHS (<em>Definitive Hardware Store</em>):</strong> Almacén controlado de repuestos y hardware maestro idéntico al de producción para sustituciones rápidas.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </details>
+
+            <div class="mt-auto flex justify-end">
+                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
+                    Siguiente fase: Simulador de triaje en el Service Desk (5 tickets) →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 2: SIMULADOR DE TRIAJE (5 TICKETS) -->
+        <!-- ========================================== -->
+        <section id="tab-panel-2" class="fade-in flex-grow flex flex-col hidden">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+
+                <!-- Columna izquierda (7 cols): Los 5 tickets de la Sesión 5 · Actividad 1 -->
+                <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="text-xs font-bold uppercase tracking-wider bg-amber-100 text-amber-900 px-3 py-1 rounded-full">
+                            Dinámica en vivo · Sesión 5 · Actividad 1 (Sin spoilers)
+                        </span>
+                        <span class="text-xs font-semibold text-slate-500">Caso Keraben Grupo y UJI</span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mb-2">
+                        🚦 Mesa de triaje del <em>Service Desk</em> (1.ª línea): las 09:00 h del lunes
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
+                        Acaban de entrar estas <strong>5 comunicaciones simultáneas</strong> en la cola de atención. Selecciona cada caso, debate con la clase qué tipo de registro es (<strong>Petición de servicio, Incidente, Problema o RFC</strong>), qué prioridad le corresponde y a quién debe escalarse, y pulsa después el botón para comprobar el dictamen:
+                    </p>
+
+                    <!-- Selector de los 5 tickets -->
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button type="button" id="tkt-btn-1" onclick="selectTicket(1)" class="ticket-btn active px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                            Ticket #1 · Becario Múnich
+                        </button>
+                        <button type="button" id="tkt-btn-2" onclick="selectTicket(2)" class="ticket-btn px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                            Ticket #2 · Impresora Línea 2
+                        </button>
+                        <button type="button" id="tkt-btn-3" onclick="selectTicket(3)" class="ticket-btn px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                            Ticket #3 · Corte VPN 00:00 h
+                        </button>
+                        <button type="button" id="tkt-btn-4" onclick="selectTicket(4)" class="ticket-btn px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                            Ticket #4 · Caída BBDD ERP
+                        </button>
+                        <button type="button" id="tkt-btn-5" onclick="selectTicket(5)" class="ticket-btn px-3 py-2 rounded-xl text-xs font-bold border border-slate-200 bg-slate-50 text-slate-700">
+                            Ticket #5 · Parche PHP CVE
+                        </button>
+                    </div>
+
+                    <!-- Tarjeta del ticket activo -->
+                    <div id="ticket-display" class="rounded-2xl border-2 border-slate-200 bg-slate-50 p-5 flex-grow flex flex-col">
+                        <!-- JS -->
+                    </div>
                 </div>
 
-                <!-- 4. CMDB -->
-                <div id="cmdb" class="relative z-10 p-6 bg-blue-50 border-2 border-blue-200 rounded-xl shadow-lg cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-105" onclick="showInfo('cmdb')">
-                    <div class="flex items-center mb-3">
-                        <span class="text-3xl mr-3">🗺️</span>
-                        <h2 class="text-2xl font-bold text-blue-800">4. Gestión de Configuración (CMDB)</h2>
+                <!-- Columna derecha (5 cols): Calculadora interactiva de Prioridad (Impacto x Urgencia) -->
+                <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                    <span class="inline-block self-start text-xs font-bold uppercase tracking-wider bg-indigo-100 text-indigo-900 px-3 py-1 rounded-full mb-2">
+                        Calculadora ISO 20000 / ITIL (Tema 5.08.1)
+                    </span>
+                    <h3 class="text-base md:text-lg font-extrabold text-slate-900 mb-2">
+                        🧮 Matriz de priorización: $\text{Impacto} \times \text{Urgencia}$
+                    </h3>
+                    <p class="text-xs text-slate-600 mb-4 leading-relaxed">
+                        En un <em>Service Desk</em> profesional no atiende antes «quien más grita por teléfono». La <strong>Prioridad</strong> se calcula cruzando dos variables objetivas:
+                    </p>
+
+                    <div class="space-y-3 mb-4">
+                        <div>
+                            <label for="calc-impact" class="block text-xs font-bold text-slate-700 mb-1">
+                                1. Impacto en el negocio (usuarios / procesos VBF afectados):
+                            </label>
+                            <select id="calc-impact" onchange="updatePriorityCalc()" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800">
+                                <option value="3">Alto (3) · Planta parada, múltiples sedes o servicio crítico VBF caído</option>
+                                <option value="2" selected>Medio (2) · Un departamento o línea afectada con alternativa parcial</option>
+                                <option value="1">Bajo (1) · Un único usuario afectado en tarea no crítica</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="calc-urgency" class="block text-xs font-bold text-slate-700 mb-1">
+                                2. Urgencia temporal (margen antes de causar daño grave):
+                            </label>
+                            <select id="calc-urgency" onchange="updatePriorityCalc()" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800">
+                                <option value="3">Alta (3) · Inmediata (camión en muelle, examen en curso, brecha activa)</option>
+                                <option value="2" selected>Media (2) · Puede esperar unas horas sin paralizar el negocio</option>
+                                <option value="1">Baja (1) · Planificable en días (solicitud estándar o mejora)</option>
+                            </select>
+                        </div>
                     </div>
-                    <p class="text-gray-700">El "Mapa" o "Cerebro". Es la base de datos que dice <strong>qué componentes existen y cómo se relacionan</strong>.</p>
+
+                    <div id="priority-calc-output" class="rounded-xl p-4 border-2 mt-auto">
+                        <!-- JS -->
+                    </div>
                 </div>
 
             </div>
 
-            <!-- Panel de Información (Lateral) -->
-            <div class="w-full lg:w-2/5 lg:sticky lg:top-8">
-                <div id="info-panel" class="p-6 bg-gray-50 rounded-lg border-l-4 border-gray-300 shadow-inner min-h-[300px]">
-                    <h3 id="info-title" class="text-2xl font-bold text-gray-900 mb-3">Haz clic en un proceso</h3>
-                    <p id="info-text" class="text-gray-800">Selecciona un proceso del flujo para ver su objetivo, foco y analogía.</p>
-                    <ul id="info-list" class="list-disc list-inside mt-4 text-gray-700 space-y-1">
-                        <!-- Contenido dinámico aquí -->
-                    </ul>
+            <div class="mt-auto flex justify-between items-center">
+                <button type="button" onclick="switchTab(1)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
+                    ← Anterior: Flujo de extremo a extremo
+                </button>
+                <button type="button" onclick="switchTab(3)" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm font-bold px-5 py-2.5 rounded-xl shadow transition-colors">
+                    Siguiente fase: Comité CAB / ECAB y arquitectura CMDB en Notion →
+                </button>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 3: COMITÉ CAB Y CMDB EN NOTION     -->
+        <!-- ========================================== -->
+        <section id="tab-panel-3" class="fade-in flex-grow flex flex-col hidden">
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+                <!-- Bloque izquierdo: Simulación del Comité CAB / ECAB (Sesión 5 · Actividad 2) -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                        <span class="text-xs font-bold uppercase tracking-wider bg-emerald-100 text-emerald-900 px-3 py-1 rounded-full">
+                            Sesión 5 · Actividad 2 · Role-play CAB / ECAB
+                        </span>
+                        <span class="text-xs font-semibold text-slate-500">Cláusulas 5.9.2 y 5.10</span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mb-2">
+                        👷 El Comité de Cambios (CAB): ¿autorizas o rechazas el pase a producción?
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
+                        El <strong>80 % de las caídas graves de TI</strong> están provocadas por cambios mal probados o improvisados por los propios técnicos. Antes de aprobar cualquier <strong>RFC (<em>Request for Change</em>)</strong> en el calendario <strong>FSC</strong>, el Gestor del Cambio y el <strong>CAB</strong> verifican estos 5 requisitos obligatorios (marca cada casilla para auditar la RFC):
+                    </p>
+
+                    <div class="space-y-2.5 mb-4 text-xs sm:text-sm">
+                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span><strong>1. Activo (CI) e impacto identificados en la CMDB:</strong> Sabemos exactamente qué servidor/software se toca y qué servicios del catálogo dependen de él.</span>
+                        </label>
+                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span><strong>2. Pruebas superadas en entorno preproductivo (5.10):</strong> La entrega (<em>Release</em> en la DSL) ha superado las pruebas funcionales y de carga sin errores.</span>
+                        </label>
+                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span><strong>3. Ventana de cambio y PSA (<em>Projected Service Availability</em>):</strong> La ventana elegida en el calendario <strong>FSC</strong> respeta el SLA con el negocio (p. ej., domingo a las 02:00 h).</span>
+                        </label>
+                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span><strong>4. Plan de marcha atrás (<em>Rollback</em>) probado:</strong> Si a mitad del despliegue algo falla, existe un procedimiento cronometrado (<em>snapshot</em> / versión anterior en DSL) para revertir en minutos.</span>
+                        </label>
+                        <label class="flex items-start gap-3 p-3 rounded-xl border border-slate-200 bg-slate-50 cursor-pointer hover:bg-slate-100 transition-colors">
+                            <input type="checkbox" onchange="updateCabChecklist()" class="cab-check mt-0.5 h-4 w-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500">
+                            <span><strong>5. Revisión Post-Implementación (PIR) programada:</strong> Se comprobará tras el cambio que el problema raíz quedó erradicado y se actualizará la CMDB.</span>
+                        </label>
+                    </div>
+
+                    <div id="cab-verdict-box" class="rounded-xl p-4 border-2 mt-auto">
+                        <!-- JS -->
+                    </div>
+                </div>
+
+                <!-- Bloque derecho: Arquitectura CMDB de 3 capas para el Taller Notion II (Sesión 5 · Actividad 3 y Sesión 6) -->
+                <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                    <div class="flex items-center justify-between gap-2 mb-3">
+                        <span class="text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-900 px-3 py-1 rounded-full">
+                            Puente hacia la Sesión 6 · Taller Notion II (SGSI + SGSTI)
+                        </span>
+                        <span class="text-xs font-semibold text-slate-500">Cláusula 5.9.1</span>
+                    </div>
+                    <h2 class="text-lg md:text-xl font-extrabold text-slate-900 mb-2">
+                        🗺️ Arquitectura de la CMDB en 3 capas: relación reflexiva en Notion
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-600 mb-4 leading-relaxed">
+                        En el <strong>Taller Notion II</strong> transformaréis vuestro inventario de activos del Tema 4 en una verdadera <strong>CMDB</strong> creando una relación reflexiva bidireccional (<code>Depende de</code> ⟷ <code>Soporta a</code>). Haz clic en cualquier capa para simular cómo se propaga un fallo o cómo se analiza el impacto de una RFC:
+                    </p>
+
+                    <div class="space-y-3 mb-4">
+                        <!-- Capa 3: Servicios de Negocio -->
+                        <div id="cmdb-layer-3" onclick="selectCmdbLayer(3)" class="cursor-pointer rounded-xl border-2 border-blue-400 bg-blue-50 p-3.5 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2 py-0.5 rounded-full">Capa 3 · Catálogo de servicios (SLA)</span>
+                                <span class="text-xs font-bold text-blue-800">Depende de Capa 2 ↓</span>
+                            </div>
+                            <p class="text-sm font-extrabold text-slate-900 mt-1">🏢 Servicio ERP de expediciones y logística (Keraben) / Aula Virtual (UJI)</p>
+                        </div>
+
+                        <div class="text-center text-xs font-bold text-slate-400">⬆️ <code>Soporta a</code> &nbsp;|&nbsp; <code>Depende de</code> ⬇️</div>
+
+                        <!-- Capa 2: Activos Lógicos / Software / Datos -->
+                        <div id="cmdb-layer-2" onclick="selectCmdbLayer(2)" class="cursor-pointer rounded-xl border-2 border-purple-400 bg-purple-50 p-3.5 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider bg-purple-200 text-purple-900 px-2 py-0.5 rounded-full">Capa 2 · CIs lógicos, BBDD y software (DSL)</span>
+                                <span class="text-xs font-bold text-purple-800">Instalado en Capa 1 ↓</span>
+                            </div>
+                            <p class="text-sm font-extrabold text-slate-900 mt-1">🗄️ Clúster Base de Datos Oracle / Motor PHP Moodle + Datos RGPD</p>
+                        </div>
+
+                        <div class="text-center text-xs font-bold text-slate-400">⬆️ <code>Soporta a</code> &nbsp;|&nbsp; <code>Depende de</code> ⬇️</div>
+
+                        <!-- Capa 1: Infraestructura Física / Virtual -->
+                        <div id="cmdb-layer-1" onclick="selectCmdbLayer(1)" class="cursor-pointer rounded-xl border-2 border-amber-400 bg-amber-50 p-3.5 transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full">Capa 1 · CIs de infraestructura física / virtual (DHS)</span>
+                                <span class="text-xs font-bold text-amber-800">Base física en CPD</span>
+                            </div>
+                            <p class="text-sm font-extrabold text-slate-900 mt-1">🖧 Servidor Host VMware ESXi-01 + Cabina SAN Fibra + Switch Core</p>
+                        </div>
+                    </div>
+
+                    <div id="cmdb-layer-detail" class="rounded-xl p-4 bg-slate-900 text-white text-xs sm:text-sm leading-relaxed mt-auto">
+                        <!-- JS -->
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-auto flex flex-wrap justify-between items-center gap-3">
+                <button type="button" onclick="switchTab(2)" class="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-sm font-bold px-4 py-2.5 rounded-xl shadow-sm transition-colors">
+                    ← Anterior: Simulador de triaje (5 tickets)
+                </button>
+                <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs sm:text-sm font-extrabold px-4 py-2.5 rounded-xl">
+                    🎉 Fin del recorrido interactivo T5 · Listos para el Taller Notion II (SGSTI)
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Pie de página de atribución -->
-        <p class="text-center text-sm text-gray-400 mt-10 pt-6 border-t border-gray-200">
-            Infografía generada para la asignatura EI1044 - Administración de Sistemas Informáticos.
-        </p>
-    </div>
+        <!-- Barra de navegación secuencial inferior entre SPAs (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 hide-in-embed">
+            <a href="Fallos%20vs.%20desastres.html" class="justify-self-center sm:justify-self-start inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all">
+                ← 06. Disponibilidad vs. continuidad (DRP)
+            </a>
+            <a href="../index.html" class="justify-self-center inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-blue-50 px-4 py-2.5 rounded-xl border border-slate-200 transition-all">
+                📋 Volver al índice general
+            </a>
+            <span class="justify-self-center sm:justify-self-end inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-4 py-2.5 rounded-xl">
+                Fin T5 · Taller Notion II · SGSTI ✓
+            </span>
+        </nav>
+
+    </main>
 
     <script>
-        const infoData = {
+        let currentTab = 1;
+
+        function switchTab(tabNumber) {
+            currentTab = tabNumber;
+            for (let i = 1; i <= 3; i++) {
+                const panel = document.getElementById('tab-panel-' + i);
+                const btn = document.getElementById('tab-btn-' + i);
+                if (i === tabNumber) {
+                    panel.classList.remove('hidden');
+                    btn.classList.add('active');
+                } else {
+                    panel.classList.add('hidden');
+                    btn.classList.remove('active');
+                }
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+            if (e.key === 'ArrowRight' && currentTab < 3) {
+                switchTab(currentTab + 1);
+            } else if (e.key === 'ArrowLeft' && currentTab > 1) {
+                switchTab(currentTab - 1);
+            }
+        });
+
+        // Datos de los 4 procesos de la Pestaña 1
+        const stepData = {
             incidente: {
-                title: '1. Gestión de Incidentes',
-                text: 'El "Bombero". Es la respuesta <strong>reactiva</strong> a una interrupción del servicio. El tiempo es el factor crítico.',
+                badge: 'Cláusula 5.8.1 · Procesos de resolución (Tema 5.08.1)',
+                title: '👨‍🚒 1. Gestión del incidente y peticiones de servicio',
+                color: 'amber',
+                mission: '<strong>Misión única:</strong> Restaurar la operación normal del servicio pactado en el SLA <strong>lo más rápido posible</strong>, minimizando el impacto adverso sobre el negocio.',
                 points: [
-                    '<strong>Objetivo:</strong> Restaurar el servicio <em>LO MÁS RÁPIDO POSIBLE</em>.',
-                    '<strong>Foco:</strong> Velocidad, solución temporal (<code>workaround</code>).',
-                    '<strong>Documento:</strong> <em>Ticket de Incidente</em>.',
-                    'El <em>Usuario</em> reporta el incidente; el <em>Cliente</em> (quien paga) exige que se cumpla el <code>SLA</code>.',
-                    '<strong>Analogía:</strong> Bajar la fiebre (trata el <em>síntoma</em>).'
+                    '<strong>Incidente vs. Petición de servicio del usuario (~15 % del trabajo):</strong> Un <em>incidente</em> es una interrupción no planificada o reducción de calidad de un servicio; una <em>petición de servicio</em> (<em>Service Request</em>) es una solicitud estándar de información, cambio estándar preaprobado o acceso (p. ej., alta de usuario o reseteo de clave) que forma parte de la entrega normal.',
+                    '<strong>Detección y autorresolución:</strong> Los incidentes entran por contacto del usuario (teléfono o autorregistro web con formularios guiados y FAQs de <strong>autorresolución</strong>) o de forma proactiva mediante alarmas de monitorización de eventos.',
+                    '<strong>Triaje y consulta a la KEDB:</strong> El <em>Service Desk</em> (1.ª línea) registra el ticket, consulta la CMDB y comprueba si ya existe una solución temporal (<em>workaround</em>) en la base de datos de errores conocidos (<strong>KEDB</strong>). Si no puede resolverlo en el tiempo de su OLA, ejecuta un <strong>escalado funcional</strong> (a 2.ª o 3.ª línea) o un <strong>escalado jerárquico</strong> (si peligra el SLA).'
                 ],
-                color: 'red'
+                quote: '«El bombero no se detiene a rediseñar el código eléctrico del edificio mientras las llamas queman el almacén: primero apaga el fuego (workaround) para que los camiones salgan, y luego llama al investigador.»'
             },
             problema: {
-                title: '2. Gestión de Problemas',
-                text: 'El "Detective". Es el análisis <strong>proactivo</strong> para encontrar la causa de fondo de por qué los incidentes ocurren.',
+                badge: 'Cláusula 5.8.2 · Procesos de resolución (Tema 5.08.2)',
+                title: '🕵️‍♂️ 2. Gestión del problema y base de datos de errores conocidos (KEDB)',
+                color: 'blue',
+                mission: '<strong>Misión única:</strong> Investigar la <strong>causa raíz (RCA)</strong> subyacente a uno o varios incidentes, proporcionar soluciones temporales (<em>workarounds</em>) al <em>Service Desk</em> y promover la eliminación definitiva del error.',
                 points: [
-                    '<strong>Objetivo:</strong> Encontrar la <strong>Causa Raíz</strong> (<code>Root Cause</code>).',
-                    '<strong>Foco:</strong> Investigación, análisis de tendencias.',
-                    '<strong>Documento:</strong> <em>Registro de Problema</em> / Error Conocido.',
-                    '<strong>Analogía:</strong> Encontrar la infección (trata la <em>enfermedad</em>).'
+                    '<strong>Un problema NO es un «incidente muy gordo»:</strong> Un incidente grave sigue siendo un incidente (prioridad P1). El <em>problema</em> es la causa desconocida que ha provocado ese incidente grave o una serie de incidentes menores repetitivos.',
+                    '<strong>Modalidad reactiva vs. proactiva:</strong> Actúa de forma <em>reactiva</em> cuando el <em>Service Desk</em> detecta incidentes recurrentes sin solución definitiva, y de forma <em>proactiva</em> analizando tendencias de capacidad o registros de errores antes de que el servicio caiga.',
+                    '<strong>De Problema a Error Conocido (KE):</strong> Durante la etapa de <strong>Control de problemas</strong> se investiga hasta hallar la causa raíz (convirtiéndose en <em>Error</em>). En la etapa de <strong>Control de errores</strong> se registra en la <strong>KEDB</strong> con su solución temporal y se solicita una <strong>RFC</strong> a Gestión del Cambio para extirpar el fallo de raíz.'
                 ],
-                color: 'yellow'
+                quote: '«Si todos los martes hay que reiniciar el servidor de etiquetas a las 11:00 h, reiniciar es gestionar el incidente; descubrir la fuga de memoria del driver que lo bloquea es gestionar el problema.»'
             },
             cambio: {
-                title: '3. Gestión del Cambio (RFC)',
-                text: 'El "Ingeniero" o "Controlador de Tráfico Aéreo". Gestiona la implementación de la solución definitiva (propuesta por Problemas) de forma segura.',
+                badge: 'Cláusulas 5.9.2 y 5.10 · Procesos de control y entrega (Temas 5.09.2 y 5.10)',
+                title: '👷 3. Gestión del cambio (RFC / CAB) y Gestión de la entrega (Release)',
+                color: 'emerald',
+                mission: '<strong>Misión conjunta:</strong> Garantizar que todas las modificaciones sobre los activos (CIs) se evalúen, aprueben, prueben y desplieguen de forma controlada sin provocar nuevos incidentes en producción.',
                 points: [
-                    '<strong>Objetivo:</strong> Implementar cambios <strong>sin causar nuevos incidentes</strong>.',
-                    '<strong>Foco:</strong> Evaluación de riesgo, planificación, pruebas.',
-                    '<strong>Documento:</strong> <code>RFC</code> (Request For Change).',
-                    '<strong>Actor Clave:</strong> El <code>CAB</code> (Comité Asesor de Cambios) aprueba el <code>RFC</code>.',
-                    '<strong>Debate:</strong> ¿Es "burocracia" (<code>Overhead</code>) o "control" (<code>Estabilidad</code>)?'
+                    '<strong>Solicitud de Cambio (RFC) y Comité CAB:</strong> Ningún técnico modifica producción por su cuenta. Se abre una <strong>RFC</strong>, se clasifica por categoría (menor, significativa, mayor) y prioridad, y el <strong>CAB (<em>Change Advisory Board</em>)</strong> evalúa riesgos, impacto en la disponibilidad proyectada (<strong>PSA</strong>), calendario <strong>FSC</strong> y <strong>plan de marcha atrás (<em>Rollback</em>)</strong>.',
+                    '<strong>Cambios de emergencia (ECAB):</strong> Cuando hay que aplicar un parche crítico inmediato (p. ej., vulnerabilidad 0-day activa en servidores PHP de la UJI o caída total de BBDD), un comité reducido aprueba de urgencia con las pruebas esenciales y difiere la burocracia documental al cierre.',
+                    '<strong>Gestión de la entrega (5.10):</strong> Agrupa los cambios aprobados en paquetes técnicos coherentes (<strong>Entregas / <em>Releases</em></strong> mayores o menores), custodia el software autorizado en la <strong>DSL (<em>Definitive Software Library</em>)</strong> y los repuestos físicos en el <strong>DHS (<em>Definitive Hardware Store</em>)</strong>.'
                 ],
-                color: 'purple'
+                quote: '«El remedio sin control suele ser peor que la enfermedad: actualizar una librería en caliente un viernes a mediodía sin plan de rollback es la receta clásica del desastre en TI.»'
             },
             cmdb: {
-                title: '4. Gestión de Configuración (CMDB)',
-                text: 'El "Mapa" o "Cerebro" de TI. No es un paso del flujo, sino la base de datos que <strong>todos los procesos consultan</strong>.',
+                badge: 'Cláusula 5.9.1 · Proceso de control (Tema 5.09.1)',
+                title: '🗺️ 4. Gestión de la configuración y base de datos CMDB',
+                color: 'purple',
+                mission: '<strong>Misión transversal:</strong> Mantener una visión lógica, íntegra y auditada de todos los <strong>Elementos de Configuración (CIs)</strong> que componen los servicios de TI y de sus interdependencias.',
                 points: [
-                    '<strong>Objetivo:</strong> Mantener un registro de todos los componentes de TI y sus <strong>relaciones</strong>.',
-                    '<strong>Contenido:</strong> <code>CIs</code> (Elementos de Configuración): servidores, <em>software</em>, <code>SLAs</code>, documentación...',
-                    '<strong>Uso Vital:</strong> El <code>CAB</code> consulta la <code>CMDB</code> para evaluar el <strong>impacto</strong> de un <code>RFC</code>.',
-                    '<strong>Analogía:</strong> El "Google Maps" de nuestro departamento de TI.'
+                    '<strong>¿Qué es un CI (<em>Configuration Item</em>)?:</strong> Cualquier componente que necesita ser gestionado para entregar un servicio de TI: servidores físicos/virtuales, electrónica de red, software (DSL), bases de datos (y si contienen datos personales RGPD), pero también <strong>servicios del catálogo, documentos SLA/OLA/UC, ubicaciones y personas responsables</strong>.',
+                    '<strong>El superpoder de las relaciones:</strong> Permite responder en segundos dos preguntas vitales: 1) <em>Hacia arriba (Análisis de impacto de una caída o RFC):</em> «Si apago el servidor ESXi-01, ¿qué servicios de negocio dejo sin funcionar?»; y 2) <em>Hacia abajo (Causa raíz):</em> «Si falla el portal de pedidos, ¿qué base de datos y qué switch físico lo soportan?».',
+                    '<strong>Implantación conjunta con Gestión del Cambio:</strong> La CMDB y el control de cambios son inseparables: ningún CI cambia de estado o versión en la CMDB si no es como resultado de una RFC aprobada.'
                 ],
-                color: 'blue'
+                quote: '«Sin una CMDB conectada a Incidentes, Problemas y Cambios, el departamento de TI camina a ciegas por una habitación llena de cables.»'
             }
         };
 
-        // --- Lógica JS (Adaptada para los 4 IDs) ---
+        function selectStep(key) {
+            ['incidente', 'problema', 'cambio', 'cmdb'].forEach(k => {
+                const el = document.getElementById('step-' + k);
+                el.classList.remove('active-step', 'ring-4', 'ring-amber-200', 'ring-blue-200', 'ring-emerald-200', 'ring-purple-200');
+            });
 
-        const colors = {
-            incidente: 'red',
-            problema: 'yellow',
-            cambio: 'purple',
-            cmdb: 'blue'
-        };
+            const activeEl = document.getElementById('step-' + key);
+            activeEl.classList.add('active-step', 'ring-4');
+            if (key === 'incidente') activeEl.classList.add('ring-amber-200');
+            if (key === 'problema') activeEl.classList.add('ring-blue-200');
+            if (key === 'cambio') activeEl.classList.add('ring-emerald-200');
+            if (key === 'cmdb') activeEl.classList.add('ring-purple-200');
 
-        const borderClasses = {
-            incidente: 'border-red-500',
-            problema: 'border-yellow-500',
-            cambio: 'border-purple-500',
-            cmdb: 'border-blue-500'
-        };
-        
-        const textClasses = {
-            incidente: 'text-red-900',
-            problema: 'text-yellow-900',
-            cambio: 'text-purple-900',
-            cmdb: 'text-blue-900'
-        };
+            const d = stepData[key];
+            const colorMap = {
+                amber: { badge: 'bg-amber-100 text-amber-900', quote: 'bg-amber-50 border-amber-300 text-amber-950' },
+                blue: { badge: 'bg-blue-100 text-blue-900', quote: 'bg-blue-50 border-blue-300 text-blue-950' },
+                emerald: { badge: 'bg-emerald-100 text-emerald-900', quote: 'bg-emerald-50 border-emerald-300 text-emerald-950' },
+                purple: { badge: 'bg-purple-100 text-purple-900', quote: 'bg-purple-50 border-purple-300 text-purple-950' }
+            };
+            const c = colorMap[d.color];
+            const pointsHtml = d.points.map(p => `<li>${p}</li>`).join('');
 
-        const allBorderClasses = Object.values(borderClasses);
-        const allTextClasses = Object.values(textClasses);
-
-        const infoPanel = document.getElementById('info-panel');
-        const infoTitle = document.getElementById('info-title');
-        const infoText = document.getElementById('info-text');
-        const infoList = document.getElementById('info-list');
-
-        let currentActive = null;
-
-        function showInfo(phase) {
-            const data = infoData[phase];
-            
-            // Actualizar panel de info
-            infoTitle.innerText = data.title;
-            infoText.innerHTML = data.text; // Usamos innerHTML para el formato
-            infoList.innerHTML = data.points.map(point => `<li>${point}</li>`).join('');
-
-            // Actualizar estilos del panel
-            infoPanel.classList.remove(...allBorderClasses);
-            infoPanel.classList.add(borderClasses[phase]);
-            
-            infoTitle.classList.remove(...allTextClasses);
-            infoTitle.classList.add(textClasses[phase]);
-
-            // Gestionar resaltado de la tarjeta
-            if (currentActive) {
-                document.getElementById(currentActive).classList.remove('scale-105', 'shadow-2xl', 'ring-4');
-                document.getElementById(currentActive).classList.add('shadow-lg', 'hover:scale-105');
-            }
-            
-            const activeCard = document.getElementById(phase);
-            activeCard.classList.add('scale-105', 'shadow-2xl', `ring-4`, `ring-${colors[phase]}-400`);
-            activeCard.classList.remove('shadow-lg', 'hover:scale-105');
-            currentActive = phase;
+            document.getElementById('step-detail-panel').innerHTML = `
+                <div class="fade-in">
+                    <span class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2 ${c.badge}">
+                        ${d.badge}
+                    </span>
+                    <h3 class="text-xl md:text-2xl font-extrabold text-slate-900 mb-2">${d.title}</h3>
+                    <p class="text-sm md:text-base text-slate-700 mb-4">${d.mission}</p>
+                    <ul class="list-disc list-outside pl-5 space-y-2 text-xs sm:text-sm text-slate-700 mb-5 leading-relaxed">
+                        ${pointsHtml}
+                    </ul>
+                    <div class="p-4 rounded-xl border ${c.quote} text-xs sm:text-sm italic font-medium">
+                        ${d.quote}
+                    </div>
+                </div>
+            `;
         }
+
+        // Datos de los 5 tickets reales de la Sesión 5 · Actividad 1
+        const ticketsData = {
+            1: {
+                caller: 'Directora comercial · Showroom de Múnich (Keraben Grupo)',
+                time: '09:02 h · Canal: Portal de autoservicio web',
+                title: '«El próximo lunes se incorpora un nuevo becario de diseño en la tienda de Múnich. Necesitamos que tenga cuenta de correo corporativo, acceso a la carpeta compartida de catálogos CAD y un portátil estándar preparado.»',
+                question: '¿Qué tipo de ticket es? ¿Qué impacto, urgencia y prioridad tiene? ¿Requiere abrir un Problema o convocar al CAB?',
+                verdictType: 'Petición de servicio del usuario (Service Request · Cláusula 5.8.1)',
+                priority: 'Prioridad Baja / Planificada (Impacto 1 · Bajo × Urgencia 1 · Baja = P4)',
+                escalation: 'Resolución en 1.ª línea (Service Desk) siguiendo procedimiento estándar documentado (sin escalado jerárquico ni CAB).',
+                explanation: 'No hay nada roto ni degradado: forma parte del ~15 % de peticiones habituales de provisión de acceso y equipamiento estándar del Catálogo de Servicios. Se tramita mediante flujo preaprobado.'
+            },
+            2: {
+                caller: 'Jefe de turno de expediciones · Planta 2 de Nules',
+                time: '09:05 h · Canal: Llamada telefónica urgente al Service Desk',
+                title: '«¡La impresora térmica de etiquetas de palés de la Línea 2 ha dejado de imprimir y muestra la luz roja parpadeando! Tengo un camión frigorífico esperando en el muelle que sale hacia el puerto de Valencia en 30 minutos.»',
+                question: '¿Qué tipo de ticket es? ¿Qué prioridad recibe por el camión en el muelle? ¿Cómo actúa la 1.ª línea si el fallo ya está en la KEDB?',
+                verdictType: 'Incidente operativo con solución temporal en KEDB (Cláusula 5.8.1)',
+                priority: 'Prioridad Alta (Impacto 2 · Medio [1 línea afectada] × Urgencia 3 · Alta [camión sale en 30 min] = P2)',
+                escalation: 'Resolución inmediata en 1.ª línea consultando la KEDB (Workaround en 3 minutos).',
+                explanation: 'Aunque solo afecta a una impresora, la <strong>urgencia de negocio es máxima</strong> porque bloquea una expedición inminente. El operador del <em>Service Desk</em> busca el modelo de impresora en la <strong>KEDB</strong>, aplica el <em>workaround</em> documentado por Gestión de Problemas (limpiar la cola del <em>spooler</em> y redirigir temporalmente la impresión a la impresora gemela de la Línea 1 a 10 metros) y el camión sale a tiempo.'
+            },
+            3: {
+                caller: 'Alerta automática de monitorización + queja del equipo de exportación',
+                time: '09:10 h · Canal: Panel de control y histórico de tickets',
+                title: '«Anoche a las 00:00 h se volvió a cortar el túnel VPN entre las delegaciones internacionales y la sede central durante 12 minutos. Ya es la cuarta vez este mes que ocurre exactamente a medianoche y se resuelve solo al reiniciarse el proceso.»',
+                question: 'Hoy a las 09:10 h la VPN funciona perfectamente. ¿Debemos cerrar el ticket y olvidarnos, o qué proceso de ISO 20000 debemos abrir?',
+                verdictType: 'apertura de un Problema para Análisis de Causa Raíz (RCA · Cláusula 5.8.2)',
+                priority: 'Prioridad Media de investigación (Impacto 2 × Urgencia 2 · El servicio ahora está arriba, pero el fallo es recurrente)',
+                escalation: 'Escalado funcional a 2.ª línea (Administración de Redes y Sistemas) bajo Gestión del Problema.',
+                explanation: 'Los cuatro cortes individuales fueron <em>incidentes</em> ya cerrados. Como la causa subyacente es desconocida y se repite con un patrón horario (colisión con la tarea programada de copia de seguridad a las 00:00 h que satura la interfaz del cortafuegos), se abre un <strong>Problema</strong> para investigar la causa raíz, documentar el <strong>Error Conocido en la KEDB</strong> y pedir una <strong>RFC</strong> que reprograma la ventana de backup.'
+            },
+            4: {
+                caller: 'Alerta crítica del clúster + llamadas masivas desde España y Alemania',
+                time: '09:14 h · Canal: Alerta roja en monitorización + teléfono colapsado',
+                title: '«El clúster de base de datos Oracle del ERP corporativo acaba de caer por corrupción del sistema de ficheros en la cabina SAN. Ni las plantas de producción en España ni las filiales en Alemania pueden registrar pedidos ni emitir albaranes.»',
+                question: '¿Qué prioridad tiene? ¿Qué dos tipos de escalado (funcional y jerárquico) debe activar el Service Desk en los primeros 5 minutos?',
+                verdictType: 'Incidente Mayor (Major Incident P1 · Cláusula 5.8.1)',
+                priority: 'Prioridad Crítica P1 (Impacto 3 · Alto [toda la organización parada] × Urgencia 3 · Alta [inmediata] = P1)',
+                escalation: 'Doble escalado simultáneo: 1) Escalado funcional inmediato a 2.ª línea (DBA) y 3.ª línea (soporte crítico 24×7 del fabricante de la SAN bajo contrato UC); y 2) Escalado jerárquico inmediato al CIO y Dirección de Operaciones.',
+                explanation: 'Es el caso de libro de <strong>Incidente Mayor</strong>: mientras los especialistas técnicos (N2/N3) restauran el servicio (y evalúan si se supera el umbral para activar el DRP de continuidad), el escalado jerárquico permite al CIO informar al negocio y movilizar recursos extraordinarios antes de que venza el SLA.'
+            },
+            5: {
+                caller: 'Responsable de Seguridad de la Información (CISO · UJI / Keraben)',
+                time: '09:20 h · Canal: Boletín de vulnerabilidad crítica INCIBE / CCN-CERT',
+                title: '«Se acaba de publicar una vulnerabilidad crítica (CVE 9.8 / 0-day) en la versión de PHP que ejecutan nuestros servidores web de producción. Necesitamos actualizar los paquetes de PHP y reiniciar Apache/Nginx en los nodos principales.»',
+                question: 'El administrador de sistemas dice: «Tardo 2 minutos en hacer apt upgrade en producción ahora mismo». ¿Por qué ISO 20000 lo prohíbe y qué flujo debe seguirse?',
+                verdictType: 'Solicitud de Cambio (RFC · Cláusula 5.9.2) / Cambio de Emergencia (ECAB)',
+                priority: 'Cambio de alta prioridad / Emergencia controlada (riesgo inminente de seguridad 5.6.6)',
+                escalation: 'Registro de RFC → Evaluación de impacto en CMDB y pruebas rápidas → Autorización del CAB (o ECAB de emergencia) → Despliegue (5.10) con Snapshot previo (Rollback).',
+                explanation: 'Nunca se parchea producción «a pelo». Actualizar PHP sin mirar la <strong>CMDB</strong> puede romper aplicaciones críticas del negocio que dependan de módulos antiguos. Si el ataque es inminente (como en el caso real de la UJI visto en el Tema 4), se tramita como <strong>Cambio de Emergencia (ECAB)</strong>: se toma un <em>snapshot</em> previo (plan de <em>rollback</em>), se prueba lo esencial, se aplica y se completa la documentación al cierre (PIR).'
+            }
+        };
+
+        function selectTicket(num) {
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('tkt-btn-' + i).classList.toggle('active', i === num);
+            }
+            const t = ticketsData[num];
+            document.getElementById('ticket-display').innerHTML = `
+                <div class="fade-in flex flex-col flex-grow">
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 mb-2">
+                        <span class="font-bold text-slate-700">👤 Remitente: ${t.caller}</span>
+                        <span>🕒 ${t.time}</span>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-4">
+                        <p class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">${t.title}</p>
+                    </div>
+                    <p class="text-xs sm:text-sm font-semibold text-indigo-900 bg-indigo-50 border border-indigo-200 rounded-xl p-3 mb-4">
+                        🤔 <strong>Pregunta para el aula:</strong> ${t.question}
+                    </p>
+                    <div class="mt-auto">
+                        <button type="button" onclick="toggleTicketSpoiler()" class="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold px-4 py-2.5 rounded-xl transition-colors">
+                            💡 Mostrar dictamen de triaje y escalado (Ticket #${num})
+                        </button>
+                        <div id="ticket-spoiler-box" class="hidden mt-4 pt-4 border-t border-slate-300 space-y-2 text-xs sm:text-sm text-slate-800 fade-in">
+                            <p><strong class="text-slate-950">🏷️ Clasificación ISO 20000:</strong> <span class="font-bold text-indigo-700">${t.verdictType}</span></p>
+                            <p><strong class="text-slate-950">🚦 Prioridad calculada:</strong> ${t.priority}</p>
+                            <p><strong class="text-slate-950">🚀 Ruta de escalado:</strong> ${t.escalation}</p>
+                            <p class="leading-relaxed bg-white p-3 rounded-lg border border-slate-200 mt-2">${t.explanation}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleTicketSpoiler() {
+            const box = document.getElementById('ticket-spoiler-box');
+            if (box) box.classList.toggle('hidden');
+        }
+
+        function updatePriorityCalc() {
+            const imp = parseInt(document.getElementById('calc-impact').value, 10);
+            const urg = parseInt(document.getElementById('calc-urgency').value, 10);
+            const score = imp * urg;
+
+            const out = document.getElementById('priority-calc-output');
+            if (score >= 9) {
+                out.className = 'rounded-xl p-4 border-2 bg-rose-50 border-rose-400 text-rose-950 mt-auto fade-in';
+                out.innerHTML = `
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-rose-200 text-rose-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 1 (Crítica)</span>
+                    <h4 class="text-base font-extrabold mt-1.5">🚨 Prioridad P1 · Incidente Mayor</h4>
+                    <p class="text-xs mt-1 leading-relaxed">Atención inmediata 24×7. Objetivo SLA de resolución &lt; 2–4 h. Requiere <strong>escalado funcional inmediato (N2/N3)</strong> y <strong>escalado jerárquico al CIO</strong>.</p>
+                `;
+            } else if (score >= 6) {
+                out.className = 'rounded-xl p-4 border-2 bg-amber-50 border-amber-400 text-amber-950 mt-auto fade-in';
+                out.innerHTML = `
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 2 (Alta)</span>
+                    <h4 class="text-base font-extrabold mt-1.5">🔥 Prioridad P2 · Atención preferente</h4>
+                    <p class="text-xs mt-1 leading-relaxed">Afecta seriamente a una línea operativa o tiene alta urgencia temporal (p. ej., camión en muelle). Aplicación inmediata de <em>workaround</em> en KEDB o escalado a N2 en &lt; 30 min.</p>
+                `;
+            } else if (score >= 3) {
+                out.className = 'rounded-xl p-4 border-2 bg-blue-50 border-blue-300 text-blue-950 mt-auto fade-in';
+                out.innerHTML = `
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 3 (Media)</span>
+                    <h4 class="text-base font-extrabold mt-1.5">⏱️ Prioridad P3 · Cola operativa normal</h4>
+                    <p class="text-xs mt-1 leading-relaxed">Resolución dentro de la jornada laboral (SLA 8 h – 24 h) por orden de llegada sin interrumpir a los técnicos dedicados a incidentes P1/P2.</p>
+                `;
+            } else {
+                out.className = 'rounded-xl p-4 border-2 bg-slate-100 border-slate-300 text-slate-900 mt-auto fade-in';
+                out.innerHTML = `
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-slate-200 text-slate-800 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 4 (Baja / Planificada)</span>
+                    <h4 class="text-base font-extrabold mt-1.5">📋 Prioridad P4 · Petición o consulta estándar</h4>
+                    <p class="text-xs mt-1 leading-relaxed">Típica de peticiones de usuario (altas de cuentas, consultas, instalación de software estándar). Se resuelve según el flujo programado del catálogo (24 h – 72 h).</p>
+                `;
+            }
+        }
+
+        function updateCabChecklist() {
+            const checks = document.querySelectorAll('.cab-check');
+            let checkedCount = 0;
+            checks.forEach(c => { if (c.checked) checkedCount++; });
+
+            const box = document.getElementById('cab-verdict-box');
+            if (checkedCount === 5) {
+                box.className = 'rounded-xl p-4 border-2 bg-emerald-50 border-emerald-400 text-emerald-950 mt-auto fade-in';
+                box.innerHTML = `
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-emerald-200 text-emerald-900 px-2.5 py-0.5 rounded-full">Dictamen del CAB: 5/5 verificados</span>
+                    <h4 class="text-sm sm:text-base font-extrabold mt-1">✅ RFC APROBADA e inscrita en el calendario FSC</h4>
+                    <p class="text-xs mt-1 leading-relaxed">El cambio cuenta con trazabilidad en la CMDB, paquete validado en la biblioteca <strong>DSL</strong>, ventana pactada sin dañar el <strong>PSA</strong> y <strong>plan de marcha atrás (<em>Rollback</em>)</strong> listo. Puede desplegarse en producción.</p>
+                `;
+            } else {
+                box.className = 'rounded-xl p-4 border-2 bg-amber-50 border-amber-300 text-amber-950 mt-auto fade-in';
+                box.innerHTML = `
+                    <span class="text-[11px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Dictamen del CAB: ${checkedCount}/5 requisitos verificados</span>
+                    <h4 class="text-sm sm:text-base font-extrabold mt-1">✋ RFC RETENIDA · No autorizar el pase a producción</h4>
+                    <p class="text-xs mt-1 leading-relaxed">Faltan ${5 - checkedCount} garantías críticas. Desplegar sin evaluar el impacto en la CMDB o sin probar el <em>Rollback</em> convierte el cambio en una ruleta rusa para los SLA del negocio.</p>
+                `;
+            }
+        }
+
+        const cmdbLayerInfo = {
+            3: {
+                title: '🏢 Capa 3 seleccionada: Servicios del Catálogo de TI (Vista de negocio)',
+                text: 'En el <strong>Taller Notion II</strong>, esta capa contiene los servicios orientados al cliente (p. ej., <em>Servicio ERP de Expediciones</em> o <em>Aula Virtual UJI</em>) vinculados a su <strong>SLA</strong>. Gracias a la propiedad <code>Depende de</code>, el gestor del servicio ve de un vistazo qué bases de datos y servidores de las Capas 2 y 1 sostienen su compromiso.'
+            },
+            2: {
+                title: '🗄️ Capa 2 seleccionada: Activos lógicos, software (DSL) y bases de datos',
+                text: 'Actúa como eslabón intermedio en la relación reflexiva de la CMDB: <code>Soporta a</code> los servicios de negocio de la Capa 3 y, al mismo tiempo, <code>Depende de</code> (está <em>Instalado en</em>) los servidores y cabinas físicas de la Capa 1. Aquí es donde convergen el análisis de riesgos del <strong>SGSI (ISO 27001 / RGPD)</strong> y las RFCs de actualización de software del <strong>SGSTI (ISO 20000)</strong>.'
+            },
+            1: {
+                title: '🖧 Capa 1 seleccionada: Infraestructura física y virtual (CIs base y DHS)',
+                text: 'Si un técnico abre una RFC para apagar por mantenimiento el servidor <code>ESXi-01</code> o el <code>Switch Core</code> en la Capa 1, la relación <code>Soporta a</code> en Notion alerta automáticamente hacia arriba: <strong>«¡Atención! Este CI soporta al Clúster Oracle (Capa 2), que a su vez soporta al Servicio ERP de Expediciones 24×7 (Capa 3)»</strong>.'
+            }
+        };
+
+        function selectCmdbLayer(layerNum) {
+            [1, 2, 3].forEach(n => {
+                const el = document.getElementById('cmdb-layer-' + n);
+                el.classList.toggle('ring-4', n === layerNum);
+                el.classList.toggle('ring-slate-300', n === layerNum);
+            });
+            const d = cmdbLayerInfo[layerNum];
+            document.getElementById('cmdb-layer-detail').innerHTML = `
+                <div class="fade-in">
+                    <p class="font-extrabold text-amber-300 mb-1">${d.title}</p>
+                    <p class="text-slate-200 text-xs leading-relaxed">${d.text}</p>
+                </div>
+            `;
+        }
+
+        // Inicialización
+        selectStep('incidente');
+        selectTicket(1);
+        updatePriorityCalc();
+        updateCabChecklist();
+        selectCmdbLayer(1);
     </script>
 </body>
 </html>

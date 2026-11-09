@@ -19,7 +19,7 @@ El temario oficial de la asignatura se articula en cinco grandes temas. Los mate
 * **T2. Automatización de tareas con PowerShell** (10 SPA disponibles)
 * **T3. Explotación de sistemas informáticos** (18 SPA disponibles)
 * **T4. Seguridad y administración TI** (8 SPA disponibles)
-* **T5. Metodologías para la gestión de servicios informáticos** (Próximamente)
+* **T5. Metodologías para la gestión de servicios informáticos** (7 SPA disponibles)
 
 ---
 
@@ -119,6 +119,22 @@ Colección de **8 aplicaciones interactivas (SPA)** orientadas a la reflexión e
 | **05** | **Marco normativo y categorización ENS** | `Marco normativo.html` | Comparativa legal RGPD, LOPDGDD y Esquema Nacional de Seguridad (RD 311/2022) con **calculadora interactiva de categoría de sistema ENS** (*Básica, Media, Alta*). | [Ver módulo 05](https://pfelipm.github.io/uji-ei1044/t4/Marco%20normativo.html) |
 | **06** | **Obligaciones proactivas y derechos ARSOPOL** | `RGPD y LOPDGDD.html` | Las 6 obligaciones organizativas (RAT, EIPD, DPO, brechas 72 h), traducción técnica de los derechos ARSOPOL, dilema entre Derecho al olvido y backups inmutables (*Tombstone Log*) y **simulador de notificación de brechas a la AEPD**. | [Ver módulo 06](https://pfelipm.github.io/uji-ei1044/t4/RGPD%20y%20LOPDGDD.html) |
 | **07** | **El SGSI y la norma ISO/IEC 27001:2022** | `ISO 27001.html` | Ciclo PDCA, cláusulas obligatorias 4 a 10, **explorador interactivo de los 93 controles del Anexo A:2022** en sus 4 dominios (`A.5` a `A.8`), Declaración de Aplicabilidad (SoA) y mapa entidad-relación de las 5 BBDD en Notion. | [Ver módulo 07](https://pfelipm.github.io/uji-ei1044/t4/ISO%2027001.html) |
+
+---
+
+## 🧭 Tema 5: Metodologías para la gestión de servicios informáticos
+
+Colección de **7 aplicaciones interactivas (SPA)** dedicadas a la transformación del departamento de TI en un proveedor de servicios orientado al negocio, marcos de buenas prácticas (**ITIL v4**, **COBIT**) frente a normas certificables (**UNE-ISO/IEC 20000-1**), el ciclo **PDCA**, las 13 familias de herramientas ITSM, la cadena contractual (**SLA ↔ OLA ↔ UC**), ingeniería de disponibilidad y continuidad (**FTA / SPOF / BIA / RPO / RTO**), y el flujo operativo de extremo a extremo (**Incidentes, Problemas/KEDB, Cambios/CAB, Entregas/DSL y CMDB en Notion**):
+
+| # | Módulo | Fichero | Conceptos clave y dinámicas | Enlace directo |
+| :-: | :--- | :--- | :--- | :--- |
+| **01** | **De la tecnología a la gestión de servicios (Mapa SGSTI)** | `Mapa gestión SI.html` | Definición de servicio de TI, eslabón intermedio en la cadena de valor, arquitectura en 5 niveles (*Gobierno → Procesos SGSTI → Equipos → Herramientas → Tecnología*), BPMN, estructura matricial y mapa de 4 bloques. | [Ver módulo 01](https://pfelipm.github.io/uji-ei1044/t5/Mapa%20gesti%C3%B3n%20SI.html) |
+| **02** | **Marcos de buenas prácticas vs. normas certificables** | `Marcos vs. normas.html` | Norma técnica voluntaria vs. reglamento obligatorio, ecosistema de acreditación (**ENAC, AENOR, UNE, ISO**), comparativa **ITIL vs. COBIT vs. ISO/IEC 20000**, clasificador de casos y estructura de alto nivel (*Annex SL*). | [Ver módulo 02](https://pfelipm.github.io/uji-ei1044/t5/Marcos%20vs.%20normas.html) |
+| **03** | **El ciclo PDCA y las herramientas de gestión de TI** | `Ciclo PDCA.html` | Rueda de Deming (**Plan, Do, Check, Act** · Cláusula 4 ISO 20000), la paradoja de arranque real en TI (*Do & Check* antes de formalizar *Plan*) y catálogo interactivo de las **13 herramientas ITSM** mapeadas al taller de Notion. | [Ver módulo 03](https://pfelipm.github.io/uji-ei1044/t5/Ciclo%20PDCA.html) |
+| **04** | **Mapa de procesos ISO 20000 y creación de nuevos servicios** | `Mapa ISO 20000.html` | Explorador de los **13 procesos en 5 familias** (`5.6` a `5.10`), ciclo de vida en 7 pasos para crear/modificar/retirar servicios (**Cláusula 5.5**: TCO/ROI, SLR→SLA, 4 tipos de pruebas, PIR) y comparador de estrategias de migración (*Big-bang*, *Paralela*, *Por etapas*). | [Ver módulo 04](https://pfelipm.github.io/uji-ei1044/t5/Mapa%20ISO%2020000.html) |
+| **05** | **El contrato de servicio: SLA, OLA, UC y relaciones** | `Contrato de servicio.html` | Cadena contractual **Cliente – Catálogo/SLR – SLA – OLA – UC**, informes (**KGI vs. KPI**), gestión financiera (costes directos, indirectos imputables y no absorbibles), capacidad, relaciones con el negocio (**BRM**) y suministradores (**RFI → RFP → SCD → Salida**) con **simulador de auditoría SLA**. | [Ver módulo 05](https://pfelipm.github.io/uji-ei1044/t5/Contrato%20de%20servicio.html) |
+| **06** | **Disponibilidad vs. continuidad (DRP) y árbol de fallos (FTA)** | `Fallos vs. desastres.html` | Disponibilidad (*Fiabilidad* en VBF) vs. Continuidad (*Supervivencia* en BIA), **simulador interactivo de Árbol de Fallos (FTA: puerta OR con SPOF vs. puerta AND redundante)**, las 5 arquitecturas de recuperación (*Activo-activo, Hot, Warm, Cold standby y manual*) y **mini-taller DRP con 3 escenarios reales**. | [Ver módulo 06](https://pfelipm.github.io/uji-ei1044/t5/Fallos%20vs.%20desastres.html) |
+| **07** | **El flujo de resolución, control de cambios y entrega** | `Flujo resolución.html` | Flujo extremo a extremo (**Incidentes y Peticiones 5.8.1 → Problemas y KEDB 5.8.2 → Cambios RFC/CAB 5.9.2 y Entregas DSL/DHS 5.10 ↔ CMDB 5.9.1**), **simulador de triaje de 5 tickets en el Service Desk**, calculadora $\text{Impacto} \times \text{Urgencia}$, checklist del **Comité CAB/ECAB** y **CMDB de 3 capas en Notion**. | [Ver módulo 07](https://pfelipm.github.io/uji-ei1044/t5/Flujo%20resoluci%C3%B3n.html) |
 
 ---
 
