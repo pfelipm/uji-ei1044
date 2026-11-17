@@ -351,7 +351,7 @@
                 </div>
 
                 <!-- Columna derecha (5 cols): Calculadora Impacto x Urgencia -->
-                <div class="lg:col-span-5 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col">
+                <div class="lg:col-span-5 bg-slate-50 rounded-2xl border border-slate-200 shadow-sm p-6 flex flex-col lg:self-start">
                     <span class="inline-block self-start text-xs font-bold uppercase tracking-wider bg-indigo-100 text-indigo-900 px-3 py-1 rounded-full mb-2">
                         Calculadora ISO 20000 / ITIL (Tema 5.08.1)
                     </span>
@@ -386,7 +386,7 @@
                         </div>
                     </div>
 
-                    <div id="priority-calc-output" class="rounded-xl p-5 border-2 mt-auto">
+                    <div id="priority-calc-output" class="rounded-xl p-5 border-2 mt-1">
                     </div>
                 </div>
 
@@ -799,28 +799,28 @@
 
             const out = document.getElementById('priority-calc-output');
             if (score >= 9) {
-                out.className = 'rounded-xl p-5 border-2 bg-rose-50 border-rose-400 text-rose-950 mt-auto fade-in';
+                out.className = 'rounded-xl p-5 border-2 bg-rose-50 border-rose-400 text-rose-950 mt-1 fade-in';
                 out.innerHTML = `
                     <span class="text-xs font-extrabold uppercase tracking-wider bg-rose-200 text-rose-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 1 (Crítica)</span>
                     <h4 class="text-lg font-extrabold mt-2">🚨 Prioridad P1 · Incidente Mayor</h4>
                     <p class="text-sm sm:text-base mt-1.5 leading-relaxed">Atención inmediata 24×7. Objetivo SLA de resolución &lt; 2–4 h. Requiere <strong>escalado funcional inmediato (N2/N3)</strong> y <strong>escalado jerárquico al CIO</strong>.</p>
                 `;
             } else if (score >= 6) {
-                out.className = 'rounded-xl p-5 border-2 bg-amber-50 border-amber-400 text-amber-950 mt-auto fade-in';
+                out.className = 'rounded-xl p-5 border-2 bg-amber-50 border-amber-400 text-amber-950 mt-1 fade-in';
                 out.innerHTML = `
                     <span class="text-xs font-extrabold uppercase tracking-wider bg-amber-200 text-amber-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 2 (Alta)</span>
                     <h4 class="text-lg font-extrabold mt-2">🔥 Prioridad P2 · Atención preferente</h4>
                     <p class="text-sm sm:text-base mt-1.5 leading-relaxed">Afecta seriamente a una línea operativa o tiene alta urgencia temporal (p. ej., camión en muelle). Aplicación inmediata de <em>workaround</em> en KEDB o escalado a N2 en &lt; 30 min.</p>
                 `;
             } else if (score >= 3) {
-                out.className = 'rounded-xl p-5 border-2 bg-blue-50 border-blue-300 text-blue-950 mt-auto fade-in';
+                out.className = 'rounded-xl p-5 border-2 bg-blue-50 border-blue-300 text-blue-950 mt-1 fade-in';
                 out.innerHTML = `
                     <span class="text-xs font-extrabold uppercase tracking-wider bg-blue-200 text-blue-900 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 3 (Media)</span>
                     <h4 class="text-lg font-extrabold mt-2">⏱️ Prioridad P3 · Cola operativa normal</h4>
                     <p class="text-sm sm:text-base mt-1.5 leading-relaxed">Resolución dentro de la jornada laboral (SLA 8 h – 24 h) por orden de llegada sin interrumpir a los técnicos dedicados a incidentes P1/P2.</p>
                 `;
             } else {
-                out.className = 'rounded-xl p-5 border-2 bg-white border-slate-300 text-slate-900 mt-auto fade-in';
+                out.className = 'rounded-xl p-5 border-2 bg-white border-slate-300 text-slate-900 mt-1 fade-in';
                 out.innerHTML = `
                     <span class="text-xs font-extrabold uppercase tracking-wider bg-slate-200 text-slate-800 px-2.5 py-0.5 rounded-full">Puntuación: ${score}/9 · Prioridad 4 (Baja / Planificada)</span>
                     <h4 class="text-lg font-extrabold mt-2">📋 Prioridad P4 · Petición o consulta estándar</h4>
