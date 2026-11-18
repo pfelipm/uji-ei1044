@@ -194,7 +194,7 @@ Este repositorio es el resultado de una evolución continua en dos cursos acadé
 
 3. **Bitácora de modelos de IA empleados:**
    * **Curso 2025/2026 (app web de Gemini · Canvas):** *Gemini 3.1 Pro* alternando con *Gemini 3 Flash Preview*.
-   * **Inicio del curso 2026/2027 (app web de Gemini · Canvas):** *Gemini 3.5 Flash*.
+   * **Inicio del curso 2026/2027 (app web de Gemini · Canvas):** *Gemini 3.5 Flash* y, casi desde el comienzo del curso en septiembre, *Gemini 3.8 Flash*.
    * **Transición y consolidación en Antigravity (`T1–T5`):** arranque con *Gemini 3.8 Flash*, desarrollo principal de las SPAs avanzadas con *Gemini 4 Argon* y *Gemini 4 Carbon*, y cierre del Tema 5 junto con la homogeneización transversal de navegación (`.hide-in-embed`) y enlaces con *Gemini 4 Oxygen*.
 
 ---
