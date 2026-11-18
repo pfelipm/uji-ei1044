@@ -1994,7 +1994,7 @@
 
         let currentTopic = 'all';
 
-        function filterByTopic(topic) {
+        function filterByTopic(topic, updateUrl = true) {
             currentTopic = topic;
             
             // Actualizar botones de filtro
@@ -2014,6 +2014,18 @@
                 nbBanner.classList.remove('hidden');
             } else {
                 nbBanner.classList.add('hidden');
+            }
+
+            // Sincronizar parámetro ?tema= en la URL para copiar/compartir fácilmente
+            if (updateUrl && window.history && window.history.replaceState) {
+                const url = new URL(window.location.href);
+                if (topic === 'all') {
+                    url.searchParams.delete('tema');
+                } else {
+                    const paramVal = /^t[1-5]$/.test(topic) ? topic.slice(1) : topic;
+                    url.searchParams.set('tema', paramVal);
+                }
+                window.history.replaceState({}, '', url.toString());
             }
 
             searchModules();
@@ -2065,6 +2077,33 @@
                 resultsSpan.textContent = `Mostrando ${visibleCount} de ${cards.length} módulos interactivos`;
             }
         }
+
+        // Aplicar prefiltrado inicial desde parámetros de URL (?tema=1..5|t1..t5|aux y opcional ?q=...)
+        (function initFromQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const rawQ = params.get('q');
+            if (rawQ) {
+                document.getElementById('searchInput').value = rawQ;
+            }
+
+            const rawTema = (params.get('tema') || '').trim().toLowerCase();
+            const topicMap = {
+                '1': 't1', 't1': 't1',
+                '2': 't2', 't2': 't2',
+                '3': 't3', 't3': 't3',
+                '4': 't4', 't4': 't4',
+                '5': 't5', 't5': 't5',
+                '0': 'aux', 'aux': 'aux',
+                'all': 'all', 'todos': 'all'
+            };
+
+            const targetTopic = topicMap[rawTema];
+            if (targetTopic) {
+                filterByTopic(targetTopic, false);
+            } else if (rawQ) {
+                searchModules();
+            }
+        })();
     </script>
 </body>
 </html>
