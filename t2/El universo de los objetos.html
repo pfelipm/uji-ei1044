@@ -181,7 +181,7 @@
                 <div>
                     <h3 class="font-bold text-xl text-white mb-2">Características (<span class="property-tag px-2 py-1 rounded-md text-sm">Propiedades</span>)</h3>
                     <p class="text-slate-300">Son los datos que describen al objeto.</p>
-                    <ul class="list-disc list-inside mt-2 text-slate-300">
+                    <ul class="list-disc list-outside pl-5 mt-2 text-slate-300">
                         <li>Color: "Rojo"</li>
                         <li>Modelo: "Seat Ibiza"</li>
                         <li>Año: 2023</li>
@@ -191,7 +191,7 @@
                 <div>
                     <h3 class="font-bold text-xl text-white mb-2">Acciones (<span class="method-tag px-2 py-1 rounded-md text-sm">Métodos</span>)</h3>
                     <p class="text-slate-300">Son las "cosas" que el objeto sabe hacer.</p>
-                     <ul class="list-disc list-inside mt-2 text-slate-300">
+                     <ul class="list-disc list-outside pl-5 mt-2 text-slate-300">
                         <li>Arrancar()</li>
                         <li>Acelerar()</li>
                         <li>Frenar()</li>
@@ -293,9 +293,10 @@ Get-Process | Sort-Object -Property CPU -Descending</div>
         </section>
 
             <!-- Navegación Secuencial entre Módulos -->
-        <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm hide-in-embed">
-            <a href="Un análisis de PowerShell 7.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 02. Un análisis de PowerShell 7</a>
-                        <a href="Encadenamiento.html" class="nav-btn nav-next" title="Ir al módulo siguiente">04. Encadenamiento de comandos →</a>
+        <nav aria-label="Navegación entre módulos" class="mt-12 pt-6 border-t border-slate-700/80 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-sm hide-in-embed">
+            <a href="Un análisis de PowerShell 7.html" class="justify-self-center sm:justify-self-start nav-btn nav-prev" title="Ir al módulo anterior">← 02. Un análisis de PowerShell 7</a>
+            <a href="../index.html?tema=2" class="justify-self-center inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-600 text-xs sm:text-sm font-semibold transition-colors">📋 Volver al índice general</a>
+            <a href="Encadenamiento.html" class="justify-self-center sm:justify-self-end nav-btn nav-next" title="Ir al módulo siguiente">04. Encadenamiento de comandos →</a>
         </nav>
 
         <footer class="text-center text-slate-400 text-sm mt-8 mb-6 space-y-3">

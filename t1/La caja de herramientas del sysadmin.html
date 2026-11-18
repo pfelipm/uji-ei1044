@@ -68,6 +68,16 @@
             transform: translate(-50%, -10px);
         }
     </style>
+    <script>
+        if (window.self !== window.top) {
+            document.documentElement.classList.add('is-embedded');
+        }
+    </script>
+    <style>
+        .is-embedded .hide-in-embed {
+            display: none !important;
+        }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
 
@@ -206,6 +216,13 @@
                 </div>
             </div>
         </main>
+
+                <!-- Navegación secuencial entre módulos (oculta en Google Sites) -->
+        <nav aria-label="Navegación entre módulos" class="mt-10 pt-6 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 hide-in-embed">
+            <a href="Ciclo%20de%20vida%20admon%20sistemas.html" class="justify-self-center sm:justify-self-start inline-flex items-center gap-2 text-sm font-bold text-slate-600 hover:text-slate-900 bg-white px-4 py-2.5 rounded-xl border border-slate-200 shadow-sm hover:shadow transition-all">← 06. Ciclo de vida y crisis</a>
+            <a href="../index.html?tema=1" class="justify-self-center inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-blue-700 bg-slate-100 hover:bg-blue-50 px-4 py-2.5 rounded-xl border border-slate-200 transition-colors">📋 Volver al índice general</a>
+            <a href="Adquisici%C3%B3n%20hw.html" class="justify-self-center sm:justify-self-end inline-flex items-center gap-2 text-sm font-bold text-blue-700 hover:text-blue-900 bg-blue-50 hover:bg-blue-100 px-4 py-2.5 rounded-xl border border-blue-200 transition-colors">08. Adquisición de hardware →</a>
+        </nav>
 
         <footer id="actions-container" class="mt-8 flex flex-col sm:flex-row items-center justify-center p-6 space-y-4 sm:space-y-0 sm:space-x-4 bg-white rounded-xl shadow-md">
             <p class="text-slate-600 text-center sm:text-left">¿Falta alguna herramienta? ¡Añádela!</p>

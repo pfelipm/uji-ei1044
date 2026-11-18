@@ -173,7 +173,7 @@
             <div class="grid grid-cols-1 gap-6 text-slate-300">
                 <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
                     <h3 class="font-bold text-white mb-2">Automatización de tareas</h3>
-                    <ul class="list-disc list-inside">
+                    <ul class="list-disc list-outside pl-5">
                         <li>Crear 500 usuarios a partir de un CSV.</li>
                         <li>Reiniciar un servicio en 100 servidores a la vez.</li>
                         <li>Limpiar logs de más de 90 días.</li>
@@ -181,7 +181,7 @@
                 </div>
                 <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
                     <h3 class="font-bold text-white mb-2">Gestión de infraestructura</h3>
-                    <ul class="list-disc list-inside">
+                    <ul class="list-disc list-outside pl-5">
                         <li>Desplegar y configurar Máquinas Virtuales en Azure.</li>
                         <li>Administrar usuarios y políticas en Microsoft 365.</li>
                         <li>Generar informes de estado de toda tu red.</li>
@@ -335,9 +335,10 @@
         </section>
 
             <!-- Navegación Secuencial entre Módulos -->
-        <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm hide-in-embed">
-            <span class="nav-btn disabled">← Inicio del curso</span>
-                        <a href="Un análisis de PowerShell 7.html" class="nav-btn nav-next" title="Ir al módulo siguiente">02. Un análisis de PowerShell 7 →</a>
+        <nav aria-label="Navegación entre módulos" class="mt-12 pt-6 border-t border-slate-700/80 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-sm hide-in-embed">
+            <span class="justify-self-center sm:justify-self-start text-xs text-slate-500">Inicio Tema 2</span>
+            <a href="../index.html?tema=2" class="justify-self-center inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-600 text-xs sm:text-sm font-semibold transition-colors">📋 Volver al índice general</a>
+            <a href="Un análisis de PowerShell 7.html" class="justify-self-center sm:justify-self-end nav-btn nav-next" title="Ir al módulo siguiente">02. Un análisis de PowerShell 7 →</a>
         </nav>
 
         <footer class="text-center text-slate-400 text-sm mt-8 mb-6 space-y-3">

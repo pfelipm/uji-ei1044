@@ -223,7 +223,7 @@
                 <h2 class="text-3xl text-white">El bloque <code>param()</code>: un mecanismo universal</h2>
             </div>
             <p class="text-lg text-slate-300">Este es un concepto clave: el bloque <code>param()</code> se usa de la misma forma para definir los parámetros de una <span class="font-bold accent-text">función</span> y para convertir un <span class="font-bold accent-text">script</span> entero en un cmdlet.</p>
-            <ul class="list-disc list-inside text-lg text-slate-300 mt-4 space-y-2">
+            <ul class="list-disc list-outside pl-5 text-lg text-slate-300 mt-4 space-y-2">
                 <li>Dentro de una <strong>función</strong>, define sus argumentos de entrada.</li>
                 <li>Al principio de un <strong>script</strong>, lo convierte en una herramienta de línea de comandos profesional, permitiéndote llamarlo con parámetros con nombre (ej: <code>-Parametro Valor</code>).</li>
             </ul>
@@ -304,9 +304,10 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
         
         <!-- Navegación Secuencial entre Módulos -->
-        <nav class="mt-12 pt-6 border-t border-slate-700/80 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm hide-in-embed">
-            <a href="Controlando el flujo.html" class="nav-btn nav-prev" title="Ir al módulo anterior">← 07. Controlando el flujo</a>
-                        <a href="Gestión de errores.html" class="nav-btn nav-next" title="Ir al módulo siguiente">09. Gestión de errores →</a>
+        <nav aria-label="Navegación entre módulos" class="mt-12 pt-6 border-t border-slate-700/80 grid grid-cols-1 sm:grid-cols-3 items-center gap-4 text-sm hide-in-embed">
+            <a href="Controlando el flujo.html" class="justify-self-center sm:justify-self-start nav-btn nav-prev" title="Ir al módulo anterior">← 07. Controlando el flujo</a>
+            <a href="../index.html?tema=2" class="justify-self-center inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-600 text-xs sm:text-sm font-semibold transition-colors">📋 Volver al índice general</a>
+            <a href="Gestión de errores.html" class="justify-self-center sm:justify-self-end nav-btn nav-next" title="Ir al módulo siguiente">09. Gestión de errores →</a>
         </nav>
 
         <footer class="text-center text-slate-400 text-sm mt-8 mb-6 space-y-3">
