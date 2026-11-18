@@ -180,6 +180,25 @@ Al estar alojadas en **GitHub Pages**, las SPA se integran en el Aula Virtual (G
 
 ---
 
+## 🧬 Intrahistoria y evolución metodológica del proyecto
+
+Este repositorio es el resultado de una evolución continua en dos cursos académicos, tanto en el **diseño pedagógico** de los materiales como en el **flujo técnico de desarrollo y publicación**:
+
+1. **Del curso 2025/2026 al 2026/2027 (comparativa directa):**
+   * Los materiales originales del curso 2025/2026 —pueden consultarse públicamente en el [Google Site histórico EI1044 (2025)](https://sites.google.com/uji.es/ei1044-2025)— nacieron como infografías visuales ligeras de «vista de pájaro».
+   * En el curso 2026/2027 el catálogo ha madurado progresivamente: las piezas de **T1–T3** mantienen un enfoque atómico y de laboratorio cuantitativo (con estética de terminal oscuro en PowerShell y laboratorio en Explotación), mientras que en **T4 y T5** se consolidó un patrón de **triple función** (guion de aula por pestañas, dinámicas sin *spoilers* y lectura a dos niveles con desplegables técnicos para estudio autónomo en casa), además de las versiones híbridas `t5/simplificadas/` que recuperan la ligereza visual del curso anterior en portada. Esta diversidad estética entre bloques evita la monotonía visual a lo largo del cuatrimestre.
+
+2. **Del copiar y pegar en Canvas al despliegue continuo (CI/CD docente):**
+   * Durante el curso 2025/2026 y las primeras semanas del 2026/2027, cada SPA se generaba en el Canvas de la aplicación web de Gemini y debía verificarse, copiarse y pegarse manualmente dentro de Google Sites ante cualquier mínima corrección.
+   * El salto a **Antigravity + GitHub Pages** permitió adoptar un flujo real de integración y despliegue continuo para materiales docentes, documentado en el artículo: [Integración y despliegue continuo de materiales docentes con Antigravity y Gemini](https://transformacioneducativa.es/integracion-despliegue-continuo-materiales-docentes-antigravity-gemini/).
+
+3. **Bitácora de modelos de IA empleados:**
+   * **Curso 2025/2026 (app web de Gemini · Canvas):** *Gemini 3.1 Pro* alternando con *Gemini 3 Flash Preview*.
+   * **Inicio del curso 2026/2027 (app web de Gemini · Canvas):** *Gemini 3.5 Flash*.
+   * **Transición y consolidación en Antigravity (`T1–T5`):** arranque con *Gemini 3.8 Flash*, desarrollo principal de las SPAs avanzadas con *Gemini 4 Argon* y *Gemini 4 Carbon*, y cierre del Tema 5 junto con la homogeneización transversal de navegación (`.hide-in-embed`) y enlaces con *Gemini 4 Oxygen*.
+
+---
+
 ## 👤 Autoría
 
 * **Pablo Felip Monferrer**  
