@@ -8,6 +8,13 @@ Materiales docentes interactivos para la asignatura optativa de 4.º curso **Adm
 > - ⚡ [PowerShell Master (Tema 2)](https://gemini.google.com/gem/11OPVdGPKX0oEXI1_DsuOK9OU_xTC0EYO?usp=drive_link)  
 > - 👁️‍🗨️ [El Oráculo de Little (Tema 3)](https://gemini.google.com/gem/1AB5M9UMGkrH7i2kNuGRDc-6c0YxMpmQr?usp=sharing)  
 > - 🛡️ [Consultor GRC, ITSM y Notion (Temas 4 y 5)](https://gemini.google.com/gem/1BapRPZcnv-XWbbmaT2KS8qcYtSM1zYDU?usp=sharing)
+>
+> 📓 **Cuadernos de estudio autónomo (NotebookLM por tema):**  
+> - 🏛️ [Cuaderno Tema 1: El servicio de informática](https://notebook.google.com/notebook/146a88a6-911b-49c6-833a-0b22124bf59d)  
+> - ⚡ [Cuaderno Tema 2: Automatización con PowerShell](https://notebook.google.com/notebook/4bd9dde6-b32d-431f-9721-c6fc4e8f0d5f)  
+> - 📈 [Cuaderno Tema 3: Explotación de sistemas informáticos](https://notebook.google.com/notebook/a24bfcd6-d02b-4ab2-b6a3-925583b3cf35)  
+> - 🛡️ [Cuaderno Tema 4: Seguridad y administración TI](https://notebook.google.com/notebook/ebe28f8a-b014-4ee8-a2eb-0f182ae2320d)  
+> - 🧭 [Cuaderno Tema 5: Gestión de servicios informáticos](https://notebook.google.com/notebook/dc8f5c93-b2e6-44d8-aeca-0289d52c088b)
 
 ---
 
@@ -15,11 +22,11 @@ Materiales docentes interactivos para la asignatura optativa de 4.º curso **Adm
 
 El temario oficial de la asignatura se articula en cinco grandes temas. Los materiales interactivos (Single Page Applications o SPA) se publican progresivamente en este repositorio:
 
-* **T1. El servicio de informática** (15 SPA disponibles)
-* **T2. Automatización de tareas con PowerShell** (10 SPA disponibles)
-* **T3. Explotación de sistemas informáticos** (18 SPA disponibles)
-* **T4. Seguridad y administración TI** (8 SPA disponibles)
-* **T5. Metodologías para la gestión de servicios informáticos** (7 SPA disponibles)
+* **T1. El servicio de informática** (15 SPA disponibles · [📓 Cuaderno NotebookLM](https://notebook.google.com/notebook/146a88a6-911b-49c6-833a-0b22124bf59d))
+* **T2. Automatización de tareas con PowerShell** (10 SPA disponibles · [📓 Cuaderno NotebookLM](https://notebook.google.com/notebook/4bd9dde6-b32d-431f-9721-c6fc4e8f0d5f))
+* **T3. Explotación de sistemas informáticos** (18 SPA disponibles · [📓 Cuaderno NotebookLM](https://notebook.google.com/notebook/a24bfcd6-d02b-4ab2-b6a3-925583b3cf35))
+* **T4. Seguridad y administración TI** (8 SPA disponibles · [📓 Cuaderno NotebookLM](https://notebook.google.com/notebook/ebe28f8a-b014-4ee8-a2eb-0f182ae2320d))
+* **T5. Metodologías para la gestión de servicios informáticos** (7 SPA disponibles · [📓 Cuaderno NotebookLM](https://notebook.google.com/notebook/dc8f5c93-b2e6-44d8-aeca-0289d52c088b))
 
 ---
 

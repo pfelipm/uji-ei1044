@@ -125,6 +125,20 @@
                 <span>Mostrando 61 módulos interactivos</span>
                 <span class="text-slate-500">Optimizados para inserción en Google Sites</span>
             </div>
+
+            <!-- Banner contextual de Cuaderno NotebookLM (visible al filtrar por Tema 1..5) -->
+            <div id="notebook-banner" class="hidden mt-4 p-4 rounded-xl bg-indigo-950/60 border border-indigo-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">📓</span>
+                    <div>
+                        <p id="notebook-banner-title" class="text-sm font-bold text-white"></p>
+                        <p class="text-xs text-slate-300">Cuaderno NotebookLM curado con fuentes y artefactos para repaso autónomo.</p>
+                    </div>
+                </div>
+                <a id="notebook-banner-link" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs sm:text-sm font-bold transition-colors whitespace-nowrap shadow">
+                    <span>Abrir cuaderno NotebookLM ↗</span>
+                </a>
+            </div>
         </section>
 
         <!-- Grid de módulos -->
@@ -1858,9 +1872,14 @@
                         <h4 class="text-sm font-bold text-white mb-1">El servicio de informática</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Roles de TI, gobernanza, modelos de software/hardware, decisión multicriterio y ventanas de mantenimiento.</p>
                     </div>
-                    <span class="mt-3 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                        <span>●</span> 15 SPA disponibles
-                    </span>
+                    <div class="mt-3 pt-2.5 border-t border-slate-800 flex flex-col gap-1.5">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                            <span>●</span> 15 SPA disponibles
+                        </span>
+                        <a href="https://notebook.google.com/notebook/146a88a6-911b-49c6-833a-0b22124bf59d" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-indigo-300 hover:text-indigo-200 hover:underline flex items-center gap-1">
+                            <span>📓</span> Cuaderno NotebookLM ↗
+                        </a>
+                    </div>
                 </div>
 
                 <div class="p-4 rounded-xl bg-slate-900/90 border border-blue-500/40 flex flex-col justify-between">
@@ -1869,9 +1888,14 @@
                         <h4 class="text-sm font-bold text-white mb-1">Automatización de tareas con PowerShell</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">PowerShell 7, pipeline estructurado por objetos, control de flujo, funciones avanzadas y gestión de errores.</p>
                     </div>
-                    <span class="mt-3 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                        <span>●</span> 10 SPA disponibles
-                    </span>
+                    <div class="mt-3 pt-2.5 border-t border-slate-800 flex flex-col gap-1.5">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                            <span>●</span> 10 SPA disponibles
+                        </span>
+                        <a href="https://notebook.google.com/notebook/4bd9dde6-b32d-431f-9721-c6fc4e8f0d5f" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-indigo-300 hover:text-indigo-200 hover:underline flex items-center gap-1">
+                            <span>📓</span> Cuaderno NotebookLM ↗
+                        </a>
+                    </div>
                 </div>
 
                 <div class="p-4 rounded-xl bg-slate-900/90 border border-purple-500/40 flex flex-col justify-between">
@@ -1880,9 +1904,14 @@
                         <h4 class="text-sm font-bold text-white mb-1">Explotación de sistemas informáticos</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Métricas de rendimiento, ley de Amdahl, redes de colas, cuellos de botella y simulación interactiva.</p>
                     </div>
-                    <span class="mt-3 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                        <span>●</span> 18 SPA disponibles
-                    </span>
+                    <div class="mt-3 pt-2.5 border-t border-slate-800 flex flex-col gap-1.5">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                            <span>●</span> 18 SPA disponibles
+                        </span>
+                        <a href="https://notebook.google.com/notebook/a24bfcd6-d02b-4ab2-b6a3-925583b3cf35" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-indigo-300 hover:text-indigo-200 hover:underline flex items-center gap-1">
+                            <span>📓</span> Cuaderno NotebookLM ↗
+                        </a>
+                    </div>
                 </div>
 
                 <div class="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex flex-col justify-between">
@@ -1891,9 +1920,14 @@
                         <h4 class="text-sm font-bold text-white mb-1">Seguridad y administración TI</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Defensa en profundidad, hardening, backups 3-2-1-1-0, gestión de riesgos, RGPD/ENS e ISO/IEC 27001:2022.</p>
                     </div>
-                    <span class="mt-3 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                        <span>●</span> 8 SPA disponibles
-                    </span>
+                    <div class="mt-3 pt-2.5 border-t border-slate-800 flex flex-col gap-1.5">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                            <span>●</span> 8 SPA disponibles
+                        </span>
+                        <a href="https://notebook.google.com/notebook/ebe28f8a-b014-4ee8-a2eb-0f182ae2320d" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-indigo-300 hover:text-indigo-200 hover:underline flex items-center gap-1">
+                            <span>📓</span> Cuaderno NotebookLM ↗
+                        </a>
+                    </div>
                 </div>
 
                 <div class="p-4 rounded-xl bg-slate-900/90 border border-amber-500/40 flex flex-col justify-between">
@@ -1902,9 +1936,14 @@
                         <h4 class="text-sm font-bold text-white mb-1">Metodologías para la gestión de servicios informáticos</h4>
                         <p class="text-xs text-slate-400 leading-relaxed">Marcos ITIL v4 y COBIT, UNE-ISO/IEC 20000, cadena SLA/OLA/UC, continuidad DRP (FTA/BIA) y flujo Incidentes-Problemas-Cambios-CMDB.</p>
                     </div>
-                    <span class="mt-3 text-xs font-semibold text-emerald-400 flex items-center gap-1">
-                        <span>●</span> 7 SPA disponibles
-                    </span>
+                    <div class="mt-3 pt-2.5 border-t border-slate-800 flex flex-col gap-1.5">
+                        <span class="text-xs font-semibold text-emerald-400 flex items-center gap-1">
+                            <span>●</span> 7 SPA disponibles
+                        </span>
+                        <a href="https://notebook.google.com/notebook/dc8f5c93-b2e6-44d8-aeca-0289d52c088b" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-indigo-300 hover:text-indigo-200 hover:underline flex items-center gap-1">
+                            <span>📓</span> Cuaderno NotebookLM ↗
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1930,6 +1969,29 @@
 
     <!-- Script de filtrado y búsqueda en vivo -->
     <script>
+        const topicNotebooks = {
+            t1: {
+                title: 'Cuaderno de estudio del Tema 1: El servicio de informática',
+                url: 'https://notebook.google.com/notebook/146a88a6-911b-49c6-833a-0b22124bf59d'
+            },
+            t2: {
+                title: 'Cuaderno de estudio del Tema 2: Automatización con PowerShell',
+                url: 'https://notebook.google.com/notebook/4bd9dde6-b32d-431f-9721-c6fc4e8f0d5f'
+            },
+            t3: {
+                title: 'Cuaderno de estudio del Tema 3: Explotación de sistemas informáticos',
+                url: 'https://notebook.google.com/notebook/a24bfcd6-d02b-4ab2-b6a3-925583b3cf35'
+            },
+            t4: {
+                title: 'Cuaderno de estudio del Tema 4: Seguridad y administración TI',
+                url: 'https://notebook.google.com/notebook/ebe28f8a-b014-4ee8-a2eb-0f182ae2320d'
+            },
+            t5: {
+                title: 'Cuaderno de estudio del Tema 5: Gestión de servicios informáticos',
+                url: 'https://notebook.google.com/notebook/dc8f5c93-b2e6-44d8-aeca-0289d52c088b'
+            }
+        };
+
         let currentTopic = 'all';
 
         function filterByTopic(topic) {
@@ -1941,6 +2003,18 @@
             });
             const activeBtn = document.getElementById('filter-' + topic);
             if (activeBtn) activeBtn.classList.add('active');
+
+            // Mostrar u ocultar banner contextual de NotebookLM
+            const nbBanner = document.getElementById('notebook-banner');
+            const nbTitle = document.getElementById('notebook-banner-title');
+            const nbLink = document.getElementById('notebook-banner-link');
+            if (topicNotebooks[topic]) {
+                nbTitle.textContent = topicNotebooks[topic].title;
+                nbLink.href = topicNotebooks[topic].url;
+                nbBanner.classList.remove('hidden');
+            } else {
+                nbBanner.classList.add('hidden');
+            }
 
             searchModules();
         }
